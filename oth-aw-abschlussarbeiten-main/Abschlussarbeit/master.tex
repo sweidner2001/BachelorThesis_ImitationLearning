@@ -57,6 +57,20 @@
   \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
 }
 
+
+
+\setcounter{secnumdepth}{3} 
+\setcounter{tocdepth}{3}
+
+
+\usepackage{titlesec}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex} 
+% The last number (1.5ex) creates the vertical space below the heading
+
+
 \usepackage{amsmath}			% Pakete fuer den Mathematikmodus
 \usepackage{amssymb}
 \usepackage[intlimits]{empheq}
