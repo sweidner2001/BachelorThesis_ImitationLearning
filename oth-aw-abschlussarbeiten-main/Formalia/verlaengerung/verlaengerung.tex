@@ -1,0 +1,62 @@
+%!TEX TS-program = xelatex
+\documentclass{verlaengerungOTH}
+% Diese Vorlage muss mit einer Klassen variable an die jeweilige Fakultät angepasst werden
+% Es stehen: emi, mbut, webis und wig zur Verfügung, die Adresse und Logo anpassen
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[doublespacing]{setspace}
+\usepackage{tabularx}
+\makeatother
+\input{../variables.tex}
+\makeatletter
+
+
+\begin{document}
+
+\begin{center}
+    \textbf{Antrag auf Verlängerung der Bearbeitungszeit der \\ \MaBaArbeit}
+\end{center}
+
+\begin{tabularx}{\textwidth}{p{.6\textwidth}r}%
+\hspace*{-.2cm}\Student & \Matrikelnummer, \Studiengang\\
+\end{tabularx}
+\vspace*{-.4cm}%
+\rule{.4\textwidth}{.5pt} \hspace{3.2cm} \rule{.4\textwidth}{.5pt}\\
+\small{Name, Vorname}\hspace{7.6cm} \small{Matrikelnummer, Studiengang}
+
+
+Die Einhaltung des Abgabetermins \Abgabe \: meiner Arbeit mit dem Titel:
+
+\Titel
+
+bei \Aufgabensteller \: ist mir aus folgenden Gründen nicht möglich:
+
+\Grund
+
+Ich beantrage eine Verlängerung der Bearbeitungszeit um \Zeitraum \: Wochen.
+
+Neuer Abgabetermin wäre somit der  \AbgabeNeu.
+
+\rule{.4\textwidth}{.5pt} \hspace{3.2cm} \rule{.4\textwidth}{.5pt}\\
+\small{Ort, Datum}\hspace{8.4cm} \small{Unterschrift des Antragstellers/in}
+
+
+\rule{\textwidth}{.5pt}\\
+Stellungnahme der Betreuungsperson(Hochschule)
+
+\hspace{4cm} \textbullet \: Ich unterstütze den Antrag.\\
+\hspace*{4cm} \textbullet \: Ich empfehle den Antrag abzulehnen.
+
+\rule{.4\textwidth}{.5pt} \hspace{3.2cm} \rule{.4\textwidth}{.5pt}\\
+\small{Ort, Datum}\hspace{8.4cm} \small{Unterschrift der Betreuungsperson}
+
+\rule{\textwidth}{.5pt}\\
+Stellungnahme der Prüfungskommission
+
+\hspace{4cm} \textbullet \: Die Bearbeitungszeit wird verlängert bis \rule{.2\textwidth}{.5pt}.\\
+\hspace*{4cm} \textbullet \: Die Bearbeitungszeit wird \textbf{nicht} verlängert.
+
+\rule{.4\textwidth}{.5pt} \hspace{3.2cm} \rule{.4\textwidth}{.5pt}\\
+\small{Ort, Datum}\hspace{8.4cm} \small{Unterschrift}
+
+\end{document}

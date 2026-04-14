@@ -1,0 +1,7 @@
+*.lof
+*.lot
+*.out
+*.gz
+*.fls
+*.fdb_latexmk
+*.docx

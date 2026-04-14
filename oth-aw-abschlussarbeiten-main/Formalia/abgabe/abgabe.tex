@@ -1,0 +1,53 @@
+%!TEX TS-program = xelatex
+\documentclass{abgabeOTH}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[doublespacing]{setspace}
+\usepackage{tabularx}
+\usepackage{stix}
+\usepackage{amssymb}
+%\usepackage{ragged2e}
+\makeatother
+\input{../variables.tex}
+\makeatletter
+%Um das entsprechende Feld anzukreuzen einfach \mybox durch \myboxcheck ersetzen
+\newcommand{\mybox}{$\square$}
+\newcommand{\myboxcheck}{${\Large\rlap{ \checkmark}}\square$}
+
+\begin{document}
+
+\vspace*{.3cm}
+\subsection*{Annahmebestätigung der \MaBaArbeit}
+\vspace{-.3cm}
+\noindent\rule[1ex]{\textwidth}{.5pt} %für durchgezogene Linie
+    An das Dekanat (4 Exemplare, in Maschinenschrift ausgefüllt) \hfill Eingang:\rule{3cm}{.5pt}\\
+    Ich habe heute von der Studentin/ dem Studenten\\
+    (Name, Vorname)\hfill \Student\\
+    Matrikelnummer \hfill \Matrikelnummer\\
+    Studiengang:\hfill \Studiengang\\
+    \raggedright Bei Erfüllung der Voraussetzung möchte ich folgende Vertiefungsrichtung im Zeugnis eingetragen\\
+    haben(trifft nur auf EI-Studierende zu):\\
+    \centering{{\Large \mybox} \small{AUT} \qquad  {\Large \mybox} \small{CPS} \qquad {\Large \mybox} \small{ENT} \qquad {\Large \mybox} \small{IKT}} \\
+    \raggedright
+    Semester:\quad \Semester\\
+    eine Bachelorarbeit mit dem Titel\\
+    Deutscher Titel:\quad \Titel\\
+    Englischer Titel:\quad \TitelEnglisch\\
+    angenommen.\\
+    Ausgabetag war:\quad \Ausgabe\\
+    Letzter Abgabetermin:\quad \Abgabe\\
+    Ich bestätige die Annahme des praktischen Teils der Bachelorarbeit:\hfill Ja \mybox \qquad Nein \mybox \\
+    \raggedleft Nicht erforderlich \mybox \\
+    öffentliche Auslage:\hfill  Ja \mybox \qquad Nein \mybox\\
+    falls Nein: nicht öffentliche Auslage bei:\hfill \Aufgabensteller \\
+    \hfill Zeitraum:\rule{3cm}{0pt}\\
+    Aufgabensteller:\hfill \Aufgabensteller\\
+    Aufgabensteller (Unterschrift): \hfill \rule{.3\textwidth}{.5pt}\\
+    Bestätigung(Unterschrift) der Studentin/ des Studenten\hfill \rule{.3\textwidth}{.5pt}
+    \vspace*{.5cm}
+    \raggedright
+
+   % \rule{\textwidth}{.5pt}
+   % \tiny{Verteiler: Dekanat \qquad Aufgabensteller \qquad Studentin/Student \qquad Studentenamt}
+
+\end{document}
