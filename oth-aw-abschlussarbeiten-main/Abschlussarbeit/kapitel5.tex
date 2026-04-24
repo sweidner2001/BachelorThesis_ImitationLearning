@@ -1,0 +1,164 @@
+\chapter{3	Basics Intelligent Robotics}
+
+
+\section{Machine Learning Basics}
+\subsection{Glossary}
+\paragraph{Agent \& Policy:}
+
+An agent is an entity that learns to perform a specific behavior through interaction with its environment. In the context of this work, the agent corresponds to the robot, which has to execute a given action or task. The policy can be interpreted as the brain of the agent, determining which action to take next in a given situation in order to achieve the task objective. In our example, the policy controls the robot's motion and actions.  
+
+Formally, a policy can be represented as  
+\begin{align}
+	\pi_\theta(a \mid s)  
+\end{align}
+which defines a probability distribution over actions $a$, conditioned on the current state $s$. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment.  
+
+In the classical meaning, the action $a$ corresponds for example to a robot command, such as moving the gripper to a target position $(x, y, z)$ or setting a joint angle to a specific value with a defined velocity. The state $s$ represents the agent’s observation, which may include, for example, a sequence of recent camera images (e.g., the last four frames) as well as additional sensor inputs such as proprioceptive signals.
+
+\paragraph{Robot Trajectory:}
+
+A robot trajectory describes how the robot moves from a starting state to a target state, including position, orientation and, if applicable, speeds, accelerations, and forces acting on the robot. A robot tracetory is a temporal sequence of actions and the resulting robot states.
+
+
+\paragraph{Annotation:}
+
+Annotation refers to the process of labeling data. Data is provided with additional information. For example, class affiliations can be determined, target objects can be marked in images, or states and actions can be marked in robot trajectories. Annotated data, or labeled data, form the basis for supervised learning approaches.
+
+Annotating refers to the process of labeling data, in which data is enriched with additional information. For example, this may include assigning class labels, marking target objects in images, or labeling states and actions within robot trajectories. Annotated, or labeled, data forms the foundation for supervised learning approaches.
+
+
+\subsection{Core Machine Learning Categories}
+There are various approaches to training an AI model for a robot. These involve methods from the four core machine learning categories, which can also be combined with one another:
+
+\paragraph{Supervised Learning: }
+
+In supervised learning, a model is trained using labeled training data. This means that, for the input data, the output data to be predicted are known. The goal is to train a model that correctly predicts the output data and makes reliable predictions on unseen data. 
+
+
+\paragraph{Unsupervised Learning: }
+
+In contrast to supervised learning, unsupervised learning uses unlabeled data for model training. The model tries to recognize structures, patterns or relationships in the data on its own. 
+
+\paragraph{Semi Supervised Learning: }
+
+Semi-supervised learning is a combination of supervised and unsupervised learning. In this approach, a model is trained using a small amount of labeled data and a large amount of unlabeled data. The goal is to leverage the advantages of both approaches, particularly when annotating data is time-consuming or costl-intensive. This is relevant in robotics, as the data used in that field is often difficult to label.
+
+\paragraph{Reinforcement Learning: }
+
+Reinforcement learning (RL) differs fundamentally from the previously mentioned approaches. Instead of learning from fixed datasets, an agent actively interacts with its environment. Through its actions, it influences the state of the environment and subsequently receives feedback in the form of rewards or penalties. 
+The objective is to learn a strategy (= policy) that maximizes the cumulative reward over time for the given task.
+
+The agent proceeds in its environment according to the trial-and-error principle to learn an optimal policy. Safety is a critical concern during training, as the agent may execute unpredictable actions while exploring the state space. For this reason, simulation environments are a central component of training and are frequently used for pre-training the policy. The policy is then subsequently fine-tuned in the real-world environment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Intelligent robots with Deep Learning}
+In general, modern robot training distinguishes between two main approaches: imitation learning and reinforcement learning. Each approach uses a different strategy for training the robot model.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\linewidth]{./kapitel3_media/OverviewRoboticLearning.png}
+	\caption[Overview Robotic Learning]{Overview Robotic Learning}
+	\label{fig:overviewroboticlearning}
+\end{figure}
+
+
+
+\subsection{Reinforcement Learning}
+Reinforcement learning is both a fundamental discipline of machine learning and a distinct approach within Robot Learning.
+The agent learns a policy through trial and error using rewards. The actions performed by the agent are evaluated with a score, and this score is then used to gradually optimize the policy.
+
+\subsection{Imitation Learning}
+Imitation Learning or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations.
+
+Imitation learning makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models.
+
+The demonstration videos can show a robot, a human, or even a loose sequence of actions, both in the real world or in a simulation environment, performing a specific task. However, videos without a clearly defined objective or with unknown activity can also be used.
+
+This allows models to be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This, in turn, is a key prerequisite for the development of a generalist policy.
+Imitation learning can be divided into Behavior Cloning and Learning from Videos/Observation.
+
+
+\subsubsection{Behavior Cloning (BC)}
+Behavior Cloning (BC) is a fundamental approach within imitation learning, where a policy is learned directly from \textbf{annotated expert demonstrations}. The training data consists of state–action pairs $(s_t, a_t)$, and the problem is formulated as a standard supervised learning task.  
+
+
+Conceptually, Behavior Cloning can be understood as a form of direct imitation (``direct copying'') of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
+
+BC is used to train Vision Language Action models and for pre-training models used in Reinforcement Learning, see Section \textbf{XXX}
+
+\textbf{Definition:}
+
+Behavior Cloning (BC) learns a policy by supervised learning on expert demonstrations:
+\begin{align}
+	\pi_\theta(a_t \mid s_t)
+\end{align}
+where:
+\begin{itemize}
+	\item $s_t$: State / Observation (images, proprioception, etc.) at time $t$
+	\item $a_t$: Expert action at time $t$
+\end{itemize}
+
+The Policy $\pi_\theta(a \mid s)$ is optimized by minimizing the prediction error between the actions generated by the model and the corresponding expert actions.
+\begin{align}
+\min_{\theta} \mathbb{E}_{(s,a) \sim \mathcal{D}} \left[ \mathcal{L}(\pi_{\theta}(s), a) \right]
+\end{align}
+where:
+\begin{itemize}
+\item $\pi_{\theta}(s)$: The action your robot's policy predicts given state $s$.
+\item $a$: The actual action the expert took in that same state.
+\item $\mathcal{L}$: Usually Mean Squared Error (MSE) for continuous control or Cross-Entropy for discrete actions.
+\item  $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\cdot]$: Take all the state-action pairs $(s, a)$ inside the expert dataset $\mathcal{D}$, and calculate the average value of the expression inside the brackets.
+\end{itemize}
+ 
+
+
+
+
+
+
+
+  
+\subsubsection{Learning from Videos (LfV) / Observation (LfO)}
+Learning from Videos (LfV), also referred to as Learning from Observation, is an Imitation Learning approach that relies solely on \textbf{video demonstrations without explicit action annotations}. In contrast to Behavior Cloning, where state–action pairs are directly available, LfV aims to infer the underlying actions or high-level intent purely from perceptual data, i.e., mapping observations to actions $(s \rightarrow a)$. It often uses \textit{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics (features) by transforming and reducing input in a fully data-driven and automatic manner.
+
+A central challenge in LfV is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
+
+Due to this property, LfV is typically categorized as a \textbf{weakly supervised or self-supervised imitation learning} approach. 
+Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data, including internet videos or human demonstrations, without the need for costly data annotation. Furthermore, additional actions can be derived from annotated video data too.
+
+
+In robotics, Learning from Videos is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic, and dynamical aspects of the environment, which can later be refined using methods such as Behavior Cloning with annotated data or in Reinforcement Learning. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
+
+%BC is used to pre-train models for Behavior Cloning and Reinforcement Learning, see Section \textbf{XXX} for more information.
+
+\textbf{Definition:}
+
+Learning from Videos (LfV) learns to infer actions from observations in a weakly supervised or self-supervised manner. 
+\begin{align}
+	\hat{a}_t = f(s_t, s_{t+1})
+\end{align}
+where:
+\begin{itemize}
+	\item $\hat{a}_t$: The "latent" or predicted action.
+	\item $s_t$: The current state/video frame.
+	\item $s_{t+1}$: The next state/video frame.
+	\item $f$: The inverse dynamics function (often a neural network) that maps state transitions to actions.
+\end{itemize}
+
+
+
+
+
+
+
