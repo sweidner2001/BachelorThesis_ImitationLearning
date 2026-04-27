@@ -78,20 +78,78 @@ Reinforcement learning is both a fundamental discipline of machine learning and 
 The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score, and this score is then used to gradually optimize the policy. 
 
 \textbf{Robot Actions:} The Robot actions are simply the control commands the robot can send to its actuators, e.g. open or close the gripper, move the arm to position $X,Y,Z$, or the joint angles of the individual robot axes, etc.
-\textbf{Reward:} The reward is a numerical value that indicates how well the robot is performing in relation to the task objective. For example, if the robot successfully picks up an object, it might receive a positive reward, while if it fails or drops the object, it might receive a negative reward. The goal of Reinforcement Learning is to learn a policy that maximizes the cumulative reward over time.
-\textbf{Robot State:} The robot state represents the current situation of the robot and its environment. It can include various types of information, such as the robot's position, orientation, joint angles, sensor readings, and even visual input from cameras. The state is crucial for the robot to make informed decisions about which actions to take.
 
-Zu Beginn des Trainingsprozesses ist die Policy in der Regel zufällig, was bedeutet, dass der Roboter zunächst zufällige Bewegungen ausführt. Durch Ausprobieren versucht der Roboter nun Aktionen zu finden, die mit einer hohen Belohnung einhergehen. Diese Aktionen werden anschließend von der Policy höher gewichtet, was bedeutet, dass der Roboter in Zukunft eher dazu neigt, diese Aktionen auszuführen. Für eine erfolgreiche Lernphase ist es wichtig, dass der Roboter eine gute Balance zwischen Exploration (Ausprobieren neuer Aktionen im jeweiligen Zustand) und Exploitation (Nutzung bereits bekannter, erfolgreicher Aktionen im jeweiligen Zustand) findet. Auf die Explo
+\textbf{Reward:} The reward is a numerical value that indicates how well the robot is performing in relation to the task objective. For example, if the robot successfully picks up an object, it might receive a positive reward, while if it fails or drops the object, it might receive a negative reward. The goal of Reinforcement Learning is to learn a policy that maximizes the cumulative reward over time.
+
+\textbf{Robot State:} A state is a complete description of the situation in the environment at a particular point in time.
+The robot state represents the current situation of the robot and its environment. It can include various types of information, such as the robot's position, orientation, joint angles, sensor readings, and even visual input from cameras. The state is crucial for the robot to make informed decisions about which actions to take.
+
+\textbf{Observation:} An observation is the information that the robot receives from its sensors at a given time step. It may not provide a complete picture of the environment, and thus may not fully represent the true state. In our case, the observation is equivalent to the state.
+(source State / Overservation: https://medium.com/@walkerastro41/action-space-state-space-observation-space-demystified-6c9c00a355b4)
+
+Zu Beginn des Trainingsprozesses ist die Policy in der Regel zufällig, was bedeutet, dass der Roboter zunächst zufällige Bewegungen ausführt. Durch Ausprobieren versucht der Roboter nun Aktionen zu finden, die mit einer hohen Belohnung einhergehen. Diese Aktionen werden anschließend von der Policy höher gewichtet, was bedeutet, dass der Roboter in Zukunft eher dazu neigt, diese Aktionen auszuführen. Für eine erfolgreiche Lernphase ist es wichtig, dass der Roboter eine gute Balance zwischen Exploration (Ausprobieren neuer Aktionen im jeweiligen Zustand) und Exploitation (Nutzung bereits bekannter, erfolgreicher Aktionen im jeweiligen Zustand) findet. Auf die Exploration wird zu Beginn des Trainingsprozesses mehr Wert gelegt, um die Umgebung besser kennenzulernen und die effizientesten Aktionen im jeweiligen Roboter State für den Erfolg der Aufgabe zu finden. Im Laufe der Zeit, wenn der Roboter mehr über die Umgebung und die Belohnungsstruktur gelernt hat, wird die Exploitation wichtiger, um die bereits gefundenen erfolgreichen Aktionen häufiger auszuführen und so die Gesamtleistung, die am Aufgabenerfolg gemessen wird zu verbessern. Es existieren zahlreiche Methoden und Algorithmen, wie die Exploration und Exploitation Phasen effektiv gesteuert werden können. Beispielalgorithmen sind $\epsilon$-greedy, Upper Confidence Bound (UCB), Thompson Sampling. Im Rahmen der Arbeit wird aber nicht näher darauf eingegangen.
+
+Durch die Explorationsphase wird erst spät der Erfolg des gewählten RL-Ansatzes sichtbar, anders als beim Klassischen Deep Learning, siehe Abbildung \ref{fig:trainingprogressdlandrl}. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{./chapter3/media/TrainingProgressDLandRL.png}
+	\caption[Training Progress in Deep Learning and Reinforcement Learning]{Training Progress in Deep Learning and Reinforcement Learning}
+	\label{fig:trainingprogressdlandrl}
+\end{figure}
+
+
+
 
 
 
 \textbf{Knowledge Modality}
-An RL Knowledge Modality (KM) is some function learned from data that represents specific types of RL-related knowledge
+An RL Knowledge Modality (KM) is some function learned from data that represents specific types of RL-related knowledge.
+% (Souce: https://arxiv.org/pdf/2404.19664#page=46&zoom=100,108,846)
+KMs can be learned through trial-and-error principles or from various data sources, like video datasets, and can capture different aspects of the RL problem. 
 
-**Knowledge Modalities (KMs) from Video**
+\textbf{Knowledge Modalities (KMs) from Video}
+\begin{itemize}
+	\item \texttt{Policy:} A Policy $\pi(a_t|s_t)$ is a mapping from states to actions and defines the behavior of the agent that is in a particular state. $\pi(a_t|s_t)$ is the probability of taking action $a_t$ given that the agent is in state $s_t$.
+	It can be learned from video data by observing the actions taken in different states and learning to predict those actions based on the visual input. 
+	
+	\item \textbf{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state or state-action pair. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input.
 
+	\begin{itemize}
+		% V-Function
+		\item \texttt{State-value function (V-Function):} Mapping from states to the expected future return when acting under a particular policy $\pi$.
 
+		\textbf{Intuition:} ''How good is it to be a certain state, if I follow my policy $\pi$?``
 
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\linewidth]{./chapter3/media/V_Function.png}
+			\caption[State-Value Function]{State-Value Function}
+			\label{fig:statevaluefunction}
+		\end{figure}
+
+		% Q-Function
+		\item \texttt{State-action value function (Q-Function):} Predicting expected future returns: $Q_\pi(s_t,a_t)$ or $V_\pi(s_t)$
+		
+		\textbf{Intuition:} ''How good is this specific action here, if I continue behaving like my policy $\pi$?``
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\linewidth]{./chapter3/media/Q_Function.png}
+			\caption[State-Action Value Function]{State-Action Value Function}
+			\label{fig:stateactionvaluefunction}
+		\end{figure}
+
+	\end{itemize}
+
+	
+	Predicting expected future returns: $Q_\pi(s_t,a_t)$ or $V_\pi(s_t)$
+
+	
+	\item \texttt{Dynamics models:} Predicting next states (video prediction models as robot dynamics models): $p(s_{t+1}|s_t,a_t)$
+	\item \texttt{Reward models:} Learning reward functions from video: $r(s_t,a_t)$
+	\item \texttt{Reward function:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
+\end{itemize}
 - **Policy learning:** Mapping from states to actions: $\pi(a_t|s_t)$
 - **Value functions:** Predicting expected future returns: $Q_\pi(s_t,a_t)$ or $V_\pi(s_t)$
 - **Dynamics models:** Predicting next states (video prediction models as robot dynamics models): $p(s_{t+1}|s_t,a_t)$
