@@ -45,12 +45,10 @@ Semi-supervised learning is a combination of supervised and unsupervised learnin
 
 \paragraph{Reinforcement Learning: }
 
-Reinforcement learning (RL) differs fundamentally from the previously mentioned approaches. Instead of learning from fixed datasets, an agent actively interacts with its environment. Through its actions, it influences the state of the environment and subsequently receives feedback in the form of rewards or penalties. 
+Reinforcement learning (RL) differs fundamentally from the previously mentioned approaches. Instead of learning from fixed datasets, an agent actively interacts with its environment and tries to find out an optimal strategy to reach a defined goal. Through its actions, it influences the state of the environment and subsequently receives feedback in the form of rewards or penalties. 
 The objective is to learn a strategy (= policy) that maximizes the cumulative reward over time for the given task.
 
-The agent proceeds in its environment according to the trial-and-error principle to learn an optimal policy. Safety is a critical concern during training, as the agent may execute unpredictable actions while exploring the state space. For this reason, simulation environments are a central component of training and are frequently used for pre-training the policy. The policy is then subsequently fine-tuned in the real-world environment.
-
-
+The agent proceeds in its environment according to the trial-and-error principle to learn an optimal policy. Safety is a critical concern during training, as the agent may execute unpredictable actions while exploring the state space. For this reason, simulation environments are a central component of training and are frequently used for pre-training the policy. The policy is then subsequently often fine-tuned in the real-world environment. Because the agent learns through trial and error, more efficient, unknown, and creative solutions can be found that a human might not have come up with.
 
 
 
@@ -64,7 +62,8 @@ The agent proceeds in its environment according to the trial-and-error principle
 
 
 \section{Intelligent robots with Deep Learning}
-In general, modern robot training distinguishes between two main approaches: imitation learning and reinforcement learning. Each approach uses a different strategy for training the robot model.
+In general, modern robot training distinguishes between two main approaches: imitation learning and reinforcement learning. 
+Each approach uses a different strategy for training the robot model. 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\linewidth]{./chapter3/media/OverviewRoboticLearning.png}
@@ -76,7 +75,40 @@ In general, modern robot training distinguishes between two main approaches: imi
 
 \subsection{Reinforcement Learning}
 Reinforcement learning is both a fundamental discipline of machine learning and a distinct approach within Robot Learning.
-The agent learns a policy through trial and error using rewards. The actions performed by the agent are evaluated with a score, and this score is then used to gradually optimize the policy.
+The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score, and this score is then used to gradually optimize the policy. 
+
+\textbf{Robot Actions:} The Robot actions are simply the control commands the robot can send to its actuators, e.g. open or close the gripper, move the arm to position $X,Y,Z$, or the joint angles of the individual robot axes, etc.
+\textbf{Reward:} The reward is a numerical value that indicates how well the robot is performing in relation to the task objective. For example, if the robot successfully picks up an object, it might receive a positive reward, while if it fails or drops the object, it might receive a negative reward. The goal of Reinforcement Learning is to learn a policy that maximizes the cumulative reward over time.
+\textbf{Robot State:} The robot state represents the current situation of the robot and its environment. It can include various types of information, such as the robot's position, orientation, joint angles, sensor readings, and even visual input from cameras. The state is crucial for the robot to make informed decisions about which actions to take.
+
+Zu Beginn des Trainingsprozesses ist die Policy in der Regel zufällig, was bedeutet, dass der Roboter zunächst zufällige Bewegungen ausführt. Durch Ausprobieren versucht der Roboter nun Aktionen zu finden, die mit einer hohen Belohnung einhergehen. Diese Aktionen werden anschließend von der Policy höher gewichtet, was bedeutet, dass der Roboter in Zukunft eher dazu neigt, diese Aktionen auszuführen. Für eine erfolgreiche Lernphase ist es wichtig, dass der Roboter eine gute Balance zwischen Exploration (Ausprobieren neuer Aktionen im jeweiligen Zustand) und Exploitation (Nutzung bereits bekannter, erfolgreicher Aktionen im jeweiligen Zustand) findet. Auf die Explo
+
+
+
+\textbf{Knowledge Modality}
+An RL Knowledge Modality (KM) is some function learned from data that represents specific types of RL-related knowledge
+
+**Knowledge Modalities (KMs) from Video**
+
+
+
+- **Policy learning:** Mapping from states to actions: $\pi(a_t|s_t)$
+- **Value functions:** Predicting expected future returns: $Q_\pi(s_t,a_t)$ or $V_\pi(s_t)$
+- **Dynamics models:** Predicting next states (video prediction models as robot dynamics models): $p(s_{t+1}|s_t,a_t)$
+- **Reward models:** Learning reward functions from video: $r(s_t,a_t)$
+
+
+
+—> learning a KM from a video dataset and finetune it to the robot domain
+
+Different approaches to transfer the knowledge
+
+- **Generalisation and zero-shot transfer:**
+pretrained KM directly in the target setting, without further fine-tuning or adaptation
+- **Fine-tuning and Representation transfer:** 
+methods that train a model in the robot domain that is partially composed of parts of a pretrained KM
+- **Hierarchy: conditioning**
+involves using a pretrained KM to condition a new KM being trained in the target MDP
 
 \subsection{Imitation Learning}
 Imitation Learning or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations.
