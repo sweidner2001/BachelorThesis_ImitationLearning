@@ -104,7 +104,7 @@ The following section explains the key concepts in RL related to robotics, see a
 	\item \textbf{Reward:} The reward is a numerical value that indicates how well the robot is performing in relation to the task objective. For example, if the robot successfully picks up an object, it might receive a positive reward, while if it fails or drops the object, it might receive a negative reward. The goal of Reinforcement Learning is to learn a policy that maximizes the cumulative reward over time.
 	\item \textbf{Robot State:} state is a complete description of the situation in the environment at a particular point in time.	The robot state represents the current situation of the robot and its environment. It can include various types of information, such as the robot's position, orientation, joint angles, sensor readings, and even visual input from cameras \cite{walkerastro_action_2024}. The state is crucial for the robot to make informed decisions about which actions to take.
 	\item \textbf{Observation:} An observation is the information that the robot receives from its sensors at a given time step. It may not provide a complete picture of the environment, and thus may not fully represent the true robot state. In our case, the observation is mostly equivalent to the state \cite{walkerastro_action_2024}.
-	\item textbf{Policy:}
+	\item \textbf{Policy:}
 	The policy can be interpreted as the brain of the agent. The policy determines which action should be taken next when the agent is in a particular state in order to achieve the task objective. The Policy controls the robot's motion and actions. 
 \end{itemize}
 
@@ -120,10 +120,26 @@ Die RL Modularitäten werden wie folgt dargestellt:
 	\item $s'$: The next state after taking action $a$ in state $s$, i.e. $s' = s_{t+1}$, $s = s_t$.
 \end{itemize}
 
-Markov Decision Process (MDP)
+
+
+
+\underline{Markov Decision Process (MDP)}
+
+Reinforcement Learning is based on the Markov decision process (MDP). A MDP is a stochastic decision-making process that formally models the transition probabilities from a state $s$ to a subsequent state $s'$ provided that action $a$ is performed, expressed mathematically as $P(s'|s,a)$ \cite{sutton_reinforcement_1998, miller_markov_nodate}. 
+
+The objective is to learn a policy $\pi(a|s)$ that maximizes the expected long-term cumulative reward, defined as $\mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^t r_t\right]$. The discount factor $\gamma \in [0,1]$ determines the importance of future rewards compared to immediate rewards. A value of $\gamma$ close to 0 makes the agent focus more on immediate rewards, while a value close to 1 encourages the agent to consider long-term rewards more heavily \cite{sutton_reinforcement_1998, jagtap_understanding_nodate}.
+
+An MDP also defines a reward function that specifies the reward $r$ an agent receives when taking action $a$ in state $s$ and transitioning to a subsequent state $s'$. This is commonly expressed as $R_a(s,s')$ \cite{sutton_reinforcement_1998, miller_markov_nodate}.
+
+The \textbf{Markov property} says that all information from the past is contained in the current state, mathematically expressed as $P(S_{t+1}|S_{t}) = P(S_{t+1}|S_{1},S_{2}, ... S_{t})$. In other words, the transition probabilities depend only on the current state and not on the history of previous states \cite{jagtap_understanding_nodate}.
+
+In practice, the Markov property is often not strictly satisfied. For example, a single image captured by a camera does not provide sufficient information to infer the dynamics of the environment. From one image alone, it is not possible to determine whether a car is moving forward at 100 km/h or 10 km/h, reversing, or remaining stationary. However, such information is crucial for making correct decisions in applications like autonomous driving \cite{staff_what_2025}.
+Therefore, in practice, only sufficiently informative state representations are often used because the ideal Markov property is not strictly fulfilled.
+This is often achieved by incorporating a history of observations, such as a sequence of the last five camera frames, to better capture the underlying dynamics of the environment \cite{miller_markov_nodate}.
 
 
 \underline{Training process:}
+
 Zu Beginn des Trainingsprozesses ist die Policy in der Regel zufällig, was bedeutet, dass der Roboter zunächst zufällige Bewegungen ausführt. Durch Ausprobieren versucht der Roboter nun Aktionen zu finden, die mit einer hohen Belohnung einhergehen. Diese Aktionen werden anschließend von der Policy höher gewichtet, was bedeutet, dass der Roboter in Zukunft eher dazu neigt, diese Aktionen auszuführen. Für eine erfolgreiche Lernphase ist es wichtig, dass der Roboter eine gute Balance zwischen Exploration (Ausprobieren neuer Aktionen im jeweiligen Zustand) und Exploitation (Nutzung bereits bekannter, erfolgreicher Aktionen im jeweiligen Zustand) findet. Auf die Exploration wird zu Beginn des Trainingsprozesses mehr Wert gelegt, um die Umgebung besser kennenzulernen und die effizientesten Aktionen im jeweiligen Roboter State für den Erfolg der Aufgabe zu finden. Im Laufe der Zeit, wenn der Roboter mehr über die Umgebung und die Belohnungsstruktur gelernt hat, wird die Exploitation wichtiger, um die bereits gefundenen erfolgreichen Aktionen häufiger auszuführen und so die Gesamtleistung, die am Aufgabenerfolg gemessen wird zu verbessern. Es existieren zahlreiche Methoden und Algorithmen, wie die Exploration und Exploitation Phasen effektiv gesteuert werden können. Beispielalgorithmen sind $\epsilon$-greedy, Upper Confidence Bound (UCB), Thompson Sampling. Im Rahmen der Arbeit wird aber nicht näher darauf eingegangen.
 
 Durch die Explorationsphase wird erst spät der Erfolg des gewählten RL-Ansatzes sichtbar, anders als beim Klassischen Deep Learning, siehe Abbildung \ref{fig:trainingprogressdlandrl}. 
@@ -195,17 +211,6 @@ KMs can be learned through trial-and-error principles or from various data sourc
 	\item \texttt{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
 \end{itemize}
 
-
-—> learning a KM from a video dataset and finetune it to the robot domain
-
-Different approaches to transfer the knowledge
-
-- **Generalisation and zero-shot transfer:**
-pretrained KM directly in the target setting, without further fine-tuning or adaptation
-- **Fine-tuning and Representation transfer:** 
-methods that train a model in the robot domain that is partially composed of parts of a pretrained KM
-- **Hierarchy: conditioning**
-involves using a pretrained KM to condition a new KM being trained in the target MDP
 
 \subsection{Imitation Learning}
 Imitation Learning or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations.
