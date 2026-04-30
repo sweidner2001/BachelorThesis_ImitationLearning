@@ -82,6 +82,7 @@ The agent proceeds in its environment according to the trial-and-error principle
 \section{Intelligent robots with Deep Learning (RL)}
 In general, modern robot training distinguishes between two main approaches: imitation learning and reinforcement learning. 
 Each approach uses a different strategy for training the robot model. In Figure \ref{fig:overviewroboticlearning} an overview of the two approaches is given. The following sections explain the two approaches in more detail and provide a mathematical description of the underlying problem. 
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\linewidth]{./chapter3/media/OverviewRoboticLearning}
@@ -92,7 +93,7 @@ Each approach uses a different strategy for training the robot model. In Figure 
 
 
 \subsection{Reinforcement Learning} \label{sec:ReinforcementLearning}
-Reinforcement learning is both a fundamental discipline of machine learning and a distinct approach within Robot Learning.
+Reinforcement learning (RL) is both a fundamental discipline of machine learning and a distinct approach within Robot Learning.
 The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score, and this score is then used to gradually optimize the policy. 
 
 \underline{Key components of the RL problem}
@@ -123,7 +124,7 @@ Die RL Modularitäten werden wie folgt dargestellt:
 
 
 
-\underline{Markov Decision Process (MDP)}
+\underline{Markov Decision Process}
 
 Reinforcement Learning is based on the Markov decision process (MDP). A MDP is a stochastic decision-making process that formally models the transition probabilities from a state $s$ to a subsequent state $s'$ provided that action $a$ is performed, expressed mathematically as $P(s'|s,a)$ \cite{sutton_reinforcement_1998, miller_markov_nodate}. 
 
@@ -213,7 +214,7 @@ KMs can be learned through trial-and-error principles or from various data sourc
 
 
 \subsection{Imitation Learning}
-Imitation Learning or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations.
+Imitation Learning  (IL) or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations.
 
 Imitation learning makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models.
 
@@ -263,8 +264,8 @@ where:
 
 
   
-\subsubsection{Learning from Videos (LfV) / Observation (LfO)}
-Learning from Videos (LfV), also referred to as Learning from Observation, is an Imitation Learning approach that relies solely on \textbf{video demonstrations without explicit action annotations}. In contrast to Behavior Cloning, where state–action pairs are directly available, LfV aims to infer the underlying actions or high-level intent purely from perceptual data, i.e., mapping observations to actions $(s \rightarrow a)$. It often uses \textit{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics (features) by transforming and reducing input in a fully data-driven and automatic manner.
+\subsubsection{Learning from Videos / Observation}
+Learning from Videos (LfV), also referred to as Learning from Observation (LfO), is an Imitation Learning approach that relies solely on \textbf{video demonstrations without explicit action annotations}. In contrast to Behavior Cloning, where state–action pairs are directly available, LfV aims to infer the underlying actions or high-level intent purely from perceptual data, i.e., mapping observations to actions $(s \rightarrow a)$. It often uses \textit{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics (features) by transforming and reducing input in a fully data-driven and automatic manner.
 
 A central challenge in LfV is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
 
