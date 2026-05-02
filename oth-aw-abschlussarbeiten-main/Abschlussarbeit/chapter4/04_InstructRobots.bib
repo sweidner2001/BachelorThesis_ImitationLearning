@@ -1,0 +1,111 @@
+@online{_BoostingRoboticManipulation_,
+  title = {Boosting {{Robotic Manipulation Generalization}} with {{Minimal Costly Data}}},
+  url = {https://arxiv.org/html/2503.19516v2},
+  urldate = {2026-05-02}
+}
+
+@online{_MultitaskRobotManipulation_a,
+  title = {Multitask {{Robot Manipulation Policies}}},
+  url = {https://www.emergentmind.com/topics/multitask-robot-manipulation-policies},
+  urldate = {2026-05-02},
+  abstract = {Multitask robot manipulation policies use neural networks for both shared and task-specific control, enabling data-efficient and robust performance in diverse robotic tasks.}
+}
+
+@online{bai_LearningSeeAct_2025,
+  title = {Learning to {{See}} and {{Act}}: {{Task-Aware View Planning}} for {{Robotic Manipulation}}},
+  shorttitle = {Learning to {{See}} and {{Act}}},
+  author = {Bai, Yongjie and Wang, Zhouxia and Liu, Yang and Chen, Weixing and Chen, Ziliang and Dai, Mingtong and Zheng, Yongsen and Liu, Lingbo and Li, Guanbin and Lin, Liang},
+  date = {2025-10-28},
+  eprint = {2508.05186},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.2508.05186},
+  url = {http://arxiv.org/abs/2508.05186},
+  urldate = {2026-05-02},
+  abstract = {Recent vision-language-action (VLA) models for multi-task robotic manipulation commonly rely on static viewpoints and shared visual encoders, which limit 3D perception and cause task interference, hindering robustness and generalization. In this work, we propose Task-Aware View Planning (TAVP), a framework designed to overcome these challenges by integrating active view planning with task-specific representation learning. TAVP employs an efficient exploration policy, accelerated by a novel pseudo-environment, to actively acquire informative views. Furthermore, we introduce a Mixture-of-Experts (MoE) visual encoder to disentangle features across different tasks, boosting both representation fidelity and task generalization. By learning to see the world in a task-aware way, TAVP generates more complete and discriminative visual representations, demonstrating significantly enhanced action prediction across a wide array of manipulation challenges. Extensive experiments on RLBench tasks show that our proposed TAVP model achieves superior performance over state-of-the-art fixed-view approaches. Visual results and code are provided at: https://hcplab-sysu.github.io/TAVP.},
+  pubstate = {prepublished},
+  version = {3},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Robotics},
+  file = {C\:\\Users\\sebas\\Zotero\\storage\\BBAWBZ8M\\Bai et al. - 2025 - Learning to See and Act Task-Aware View Planning for Robotic Manipulation.pdf;C\:\\Users\\sebas\\Zotero\\storage\\5S7D2E8A\\2508.html}
+}
+
+@online{chen_RoboRouterTrainingFreePolicy_2026,
+  title = {{{RoboRouter}}: {{Training-Free Policy Routing}} for {{Robotic Manipulation}}},
+  shorttitle = {{{RoboRouter}}},
+  author = {Chen, Yiteng and Cao, Zhe and Ren, Hongjia and Yang, Chenjie and Li, Wenbo and Wang, Shiyi and Wang, Yemin and Zhang, Li and Shao, Yanming and Zhao, Zhenjun and Zhuang, Huiping and Wu, Qingyao},
+  date = {2026-03-12},
+  eprint = {2603.07892},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.2603.07892},
+  url = {http://arxiv.org/abs/2603.07892},
+  urldate = {2026-05-02},
+  abstract = {Research on robotic manipulation has developed a diverse set of policy paradigms, including vision-language-action (VLA) models, vision-action (VA) policies, and code-based compositional approaches. Concrete policies typically attain high success rates on specific task distributions but lim-ited generalization beyond it. Rather than proposing an other monolithic policy, we propose to leverage the complementary strengths of existing approaches through intelligent policy routing. We introduce RoboRouter, a training-free framework that maintains a pool of heterogeneous policies and learns to select the best-performing policy for each task through accumulated execution experience. Given a new task, RoboRouter constructs a semantic task representation, retrieves historical records of similar tasks, predicts the optimal policy choice without requiring trial-and-error, and incorporates structured feedback to refine subsequent routing decisions. Integrating a new policy into the system requires only lightweight evaluation and incurs no training overhead. Across simulation benchmark and real-world evaluations, RoboRouter consistently outperforms than in-dividual policies, improving average success rate by more than 3\% in simulation and over 13\% in real-world settings, while preserving execution efficiency. Our results demonstrate that intelligent routing across heterogeneous, off-the-shelf policies provides a practical and scalable pathway toward building more capable robotic systems.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Robotics}
+}
+
+@online{jang_BCZZeroShotTask_2022,
+  title = {{{BC-Z}}: {{Zero-Shot Task Generalization}} with {{Robotic Imitation Learning}}},
+  shorttitle = {{{BC-Z}}},
+  author = {Jang, Eric and Irpan, Alex and Khansari, Mohi and Kappler, Daniel and Ebert, Frederik and Lynch, Corey and Levine, Sergey and Finn, Chelsea},
+  date = {2022-02-04},
+  eprint = {2202.02005},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.2202.02005},
+  url = {http://arxiv.org/abs/2202.02005},
+  urldate = {2026-05-02},
+  abstract = {In this paper, we study the problem of enabling a vision-based robotic manipulation system to generalize to novel tasks, a long-standing challenge in robot learning. We approach the challenge from an imitation learning perspective, aiming to study how scaling and broadening the data collected can facilitate such generalization. To that end, we develop an interactive and flexible imitation learning system that can learn from both demonstrations and interventions and can be conditioned on different forms of information that convey the task, including pre-trained embeddings of natural language or videos of humans performing the task. When scaling data collection on a real robot to more than 100 distinct tasks, we find that this system can perform 24 unseen manipulation tasks with an average success rate of 44\%, without any robot demonstrations for those tasks.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Machine Learning,Computer Science - Robotics}
+}
+
+@online{mandi_CACTIFrameworkScalable_2023,
+  title = {{{CACTI}}: {{A Framework}} for {{Scalable Multi-Task Multi-Scene Visual Imitation Learning}}},
+  shorttitle = {{{CACTI}}},
+  author = {Mandi, Zhao and Bharadhwaj, Homanga and Moens, Vincent and Song, Shuran and Rajeswaran, Aravind and Kumar, Vikash},
+  date = {2023-02-16},
+  eprint = {2212.05711},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.2212.05711},
+  url = {http://arxiv.org/abs/2212.05711},
+  urldate = {2026-05-02},
+  abstract = {Large-scale training have propelled significant progress in various sub-fields of AI such as computer vision and natural language processing. However, building robot learning systems at a comparable scale remains challenging. To develop robots that can perform a wide range of skills and adapt to new scenarios, efficient methods for collecting vast and diverse amounts of data on physical robot systems are required, as well as the capability to train high-capacity policies using such datasets. In this work, we propose a framework for scaling robot learning, with specific focus on multi-task and multi-scene manipulation in kitchen environments, both in simulation and in the real world. Our proposed framework, CACTI, comprises four stages that separately handle: data collection, data augmentation, visual representation learning, and imitation policy training, to enable scalability in robot learning . We make use of state-of-the-art generative models as part of the data augmentation stage, and use pre-trained out-of-domain visual representations to improve training efficiency. Experimental results demonstrate the effectiveness of our approach. On a real robot setup, CACTI enables efficient training of a single policy that can perform 10 manipulation tasks involving kitchen objects, and is robust to varying layouts of distractors. In a simulated kitchen environment, CACTI trains a single policy to perform 18 semantic tasks across 100 layout variations for each individual task. We will release the simulation task benchmark and augmented datasets in both real and simulated environments to facilitate future research.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,Computer Science - Robotics}
+}
+
+@article{raffin_DECOUPLINGFEATUREEXTRACTION_2019,
+  title = {{{DECOUPLING FEATURE EXTRACTION FROM POLICY LEARNING}}: {{ASSESSING BENEFITS OF STATE REPRESENTA- TION LEARNING IN GOAL BASED ROBOTICS}}},
+  author = {Raffin, Antonin and Hill, Ashley and Traoré, René and Lesort, Timothée and Díaz-Rodríguez, Natalia and Filliat, David},
+  date = {2019},
+  abstract = {Scaling end-to-end reinforcement learning to control real robots from vision presents a series of challenges, in particular in terms of sample efficiency. Against end-to-end learning, state representation learning can help learn a compact, efficient and relevant representation of states that speeds up policy learning, reducing the number of samples needed, and that is easier to interpret. We evaluate several state representation learning methods on goal based robotics tasks and propose a new unsupervised model that stacks representations and combines strengths of several of these approaches. This method encodes all the relevant features, performs on par or better than end-to-end learning with better sample efficiency, and is robust to hyper-parameters change.},
+  langid = {english}
+}
+
+@article{tamar_IMITATIONLEARNINGVISUAL_2018,
+  title = {{{IMITATION LEARNING FROM VISUAL DATA WITH MULTIPLE INTENTIONS}}},
+  author = {Tamar, Aviv and Rohanimanesh, Khashayar and Chow, Yinlam and Vigorito, Chris and Goodrich, Ben and Kahane, Michael and Pridmore, Derik},
+  date = {2018},
+  abstract = {Recent advances in learning from demonstrations (LfD) with deep neural networks have enabled learning complex robot skills that involve high dimensional perception such as raw image inputs. LfD algorithms generally assume learning from single task demonstrations. In practice, however, it is more efficient for a teacher to demonstrate a multitude of tasks without careful task set up, labeling, and engineering. Unfortunately in such cases, traditional imitation learning techniques fail to represent the multi-modal nature of the data, and often result in sub-optimal behavior. In this paper we present an LfD approach for learning multiple modes of behavior from visual data. Our approach is based on a stochastic deep neural network (SNN), which represents the underlying intention in the demonstration as a stochastic activation in the network. We present an efficient algorithm for training SNNs, and for learning with vision inputs, we also propose an architecture that associates the intention with a stochastic attention module. Furthermore, we demonstrate our method on real robot visual object reaching tasks, and show that it can reliably learn the multiple behavior modes in the demonstration data. Video results are available at https://vimeo.com/240212286/fd401241b9.},
+  langid = {english},
+  file = {C:\Users\sebas\Zotero\storage\C7UGZQKK\Tamar et al. - 2018 - IMITATION LEARNING FROM VISUAL DATA WITH MULTIPLE INTENTIONS.pdf}
+}
+
+@online{wu_DiscretePolicyLearning_2025,
+  title = {Discrete {{Policy}}: {{Learning Disentangled Action Space}} for {{Multi-Task Robotic Manipulation}}},
+  shorttitle = {Discrete {{Policy}}},
+  author = {Wu, Kun and Zhu, Yichen and Li, Jinming and Wen, Junjie and Liu, Ning and Xu, Zhiyuan and Tang, Jian},
+  date = {2025-03-21},
+  eprint = {2409.18707},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.2409.18707},
+  url = {http://arxiv.org/abs/2409.18707},
+  urldate = {2026-05-02},
+  abstract = {Learning visuomotor policy for multi-task robotic manipulation has been a long-standing challenge for the robotics community. The difficulty lies in the diversity of action space: typically, a goal can be accomplished in multiple ways, resulting in a multimodal action distribution for a single task. The complexity of action distribution escalates as the number of tasks increases. In this work, we propose \textbackslash textbf\{Discrete Policy\}, a robot learning method for training universal agents capable of multi-task manipulation skills. Discrete Policy employs vector quantization to map action sequences into a discrete latent space, facilitating the learning of task-specific codes. These codes are then reconstructed into the action space conditioned on observations and language instruction. We evaluate our method on both simulation and multiple real-world embodiments, including both single-arm and bimanual robot settings. We demonstrate that our proposed Discrete Policy outperforms a well-established Diffusion Policy baseline and many state-of-the-art approaches, including ACT, Octo, and OpenVLA. For example, in a real-world multi-task training setting with five tasks, Discrete Policy achieves an average success rate that is 26\textbackslash\% higher than Diffusion Policy and 15\textbackslash\% higher than OpenVLA. As the number of tasks increases to 12, the performance gap between Discrete Policy and Diffusion Policy widens to 32.5\textbackslash\%, further showcasing the advantages of our approach. Our work empirically demonstrates that learning multi-task policies within the latent space is a vital step toward achieving general-purpose agents.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Robotics}
+}

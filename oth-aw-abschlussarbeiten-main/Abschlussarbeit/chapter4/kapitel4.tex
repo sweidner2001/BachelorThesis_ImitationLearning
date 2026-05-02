@@ -33,22 +33,28 @@ Gap between simulation and Real-World
 Simulations \& Trial and Error in real World possible
 Limitations: time and computational consuming, Safety?
 
+
+
 \subsection{Instruct robots}
 This section discusses the various ways in which the robot can be taught its task and how the interaction between humans and robots can be designed.
  
 % \texttt{Intend task from scene}
 \textbf{Scene Understanding / Intent Inference}
-Der Roboter leitet seine Aufgabe ausschließlich aus der Umgebung und den darin vorhandenen Objekten ab. 
+The robot derives its task solely from the environment and the objects present in it \cite{jang_BCZZeroShotTask_2022}.
 
-\texttt{One Policy, Multiple Tasks:} Solche Policies sind häufig auf eine begrenzte Menge von Aufgaben spezialisiert, da sie explizit für diese Aufgaben trainiert werden müssen. Aufgaben, die im Trainingsdatensatz nicht oder nur unzureichend vertreten waren, können daher oft nicht zuverlässig ausgeführt werden. 
-Wurde der Roboter beispielsweise auf mehrere Manipulationsaufgaben trainiert und eine davon besteht darin, Tee aus einer Teekanne in eine Tasse zu gießen, so führt er diese Aufgabe aus, wenn er bei der Inferenz eine passende Szene mit einer Teekanne und einer Tasse erkennt. Die Generalisierung auf andere Objekte oder Situationen ist dabei häufig nur eingeschränkt möglich. 
-So kann die Benutzung von anderen Teekannen oder Tassen kein Problem darstellen, solange die grundlegenden visuellen Merkmale der Objekte erkannt werden. Bei deutlich abweichenden Objekten oder Szenen sinkt die Zuverlässigkeit. War im Trainingsdatensatz kein Ausgießen aus einem Topf enthalten, kann der Roboter nur bedingt eine Flüssigkeit aus einem Topf in einen anderen gießen.
-Ein zentrales Problem dieses Ansatzes besteht darin, dass ähnliche Objekte in mehreren Aufgaben vorkommen können, wodurch die Ableitung der richtigen Aufgabe für die Policy erschwert wird. Wenn beispielsweise sowohl in einer Pick and Place Aufgabe als auch in einer Gießaufgabe eine Teekanne und eine Tasse vorkommen, könnte der Roboter Schwierigkeiten haben, die richtige Aufgabe zu identifizieren.
+\texttt{One Policy, Multiple Tasks:}
+In this setting, a single policy is typically specialized on a finite set of task instances, as they must be explicitly trained for those tasks. Tasks that are not represented or underrepresented in the training dataset, can therefore often not be executed reliably \cite{_BoostingRoboticManipulation_, mandi_CACTIFrameworkScalable_2023}. For example, if the policy has been trained on multiple manipulation tasks and one of them involves pouring liquid from a teapot into a cup, the policy will execute this behavior when a matching scene is observed during inference \cite{jang_BCZZeroShotTask_2022}.
+However, generalization to other objects or situations is often limited. Using different teapots or cups may not be problematic as long as the relevant visual features are recognized. In contrast, performance typically decreases under substantial domain shift (significantly different objects or scenes) \cite{jang_BCZZeroShotTask_2022}. If a corresponding pouring behavior from a pot was not included during training, the policy may fail to transfer the action to that new object category \cite{_BoostingRoboticManipulation_, jang_BCZZeroShotTask_2022}.
+A major limitation of this approach is task ambiguity caused by overlapping object context across different behaviors. If the same object types, such as a teapot and a cup, appear in both a pick-and-place task and a pouring task, the policy may not be able to disambiguate the correct action target based on scene context alone \cite{tamar_IMITATIONLEARNINGVISUAL_2018}.
+
 
 \texttt{One Policy, One Task:}
-Die andere Möglichkeit besteht darin, für jede Aufgabe eine eigene Policy zu trainieren und diese dann während der Inferenz explizit aufzurufen. 
-Der Aufruf der richtigen Policy kann durch einen Menschen oder durch ein separates KI-Klassifikations-Modell erfolgen, das die Szene analysiert und die passende Policy bestimmt.
-Eine Policy wird dann beispielsweise auf ``gießen'', eine andere auf ``Schublade öffnen'' und eine weitere auf ``umgefallenes Objekt aufstellen'' trainiert. Da jede Policy nur eine klar definierte Aufgabe abdeckt, muss sie nicht zwischen überlappenden Objektkonstellationen unterscheiden. Dadurch können die einzelnen Aufgaben auch mit deutlich mehr Daten mit den verschiedensten Objektkonstellationen trainiert werden, solange die grundlegende Aufgabe gleich bleibt. Dies wiederum verbessert die Generalisierung auf neue Objekte oder Umgebungen. 
+An alternative approach is to train a separate policy for each individual task, which is then selected explicitly during inference. 
+The task-specific policy selection can be performed either manually by a human or automatically by a separate AI classification model that analyzes the scene and determines the appropriate task-specific policy \cite{chen_RoboRouterTrainingFreePolicy_2026}. For example, one policy could be trained for ``pouring'', another for ``opening a drawer'', and another for ``setting up an overturned object''. This modular design is closely related to task-aware expert routing and decoupled planning-and-execution frameworks in robotic manipulation \cite{chen_RoboRouterTrainingFreePolicy_2026}.
+
+This decoupling enables training each policy on significantly larger and more diverse datasets containing varied object appearances and environmental conditions, while keeping the core task semantics fixed \cite{raffin_DECOUPLINGFEATUREEXTRACTION_2019}. Consequently, these specialized policies often support more robust generalization across novel object instances and environmental variations compared to the \texttt{One Policy, Multiple Tasks} paradigm. \cite{bai_LearningSeeAct_2025, _MultitaskRobotManipulation_a, tamar_IMITATIONLEARNINGVISUAL_2018}
+
+
 
 
 \texttt{Video-Based Instructions:}
