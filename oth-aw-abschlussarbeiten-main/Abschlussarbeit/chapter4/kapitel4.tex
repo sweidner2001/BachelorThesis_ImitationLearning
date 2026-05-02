@@ -57,15 +57,6 @@ This decoupling enables training each policy on significantly larger and more di
 
 
 
-\texttt{Video-Based Instructions:}
-
-\texttt{Human Video Demonstrations:}
-\texttt{Robot Video Demonstrations:}
-
-\texttt{Teleoperation:}
-
-
-
 
 \textbf{Language instructions:}
 For humans is the most comfortable and natural way to instruct the robot with voice commands. This is very useful for simple tasks that are easy to describe. But complex tasks, where execution must follow exact instructions, are sometimes difficult to describe in words. For example, how would you teach a humanoid robot to decorate tables exactly like a sample table, especially when various decorations need to be assembled in a complex arrangement?
@@ -78,7 +69,29 @@ A big advantage to command the robot with voice commands is that it enables an i
 \textbf{Image instructions:}
 Robots can also be instructed using visual inputs such as images. Compared to language, image-based instructions provide a more concrete and unambiguous specification of spatial arrangements, object relations, and desired outcomes.
 
-Another common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like.
+A common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like. But some works have addressed this issue with the usage of annotations in the goal images to specify the task execution. For example \cite{li2025robotic} highlights the relevant objects and regions with circles and arrows to visualize the task execution in the image \cite{bai_LearningSeeAct_2025}. 
+
+\begin{figure}[h]
+	\centering
+	\subfigure[Task: Rotate cup and place it on table]{
+		\includegraphics[width=4.5cm]{./chapter4/media/ImageInstruction_1}
+		\label{fig:ImageInstruction_1}
+	}
+	\hspace{0.5cm}
+	\subfigure[Task: Put fruit into bowl]{
+		\includegraphics[width=4.5cm]{./chapter4/media/ImageInstruction_2}
+		\label{fig:ImageInstruction_2}
+	}
+	\hspace{0.5cm}
+	\subfigure[Task: Fold T-shirt]{
+		\includegraphics[width=4.5cm]{./chapter4/media/ImageInstruction_3}
+		\label{fig:ImageInstruction_3}
+	}
+	\caption{Image-based instructions for task execution \cite{bai_LearningSeeAct_2025}.}
+    \label{fig:ImageInstructions}
+\end{figure}
+
+
 
 To address this limitation, \textit{subgoal images} or intermediate states can be provided. These guide the robot through a sequence of visually defined steps, effectively decomposing complex tasks into simpler stages. This is particularly useful for long-horizon or multi-step manipulation tasks.
 
@@ -86,10 +99,42 @@ A key advantage of image instructions is their ability to capture fine-grained s
 
 
 
+\textbf{Video-Based Instructions:}
+Demonstrationsvideos sind 
+
+\texttt{Human Video Demonstrations:}
+\texttt{Robot Video Demonstrations:}
+
+\texttt{Teleoperation:}
+
+
+\textbf{Video-Based Instructions:}
+Demonstration videos are a powerful way to instruct robots, as they provide both the desired goal state of the task but also the sequence of intermediate steps to reach that goal. Videos contain rich visual and temporal information about a task. 
+
+In this setting, the task can be formulated as Imitation Learning problem, where the robot learns a policy that maps visual observations to actions by imitating the demonstrated trajectory. The temporal structure of the video allows the robot to infer \textit{how} a task should be executed, rather than only \textit{what} the final outcome should look like.
+
+
+\texttt{Human Video Demonstrations:}
+In this paradigm, the robot learns from videos of humans performing a task. This is particularly appealing, as large amounts of human demonstration data are readily available (e.g. online videos). However, a key challenge is the embodiment gap: human motions and kinematics differ significantly from those of robots. Therefore, the robot must learn to map observed human actions to its own action space.
+
+\texttt{Robot Video Demonstrations:}
+Here, the demonstrations are performed by the robot itself or by another robot with similar embodiment. This avoids the human-robot embodiment gap and provides more directly transferable data. However, collecting such data is often expensive and time-consuming, as it requires access to robotic systems and controlled environments. 
+
+\texttt{Teleoperation:}
+A common method to generate high-quality robot demonstrations is teleoperation, where a human operator directly controls the robot, e.g. via a joystick or the Robot interaction interface. Unlike robot video demonstrations, teleoperated demonstrations include the action and trajectory data generated during the demonstration. 
+
+This means that the demonstrated actions are already expressed in the robot's action space, which simplifies learning. These demonstrations are often necessary for fine-grained manipulation tasks that require precise control.
 
 
 
 
+
+
+
+
+ At the same time, teleoperation allows for precise and task-specific demonstrations, but may require specialized hardware and can be less scalable compared to passive video collection.
+
+A key advantage of video-based instructions is that they naturally capture complex, multi-step behaviors and temporal dependencies. However, they also introduce challenges such as high data requirements, sensitivity to visual variations, and the need to extract relevant features from long and potentially noisy observation sequences.
 
 
 Imitation learning (IL) is a powerful approach for training agents to perform complex tasks by learning from demonstrations provided by an expert. The main advantage of IL is that it can leverage large datasets of human demonstrations, which are often easier to collect than reward signals. This allows IL to learn complex behaviors that are difficult to specify with a reward function, and can be more sample efficient than reinforcement learning, especially in high-dimensional state spaces.
