@@ -36,7 +36,20 @@ Limitations: time and computational consuming, Safety?
 \subsection{Instruct robots}
 This section discusses the various ways in which the robot can be taught its task and how the interaction between humans and robots can be designed.
  
-\texttt{Intend task from scene}
+% \texttt{Intend task from scene}
+\textbf{Scene Understanding / Intent Inference}
+Der Roboter leitet seine Aufgabe ausschließlich aus der Umgebung und den darin vorhandenen Objekten ab. 
+
+\texttt{One Policy, Multiple Tasks:} Solche Policies sind häufig auf eine begrenzte Menge von Aufgaben spezialisiert, da sie explizit für diese Aufgaben trainiert werden müssen. Aufgaben, die im Trainingsdatensatz nicht oder nur unzureichend vertreten waren, können daher oft nicht zuverlässig ausgeführt werden. 
+Wurde der Roboter beispielsweise auf mehrere Manipulationsaufgaben trainiert und eine davon besteht darin, Tee aus einer Teekanne in eine Tasse zu gießen, so führt er diese Aufgabe aus, wenn er bei der Inferenz eine passende Szene mit einer Teekanne und einer Tasse erkennt. Die Generalisierung auf andere Objekte oder Situationen ist dabei häufig nur eingeschränkt möglich. 
+So kann die Benutzung von anderen Teekannen oder Tassen kein Problem darstellen, solange die grundlegenden visuellen Merkmale der Objekte erkannt werden. Bei deutlich abweichenden Objekten oder Szenen sinkt die Zuverlässigkeit. War im Trainingsdatensatz kein Ausgießen aus einem Topf enthalten, kann der Roboter nur bedingt eine Flüssigkeit aus einem Topf in einen anderen gießen.
+Ein zentrales Problem dieses Ansatzes besteht darin, dass ähnliche Objekte in mehreren Aufgaben vorkommen können, wodurch die Ableitung der richtigen Aufgabe für die Policy erschwert wird. Wenn beispielsweise sowohl in einer Pick and Place Aufgabe als auch in einer Gießaufgabe eine Teekanne und eine Tasse vorkommen, könnte der Roboter Schwierigkeiten haben, die richtige Aufgabe zu identifizieren.
+
+\texttt{One Policy, One Task:}
+Die andere Möglichkeit besteht darin, für jede Aufgabe eine eigene Policy zu trainieren und diese dann während der Inferenz explizit aufzurufen. 
+Der Aufruf der richtigen Policy kann durch einen Menschen oder durch ein separates KI-Klassifikations-Modell erfolgen, das die Szene analysiert und die passende Policy bestimmt.
+Eine Policy wird dann beispielsweise auf ``gießen'', eine andere auf ``Schublade öffnen'' und eine weitere auf ``umgefallenes Objekt aufstellen'' trainiert. Da jede Policy nur eine klar definierte Aufgabe abdeckt, muss sie nicht zwischen überlappenden Objektkonstellationen unterscheiden. Dadurch können die einzelnen Aufgaben auch mit deutlich mehr Daten mit den verschiedensten Objektkonstellationen trainiert werden, solange die grundlegende Aufgabe gleich bleibt. Dies wiederum verbessert die Generalisierung auf neue Objekte oder Umgebungen. 
+
 
 \texttt{Video-Based Instructions:}
 
@@ -48,16 +61,22 @@ This section discusses the various ways in which the robot can be taught its tas
 
 
 
-\texttt{Language Instructions:}
+\textbf{Language instructions:}
 For humans is the most comfortable and natural way to instruct the robot with voice commands. This is very useful for simple tasks that are easy to describe. But complex tasks, where execution must follow exact instructions, are sometimes difficult to describe in words. For example, how would you teach a humanoid robot to decorate tables exactly like a sample table, especially when various decorations need to be assembled in a complex arrangement?
 Furthermore, ambiguities may arise, and the same instruction may be interpreted differently in different linguistic contexts. For example, the word ``open'' is used for: open drawer, open cabinet, open container with lid or open jar with screw cap. Although the same verb is used here, each interaction requires a completely different motor control.
 
+A big advantage to command the robot with voice commands is that it enables an interactive dialogue between humans and the robot. If the robot does not understand the instructions, it can ask follow-up questions to clarify any misunderstandings. This helps minimize the problems associated with voice commands.
 
-\texttt{goal-conditioned instructions}
-Goal \& Subgoal images
-Usage of final goal image in goal-conditioned behavior
-How to act is ignored
 
+
+\textbf{Image instructions:}
+Robots can also be instructed using visual inputs such as images. Compared to language, image-based instructions provide a more concrete and unambiguous specification of spatial arrangements, object relations, and desired outcomes.
+
+Another common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like.
+
+To address this limitation, \textit{subgoal images} or intermediate states can be provided. These guide the robot through a sequence of visually defined steps, effectively decomposing complex tasks into simpler stages. This is particularly useful for long-horizon or multi-step manipulation tasks.
+
+A key advantage of image instructions is their ability to capture fine-grained spatial details that are difficult to describe in language, such as precise object placement, orientation or symmetry alignments. However, they also introduce challenges related to perception, such as viewpoint variation, occlusions of objects in the real environment, or the use of in-the-wild goal-images with varying lighting and background conditions.
 
 
 
