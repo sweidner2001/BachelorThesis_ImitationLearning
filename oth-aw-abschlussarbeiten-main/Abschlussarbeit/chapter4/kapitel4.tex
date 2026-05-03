@@ -99,61 +99,64 @@ A key advantage of image instructions is their ability to capture fine-grained s
 
 
 
-\textbf{Video-Based Instructions:}
-Demonstrationsvideos sind 
-
-\texttt{Human Video Demonstrations:}
-\texttt{Robot Video Demonstrations:}
-
-\texttt{Teleoperation:}
-
 
 \textbf{Video-Based Instructions:}
-Demonstration videos are a powerful way to instruct robots, as they provide both the desired goal state of the task but also the sequence of intermediate steps to reach that goal. Videos contain rich visual and temporal information about a task. 
+Demonstration videos are a powerful way to instruct robots, as they contain rich visual and temporal information. In contrast to single images, videos provide not only the desired goal state of a task but also the sequence of intermediate steps required to reach that goal.
 
-In this setting, the task can be formulated as Imitation Learning problem, where the robot learns a policy that maps visual observations to actions by imitating the demonstrated trajectory. The temporal structure of the video allows the robot to infer \textit{how} a task should be executed, rather than only \textit{what} the final outcome should look like.
+In this setting, the task is typically formulated as an imitation learning problem, where the robot learns a policy that maps visual observations to actions by imitating the demonstrated trajectory. The temporal structure of the video enables the robot to infer \textit{how} a task should be executed, rather than only \textit{what} the final outcome should look like. Depending on the setup, this may also require inferring latent actions from visual observations alone.
+
+
+Ideally, the robot model should be able to understand it's task from in-the-wild demonstration videos of both robots and humans. In-the-wild videos refer to video data collected in unconstrained, real-world environments, without controlled settings, standardized viewpoints, or curated conditions. Such data exhibits large variability in lighting, backgrounds, and camera motion, making it significantly more challenging for perception and learning compared to controlled laboratory data.
 
 
 \texttt{Human Video Demonstrations:}
-In this paradigm, the robot learns from videos of humans performing a task. This is particularly appealing, as large amounts of human demonstration data are readily available (e.g. online videos). However, a key challenge is the embodiment gap: human motions and kinematics differ significantly from those of robots. Therefore, the robot must learn to map observed human actions to its own action space.
+In this paradigm, the robot learns from videos of humans performing a task. This is particularly appealing, as large amounts of human demonstration data are readily available (e.g. online videos). 
+
+ A core challenge is the mismatch between human and robot bodies.
+\textbf{Embodiment gap:} However, one challenge is the embodiment gap: human motions and kinematics differ significantly from those of robots. Therefore, the robot must learn to map observed human actions to its own action space.
+
+\textbf{Suboptimal demonstrations:} A key challenge of human video demonstrations is that they do not necessarily represent optimal task executions. Demonstrations often reflect individual preferences, inefficiencies, or context-specific behaviors, resulting in suboptimal trajectories. In many cases, a video captures only a single possible way of solving the task, without providing information about alternative or more efficient strategies. However, the objective for the robot is typically to perform tasks efficiently and robustly. Therefore, the learned policy must be able to generalize beyond the demonstrated behavior and, if necessary, improve upon it, rather than directly imitating potentially suboptimal actions.
 
 \texttt{Robot Video Demonstrations:}
-Here, the demonstrations are performed by the robot itself or by another robot with similar embodiment. This avoids the human-robot embodiment gap and provides more directly transferable data. However, collecting such data is often expensive and time-consuming, as it requires access to robotic systems and controlled environments. 
+The demonstrations are performed by the robot itself or by another robot with similar embodiment. This avoids the human-robot embodiment gap and provides more directly transferable data. However, collecting such demonstrations is often expensive and time-consuming, as it requires access to robotic systems and typically controlled environments. In addition, purely visual robot demonstrations may still lack explicit action labels. 
+
+This means that the robot must still infer the underlying actions and intentions from the visual data. Despite these challenges, robot video demonstrations can provide valuable data for learning, as they are more closely aligned with the robot's own capabilities and constraints compared to human demonstrations.
 
 \texttt{Teleoperation:}
-A common method to generate high-quality robot demonstrations is teleoperation, where a human operator directly controls the robot, e.g. via a joystick or the Robot interaction interface. Unlike robot video demonstrations, teleoperated demonstrations include the action and trajectory data generated during the demonstration. 
+A common method to generate high-quality robot demonstrations is teleoperation, where a human operator directly controls the robot, e.g., via a joystick or a dedicated control interface. In contrast to passive video demonstrations, teleoperation provides access to both the visual observations and the corresponding action and trajectory data.
 
-This means that the demonstrated actions are already expressed in the robot's action space, which simplifies learning. These demonstrations are often necessary for fine-grained manipulation tasks that require precise control.
-
-
+As a result, the demonstrated actions are already expressed in the robot's action space, which significantly simplifies reproducing the expected behavior. Such demonstrations are particularly important for fine-grained manipulation tasks that require precise control and accurate timing. However, teleoperation may require specialized hardware and does not scale as easily as collecting passive video data.
 
 
 
 
 
 
- At the same time, teleoperation allows for precise and task-specific demonstrations, but may require specialized hardware and can be less scalable compared to passive video collection.
-
-A key advantage of video-based instructions is that they naturally capture complex, multi-step behaviors and temporal dependencies. However, they also introduce challenges such as high data requirements, sensitivity to visual variations, and the need to extract relevant features from long and potentially noisy observation sequences.
 
 
-Imitation learning (IL) is a powerful approach for training agents to perform complex tasks by learning from demonstrations provided by an expert. The main advantage of IL is that it can leverage large datasets of human demonstrations, which are often easier to collect than reward signals. This allows IL to learn complex behaviors that are difficult to specify with a reward function, and can be more sample efficient than reinforcement learning, especially in high-dimensional state spaces.
+%  At the same time, teleoperation allows for precise and task-specific demonstrations, but may require specialized hardware and can be less scalable compared to passive video collection.
+
+% A key advantage of video-based instructions is that they naturally capture complex, multi-step behaviors and temporal dependencies. However, they also introduce challenges such as high data requirements, sensitivity to visual variations, and the need to extract relevant features from long and potentially noisy observation sequences.
 
 
-
-
-
-—> learning a KM from a video dataset and finetune it to the robot domain
-
-Different approaches to transfer the knowledge
-
-- **Generalisation and zero-shot transfer:**
-pretrained KM directly in the target setting, without further fine-tuning or adaptation
-- **Fine-tuning and Representation transfer:** 
-methods that train a model in the robot domain that is partially composed of parts of a pretrained KM
-- **Hierarchy: conditioning**
-involves using a pretrained KM to condition a new KM being trained in the target MDP
+% Imitation learning (IL) is a powerful approach for training agents to perform complex tasks by learning from demonstrations provided by an expert. The main advantage of IL is that it can leverage large datasets of human demonstrations, which are often easier to collect than reward signals. This allows IL to learn complex behaviors that are difficult to specify with a reward function, and can be more sample efficient than reinforcement learning, especially in high-dimensional state spaces.
 
 
 
 
+
+% —> learning a KM from a video dataset and finetune it to the robot domain
+
+% Different approaches to transfer the knowledge
+
+% - **Generalisation and zero-shot transfer:**
+% pretrained KM directly in the target setting, without further fine-tuning or adaptation
+% - **Fine-tuning and Representation transfer:** 
+% methods that train a model in the robot domain that is partially composed of parts of a pretrained KM
+% - **Hierarchy: conditioning**
+% involves using a pretrained KM to condition a new KM being trained in the target MDP
+
+
+
+
+%  In-the-wild videos are particularly valuable for training robots to operate in diverse and unstructured environments, as they capture a wide range of scenarios, object appearances, lighting conditions, and background variations that the robot may encounter in real-world applications. However, learning from in-the-wild videos also introduces significant challenges, such as dealing with noisy data, occlusions, varying viewpoints, and the need for robust feature extraction to identify relevant information for task execution. Despite these challenges, leveraging in-the-wild videos can significantly enhance the generalization capabilities of robotic systems and enable them to perform effectively in real-world settings.
