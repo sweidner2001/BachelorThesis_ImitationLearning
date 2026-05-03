@@ -39,7 +39,8 @@ Limitations: time and computational consuming, Safety?
 This section discusses the various ways in which the robot can be taught its task and how the interaction between humans and robots can be designed.
  
 % \texttt{Intend task from scene}
-\textbf{Scene Understanding / Intent Inference}
+\underline{Scene Understanding / Intent Inference}
+
 The robot derives its task solely from the environment and the objects present in it \cite{jang_BCZZeroShotTask_2022}.
 
 \texttt{One Policy, Multiple Tasks:}
@@ -58,7 +59,8 @@ This decoupling enables training each policy on significantly larger and more di
 
 
 
-\textbf{Language instructions:}
+\underline{Language instructions:}
+
 For humans is the most comfortable and natural way to instruct the robot with voice commands. This is very useful for simple tasks that are easy to describe. But complex tasks, where execution must follow exact instructions, are sometimes difficult to describe in words. For example, how would you teach a humanoid robot to decorate tables exactly like a sample table, especially when various decorations need to be assembled in a complex arrangement?
 Furthermore, ambiguities may arise, and the same instruction may be interpreted differently in different linguistic contexts. For example, the word ``open'' is used for: open drawer, open cabinet, open container with lid or open jar with screw cap. Although the same verb is used here, each interaction requires a completely different motor control.
 
@@ -66,7 +68,8 @@ A big advantage to command the robot with voice commands is that it enables an i
 
 
 
-\textbf{Image instructions:}
+\underline{Image instructions:}
+
 Robots can also be instructed using visual inputs such as images. Compared to language, image-based instructions provide a more concrete and unambiguous specification of spatial arrangements, object relations, and desired outcomes.
 
 A common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like. But some works have addressed this issue with the usage of annotations in the goal images to specify the task execution. For example \cite{li2025robotic} highlights the relevant objects and regions with circles and arrows to visualize the task execution in the image \cite{bai_LearningSeeAct_2025}. 
@@ -100,7 +103,8 @@ A key advantage of image instructions is their ability to capture fine-grained s
 
 
 
-\textbf{Video-Based Instructions:}
+\underline{Video-Based Instructions:}
+
 Demonstration videos are a powerful way to instruct robots, as they contain rich visual and temporal information. In contrast to single images, videos provide not only the desired goal state of a task but also the sequence of intermediate steps required to reach that goal.
 
 In this setting, the task is typically formulated as an imitation learning problem, where the robot learns a policy that maps visual observations to actions by imitating the demonstrated trajectory. The temporal structure of the video enables the robot to infer \textit{how} a task should be executed, rather than only \textit{what} the final outcome should look like. Depending on the setup, this may also require inferring latent actions from visual observations alone.
@@ -110,31 +114,48 @@ Ideally, the robot model should be able to understand it's task from in-the-wild
 
 
 \texttt{Human Video Demonstrations:}
-In this paradigm, the robot learns from videos of humans performing a task. This is particularly appealing, as large amounts of human demonstration data are readily available (e.g. online videos). 
+\begin{itemize}
+	\item \textbf{Data abundance:} In this paradigm, the robot learns from videos of humans performing a task. This is particularly appealing, as large amounts of human demonstration data are readily available (e.g. online videos). 
+	\item \textbf{Embodiment gap:} A core challenge is the mismatch between human and robot bodies. Human motions and kinematics differ significantly from those of robots. Therefore, the robot must learn to map observed human actions to its own action space.
+	\item \textbf{Suboptimal demonstrations:} Another key challenge of human video demonstrations is that they do not necessarily represent optimal task executions. Demonstrations often reflect individual preferences, inefficiencies, or context-specific behaviors, resulting in suboptimal trajectories. In many cases, a video captures only a single possible way of solving the task, without providing information about alternative or more efficient strategies. However, the objective for the robot is typically to perform tasks efficiently and robustly. Therefore, the learned policy must be able to generalize beyond the demonstrated behavior and, if necessary, improve upon it, rather than directly imitating potentially suboptimal actions.
+\end{itemize}
 
- A core challenge is the mismatch between human and robot bodies.
-\textbf{Embodiment gap:} However, one challenge is the embodiment gap: human motions and kinematics differ significantly from those of robots. Therefore, the robot must learn to map observed human actions to its own action space.
 
-\textbf{Suboptimal demonstrations:} A key challenge of human video demonstrations is that they do not necessarily represent optimal task executions. Demonstrations often reflect individual preferences, inefficiencies, or context-specific behaviors, resulting in suboptimal trajectories. In many cases, a video captures only a single possible way of solving the task, without providing information about alternative or more efficient strategies. However, the objective for the robot is typically to perform tasks efficiently and robustly. Therefore, the learned policy must be able to generalize beyond the demonstrated behavior and, if necessary, improve upon it, rather than directly imitating potentially suboptimal actions.
+
+
+
+
 
 \texttt{Robot Video Demonstrations:}
-The demonstrations are performed by the robot itself or by another robot with similar embodiment. This avoids the human-robot embodiment gap and provides more directly transferable data. However, collecting such demonstrations is often expensive and time-consuming, as it requires access to robotic systems and typically controlled environments. In addition, purely visual robot demonstrations may still lack explicit action labels. 
+\begin{itemize}
+	\item \textbf{No embodiment gap:} The demonstrations are performed by the robot itself or by another robot with similar embodiment. This avoids the human-robot embodiment gap and provides more directly transferable data. 
+	\item \textbf{Cost and effort:} However, collecting such demonstrations is often expensive and time-consuming, as it requires access to robotic systems and typically controlled environments. In addition, purely visual robot demonstrations may still lack explicit action labels. This means that the robot must still infer the underlying actions and intentions from the visual data. 
+	\item \textbf{Value of robot demos:} Despite these challenges, robot video demonstrations can provide valuable data for learning, as they are more closely aligned with the robot's own capabilities and constraints compared to human demonstrations.
+\end{itemize}
 
-This means that the robot must still infer the underlying actions and intentions from the visual data. Despite these challenges, robot video demonstrations can provide valuable data for learning, as they are more closely aligned with the robot's own capabilities and constraints compared to human demonstrations.
+
 
 \texttt{Teleoperation:}
-A common method to generate high-quality robot demonstrations is teleoperation, where a human operator directly controls the robot, e.g., via a joystick or a dedicated control interface. In contrast to passive video demonstrations, teleoperation provides access to both the visual observations and the corresponding action and trajectory data.
-
-As a result, the demonstrated actions are already expressed in the robot's action space, which significantly simplifies reproducing the expected behavior. Such demonstrations are particularly important for fine-grained manipulation tasks that require precise control and accurate timing. However, teleoperation may require specialized hardware and does not scale as easily as collecting passive video data.
-
-
-
-
+\begin{itemize}
+	\item \textbf{Direct data collection:} A common method to generate high-quality robot demonstrations is teleoperation, where a human operator directly controls the robot, e.g., via a joystick or a dedicated control interface.
+	\item \textbf{Precision and safety:} In contrast to passive video demonstrations, teleoperation provides access to both the visual observations and the corresponding action and trajectory data. As a result, the demonstrated actions are already expressed in the robot's action space, which significantly simplifies reproducing the expected behavior. Such demonstrations are particularly important for fine-grained manipulation tasks that require precise control and accurate timing. 
+	\item \textbf{Scalability issues:} However, teleoperation may require specialized hardware (controllers, sometimes motion-capture or VR setups) and does not scale as easily as collecting passive video data. Thus, collecting large teleoperation datasets can be time-consuming and is typically done in lab settings only.
+\end{itemize}
 
 
 
 
-%  At the same time, teleoperation allows for precise and task-specific demonstrations, but may require specialized hardware and can be less scalable compared to passive video collection.
+
+
+
+
+
+
+
+
+
+
+
 
 % A key advantage of video-based instructions is that they naturally capture complex, multi-step behaviors and temporal dependencies. However, they also introduce challenges such as high data requirements, sensitivity to visual variations, and the need to extract relevant features from long and potentially noisy observation sequences.
 
