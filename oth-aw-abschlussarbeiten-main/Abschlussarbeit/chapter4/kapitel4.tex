@@ -35,7 +35,7 @@ Limitations: time and computational consuming, Safety?
 
 
 
-\subsection{Instruct robots}
+\subsection{Ways to instruct robots}
 This section discusses the various ways in which the robot can be taught its task and how the interaction between humans and robots can be designed.
  
 % \texttt{Intend task from scene}
@@ -72,7 +72,7 @@ A big advantage to command the robot with voice commands is that it enables an i
 
 Robots can also be instructed using visual inputs such as images. Compared to language, image-based instructions provide a more concrete and unambiguous specification of spatial arrangements, object relations, and desired outcomes.
 
-A common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like. But some works have addressed this issue with the usage of annotations in the goal images to specify the task execution. For example \cite{li2025robotic} highlights the relevant objects and regions with circles and arrows to visualize the task execution in the image \cite{bai_LearningSeeAct_2025}. 
+A common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like. But some works have addressed this issue with the usage of annotations in the image of the initial state to specify the task execution. For example \cite{li2025robotic} highlights the relevant objects and regions with circles and arrows to visualize the task execution in the image \cite{bai_LearningSeeAct_2025}. 
 
 \begin{figure}[h]
 	\centering
@@ -96,7 +96,7 @@ A common approach is the use of \textit{goal images}, where the robot is given a
 
 
 
-To address this limitation, \textit{subgoal images} or intermediate states can be provided. These guide the robot through a sequence of visually defined steps, effectively decomposing complex tasks into simpler stages. This is particularly useful for long-horizon or multi-step manipulation tasks.
+Another way to address this limitation, \textit{subgoal images} or intermediate states can be provided \cite{pathak_ZeroShotVisualImitation_2018}. These guide the robot through a sequence of visually defined steps, effectively decomposing complex tasks into simpler stages. This is particularly useful for long-horizon or multi-step manipulation tasks.
 
 A key advantage of image instructions is their ability to capture fine-grained spatial details that are difficult to describe in language, such as precise object placement, orientation or symmetry alignments. However, they also introduce challenges related to perception, such as viewpoint variation, occlusions of objects in the real environment, or the use of in-the-wild goal-images with varying lighting and background conditions.
 

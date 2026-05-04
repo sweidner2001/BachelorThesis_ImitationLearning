@@ -74,11 +74,6 @@ The agent proceeds in its environment according to the trial-and-error principle
 
 
 
-
-
-
-
-
 \section{Intelligent robots with Deep Learning (RL)}
 In general, modern robot training distinguishes between two main approaches: imitation learning and reinforcement learning. 
 Each approach uses a different strategy for training the robot model. In Figure \ref{fig:overviewroboticlearning} an overview of the two approaches is given. The following sections explain the two approaches in more detail and provide a mathematical description of the underlying problem. 
@@ -95,6 +90,8 @@ Each approach uses a different strategy for training the robot model. In Figure 
 \subsection{Reinforcement Learning} \label{sec:ReinforcementLearning}
 Reinforcement learning (RL) is both a fundamental discipline of machine learning and a distinct approach within Robot Learning.
 The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score, and this score is then used to gradually optimize the policy. 
+
+
 
 \underline{Key components of the RL problem}
 The following section explains the key concepts in RL related to robotics, see also figure \ref{fig:RLConzept} for a general graphical overview.
@@ -213,6 +210,9 @@ KMs can be learned through trial-and-error principles or from various data sourc
 \end{itemize}
 
 
+
+
+
 \subsection{Imitation Learning}
 Imitation Learning  (IL) or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations.
 
@@ -294,6 +294,12 @@ where:
 
 
 
+\subsection{Conclusion}
+Reinforcement learning is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or imitation learning, in order to leverage their complementary strengths and improve overall performance.
 
+Imitation Learning generally refers to a family of methods and techniques that enable learning from demonstrations. Two important approaches in this context are Behavior Cloning (BC) and Learning from Videos (LfV), which differ primarily in the type of data they utilize. BC relies on annotated demonstrations, where state-action pairs are available, and learns a policy directly via supervised learning. In contrast, LfV aims to infer actions from unannotated video observations, where only visual information is provided.
 
+Methods from the LfV paradigm can be used for Action Recovery, making unannotated video data applicable for Behavior Cloning by recovering or estimating the underlying actions. Furthermore, such methods can be employed to pretrain models for BC or Reinforcement Learning, for example by learning expressive state and action representations through Representation Learning.
+
+Behavior Cloning is also widely used for training Vision-Language-Action (VLA) models and for pretraining  Reinforcement Learning Knowledge Modalities, for instance by learning components like value functions or reward models. In practice, BC and LfV are often combined to exploit the advantages of both approaches, enabling the use of large-scale unannotated data while maintaining the efficiency of supervised policy learning.
 
