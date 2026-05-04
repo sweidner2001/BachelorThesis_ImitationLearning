@@ -77,6 +77,40 @@
   keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,Computer Science - Robotics}
 }
 
+@article{mccarthy_GeneralistRobotLearning_2025,
+  title = {Towards {{Generalist Robot Learning}} from {{Internet Video}}: {{A Survey}}},
+  shorttitle = {Towards {{Generalist Robot Learning}} from {{Internet Video}}},
+  author = {McCarthy, Robert and Tan, Daniel C. H. and Schmidt, Dominik and Acero, Fernando and Herr, Nathan and Du, Yilun and Thuruthel, Thomas G. and Li, Zhibin},
+  date = {2025-07-21},
+  journaltitle = {Journal of Artificial Intelligence Research},
+  shortjournal = {jair},
+  volume = {83},
+  eprint = {2404.19664},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  issn = {1076-9757},
+  doi = {10.1613/jair.1.17400},
+  url = {http://arxiv.org/abs/2404.19664},
+  urldate = {2026-05-04},
+  abstract = {Scaling deep learning to massive and diverse internet data has driven remarkable breakthroughs in domains such as video generation and natural language processing. Robot learning, however, has thus far failed to replicate this success and remains constrained by a scarcity of available data. Learning from videos (LfV) methods aim to address this data bottleneck by augmenting traditional robot data with large-scale internet video. This video data provides foundational information regarding physical dynamics, behaviours, and tasks, and can be highly informative for general-purpose robots. This survey systematically examines the emerging field of LfV. We first outline essential concepts, including detailing fundamental LfV challenges such as distribution shift and missing action labels in video data. Next, we comprehensively review current methods for extracting knowledge from large-scale internet video, overcoming LfV challenges, and improving robot learning through video-informed training. The survey concludes with a critical discussion of future opportunities. Here, we emphasize the need for scalable foundation model approaches that can leverage the full range of available internet video and enhance the learning of robot policies and dynamics models. Overall, the survey aims to inform and catalyse future LfV research, driving progress towards general-purpose robots.},
+  keywords = {Computer Science - Machine Learning,Computer Science - Robotics}
+}
+
+@online{pathak_ZeroShotVisualImitation_2018,
+  title = {Zero-{{Shot Visual Imitation}}},
+  author = {Pathak, Deepak and Mahmoudieh, Parsa and Luo, Guanghao and Agrawal, Pulkit and Chen, Dian and Shentu, Yide and Shelhamer, Evan and Malik, Jitendra and Efros, Alexei A. and Darrell, Trevor},
+  date = {2018-04-23},
+  eprint = {1804.08606},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.1804.08606},
+  url = {http://arxiv.org/abs/1804.08606},
+  urldate = {2026-05-04},
+  abstract = {The current dominant paradigm for imitation learning relies on strong supervision of expert actions to learn both 'what' and 'how' to imitate. We pursue an alternative paradigm wherein an agent first explores the world without any expert supervision and then distills its experience into a goal-conditioned skill policy with a novel forward consistency loss. In our framework, the role of the expert is only to communicate the goals (i.e., what to imitate) during inference. The learned policy is then employed to mimic the expert (i.e., how to imitate) after seeing just a sequence of images demonstrating the desired task. Our method is 'zero-shot' in the sense that the agent never has access to expert actions during training or for the task demonstration at inference. We evaluate our zero-shot imitator in two real-world settings: complex rope manipulation with a Baxter robot and navigation in previously unseen office environments with a TurtleBot. Through further experiments in VizDoom simulation, we provide evidence that better mechanisms for exploration lead to learning a more capable policy which in turn improves end task performance. Videos, models, and more details are available at https://pathak22.github.io/zeroshot-imitation/},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Computer Science - Robotics,Statistics - Machine Learning}
+}
+
 @article{raffin_DECOUPLINGFEATUREEXTRACTION_2019,
   title = {{{DECOUPLING FEATURE EXTRACTION FROM POLICY LEARNING}}: {{ASSESSING BENEFITS OF STATE REPRESENTA- TION LEARNING IN GOAL BASED ROBOTICS}}},
   author = {Raffin, Antonin and Hill, Ashley and Traoré, René and Lesort, Timothée and Díaz-Rodríguez, Natalia and Filliat, David},
@@ -108,12 +142,4 @@
   abstract = {Learning visuomotor policy for multi-task robotic manipulation has been a long-standing challenge for the robotics community. The difficulty lies in the diversity of action space: typically, a goal can be accomplished in multiple ways, resulting in a multimodal action distribution for a single task. The complexity of action distribution escalates as the number of tasks increases. In this work, we propose \textbackslash textbf\{Discrete Policy\}, a robot learning method for training universal agents capable of multi-task manipulation skills. Discrete Policy employs vector quantization to map action sequences into a discrete latent space, facilitating the learning of task-specific codes. These codes are then reconstructed into the action space conditioned on observations and language instruction. We evaluate our method on both simulation and multiple real-world embodiments, including both single-arm and bimanual robot settings. We demonstrate that our proposed Discrete Policy outperforms a well-established Diffusion Policy baseline and many state-of-the-art approaches, including ACT, Octo, and OpenVLA. For example, in a real-world multi-task training setting with five tasks, Discrete Policy achieves an average success rate that is 26\textbackslash\% higher than Diffusion Policy and 15\textbackslash\% higher than OpenVLA. As the number of tasks increases to 12, the performance gap between Discrete Policy and Diffusion Policy widens to 32.5\textbackslash\%, further showcasing the advantages of our approach. Our work empirically demonstrates that learning multi-task policies within the latent space is a vital step toward achieving general-purpose agents.},
   pubstate = {prepublished},
   keywords = {Computer Science - Robotics}
-}
-
-
-@article{li2025robotic,
-    title={Robotic Visual Instruction},
-    author={Li, Yanbang and Gong, Ziyang and Li, Haoyang and Huang, Xiaoqi and Kang, Haolan and Bai, Guangping and Ma, Xianzheng},
-    booktitle={arXiv preprint arXiv:2505.00693},
-    year={2025},
 }
