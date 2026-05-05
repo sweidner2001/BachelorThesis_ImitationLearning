@@ -70,7 +70,7 @@ A big advantage to command the robot with voice commands is that it enables an i
 
 Robots can also be instructed using visual inputs such as images. Compared to language, image-based instructions provide a more concrete and unambiguous specification of spatial arrangements, object relations, and desired outcomes.
 
-A common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like. But some works have addressed this issue with the usage of annotations in the image of the initial state to specify the task execution. For example \cite{li2025robotic} highlights the relevant objects and regions with circles and arrows to visualize the task execution in the image \cite{bai_LearningSeeAct_2025}. 
+A common approach is the use of \textit{goal images}, where the robot is given a visual representation of the desired final state. In this setting, the task is formulated as a goal-conditioned problem: the robot observes the current state and acts such that it minimizes the difference to the goal image. This is often referred to as goal-conditioned behavior. However, this approach does not explicitly specify \textit{how} the task should be executed, only \textit{what} the final configuration should look like. But some works have addressed this issue with the usage of annotations in the image of the initial state to specify the task execution. For example \cite{bai_LearningSeeAct_2025} highlights the relevant objects and regions with circles and arrows to visualize the task execution in the image. 
 
 \begin{figure}[h]
 	\centering
@@ -141,16 +141,17 @@ Ideally, the robot model should be able to understand it's task from in-the-wild
 \end{itemize}
 
 
-\section{General Robots}
+\section{Generalist Robots}
+% Classical robotics techniques are insufficient as they cannot handle unseen and unstructured scenarios \cite{Krotkov_DARPA _2017}.
 
-The ultimate goal of robotics is to develop a \texttt{generalist robot}. According to McCarthy et al. \cite{mccarthy_GeneralistRobotLearning_2025}, such a robot should be able to perform a wide variety of physical tasks in unstructured, unseen real-world environments. It must combine high-level reasoning and planning abilities with low-level physical skills, such as dexterous manipulation. Furthermore, it should be capable of adapting to unforeseen situations and operate under imperfect and partial observations, for example through visual and tactile sensing. In summary, a general-purpose robot is capable of adapting to different situations and learning new skills just like humans. 
+The ultimate goal of robotics is to develop a \texttt{generalist robot}. According to McCarthy et al. \cite{mccarthy_GeneralistRobotLearning_2025}, such a robot should be able to perform a wide variety of physical tasks in unstructured, unseen real-world environments. It must combine high-level reasoning and planning abilities with low-level physical skills, such as dexterous manipulation. Furthermore, it should be capable of adapting to unforeseen situations and operate under imperfect and partial observations, for example through visual and tactile sensing. In summary, a general-purpose robot is capable of adapting to different situations and learning new skills just like humans \cite{tsujiSurveyImitationLearning2026}. 
 
 Such a robot would be highly useful across a wide range of real-world applications. 
-In \texttt{industrial settings}, this would enable robots to be deployed flexibly across different environments and tasks, without the need for task-specific or environment-specific programming or retraining. As a result, robots could also be utilized for spontaneous small, short-term tasks, where automation is currently not economically viable due to high setup costs and effort. This increased flexibility would lead to higher utilization rates and, consequently, reduced long-term operational costs.
+In \texttt{industrial settings}, this would enable robots to be deployed flexibly across different environments and tasks, without the need for task-specific or environment-specific programming or retraining. As a result, robots could also be utilized for spontaneous small, short-term tasks, where automation is currently not economically viable due to high setup costs and effort. This increased flexibility would lead to higher utilization rates and, consequently, reduced long-term operational costs \cite{tsujiSurveyImitationLearning2026}.
 
 In addition, general-purpose robots could play an important role in \texttt{household} settings. They could assist with everyday tasks such as tidy up rooms, (un)loading dishwashers, setting tables, or acting as general assistants for example helping to carry objects.
 
-In \texttt{healthcare and assistive contexts}, such robots could support individuals with limited mobility by helping them perform daily activities, such as standing up, sitting down, opening a door, or transporting objects. This highlights the potential of generalizing robotic systems to improve both efficiency in industry and quality of life in everyday and care settings.
+In \texttt{healthcare and assistive contexts}, such robots could support individuals with limited mobility by helping them perform daily activities, such as standing up, sitting down, opening a door, or transporting objects. This highlights the potential of generalizing robotic systems to improve both efficiency in industry and quality of life in everyday and care settings \cite{tsujiSurveyImitationLearning2026}.
 
 \textbf{Ethical concerns:} Ethical concerns regarding the development of generalist robots should not be underestimated and must not be ignored. In the future, robots are likely to take over many tasks, particularly those that are repetitive and monotonous, which may lead to the displacement of certain jobs. Whether this will result in large-scale unemployment due to automation remains a subject of ongoing debate.
 
@@ -161,7 +162,51 @@ It is therefore essential that the development and deployment of generalist robo
 
 \section{The Data Problem in Robotics}
 
+A central question in robotics is how to train a generalist robot capable of performing a wide range of tasks in unstructured and previously unseen real-world environments.
 
+Progress in related machine learning domains—such as Natural Language Processing \cite{Achiam2023GPT4TR}, Computer Vision \cite{betkerImprovingImageGeneration}, and video generation \cite{videoworldsimulators2024}—suggests that large-scale datasets and model capacity are key drivers of performance and generalization capabilities. 
+Training high-capacity models with expressive architectures on diverse, extensive internet-scale datasets has led to the emergence of robust representations and improved out-of-distribution performance \cite{Vaswani2017AttentionIA}.
+Empirically, these improvements often follow predictable scaling laws, where performance improves as more data, model size, and compute are used \cite{kaplan2020scalinglawsneurallanguage}.
+Recent work suggests that similar scaling behavior may also apply to robotics and imitation learning. For example, studies show that robots generalize better wehn they are trained on more diverse training data, including variations in environments, objects, and tasks \cite{lin2024data,open_x_embodiment_rt_x_2023}. Moreover, large-scale imitation learning approaches based on behavioral cloning have demonstrated that training a single policy across many tasks can yield substantial gains in robustness and generalization. For example, transformer-based robot policies such as RT-1 and RT-2 leverage large, heterogeneous datasets to achieve zero-shot generalization to novel tasks and instructions \cite{rt12022arxiv, rt22023arxiv}.
+% Moreover, approaches such as large-scale behavioral cloning across multiple tasks have shown promising zero-shot generalization capabilities in novel settings \cite{rt12022arxiv}.
+
+Recent work suggests that similar scaling behavior may also apply to robotics and imitation learning. For example, studies show that robots generalize better when they are trained on more diverse environments and objects \cite{lin2024data}. Moreover, approaches such as large-scale behavioral cloning across multiple tasks have shown promising zero-shot generalization capabilities in novel settings \cite{rt12022arxiv}.
+% Approaches based on large-scale behavior cloning across multiple tasks have also demonstrated promising results, including zero-shot generalization to new settings. 
+% In contrast to vision or language domains, robotics faces a fundamental limitation: the lack of large, diverse, and high-quality datasets.
+However, unlike vision or language domains, robotics is fundamentally constrained by the cost and complexity of data collection. High-quality demonstrations require physical real world interaction, are time-consuming to acquire, and are often limited in diversity due to hardware and safety constraints \cite{tsujiSurveyImitationLearning2026}. As a result, available datasets are usually smaller and less diverse. 
+This data scarcity remains a major bottleneck for achieving similar levels of scalability and generalization in robot learning and is the main challenges for developing general-purpose robotic systems \cite{tsujiSurveyImitationLearning2026}.
+% This lack of large-scale data remains one of the main challenges for developing general-purpose robotic systems.
+
+
+In contrast, robotics faces a fundamental limitation: the lack of large, diverse, and high-quality datasets. This data scarcity remains a major bottleneck for achieving similar levels of scalability and generalization in robot learning.
+
+Recent work indicates that similar scaling behavior may also hold in robotics and imitation learning. For instance, studies on robotic manipulation demonstrate that policy generalization improves with the diversity of environments and objects, often exhibiting power-law relationships with respect to dataset scale . Moreover, approaches such as large-scale behavioral cloning across multiple tasks have shown promising zero-shot generalization capabilities in novel settings \cite{jang2022bcz}. 
+
+However, unlike vision or language domains, robotics is fundamentally constrained by the cost and complexity of data collection. High-quality demonstrations require physical real world interaction, are time-consuming to acquire, and are often limited in diversity due to hardware and safety constraints.
+
+This results in a significant data bottleneck, which remains one of the primary obstacles to scaling imitation learning methods toward general-purpose robotic systems .
+
+
+Goal: reduce the amount of robot videos
+
+- **Video provides foundational information:**
+    - Contains physics and dynamics information
+    - Shows human behaviors, tasks and actions relevant to robots
+    - High quantity and diversity
+    - Relatively untapped resource
+    - —>can be highly informative for general-purpose robots.
+use of diverse internet data has facilitated a transition from task-specific models to monolithic foundation models with more general capabilities
+
+
+LfV will solve the data bottleneck by augmenting traditional robot data with large-scale internet video.
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter3/media/DataBottleneck}
+	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics}
+	\label{fig:DataBottleneck}
+\end{figure}
 
 
 

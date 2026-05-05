@@ -26,12 +26,14 @@
 \contentsline {subsection}{\numberline {3.2.2}Imitation Learning}{12}{subsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.2.1}Behavior Cloning (BC)}{13}{subsubsection.3.2.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2.2}Learning from Videos / Observation}{13}{subsubsection.3.2.2.2}%
-\contentsline {chapter}{\numberline {4}Imitation Learning fundamentals}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}The Data Problem in Robotics}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Why Imitation Learning?}{15}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Idea behind Imitation Learning:}{15}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Instruct robots}{16}{subsection.4.2.2}%
-\contentsline {chapter}{\numberline {5}5}{20}{chapter.5}%
-\contentsline {chapter}{Literaturverzeichnis}{21}{section*.16}%
-\contentsline {chapter}{Abbildungsverzeichnis}{23}{section*.18}%
-\contentsline {chapter}{Tabellenverzeichnis}{24}{section*.20}%
+\contentsline {subsection}{\numberline {3.2.3}Summary IL \& RL}{14}{subsection.3.2.3}%
+\contentsline {chapter}{\numberline {4}Imitation Learning fundamentals}{16}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Why Imitation Learning?}{16}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Idea behind Imitation Learning:}{16}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Ways to instruct robots}{17}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Generalist Robots}{20}{section.4.2}%
+\contentsline {section}{\numberline {4.3}The Data Problem in Robotics}{21}{section.4.3}%
+\contentsline {chapter}{\numberline {5}5}{22}{chapter.5}%
+\contentsline {chapter}{Literaturverzeichnis}{23}{section*.16}%
+\contentsline {chapter}{Abbildungsverzeichnis}{25}{section*.18}%
+\contentsline {chapter}{Tabellenverzeichnis}{26}{section*.20}%
