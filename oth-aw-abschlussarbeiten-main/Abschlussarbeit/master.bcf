@@ -2361,6 +2361,7 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">Zotero.bib</bcf:datasource>
     <bcf:datasource type="file" datatype="bibtex" glob="false">RL.bib</bcf:datasource>
     <bcf:datasource type="file" datatype="bibtex" glob="false">chapter4/04_InstructRobots.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter4/04_DataProblem.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1" intorder="1">walkerastro_action_2024</bcf:citekey>
@@ -2388,12 +2389,26 @@
     <bcf:citekey order="18" intorder="1">bai_LearningSeeAct_2025</bcf:citekey>
     <bcf:citekey order="18" intorder="2">_MultitaskRobotManipulation_a</bcf:citekey>
     <bcf:citekey order="18" intorder="3">tamar_IMITATIONLEARNINGVISUAL_2018</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">li2025robotic</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">bai_LearningSeeAct_2025</bcf:citekey>
     <bcf:citekey order="20" intorder="1">bai_LearningSeeAct_2025</bcf:citekey>
     <bcf:citekey order="21" intorder="1">bai_LearningSeeAct_2025</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">bai_LearningSeeAct_2025</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">pathak_ZeroShotVisualImitation_2018</bcf:citekey>
-    <bcf:citekey order="24" intorder="1">mccarthy_GeneralistRobotLearning_2025</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">pathak_ZeroShotVisualImitation_2018</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">mccarthy_GeneralistRobotLearning_2025</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">tsujiSurveyImitationLearning2026</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">tsujiSurveyImitationLearning2026</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">tsujiSurveyImitationLearning2026</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">Achiam2023GPT4TR</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">betkerImprovingImageGeneration</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">videoworldsimulators2024</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">Vaswani2017AttentionIA</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">kaplan2020scalinglawsneurallanguage</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">lin2024data</bcf:citekey>
+    <bcf:citekey order="32" intorder="2">open_x_embodiment_rt_x_2023</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">rt12022arxiv</bcf:citekey>
+    <bcf:citekey order="33" intorder="2">rt22023arxiv</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">tsujiSurveyImitationLearning2026</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">tsujiSurveyImitationLearning2026</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">lin2024data</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

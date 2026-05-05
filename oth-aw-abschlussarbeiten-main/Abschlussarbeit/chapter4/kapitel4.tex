@@ -142,7 +142,7 @@ Ideally, the robot model should be able to understand it's task from in-the-wild
 
 
 \section{Generalist Robots}
-% Classical robotics techniques are insufficient as they cannot handle unseen and unstructured scenarios \cite{Krotkov_DARPA _2017}.
+% Classical robotics techniques are insufficient as they cannot handle unseen and unstructured scenarios \cite{Krotkov_DARPA_2017}.
 
 The ultimate goal of robotics is to develop a \texttt{generalist robot}. According to McCarthy et al. \cite{mccarthy_GeneralistRobotLearning_2025}, such a robot should be able to perform a wide variety of physical tasks in unstructured, unseen real-world environments. It must combine high-level reasoning and planning abilities with low-level physical skills, such as dexterous manipulation. Furthermore, it should be capable of adapting to unforeseen situations and operate under imperfect and partial observations, for example through visual and tactile sensing. In summary, a general-purpose robot is capable of adapting to different situations and learning new skills just like humans \cite{tsujiSurveyImitationLearning2026}. 
 
@@ -169,22 +169,16 @@ Training high-capacity models with expressive architectures on diverse, extensiv
 Empirically, these improvements often follow predictable scaling laws, where performance improves as more data, model size, and compute are used \cite{kaplan2020scalinglawsneurallanguage}.
 Recent work suggests that similar scaling behavior may also apply to robotics and imitation learning. For example, studies show that robots generalize better wehn they are trained on more diverse training data, including variations in environments, objects, and tasks \cite{lin2024data,open_x_embodiment_rt_x_2023}. Moreover, large-scale imitation learning approaches based on behavioral cloning have demonstrated that training a single policy across many tasks can yield substantial gains in robustness and generalization. For example, transformer-based robot policies such as RT-1 and RT-2 leverage large, heterogeneous datasets to achieve zero-shot generalization to novel tasks and instructions \cite{rt12022arxiv, rt22023arxiv}.
 % Moreover, approaches such as large-scale behavioral cloning across multiple tasks have shown promising zero-shot generalization capabilities in novel settings \cite{rt12022arxiv}.
-
-Recent work suggests that similar scaling behavior may also apply to robotics and imitation learning. For example, studies show that robots generalize better when they are trained on more diverse environments and objects \cite{lin2024data}. Moreover, approaches such as large-scale behavioral cloning across multiple tasks have shown promising zero-shot generalization capabilities in novel settings \cite{rt12022arxiv}.
 % Approaches based on large-scale behavior cloning across multiple tasks have also demonstrated promising results, including zero-shot generalization to new settings. 
+
+In contrast to vision and language domains, robotics is fundamentally constrained by the cost and complexity of data collection, limiting the availability of large, diverse, and high-quality datasets. High-quality demonstrations require physical real world interaction, making them time-consuming to acquire, and are often limited in diversity due to hardware and safety constraints \cite{tsujiSurveyImitationLearning2026}.
+As a result, available datasets are usually smaller and less diverse. Consequently, this data scarcity represents a major bottleneck for achieving similar levels of scalability and generalization in robot learning, and remains a central challenge in the development of general-purpose robotic systems \cite{tsujiSurveyImitationLearning2026}.
+
+
 % In contrast to vision or language domains, robotics faces a fundamental limitation: the lack of large, diverse, and high-quality datasets.
-However, unlike vision or language domains, robotics is fundamentally constrained by the cost and complexity of data collection. High-quality demonstrations require physical real world interaction, are time-consuming to acquire, and are often limited in diversity due to hardware and safety constraints \cite{tsujiSurveyImitationLearning2026}. As a result, available datasets are usually smaller and less diverse. 
-This data scarcity remains a major bottleneck for achieving similar levels of scalability and generalization in robot learning and is the main challenges for developing general-purpose robotic systems \cite{tsujiSurveyImitationLearning2026}.
-% This lack of large-scale data remains one of the main challenges for developing general-purpose robotic systems.
 
+To adress this data bottleneck, one promising approach is to leverage large-scale internet video data. Videos provide a rich source of information about human behaviors, tasks, and actions that are relevant for robotics. They contain foundational information about physics and dynamics, as well as a wide variety of scenarios and interactions. Moreover, the abundance and diversity of online videos make them a relatively untapped resource for training general-purpose robots. By augmenting traditional robot data with large-scale internet video, we can significantly enhance the learning capabilities of robotic systems and enable them to perform effectively in real-world settings \cite{lin2024data}.
 
-In contrast, robotics faces a fundamental limitation: the lack of large, diverse, and high-quality datasets. This data scarcity remains a major bottleneck for achieving similar levels of scalability and generalization in robot learning.
-
-Recent work indicates that similar scaling behavior may also hold in robotics and imitation learning. For instance, studies on robotic manipulation demonstrate that policy generalization improves with the diversity of environments and objects, often exhibiting power-law relationships with respect to dataset scale . Moreover, approaches such as large-scale behavioral cloning across multiple tasks have shown promising zero-shot generalization capabilities in novel settings \cite{jang2022bcz}. 
-
-However, unlike vision or language domains, robotics is fundamentally constrained by the cost and complexity of data collection. High-quality demonstrations require physical real world interaction, are time-consuming to acquire, and are often limited in diversity due to hardware and safety constraints.
-
-This results in a significant data bottleneck, which remains one of the primary obstacles to scaling imitation learning methods toward general-purpose robotic systems .
 
 
 Goal: reduce the amount of robot videos
@@ -203,7 +197,7 @@ LfV will solve the data bottleneck by augmenting traditional robot data with lar
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.6\linewidth]{./chapter3/media/DataBottleneck}
+	\includegraphics[width=0.9\linewidth]{./chapter4/media/DataBottleneck}
 	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics}
 	\label{fig:DataBottleneck}
 \end{figure}
