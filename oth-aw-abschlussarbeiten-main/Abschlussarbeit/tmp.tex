@@ -1,0 +1,45 @@
+
+	\item \texttt{Simulated data}
+	
+	Another option is to leverage simulation
+	[336, 127]. However, simulation comes with issues related to flawed simulated physics and difficulties creating
+	and training on a suitable diversity of simulated environments and tasks.
+
+	- Simulated data
+    - use simulations
+    - Inaccuracies in low-level physics create a **‘sim-to-real’ gap** [329]
+    **—> solution here is to employ domain randomization [266]
+    - challenge of Manually creating a suitable diversity of simulated environments and tasks for generalist robotics 
+    **—> solve this problems using procedural environment generation [62]
+    - policy lack to collect high-quality data in the simulation.
+    —> use of an automated curriculum during RL training [200, 158] 
+    —> collecting data using specialist policies [259]
+    —> models with access to privileged simulation information [92, 276, 57]
+    —> bootstrapping data collection from human demonstrations [179, 177].
+
+
+The use of simulation is promising for scaling up online learning while avoiding difficulties associated with the real-world [336, 127, 190]. However, the use of simulation presents a number
+of issues [25]. (1) Inaccuracies in low-level physics create a ‘sim-to-real’ gap [329] that must be overcome.
+A partial solution here is to employ domain randomization [266]. (2) Manually creating a suitable diversity
+of simulated environments and tasks for generalist robotics is a challenge. Recent works seek to tackle this
+using procedural environment generation [62, 262] and foundation-model-assisted environment design
+[292, 76, 286]. (3) We often lack a policy to collect high-quality data in the simulation. Solutions here
+have included the use of an automated curriculum during RL training [200, 158] and collecting data
+using: specialist policies [259], models with access to privileged simulation information [92, 276, 57], or
+bootstrapping data collection from human demonstrations [179, 177].
+
+	
+	
+	
+
+
+
+	% Real-world data
+	One possibility is to use humans to collect robot data [36, 129]. However, this is expensive and can be difficult in tasks requiring skill.
+
+	Data collected via human teleoperation [36, 129] and pooled data from multiple academic labs [195] have been used to train initial robot foundation models [36, 264]. Other works have investigated 	methods for automating data collection to improve scalability [35, 5, 304]. Several companies have demonstrated evidence of infrastructure suitable for large-scale robot data-collection [251, 115]. However, the largest open-source robot dataset [195] is still significantly smaller and less diverse than internet-scale data
+	(see Figure 8).
+	
+	- Real world data
+		- **Data collected via human teleoperation** [36, 129] and pooled data from multiple academic labs [195] have been used to train initial robot foundation models [36, 264].
+		- methods for **automating data collection** to improve scalability [35, 5, 304].
