@@ -251,9 +251,7 @@ As a result, available datasets are usually smaller and less diverse. Consequent
 % In contrast to vision or language domains, robotics faces a fundamental limitation: the lack of large, diverse, and high-quality datasets.
 \subsection{Relevant Data Categories for Robotics}
 \subsection{How to Address the Data Bottleneck}
-How can we address this data bottleneck in robotics? 
-
-Before discussing specific approaches, it is important to clarify which data sources are relevant for robot learning and how such data can be acquired.
+How can we address this data bottleneck in robotics? Before discussing specific approaches, it is important to clarify which data sources are relevant for robot learning and how such data can be acquired.
 
 \begin{itemize}
 	\item \texttt{Real world data}
@@ -320,12 +318,14 @@ Before discussing specific approaches, it is important to clarify which data sou
 	In this work, the focus lies on internet video data, which is discussed in more detail in the following sections.
 \end{itemize}
 
-In der Praxis werden meist alle complementary sources of data gemeinsam genutzt. 
+
+\texttt{Combination of data sources.} 
+In modern robot learning systems, simulation data, real-world data, and internet data are rarely used in isolation. Instead, these data sources are commonly combined, as each category provides complementary strengths and addresses different limitations. 
+Simulation enables scalable and cost-efficient data generation and provides a safe environment for online robot interaction and reinforcement learning. Internet data offers large-scale and diverse semantic information, while real-world data captures accurate physical interactions, sensor characteristics, and real-world dynamics that are difficult to model in simulation.
+
+Typical robot learning pipelines therefore combine these data sources hierarchically. In many approaches, perception and policy models are first pretrained on large-scale simulation and/or internet datasets in order to learn robust and generalizable representations. Subsequently, the models are fine-tuned on smaller but high-quality real-world robot datasets to adapt them to specific robotic platforms, sensors, and target environments. Some works additionally employ hybrid training strategies that combine simulated and real-world data using techniques such as domain randomization or domain adaptation to further reduce the gap between simulated and real-world observations.
 
 
-
-Zusammenspiel der Datenquellen
-Realworld daten Daten sind besonders wertvoll für die Feinabstimmung von Modellen, die in Simulationen vortrainiert wurden, um die Diskrepanz zwischen Simulation und Realität zu überbrücken.
 
 
 \subsection{Reduce the amount of robot data}
