@@ -407,7 +407,27 @@ For instance, during grasping, tactile sensors can indicate whether an object ha
 
 
 \texttt{Mid-level video information.}
+Mid-level video information refers to visual observations that capture the dynamics of objects, agents, and environments over time without providing explicit low-level control signals. In contrast to robot data, video data does not include direct information about actions or internal robot states. Instead, it provides sequences of RGB observations that encode how the visual scene evolves over time.
 
+This type of information includes visual dynamics such as object motion, changes in spatial configurations, and interactions between entities in the scene. For example, videos can capture how objects are moved, grasped, or manipulated by humans, as well as how these actions affect the surrounding environment. Although no explicit force or control signals are available, the physical behavior of objects (e.g., sliding, rotating, or deforming) can often be inferred implicitly from the visual changes across frames.
+
+A key aspect of mid-level video information is that it encodes \textbf{physical behavior at a perceptual level}. While it does not provide direct measurements of forces or torques, it still reflects underlying physical principles such as gravity, friction, and object permanence through observable motion patterns. For instance, a video of a person pouring water into a glass implicitly contains information about liquid flow dynamics and object interaction constraints.
+
+In addition, mid-level video information provides a natural source for \textbf{language grounding}. Many video datasets are paired with textual annotations, captions, or narration, which link visual observations to semantic concepts. This allows models to associate language with observed actions and events, such as "opening a door", "placing an object on a table", or "picking up a cup". Through such alignment, video data helps bridge the gap between perception and high-level task understanding, enabling learning of more abstract representations that go beyond purely visual dynamics.
+
+
+% Mid-level video information refers to the semantic and structural information that can be extracted from video data, which is relevant for understanding and performing tasks. This includes information about object interactions, human behaviors, task execution patterns, and the underlying structure of activities. For example, videos can provide insights into how objects are manipulated, how humans perform tasks, and how different actions are sequenced to achieve a goal.
+
+
+\texttt{High-level language information.}
+High-level language information refers to abstract semantic descriptions of tasks, concepts, and behaviors expressed in natural language. In contrast to visual or robot-centric signals, language does not encode direct sensory observations or motor commands, but instead provides structured knowledge about goals, constraints, and task structures. This includes descriptions of concepts (e.g., objects and their properties), relational knowledge, and symbolic abstractions of actions and environments.
+
+Such information is particularly important for representing task intent and enabling generalization across different embodiments and environments. Language can describe tasks at multiple levels of abstraction, ranging from low-level action descriptions (e.g., ``pick up the cup'') to high-level procedural or goal-oriented instructions (e.g., ``prepare a table for breakfast''). This hierarchical structure allows models to connect concrete behaviors with more abstract task specifications.
+
+
+In addition, language plays a central role in \textbf{planning and reasoning}. It provides a medium for expressing sequential structure, subgoals, and dependencies between actions. For example, a task such as ``clean the table'' can be decomposed into intermediate steps such as removing objects, wiping the surface, and reorganizing items. Such decompositions reflect implicit reasoning about task structure and enable more systematic policy learning.
+
+Furthermore, language serves as a bridge for incorporating prior knowledge into robotic systems. Through textual descriptions, models can access commonsense knowledge about object affordances, physical interactions, and typical human behaviors. This enables improved generalization to unseen tasks by leveraging semantic relationships that are not explicitly present in robot or video data alone.
 
 % The objective of Learning from Video (LfV) is to utilize the combined dataset
 % \[
