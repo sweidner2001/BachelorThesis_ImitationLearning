@@ -2408,7 +2408,23 @@
     <bcf:citekey order="33" intorder="2">rt22023arxiv</bcf:citekey>
     <bcf:citekey order="34" intorder="1">tsujiSurveyImitationLearning2026</bcf:citekey>
     <bcf:citekey order="35" intorder="1">tsujiSurveyImitationLearning2026</bcf:citekey>
-    <bcf:citekey order="36" intorder="1">lin2024data</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">PredictiveControlTwoWheeled</bcf:citekey>
+    <bcf:citekey order="36" intorder="2">ModelPredictiveControl2022</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">MoveIt2Documentation</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">DBLP_journals_corr_abs_2103_12826</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">DBLP_journals_corr_abs_1710_06537</bcf:citekey>
+    <bcf:citekey order="39" intorder="2">DBLP:journals/corr/abs-2009-13303</bcf:citekey>
+    <bcf:citekey order="39" intorder="3">DBLP_journals_corr_abs_1710_06537</bcf:citekey>
+    <bcf:citekey order="39" intorder="4">DBLP:journals/corr/abs-2111-00956</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">open_x_embodiment_rt_x_2023</bcf:citekey>
+    <bcf:citekey order="40" intorder="2">rt22023arxiv</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">DBLP:journals/corr/abs-2111-00956</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">rt22023arxiv</bcf:citekey>
+    <bcf:citekey order="42" intorder="2">nvidia2025gr00tn1openfoundation</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">open_x_embodiment_rt_x_2023</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">DBLP:journals/corr/TobinFRSZA17</bcf:citekey>
+    <bcf:citekey order="44" intorder="2">DBLP:journals/corr/abs-1812-07252</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">lin2024data</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
