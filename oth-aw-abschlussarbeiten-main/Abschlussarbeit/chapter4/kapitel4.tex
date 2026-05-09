@@ -329,6 +329,16 @@ Typical robot learning pipelines therefore combine these data sources hierarchic
 
 
 \subsection{Reduce the amount of robot data}
+To train a generalist robot, large amounts of diverse data are required in order to capture the variability of real-world environments and tasks. In particular, robot interaction data, also known as robot data, is highly valuable because it contains both observations of the environment, such from RGB-D cameras or other sensors, and the corresponding robot trajectories and actions. This enables the robot to learn the relationship between observations, actions, and their resulting outcomes.
+
+However, the currently available amount of robot data is still insufficient in both scale and diversity to train highly generalizable robotic systems. Collecting robot data, whether in real-world environments or in simulation, is expensive and time-consuming. Real-world data collection requires physical hardware, human supervision, and extensive interaction time, while simulation environments often suffer from the sim-to-real gap and still require significant engineering effort. As a result, data scarcity remains one of the central challenges in the development of general-purpose robotic systems.
+
+
+\textbf{Large-scale internet video data.} To adress this data bottleneck, one promising approach is to leverage large-scale internet video data. Internet videos provide a rich source of information about human behaviors, object interactions, and task execution in diverse environments that are relevant for robotics. They contain fundamental information about physical dynamics, a wide variety of scenarios and interactions (motion patterns), and semantic task structure that can be useful for robotic learning. In contrast to robot datasets, internet-scale video data is abundant, inexpensive to obtain, and covers a much broader range of scenarios and activities as robot datasets. 
+% By augmenting traditional robot data with large-scale internet video, we can significantly enhance the learning capabilities of robotic systems and enable them to perform effectively in real-world settings \cite{lin2024data}.
+
+Although such videos typically do not contain direct robot actions, recent work has shown that they can still provide strong supervisory signals for representation learning, action understanding, and policy pretraining. By augmenting traditional robot datasets with large-scale video data, robotic systems can learn more robust and transferable representations, improving their ability to generalize to unseen tasks and environments \cite{lin2024data}.
+
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter4/media/DataBottleneck}
@@ -336,17 +346,79 @@ Typical robot learning pipelines therefore combine these data sources hierarchic
 	\label{fig:DataBottleneck}
 \end{figure}
 
-To train a generalist robot, large amounts of diverse data are required in order to capture the variability of real-world environments and tasks. In particular, robot interaction data, also known as robot data, is highly valuable because it contains both observations of the environment, such from RGB-D cameras or other sensors, and the corresponding robot trajectories and actions. This enables the robot to learn the relationship between observations, actions, and their resulting outcomes.
+\texttt{Formalsim.} 
+\begin{itemize}
+	\item $D$: The complete training dataset used for learning the robotic policy.
+	% The full Dataset which is available for training the robot model.
+	This dataset is a combination of the categories real-world data, simulated data, and internet data. $D$ can be subdivided into two subsets: $D = \{D_{robot}, D_{video}\}$. 
+	
+	\item $D_{robot}$: Subset of dataset $D$ containing robot interaction data collected from physical robots in real-world or simulation environments, including observations and the robots corresponding actions obtained during interaction. Each sample in $D_{robot}$ consists of transition tuples of the form $(o_t, a_t, r_t, o_{t+1})$, where $o_t$ is the observation at time $t$, $a_t$ is the action taken by the robot, $r_t$ is the reward received after taking action $a_t$, and $o_{t+1}$ is the resulting observation after executing action $a_t$. The reward $r_t$ may be missing, and each $o$ contains an image observation and can additionally contain other information, such as depth or tactile data. 
+	
+	% \item $D_{robot}$: Subset of dataset $D$ that consists of real-world or simulated robot data, which includes observations and corresponding actions collected from physical interactions. Technisch gesehen, beinhaltet D_{robot} transition tuples of $(o_t, a_t, r_t, o_{t+1})$, where $o_t$ is the observation at time $t$, $a_t$ is the action taken by the robot, $r_t$ is the reward received after taking action $a_t$, and $o_{t+1}$ is the resulting observation after executing action $a_t$. The reward $r_t$ may be missing, and each $o$ contains an image observation and can additionally contain other information, such as depth or tactile data. 
+	% This data is crucial for learning the relationship between actions and their outcomes in real-world settings.
+	\item $D_{video}$: Subset of the dataset $D$ that consists the video (demonstration) data. $D_{video}$ can be obtained from external sources such as internet videos. A video clip is represented as $\tau=(o_0, o_1, ..., o_T)$, where $\tau$ denotes the full video clip and each observation $o_t$ corresponds to an RGB image. Depending on the dataset, videos may additionally be paired with language descriptions, action annotations, or other auxiliary modalities.
+	% $D_{video}$ may come paired with language annotations or annotations of other modalities.
 
-However, the currently available amount of robot data is still insufficient in both scale and diversity to train highly generalizable robotic systems. Collecting robot data, whether in real-world environments or in simulation, is expensive and time-consuming. Real-world data collection requires physical hardware, human supervision, and extensive interaction time, while simulation environments often suffer from the sim-to-real gap and still require significant engineering effort. As a result, data scarcity remains one of the central challenges in the development of general-purpose robotic systems.
+\end{itemize}
 
 
-To adress this data bottleneck, one promising approach is to leverage large-scale internet video data. Internet videos provide a rich source of information about human behaviors, object interactions, and task execution in diverse environments that are relevant for robotics. They contain fundamental information about physical dynamics, a wide variety of scenarios and interactions (motion patterns), and semantic task structure that can be useful for robotic learning. In contrast to robot datasets, internet-scale video data is abundant, inexpensive to obtain, and covers a much broader range of scenarios and activities as robot datasets. 
-% By augmenting traditional robot data with large-scale internet video, we can significantly enhance the learning capabilities of robotic systems and enable them to perform effectively in real-world settings \cite{lin2024data}.
-
-Although such videos typically do not contain direct robot actions, recent work has shown that they can still provide strong supervisory signals for representation learning, action understanding, and policy pretraining. By augmenting traditional robot datasets with large-scale video data, robotic systems can learn more robust and transferable representations, improving their ability to generalize to unseen tasks and environments \cite{lin2024data}.
+\texttt{Goal of Learning from Video (LfV).} \cite{McCarthy_2025} says, the goal of LfV is to leverage our combined LfV dataset, $D = {D_{robot}, D_{video}}$, to obtain an improved policy $\pi(a_t | s_t)$ versus when learning from $D_{robot}$ alone.
 
 
+
+LfV aims to exploit this abundance of video data to improve robotic learning. 
+% While robot datasets provide precise information about robot actions and control, video datasets contain high-level information about how tasks are performed in diverse real-world scenarios. Combining both sources of data can therefore help robotic systems learn beyond the limitations of traditional robot-only datasets.
+
+Roboter daten enthalten eher low-level und mid-level informationen. Low level Informationen sind auf den Roboter bezogen und enthalten information about the robot's actions, kräfte die auf den Roboter selbst wirken, bzw. in simulierten Umgebungen auftreten / in Simulationen können pysikalische daten von anderen sich in der Umgebung befindenden Objekten verfügbar sein, desweiteren . 
+
+
+\texttt{Low-level robot information.} 
+Low-level robot information refers to sensory and control signals that directly describe the robot's physical state, motion, and interaction with its environment. This includes, for instance, end-effector pose, joint positions, joint velocities, joint torques, and gripper state (e.g., open or closed). Additionally, low-level information includes information about the physical forces acting on the robot itself. In simulation environments, they may additionally include physical details of objects in the environment, such as contact forces or object dynamics.
+
+Such low-level information is essential for learning precise motor control tasks, including grasping, locomotion, and manipulation.
+
+\textbf{Proprioceptive information} refers to the robot's internal sense of its own body and movement. It includes data about the robot's end-effector pose which implicity inlcudes joint angles, joint velocities, and gripper configuration. This information is crucial for executing accurate and stable motions, as it allows the robot to understand its current state and adjust its actions accordingly. 
+A robot may visually observe a cup through a camera and wants to grasp it. Proprioceptive information tells the controller how to move the arm to the cup, which includes:
+\begin{itemize}
+	\item what is the current pose/state of the robot
+	\item how far the arm has moved,
+	\item whether the wrist is rotated correctly,
+	\item whether the gripper is aligned with the handle.
+\end{itemize}
+
+
+\textbf{Tactile data} refers to information obtained through physical contact between the robot and its environment. It is comparable to the human sense of touch. Common tactile signals include contact forces, pressure distributions, slip detection, surface texture information, and vibration signals. These measurements are typically acquired using sensors placed on robot grippers, fingertips, or other contact surfaces.
+For instance, during grasping, tactile sensors can indicate whether an object has been successfully grasped, whether it is slipping, or whether excessive force is being applied. This feedback is critical for maintaining stable and safe object manipulation.
+
+% This information is essential for tasks that require physical manipulation and interaction with objects, such as grasping, pushing, or opening doors.
+
+
+% Tactile data refers to information obtained through physical contact with objects or surfaces. It is comparable to the human sense of touch.
+
+
+
+
+% For example, when a robot arm grasps a cup, the robot needs to know the pose of the cup and the robots end-effector and how to move the arm to the cup, which implizity includes information to it's joint angles, joint velocities, and gripper configuration in order to execute stable and accurate movements. 
+% This information allows the robot to execute accurate and stable motions.
+
+% Tactile information provides critical feedback about the physical interaction between the robot and its environment, such as contact forces, pressure distributions, slip detection, texture information, and vibration signals. This information is essential for tasks that require physical manipulation and interaction with objects, such as grasping, pushing, or opening doors. Tactile sensing allows the robot to adjust its actions based on the feedback received from the environment, enabling more robust and adaptive behavior during physical interactions. 
+% and plays a crucial role in physical interaction.
+
+
+
+\texttt{Mid-level video information.}
+
+
+% The objective of Learning from Video (LfV) is to utilize the combined dataset
+% \[
+% D = \{D_{\text{robot}}, D_{\text{video}}\}
+% \]
+% to learn a policy $\pi(a_t \mid s_t)$ that achieves better generalization and task performance compared to training solely on robot interaction data $D_{\text{robot}}$.
+
+
+	
+	
+	% of large-scale internet video data, which provides rich information about human behaviors, object interactions, and task execution in diverse environments.
 
 \subsection{Challenges Video Data}
 First, video is a challenging data modality: it is high-dimensional, noisy, and poorly labelled. Second, video

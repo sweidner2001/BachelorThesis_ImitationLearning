@@ -79,6 +79,7 @@
       <file>master.bcf</file>
     </requires>
     <requires type="editable">
+      <file>General.bib</file>
       <file>Zotero.bib</file>
       <file>RL.bib</file>
       <file>chapter4/04_InstructRobots.bib</file>
