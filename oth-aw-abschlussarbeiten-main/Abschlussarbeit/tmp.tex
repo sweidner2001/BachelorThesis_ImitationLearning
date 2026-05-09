@@ -103,3 +103,18 @@ bootstrapping data collection from human demonstrations [179, 177].
 	- Real world data
 		- **Data collected via human teleoperation** [36, 129] and pooled data from multiple academic labs [195] have been used to train initial robot foundation models [36, 264].
 		- methods for **automating data collection** to improve scalability [35, 5, 304].
+
+
+
+
+
+
+
+
+To train a generalist robot, large amounts of diverse data are required in order to capture the variability of real-world environments and tasks. In particular, robot interaction data, also known as robot data, is highly valuable because it contains both observations of the environment, such from RGB-D cameras or other sensors, and the corresponding robot trajectories and actions. This enables the robot to learn the relationship between observations, actions, and their resulting outcomes.
+
+However, the currently available amount of robot data is still insufficient in both scale and diversity to train highly generalizable robotic systems. Collecting robot data, whether in real-world environments or in simulation, is expensive and time-consuming. Real-world data collection requires physical hardware, human supervision, and extensive interaction time, while simulation environments often suffer from the sim-to-real gap and still require significant engineering effort. As a result, data scarcity remains one of the central challenges in the development of general-purpose robotic systems.
+
+To address this data bottleneck, a promising approach is to leverage large-scale internet video data. Internet videos provide a rich source of information about human behaviors, object interactions, and task execution in diverse environments. They contain fundamental information about physical dynamics, motion patterns, and semantic task structure that can be useful for robotic learning. In contrast to robot datasets, internet-scale video data is abundant, inexpensive to obtain, and covers a much broader range of scenarios and activities.
+
+Although such videos typically do not contain direct robot actions, recent work has shown that they can still provide strong supervisory signals for representation learning, action understanding, and policy pretraining. By augmenting traditional robot datasets with large-scale video data, robotic systems can learn more robust and transferable representations, improving their ability to generalize to unseen tasks and environments \cite{lin2024data}.

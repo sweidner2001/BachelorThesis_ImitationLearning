@@ -38,8 +38,8 @@
 \contentsline {subsection}{\numberline {4.2.3}How to Address the Data Bottleneck}{22}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Reduce the amount of robot data}{25}{subsection.4.2.4}%
 \contentsline {subsection}{\numberline {4.2.5}Challenges Video Data}{26}{subsection.4.2.5}%
-\contentsline {subsection}{\numberline {4.2.6}Other Paths to Generalist Robots.}{26}{subsection.4.2.6}%
-\contentsline {chapter}{\numberline {5}5}{27}{chapter.5}%
-\contentsline {chapter}{Literaturverzeichnis}{28}{section*.18}%
-\contentsline {chapter}{Abbildungsverzeichnis}{31}{section*.20}%
-\contentsline {chapter}{Tabellenverzeichnis}{32}{section*.22}%
+\contentsline {subsection}{\numberline {4.2.6}Other Paths to Generalist Robots.}{27}{subsection.4.2.6}%
+\contentsline {chapter}{\numberline {5}5}{28}{chapter.5}%
+\contentsline {chapter}{Literaturverzeichnis}{29}{section*.18}%
+\contentsline {chapter}{Abbildungsverzeichnis}{32}{section*.20}%
+\contentsline {chapter}{Tabellenverzeichnis}{33}{section*.22}%
