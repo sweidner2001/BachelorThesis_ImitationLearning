@@ -1,10 +1,11 @@
 \chapter{Learning from Video Techniques}
 
 Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This section addresses the two key questions for LfV research:
-\begin{itemize}
+\begin{enumerate}
     \item How to extract relevant knowledge from internet video?
-    \item How to apply video-extracted knowledge to robotics?
-\end{itemize}
+    % \item How to apply video-extracted knowledge to robotics?
+    \item How to apply video-extracted knowledge to robotic systems for policy learning and control?
+\end{enumerate}
 We first review different approaches for extracting foundational knowledge from internet video, including video encoders, video prediction models, and video-to-text models. We then discuss methods for transferring video-extracted knowledge to robotics, addressing challenges such as missing action labels and distribution shift. Finally, we explore the intersection of LfV and reinforcement learning, highlighting how video-based learning can enhance RL algorithms and enable more efficient policy learning from visual data.
 
 % it is high-dimensional, noisy, and poorly labelled. Second, video lacks information critical to robotics, including action labels and low-level force and proprioceptive information. Moreover, there may be various distribution shifts between internet video and the robot domain.
@@ -12,10 +13,38 @@ We first review different approaches for extracting foundational knowledge from 
 
 \section{Extracting Foundational Knowledge from Internet Video}
 
+% The Answer to the first question of how to extract relevant knowledge from internet video is may be using techniques and datasets inspired by video foundation Models (FMs).
+
+Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video foundation models are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions, and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications.
+
+\begin{samepage}
+\cite{McCarthy_2025} says, Video FMs can be highly applicable for the following LfV use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
+\begin{itemize}
+    \item \texttt{Using pretrained FMs:} 
+    One important application of Video FMs is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video FM. 
+    
+    \item \texttt{Using techniques and datasets inspired by Video FMs:}
+    In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot FM can be directly trained by combining robot data with large-scale video inspired by video FMs techniques [251].
+\end{itemize}
+\end{samepage}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter5/media/VideoFoundationModellingForLfV}
+	\caption[Video Foundation Modelling for LfV]{Video foundation modelling for Learning from Videos \cite{McCarthy_2025}.}
+	\label{fig:VideoFoundationModellingForLfV}
+\end{figure}
+
+
+
 
 \subsection{Video Encoders}
+
+
+
 \subsection{Video Prediction Models}
 \subsection{Video-to-Text Models.}
+
 
 
 

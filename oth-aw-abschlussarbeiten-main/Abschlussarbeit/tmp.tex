@@ -182,3 +182,39 @@ environment or noise [104]. This can be problematic for methods that attempt to 
 video (Section 4.2.1). Furthermore, the stochastic nature and partial-
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Internet videos contain large amounts of semantic, physical, and behavioral information that can be useful for robotics. However, these videos are typically unlabeled and differ significantly from robot observations, making knowledge extraction challenging. Recent work addresses this problem using video foundation models (FMs), which are large deep learning models trained on large-scale internet video datasets. These models learn general video representations that can be transferred to robotics tasks through finetuning or adaptation. In addition, techniques developed for video FMs can be combined with robot data to improve representation learning and generalization. Current approaches mainly focus on video encoding, video prediction, and video-to-text generation methods.
+
+
+```latex id="w7h3pk"
+\texttt{Extracting Foundational Knowledge from Internet Video.}
+A central challenge in Learning from Video (LfV) is how to extract robotics-relevant knowledge from large-scale and heterogeneous internet video data. Unlike robot datasets, internet videos typically lack action labels and contain significant distribution shifts with respect to the downstream robotics domain. Nevertheless, such videos contain rich information about object interactions, physical behaviors, task structures, and human activities that can be valuable for robotic learning.
+
+Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promising direction for addressing this challenge. Video foundation models are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions, and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications.
+
+\texttt{Using pretrained FMs:} One important application of Video FMs is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video FM. 
+
+\texttt{Using techniques and datasets inspired by Video FMs:} In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot FM can be directly trained by combining robot data with large-scale video inspired by video FMs techniques [251].
+
+
+The success of foundation models in natural language processing and computer vision further motivates this direction. Similar to how text and image foundation models have improved reasoning, representation learning, and generalization in robotics, video foundation models may provide robots with richer knowledge about temporal dynamics, human behavior, and physical interactions. Consequently, extracting foundational knowledge from internet video is considered a key component for developing scalable and generalizable Learning from Video systems.
+```
+
+
+
+
+
+
+
