@@ -342,7 +342,7 @@ Although such videos typically do not contain direct robot actions, recent work 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter4/media/DataBottleneck}
-	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics}
+	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics. Source: \cite{McCarthy_2025}.}
 	\label{fig:DataBottleneck}
 \end{figure}
 
@@ -362,33 +362,41 @@ Although such videos typically do not contain direct robot actions, recent work 
 \end{itemize}
 
 
-\texttt{Goal of Learning from Video (LfV).} \cite{McCarthy_2025} says, the goal of LfV is to leverage our combined LfV dataset, $D = {D_{robot}, D_{video}}$, to obtain an improved policy $\pi(a_t | s_t)$ versus when learning from $D_{robot}$ alone.
+\texttt{Goal of Learning from Video (LfV).} LfV aims to exploit this abundance of video data to improve robotic learning. \cite{McCarthy_2025} says, the goal of LfV is to leverage our combined LfV dataset, $D = \{D_{robot}, D_{video}\}$, to obtain an improved policy $\pi(a_t | s_t)$ versus when learning from $D_{robot}$ alone. 
 
 
-
-LfV aims to exploit this abundance of video data to improve robotic learning. 
 % While robot datasets provide precise information about robot actions and control, video datasets contain high-level information about how tasks are performed in diverse real-world scenarios. Combining both sources of data can therefore help robotic systems learn beyond the limitations of traditional robot-only datasets.
 
-Roboter daten enthalten eher low-level und mid-level informationen. Low level Informationen sind auf den Roboter bezogen und enthalten information about the robot's actions, kräfte die auf den Roboter selbst wirken, bzw. in simulierten Umgebungen auftreten / in Simulationen können pysikalische daten von anderen sich in der Umgebung befindenden Objekten verfügbar sein, desweiteren . 
+Figure \ref{fig:DataBottleneck} illustrates the  data bottleneck in robotics. The x-axis represents the spectrum of behaviors that a generalist robot is expected to perform, while the y-axis reflects the different levels of information present in various data sources. The figure highlights that, although internet data encompasses a broader range of behaviors compared to specialized robot datasets, it often lacks the detailed, low-level information that is critical for robotic applications.  
+Ideally, for every relevant behavior, both low-level robot data and internet data would be available, allowing a model to establish connections across different information levels. However, as illustrated in Figure \ref{fig:DataBottleneck}, there is a significant lack of low-level robot data for many behaviors that are well represented in internet data (see ``Missing Info'' area). 
+% This gap in fine-grained information presents a major challenge for learning generalist robotic skills from diverse data sources.
+This absence of fine-grained information poses a significant challenge for generalizing robot learning beyond the limitations of available robot datasets. Overcoming this gap and effectively leveraging both broad internet data and precise robot data is a central objective in advancing LfV approaches \cite{McCarthy_2025}.
 
 
-\texttt{Low-level robot information.} 
-Low-level robot information refers to sensory and control signals that directly describe the robot's physical state, motion, and interaction with its environment. This includes, for instance, end-effector pose, joint positions, joint velocities, joint torques, and gripper state (e.g., open or closed). Additionally, low-level information includes information about the physical forces acting on the robot itself. In simulation environments, they may additionally include physical details of objects in the environment, such as contact forces or object dynamics.
 
-Such low-level information is essential for learning precise motor control tasks, including grasping, locomotion, and manipulation.
+ 
+% Low level Informationen sind auf den Roboter bezogen und enthalten information about the robot's actions, kräfte die auf den Roboter selbst wirken, bzw. in simulierten Umgebungen auftreten / in Simulationen können pysikalische daten von anderen sich in der Umgebung befindenden Objekten verfügbar sein, desweiteren. 
 
-\textbf{Proprioceptive information} refers to the robot's internal sense of its own body and movement. It includes data about the robot's end-effector pose which implicity inlcudes joint angles, joint velocities, and gripper configuration. This information is crucial for executing accurate and stable motions, as it allows the robot to understand its current state and adjust its actions accordingly. 
-A robot may visually observe a cup through a camera and wants to grasp it. Proprioceptive information tells the controller how to move the arm to the cup, which includes:
+\textbf{Information Levels:}
+Robot data primarily contains low-level and mid-level information, and can be collected from both real-world and simulation, with real-world data being more valuable. In contrast, internet data is typically richer in mid-level and high-level information. The following sections explain each information level in detail.
+
 \begin{itemize}
-	\item what is the current pose/state of the robot
-	\item how far the arm has moved,
-	\item whether the wrist is rotated correctly,
-	\item whether the gripper is aligned with the handle.
-\end{itemize}
+	\item \texttt{Low-level robot information.} 
+	Low-level robot information refers to sensory and control signals that directly describe the robot's physical state, motion, and interaction with its environment. This includes, for instance, end-effector pose, joint positions, joint velocities, joint torques, and gripper state (e.g., open or closed). Additionally, low-level information includes information about the physical forces acting on the robot itself. In simulation environments, they may additionally include physical details of objects in the environment, such as contact forces, object properties or object dynamics.
+	Such low-level information is essential for learning precise motor control tasks, including grasping, locomotion, and manipulation.
+
+	\textbf{Proprioceptive information} refers to the robot's internal sense of its own body and movement. It includes data about the robot's end-effector pose which implicity inlcudes joint angles, joint velocities, and gripper configuration. This information is crucial for executing accurate and stable motions, as it allows the robot to understand its current state and adjust its actions accordingly. 
+	A robot may visually observe a cup through a camera and wants to grasp it. Proprioceptive information tells the controller how to move the arm to the cup, which includes:
+	\begin{itemize}
+		\item what is the current pose/state of the robot
+		\item how far the arm has moved,
+		\item whether the wrist is rotated correctly,
+		\item whether the gripper is aligned with the handle.
+	\end{itemize}
 
 
-\textbf{Tactile data} refers to information obtained through physical contact between the robot and its environment. It is comparable to the human sense of touch. Common tactile signals include contact forces, pressure distributions, slip detection, surface texture information, and vibration signals. These measurements are typically acquired using sensors placed on robot grippers, fingertips, or other contact surfaces.
-For instance, during grasping, tactile sensors can indicate whether an object has been successfully grasped, whether it is slipping, or whether excessive force is being applied. This feedback is critical for maintaining stable and safe object manipulation.
+	\textbf{Tactile data} refers to information obtained through physical contact between the robot and its environment. It is comparable to the human sense of touch. Common tactile signals include contact forces, pressure distributions, slip detection, surface texture information, and vibration signals. These measurements are typically acquired using sensors placed on robot grippers, fingertips, or other contact surfaces.
+	For instance, during grasping, tactile sensors can indicate whether an object has been successfully grasped, whether it is slipping, or whether excessive force is being applied. This feedback is critical for maintaining stable and safe object manipulation.
 
 % This information is essential for tasks that require physical manipulation and interaction with objects, such as grasping, pushing, or opening doors.
 
@@ -406,28 +414,30 @@ For instance, during grasping, tactile sensors can indicate whether an object ha
 
 
 
-\texttt{Mid-level video information.}
-Mid-level video information refers to visual observations that capture the dynamics of objects, agents, and environments over time without providing explicit low-level control signals. In contrast to robot data, video data does not include direct information about actions or internal robot states. Instead, it provides sequences of RGB observations that encode how the visual scene evolves over time.
+	\item \texttt{Mid-level video information.}
+	Mid-level video information refers to visual observations that capture the dynamics of objects, agents, and environments over time without providing explicit low-level control signals. In contrast to robot data, video data does not include direct information about actions or internal robot states. Instead, it provides sequences of RGB observations that encode how the visual scene evolves over time.
 
-This type of information includes visual dynamics such as object motion, changes in spatial configurations, and interactions between entities in the scene. For example, videos can capture how objects are moved, grasped, or manipulated by humans, as well as how these actions affect the surrounding environment. Although no explicit force or control signals are available, the physical behavior of objects (e.g., sliding, rotating, or deforming) can often be inferred implicitly from the visual changes across frames.
+	This type of information includes visual dynamics such as object motion, changes in spatial configurations, and interactions between entities in the scene. For example, videos can capture how objects are moved, grasped, or manipulated by humans, as well as how these actions affect the surrounding environment. Although no explicit force or control signals are available, the physical behavior of objects (e.g., sliding, rotating, or deforming) can often be inferred implicitly from the visual changes across frames.
 
-A key aspect of mid-level video information is that it encodes \textbf{physical behavior at a perceptual level}. While it does not provide direct measurements of forces or torques, it still reflects underlying physical principles such as gravity, friction, and object permanence through observable motion patterns. For instance, a video of a person pouring water into a glass implicitly contains information about liquid flow dynamics and object interaction constraints.
+	A key aspect of mid-level video information is that it encodes \textbf{physical behavior at a perceptual level}. While it does not provide direct measurements of forces or torques, it still reflects underlying physical principles such as gravity, friction, and object permanence through observable motion patterns. For instance, a video of a person pouring water into a glass implicitly contains information about liquid flow dynamics and object interaction constraints.
 
-In addition, mid-level video information provides a natural source for \textbf{language grounding}. Many video datasets are paired with textual annotations, captions, or narration, which link visual observations to semantic concepts. This allows models to associate language with observed actions and events, such as "opening a door", "placing an object on a table", or "picking up a cup". Through such alignment, video data helps bridge the gap between perception and high-level task understanding, enabling learning of more abstract representations that go beyond purely visual dynamics.
+	In addition, mid-level video information provides a natural source for \textbf{language grounding}. Many video datasets are paired with textual annotations, captions, or narration, which link visual observations to semantic concepts. This allows models to associate language with observed actions and events, such as "opening a door", "placing an object on a table", or "picking up a cup". Through such alignment, video data helps bridge the gap between perception and high-level task understanding, enabling learning of more abstract representations that go beyond purely visual dynamics.
 
 
 % Mid-level video information refers to the semantic and structural information that can be extracted from video data, which is relevant for understanding and performing tasks. This includes information about object interactions, human behaviors, task execution patterns, and the underlying structure of activities. For example, videos can provide insights into how objects are manipulated, how humans perform tasks, and how different actions are sequenced to achieve a goal.
 
 
-\texttt{High-level language information.}
-High-level language information refers to abstract semantic descriptions of tasks, concepts, and behaviors expressed in natural language. In contrast to visual or robot-centric signals, language does not encode direct sensory observations or motor commands, but instead provides structured knowledge about goals, constraints, and task structures. This includes descriptions of concepts (e.g., objects and their properties), relational knowledge, and symbolic abstractions of actions and environments.
+	\item \texttt{High-level language information.}
+	High-level language information refers to abstract semantic descriptions of tasks, concepts, and behaviors expressed in natural language. In contrast to visual or robot-centric signals, language does not encode direct sensory observations or motor commands, but instead provides structured knowledge about goals, constraints, and task structures. This includes descriptions of concepts (e.g., objects and their properties), relational knowledge, and symbolic abstractions of actions and environments.
 
-Such information is particularly important for representing task intent and enabling generalization across different embodiments and environments. Language can describe tasks at multiple levels of abstraction, ranging from low-level action descriptions (e.g., ``pick up the cup'') to high-level procedural or goal-oriented instructions (e.g., ``prepare a table for breakfast''). This hierarchical structure allows models to connect concrete behaviors with more abstract task specifications.
+	Such information is particularly important for representing task intent and enabling generalization across different embodiments and environments. Language can describe tasks at multiple levels of abstraction, ranging from low-level action descriptions (e.g., ``pick up the cup'') to high-level procedural or goal-oriented instructions (e.g., ``prepare a table for breakfast''). This hierarchical structure allows models to connect concrete behaviors with more abstract task specifications.
 
 
-In addition, language plays a central role in \textbf{planning and reasoning}. It provides a medium for expressing sequential structure, subgoals, and dependencies between actions. For example, a task such as ``clean the table'' can be decomposed into intermediate steps such as removing objects, wiping the surface, and reorganizing items. Such decompositions reflect implicit reasoning about task structure and enable more systematic policy learning.
+	In addition, language plays a central role in \textbf{planning and reasoning}. It provides a medium for expressing sequential structure, subgoals, and dependencies between actions. For example, a task such as ``clean the table'' can be decomposed into intermediate steps such as removing objects, wiping the surface, and reorganizing items. Such decompositions reflect implicit reasoning about task structure and enable more systematic policy learning.
 
-Furthermore, language serves as a bridge for incorporating prior knowledge into robotic systems. Through textual descriptions, models can access commonsense knowledge about object affordances, physical interactions, and typical human behaviors. This enables improved generalization to unseen tasks by leveraging semantic relationships that are not explicitly present in robot or video data alone.
+	Furthermore, language serves as a bridge for incorporating prior knowledge into robotic systems. Through textual descriptions, models can access commonsense knowledge about object affordances, physical interactions, and typical human behaviors. This enables improved generalization to unseen tasks by leveraging semantic relationships that are not explicitly present in robot or video data alone.
+\end{itemize}
+
 
 % The objective of Learning from Video (LfV) is to utilize the combined dataset
 % \[
