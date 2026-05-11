@@ -39,7 +39,13 @@
 \contentsline {subsection}{\numberline {4.2.4}Reduce the amount of robot data}{25}{subsection.4.2.4}%
 \contentsline {subsection}{\numberline {4.2.5}Challenges of Video Data}{30}{subsection.4.2.5}%
 \contentsline {subsection}{\numberline {4.2.6}Other Paths to Generalist Robots.}{32}{subsection.4.2.6}%
-\contentsline {chapter}{\numberline {5}5}{33}{chapter.5}%
+\contentsline {chapter}{\numberline {5}Learning from Video Techniques}{33}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Extracting Foundational Knowledge from Internet Video}{33}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Video Encoders}{33}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Video Prediction Models}{33}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Video-to-Text Models.}{33}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}{33}{section.5.2}%
+\contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{33}{section.5.3}%
 \contentsline {chapter}{Literaturverzeichnis}{34}{section*.19}%
 \contentsline {chapter}{Abbildungsverzeichnis}{37}{section*.21}%
 \contentsline {chapter}{Tabellenverzeichnis}{38}{section*.23}%

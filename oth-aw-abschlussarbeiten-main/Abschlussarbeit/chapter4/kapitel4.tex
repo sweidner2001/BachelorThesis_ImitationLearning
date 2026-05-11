@@ -463,7 +463,7 @@ Robot data primarily contains low-level and mid-level information, and can be co
 	
 	% of large-scale internet video data, which provides rich information about human behaviors, object interactions, and task execution in diverse environments.
 
-\subsection{Challenges of Video Data}
+\subsection{Challenges of Video Data} \label{sec:ChallengesOfVideoData}
 
 
 \begin{figure}[!ht]
@@ -472,6 +472,10 @@ Robot data primarily contains low-level and mid-level information, and can be co
 	\caption[Key Challenges in Learning from Videos]{Key challenges in Learning from Videos \cite{McCarthy_2025}.}
 	\label{fig:KeyChallengesInLfV}
 \end{figure}
+
+
+
+% A key advantage of video-based instructions is that they naturally capture complex, multi-step behaviors and temporal dependencies. However, they also introduce challenges such as high data requirements, sensitivity to visual variations, and the need to extract relevant features from long and potentially noisy observation sequences.
 
 Although internet-scale video data offers significant potential for robotic learning, it also introduces several fundamental challenges, see Figure \ref{fig:KeyChallengesInLfV}. 
 In contrast to robot interaction datasets, videos are typically high-dimensional, noisy, weakly labeled, highly diverse and lacks on low-level information. Extracting meaningful representations and task-relevant information from such data is therefore a non-trivial problem.
@@ -559,18 +563,14 @@ LfV will solve the data bottleneck by augmenting traditional robot data with lar
 
 
 
-Videos are a challenging data modality: it is high-dimensional, noisy, and poorly labelled. Second, video
-lacks information critical to robotics, including action labels and low-level force and proprioceptive information.
-Moreover, there may be various distribution shifts between internet video and the robot domain. Given these
-challenges, two key questions for LfV research are: (i) ‘How to extract relevant knowledge from internet video?’
-and (ii) ‘How to apply video-extracted knowledge to robotics?’.
 
 
 
 
 
 
-% A key advantage of video-based instructions is that they naturally capture complex, multi-step behaviors and temporal dependencies. However, they also introduce challenges such as high data requirements, sensitivity to visual variations, and the need to extract relevant features from long and potentially noisy observation sequences.
+
+
 
 
 % Imitation learning (IL) is a powerful approach for training agents to perform complex tasks by learning from demonstrations provided by an expert. The main advantage of IL is that it can leverage large datasets of human demonstrations, which are often easier to collect than reward signals. This allows IL to learn complex behaviors that are difficult to specify with a reward function, and can be more sample efficient than reinforcement learning, especially in high-dimensional state spaces.
