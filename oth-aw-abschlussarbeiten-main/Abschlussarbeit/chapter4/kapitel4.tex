@@ -362,20 +362,33 @@ Although such videos typically do not contain direct robot actions, recent work 
 \end{itemize}
 
 
-\texttt{Goal of Learning from Video (LfV).} LfV aims to exploit this abundance of video data to improve robotic learning. \cite{McCarthy_2025} says, the goal of LfV is to leverage our combined LfV dataset, $D = \{D_{robot}, D_{video}\}$, to obtain an improved policy $\pi(a_t | s_t)$ versus when learning from $D_{robot}$ alone. 
-
-
-% While robot datasets provide precise information about robot actions and control, video datasets contain high-level information about how tasks are performed in diverse real-world scenarios. Combining both sources of data can therefore help robotic systems learn beyond the limitations of traditional robot-only datasets.
-
-Figure \ref{fig:DataBottleneck} illustrates the  data bottleneck in robotics. The x-axis represents the spectrum of behaviors that a generalist robot is expected to perform, while the y-axis reflects the different levels of information present in various data sources. The figure highlights that, although internet data encompasses a broader range of behaviors compared to specialized robot datasets, it often lacks the detailed, low-level information that is critical for robotic applications.  
+Figure \ref{fig:DataBottleneck} illustrates the  data bottleneck in robotics. The x-axis represents the spectrum of behaviors that a generalist robot is expected to perform, while the y-axis reflects the different levels of information present in various data sources. The figure highlights that, although internet data encompasses a broader range of behaviors in diverse real-world scenarios compared to specialized robot datasets, it often lacks the detailed, low-level information that is critical for robotic applications.  
 Ideally, for every relevant behavior, both low-level robot data and internet data would be available, allowing a model to establish connections across different information levels. However, as illustrated in Figure \ref{fig:DataBottleneck}, there is a significant lack of low-level robot data for many behaviors that are well represented in internet data (see ``Missing Info'' area). 
 % This gap in fine-grained information presents a major challenge for learning generalist robotic skills from diverse data sources.
 This absence of fine-grained information poses a significant challenge for generalizing robot learning beyond the limitations of available robot datasets. Overcoming this gap and effectively leveraging both broad internet data and precise robot data is a central objective in advancing LfV approaches \cite{McCarthy_2025}.
 
 
 
- 
-% Low level Informationen sind auf den Roboter bezogen und enthalten information about the robot's actions, kräfte die auf den Roboter selbst wirken, bzw. in simulierten Umgebungen auftreten / in Simulationen können pysikalische daten von anderen sich in der Umgebung befindenden Objekten verfügbar sein, desweiteren. 
+\texttt{Goal of Learning from Video (LfV).} LfV aims to exploit this abundance of video data to improve robotic learning. \cite{McCarthy_2025} says, the goal of LfV is to leverage our combined LfV dataset, $D = \{D_{robot}, D_{video}\}$, to obtain an improved policy $\pi(a_t | s_t)$ versus when learning from $D_{robot}$ alone. 
+
+
+% While robot datasets provide precise information about robot actions and control, video datasets contain high-level information about how tasks are performed in diverse real-world scenarios. Combining both sources of data can therefore help robotic systems learn beyond the limitations of traditional robot-only datasets.
+
+
+\texttt{Improvements of LfV.} What can we expect from combining both data sources, $D_{\text{robot}}$ and $D_{\text{video}}$, instead of using only $D_{\text{robot}}$? 
+
+\texttt{Generalization beyond $D_{\text{robot}}$}
+One important improvement of Learning from Video (LfV) is the potential to generalize beyond the limited set of tasks contained in the robot dataset $D_{\text{robot}}$. While robot data primarily provides information about low-level robotic skills, such as grasping or locomotion, internet-scale video data contains a much broader variety of tasks and human behaviors. By combining both data sources, models may learn how low-level robot actions relate to higher-level task structures observed in videos. As a result, an LfV system may be capable of solving tasks that are not explicitly present in $D_{\text{robot}}$ but are represented within $D_{\text{video}}$.
+
+
+\texttt{Emergent Capabilities.}
+In natural language processing and computer vision, the availability of large-scale internet data has led to significant improvements and, in some cases, the emergence of capabilities that were not explicitly trained for. Similar progress is expected in robotics. By combining robot interaction data with internet-scale video data with language annotations, models may learn to connect low-level robotic skills with rich semantic abstractions and higher-level world knowledge obtained from textual data. This combination has the potential to improve generalization, task understanding, and the ability to solve previously unseen tasks.
+
+\texttt{Improvements in-distribution of $D_{\text{robot}}$.}
+Furthermore, video data may also improve performance on tasks that are already represented within the robot dataset $D_{\text{robot}}$. Since robot demonstrations are expensive to collect, additional video data can improve data efficiency and help models learn more robust visual and task representations. As a result, Learning from Video (LfV) approaches may achieve higher task success rates and overall better performance compared to approaches trained solely on robot interaction data.
+
+
+
 
 \textbf{Information Levels:}
 Robot data primarily contains low-level and mid-level information, and can be collected from both real-world and simulation, with real-world data being more valuable. In contrast, internet data is typically richer in mid-level and high-level information. The following sections explain each information level in detail.
@@ -450,18 +463,80 @@ Robot data primarily contains low-level and mid-level information, and can be co
 	
 	% of large-scale internet video data, which provides rich information about human behaviors, object interactions, and task execution in diverse environments.
 
-\subsection{Challenges Video Data}
-First, video is a challenging data modality: it is high-dimensional, noisy, and poorly labelled. Second, video
-lacks information critical to robotics, including action labels and low-level force and proprioceptive information.
-Moreover, there may be various distribution shifts between internet video and the robot domain. Given these
-challenges, two key questions for LfV research are: (i) ‘How to extract relevant knowledge from internet video?’
-and (ii) ‘How to apply video-extracted knowledge to robotics?’.
+\subsection{Challenges of Video Data}
 
-Existing LfV research has shown promising signs of life, and this is a field ripe for further progress. Of course,
-it is unclear whether scaling deep learning will take us all the way to general-purpose robots (Section 6.4), and
-there are other research directions that should be pursued in parallel (Section 2). Nevertheless, with sufficient
-effort and innovation, it seems likely that scaling—with the help of internet video data—can provide significant
-gains in the near-future
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter4/media/KeyChallengesInLfV}
+	\caption[Key Challenges in Learning from Videos]{Key challenges in Learning from Videos \cite{McCarthy_2025}.}
+	\label{fig:KeyChallengesInLfV}
+\end{figure}
+
+Although internet-scale video data offers significant potential for robotic learning, it also introduces several fundamental challenges, see Figure \ref{fig:KeyChallengesInLfV}. 
+In contrast to robot interaction datasets, videos are typically high-dimensional, noisy, weakly labeled, highly diverse and lacks on low-level information. Extracting meaningful representations and task-relevant information from such data is therefore a non-trivial problem.
+
+
+\texttt{Missing Action Labels.}
+One major limitation of raw video data is the absence of explicit action labels required by many imitation learning and offline reinforcement learning approaches. While videos provide rich visual observations of behaviors, they typically do not contain the low-level control commands executed during the task. Retrospectively inferring robot actions from human videos is challenging, since human motions often cannot be directly mapped to the action space of a robotic system. Furthermore, videos usually lack additional reinforcement learning signals such as reward annotations, goal labels, or start-of- and end-of-episode boundaries.
+
+
+\texttt{Missing Low-level Information.}
+Internet videos also lack on low-level sensory information. Skillful behaviors often depend on tactile feedback, force measurements, proprioceptive signals, or depth information, which are generally not observable in classical RGB video. Although videos may capture high-level task structure and object interactions, they do not explicitly provide the fine-grained physical information necessary for learning accurate motor control and stable interaction with the environment.
+
+
+\texttt{Distribution Shift.}
+Another challenge arises from the distribution shift between internet videos and the downstream robotics domain. Differences may occur in camera viewpoints, environments, embodiments, object appearances, and task distributions. The Human demonstrations in videos may contain behaviors that are inefficient, ambiguous, or irrelevant for robotic execution.
+
+In particular, Learning from Video (LfV) must address the embodiment gap between humans and robots. Human operators and robotic systems often differ significantly in their kinematics, morphology, and control capabilities. Furthermore, there exists a visual gap between the human actor performing the task in the video and the robotic embodiment that is expected to execute the task. As a result, transferring observed human motions directly to robot actions is highly non-trivial and requires models to learn embodiment-invariant task representations.
+
+Additionally, some important robotic tasks, such as specialized industrial manipulation tasks, may be difficult to learn because they are underrepresented in publicly available video datasets.
+
+\texttt{High-dimensionality, Noise, and Redundancy.}
+Video data is inherently high-dimensional and often contains substantial amounts of irrelevant or redundant information. Background changes, camera motion, occlusions, and unrelated actions can make it difficult for models to identify task-relevant features, making it challenging to learn robust representations. Furthermore, the sheer volume of video data can lead to computational challenges in processing and learning from such large datasets.
+
+
+\texttt{Controllability, Stochasticity, and Partial Observability.}
+In unlabeled video data, it can be difficult for models to determine which changes in the environment are caused by the agent's actions and which originate from external factors or environmental noise. This ambiguity makes it challenging to infer action information directly from video observations. Furthermore, real-world environments are frequently stochastic and only partially observable, meaning that important state information may be hidden from the camera viewpoint. As a result, predicting future states or accurately modeling action consequences from video alone becomes a difficult problem.
+
+
+None of these challenges have yet been fully solved. In the following sections, we will discuss some possible ways to address these issues coming with internet video data. Nevertheless it seems likely that scaling — with the help of internet video data — can provide significant
+gains in robotic systems within the near-future \cite{McCarthy_2025}.
+
+
+
+% Existing LfV research has shown promising signs of life, and this is a field ripe for further progress. Of course,
+% it is unclear whether scaling deep learning will take us all the way to general-purpose robots (Section 6.4), and
+% there are other research directions that should be pursued in parallel (Section 2). Nevertheless, with sufficient
+% effort and innovation, it seems likely that scaling—with the help of internet video data—can provide significant
+% gains in the near-future
+
+
+
+% **Missing Action Labels**
+
+% - **video** lacks **information** critical to robotics, including action labels and low-level force and proprioceptive information
+
+% **Missing Low-level Information**
+
+% - For certain skillful behaviours, robots require low-level percepts such as tactile sensing, forces, proprioception, or depth sensing
+%     - data not explicitly available in internet video.
+
+% **Distribution-shift**
+
+% - various distribution shifts between internet video and the robot domain.
+% - shifts between an internet video dataset and the downstream robot domain.
+%     - physical embodiments, camera viewpoints, tasks, and environments
+% - Humans in videos may perform behaviours which are sub-optimal or irrelevant
+% - useful tasks and behaviours may be underrepresented in internet video
+% - **embodiments** from robots very **different from that of a human may prove more effective**
+
+% **High-dimensionality, Noise, and Redundancy**
+
+% - challenging to extract meaningful information and representations from video data
+% - some important actions and tasks may be underrepresented in the video dataset
+%     - e.g., specialized industrial tasks
+%     - the robot may need to perform tasks not commonly performed by humans
 
 
 \subsection{Other Paths to Generalist Robots.}
@@ -484,6 +559,11 @@ LfV will solve the data bottleneck by augmenting traditional robot data with lar
 
 
 
+Videos are a challenging data modality: it is high-dimensional, noisy, and poorly labelled. Second, video
+lacks information critical to robotics, including action labels and low-level force and proprioceptive information.
+Moreover, there may be various distribution shifts between internet video and the robot domain. Given these
+challenges, two key questions for LfV research are: (i) ‘How to extract relevant knowledge from internet video?’
+and (ii) ‘How to apply video-extracted knowledge to robotics?’.
 
 
 

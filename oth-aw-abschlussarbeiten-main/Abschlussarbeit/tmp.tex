@@ -125,4 +125,60 @@ For instance, during grasping, tactile sensors can indicate whether an object ha
 
 
 
+\underline{Improvements of LfV.}
+
+Generalization beyond 𝐷robot. LfV offers the exciting possibility of improved generalization beyond narrow
+robot datasets, 𝐷robot, to the full space of tasks covered in the video dataset, 𝐷video [75]. An argument for why
+this could be the case is as follows. First, consider a 𝐷robot that has good coverage over the low-level skills or
+‘atomic’ actions required from the robot (e.g., specific grasping motions or locomotion skills) [53]. Now consider
+a task unseen in 𝐷robot but seen in 𝐷video. Our combined LfV dataset (𝐷LfV = {𝐷robot, 𝐷video}) may contain most
+information required to complete the task. 𝐷robot provides information regarding how to execute the low-level
+robot skills, whilst the human actions in 𝐷video provides higher-level information regarding how to complete the
+overall task (e.g., visual information regarding required movements and steps). Thus, a suitable LfV method may
+be capable of leveraging 𝐷video to generalise beyond 𝐷robot and solve the task. There is preliminary evidence of
+such generalization in LfV-related literature [37, 67, 289, 278]. Figure 2 explores this generalization setting in
+more detail
+
+
+
+Emergent Capabilities. Learning from internet-scale video may yield capabilities qualitatively beyond what can
+be obtained when learning only from a narrow 𝐷robot. We expect this for two reasons. First, in other domains large
+quantities of internet data have allowed for unexpected ‘emergent’ capabilities [212, 39]. Second, diverse internet
+video paired with language annotations offers a path towards stitching together the lower-level knowledge
+obtained from robot and video data with the rich abstractions and world knowledge that can be obtained from
+text data [193].
+Improvements in-distribution of 𝐷robot. Finally, we also expect video data to yield improvements in tasks that
+are in-distribution of the robot dataset. Utilising a large video dataset can allow for improved data-efficiency
+with respect to 𝐷robot [188]. Additionally, LfV approaches may obtain higher absolute task performance (e.g.,
+higher success rates) in settings in-distribution of 𝐷robot, versus non-LfV approaches [289].
+
+
+
+
+
+
+
+\texttt{Challenges of Video Modalities.}
+Although internet-scale video data offers significant potential for robotic learning, it also introduces several fundamental challenges. In contrast to robot interaction datasets, videos are typically high-dimensional, noisy, weakly labeled, and highly diverse. Extracting meaningful representations and task-relevant information from such data is therefore a non-trivial problem.
+
+\texttt{Missing Action Labels.}
+One major limitation of raw video data is the absence of explicit action labels required by many imitation learning and offline reinforcement learning approaches. While videos provide rich visual observations of behaviors, they typically do not contain the low-level control commands executed during the task. Retrospectively inferring robot actions from human videos is challenging, since human motions often cannot be directly mapped to the action space of a robotic system. Furthermore, videos usually lack additional reinforcement learning signals such as reward annotations, goal labels, or start-of- and end-of-episode boundaries.
+
+
+
+Another challenge arises from the distribution shift between internet videos and the downstream robotics domain. Differences may occur in camera viewpoints, environments, embodiments, object appearances, and task distributions. In particular, internet videos predominantly contain human demonstrations, while the downstream agent is often a robot with different kinematics, morphology, and control capabilities. This embodiment gap makes it difficult to directly transfer observed human motions to robot actions. Human demonstrations may additionally contain behaviors that are inefficient, ambiguous, or irrelevant for robotic execution. Furthermore, some important robotic tasks, such as specialized industrial manipulation tasks, may be underrepresented in publicly available video datasets.
+
+
+
+\texttt{Distribution Shift.}
+Another challenge arises from the distribution shift between internet videos and the downstream robotics domain. Differences may occur in camera viewpoints, environments, embodiments, object appearances, and task distributions. The Human demonstrations in videos may contain behaviors that are inefficient, ambiguous, or irrelevant for robotic execution. Auch muss die embodiments gap bezüglich der Ausführungsfrom zwischen Mensch und roboter berücksichtigt werden, da der roboter different kinematics, morphology, and control capabilities hat. Und es muss die visuelle Lücke zwischen den Task-Operater im Video und den Roboterarm geschlossen werden. The embodiment gap makes it difficult to directly transfer observed human motions to robot actions
+Additionally, some important robotic tasks, such as specialized industrial manipulation tasks, may be underrepresented in publicly available video datasets. These discrepancies make transferring knowledge from human videos to robotic systems particularly difficult.
+
+
+
+Controllability, Stochasticity, and Partial Observability. In unlabelled video, it can be difficult to disentangle
+which parts of a transition are affected (i.e., controlled) by a specific agent’s actions or which are due to the external
+environment or noise [104]. This can be problematic for methods that attempt to extract action information from
+video (Section 4.2.1). Furthermore, the stochastic nature and partial-
+
 
