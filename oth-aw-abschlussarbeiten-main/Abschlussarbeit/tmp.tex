@@ -299,3 +299,185 @@ A common contrastive objective is the InfoNCE loss:
 }.
 \]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Video Prediction Models}
+
+
+\paragraph{Methods.}
+Modern video prediction approaches are dominated by diffusion models, autoregressive transformers, and masked transformers.
+
+\textbf{Diffusion models} generate videos via iterative denoising and are effective at modeling complex, high-dimensional continuous distributions. However, they suffer from slow sampling and limited long-horizon consistency. Efficiency is improved by operating in latent spaces rather than pixel space, and by leveraging large-scale image pretraining. Recent methods also explore direct full-sequence generation to improve temporal coherence.
+
+
+\textbf{Autoregressive and masked transformers} operate in discrete latent spaces, typically obtained via vector-quantized autoencoders (VQ-AE). Autoregressive models factorize video generation sequentially, which leads to exposure bias and error accumulation over long horizons. Masked transformers instead predict missing tokens in parallel using iterative refinement (e.g., MaskGIT-style decoding), offering improved efficiency and reduced drift, making them attractive for long-horizon robotics tasks.
+
+\textbf{Conditioning mechanisms} are critical for controllability. VPMs can be conditioned on actions, language, or goal images, enabling structured control over generated futures:
+\[
+p(\tau \mid c).
+\]
+Action conditioning enables counterfactual simulation of control strategies, language conditioning supports high-level task specification, and image conditioning enables goal-directed prediction. In robotics, such conditioning effectively turns video prediction models into controllable world models, bridging perception, planning, and imitation learning.
+
+
+
+
+
+
+
+```latex
+\subsection{Video Prediction Models}
+
+Video prediction models (VPMs) aim to learn a predictive distribution over future visual observations conditioned on past context. The standard formulation is next-frame prediction:
+\[
+p(o_{t+1} \mid o_{t-k:t}),
+\]
+while more generally VPMs can be expressed as conditional video generation models:
+\[
+p(\tau \mid c),
+\]
+where $\tau$ denotes a video sequence and $c$ represents conditioning information such as past observations, actions, language instructions, or goal images. When trained on large-scale internet video data, these models learn rich priors over physical dynamics, object interactions, and human behavior. As a result, they provide a useful foundation for downstream robotic learning tasks, particularly imitation learning and model-based control.
+
+\subsubsection{Methods}
+
+\paragraph{General Overview of Video Prediction.}
+Video prediction models aim to learn a mapping from past observations (and optionally actions) to future video sequences. Let
+\begin{itemize}
+    \item $X = o_{t-k:t}$ denote observed video frames,
+    \item $A = a_{t-k:t}$ denote optional action inputs,
+    \item $Y = o_{t+1:t+T}$ denote future frames to be predicted.
+\end{itemize}
+
+The learning objective is to model:
+\[
+p(Y \mid X, A).
+\]
+
+During training, the model learns to predict future visual outcomes from past context, either in pixel space or in a learned latent space:
+\[
+(X, A) \rightarrow Y.
+\]
+
+\paragraph{Diffusion Models.}
+Diffusion-based video prediction models generate future frames via iterative denoising. They are particularly effective at modeling complex continuous distributions and producing high-fidelity samples. However, they suffer from two main limitations: slow sampling speed and difficulty maintaining long-horizon temporal consistency.
+
+To improve efficiency, many approaches perform diffusion in a learned latent space rather than pixel space. This reduces computational cost while preserving semantic structure. In addition, training often leverages large-scale image datasets alongside video data to improve visual quality and generalization.
+
+\paragraph{Autoregressive and Masked Transformer Models.}
+Transformer-based approaches typically operate in a discrete latent space learned via vector-quantized autoencoders (VQ-AE). This provides a tokenized representation of video that is suitable for sequence modeling.
+
+Autoregressive models factorize the joint distribution as:
+\[
+p(x) = \prod_t p(x_t \mid x_{<t}),
+\]
+and generate tokens sequentially. While expressive, these models suffer from exposure bias, where errors accumulate over long rollouts due to conditioning on previous predictions.
+
+Masked transformer models instead predict missing tokens in parallel and iteratively refine the output (e.g., MaskGIT-style decoding). Compared to autoregressive approaches, masked models are more computationally efficient and reduce temporal drift, making them more suitable for long-horizon video prediction in robotics.
+
+\paragraph{Conditioning Mechanisms.}
+Conditioning plays a central role in simplifying video prediction and enabling controllability, which is crucial for robotic applications. In general, VPMs model:
+\[
+p(\tau \mid c),
+\]
+where different conditioning signals define different control interfaces.
+
+Common conditioning modalities include action conditioning, language conditioning, and goal image conditioning. Action conditioning enables simulation of alternative control strategies, language conditioning provides a flexible interface for task specification, and goal conditioning enables direct prediction of task-aligned future outcomes. 
+
+From a robotics perspective, conditioning effectively turns video prediction models into controllable world models, bridging perception, planning, and imitation learning.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+In diffusion-based video prediction, future video frames are generated by iteratively denoising a noisy representation of the target video sequence. During training, Gaussian noise is progressively added to real future observations, and the model learns to reverse this corruption process conditioned on context information such as previous frames, actions, or language instructions.
+
+In pixel-space diffusion, noise is added directly to raw video frames. In latent diffusion models, the video frames are first encoded into a lower-dimensional latent representation, and and diffusion is performed in this compressed latent space instead of directly on pixels. 
+
+The denoised latent representation is then decoded back into video frames. Operating in latent space reduces computational cost and removes low-level pixel redundancy while preserving the semantic and temporal structure of the video.
+
+
+During inference, diffusion-based video prediction models start from a randomly sampled noisy representation and iteratively denoise it into a plausible future video sequence. The denoising process is conditioned on contextual information such as previous observations, actions, or language instructions. In latent diffusion models, this iterative generation process is performed in a compressed latent space rather than directly in pixel space, after which a decoder reconstructs the final video frames.
+
+
+
+
+\paragraph{Diffusion Models.}
+Diffusion-based video prediction models generate future frames via iterative denoising a latent representation or the raw pixel of a video. They are particularly effective at modeling complex continuous distributions and producing high-fidelity samples. However, they suffer from two main limitations: slow sampling speed and difficulty maintaining long-horizon temporal consistency.
+
+To improve efficiency, many approaches perform diffusion in a learned latent space rather than pixel space. This reduces computational cost while preserving semantic structure. In addition, training often leverages large-scale image datasets alongside video data to improve visual quality and generalization.
+
+
+
+
+
+
+\paragraph{Autoregressive and Masked Transformer Models.}
+Autoregressive and masked transformer models provide an alternative approach to video prediction compared to diffusion models. Rather than generating future frames through iterative denoising, transformer-based approaches model video as a sequence of discrete tokens, typically obtained from a vector-quantized autoencoder (VQ-AE). 
+
+Autoregressive transformers generate future tokens sequentially by predicting the next token conditioned on previously generated tokens. While effective at modeling temporal dependencies, prediction errors can accumulate over long horizons, leading to temporal drift. In contrast, masked transformer models predict multiple masked tokens in parallel and iteratively refine the generated sequence, improving computational efficiency and reducing long-horizon error accumulation.
+
+Compared to diffusion models, transformer-based approaches generally require fewer inference steps and can therefore achieve faster generation. However, diffusion models often produce higher visual fidelity and better capture complex continuous distributions.
+
+
+\paragraph{Autoregressive and Masked Transformer Models.}
+Rather than generating future frames through iterative denoising like diffusion models, transformer-based approaches model videos as a sequence of discrete tokens, typically obtained from a vector-quantized autoencoder (VQ-AE).
+
+Autoregressive transformers generate future tokens sequentially by predicting the next token conditioned on previously generated tokens. While effective at modeling temporal dependencies, small prediction errors can accumulate over long horizons, leading to temporal drift and reduced generation quality. 
+Masked transformer models instead predict multiple masked tokens in parallel and iteratively refine the generated sequence, improving computational efficiency and reducing error accumulation compared to autoregressive decoding.
+
+Compared to diffusion models, transformer-based approaches generally require fewer inference steps and can therefore achieve faster generation. Diffusion models, however, often produce higher visual fidelity and better model complex continuous distributions, although they can also struggle to maintain temporal consistency during long-horizon video generation.
+
+
+
+Transformer-based video prediction models typically operate on discrete visual tokens rather than directly on raw pixels. To obtain these tokens, the video frames are first compressed using a Vector-Quantized Autoencoder (VQ-AE). The encoder maps the input video into a lower-dimensional latent representation, which is then quantized by assigning each latent feature to the nearest entry in a learned codebook of discrete embeddings. As a result, the video can be represented as a sequence of discrete visual tokens, analogous to words in natural language processing.
+
+Autoregressive transformer models generate future video tokens sequentially by predicting the next token conditioned on all previously generated tokens. This allows the model to capture temporal dependencies in video sequences. However, because each prediction depends on previous generated outputs, small prediction errors can accumulate over long horizons, leading to temporal drift and degraded generation quality.
+
+Masked transformer models address this limitation by masking subsets of video tokens and predicting multiple missing tokens in parallel instead of generating them strictly one-by-one. The model iteratively refines the masked predictions until a complete video sequence is reconstructed. Compared to autoregressive decoding, masked transformers improve computational efficiency and reduce long-horizon error accumulation.
+
+
+Transformer-based video prediction models typically operate on discrete visual tokens rather than directly on raw pixels. To obtain these tokens, the video frames are first compressed using a Vector-Quantized Autoencoder (VQ-AE). The encoder maps the input video into a lower-dimensional continuous latent representation. These latent features are then quantized by replacing each feature vector with the nearest embedding vector from a learned codebook. The selected codebook indices form a discrete token representation of the video, analogous to word tokens in natural language processing.
+
+Autoregressive transformer models generate future video tokens sequentially by predicting the next token conditioned on all previously generated tokens.
+ This allows the model to capture temporal dependencies in video sequences. However, because each prediction depends on previous generated outputs, small prediction errors can accumulate over long horizons, leading to temporal drift and degraded generation quality.
+
+Masked transformer models address this limitation by masking subsets of video tokens and predicting multiple missing tokens in parallel instead of generating them strictly one-by-one. The model iteratively refines the masked predictions until a complete video sequence is reconstructed. 
+During inference, the model can be conditioned on a short history of recent camera observations from the robot environment, which are encoded into visible tokens, while the tokens corresponding to future time steps are initially masked. The model then predicts the missing future tokens for the entire horizon in parallel and iteratively refines these predictions until a coherent future video sequence is obtained.
+The model can also be conditioned on additional inputs such as language instructions, goal images, or robot state information, allowing it to generate future video predictions that are aligned with a desired task or behavior.
+Compared to autoregressive decoding, masked transformers improve computational efficiency and reduce long-horizon error accumulation.
