@@ -218,3 +218,84 @@ The success of foundation models in natural language processing and computer vis
 
 
 
+
+
+
+
+\paragraph{Overview of Video Representation Learning}
+
+Video representation learning aims to learn a video encoder 
+$p(z \mid X)$ that maps a video clip $X$ to a latent representation $z$. 
+The learned representation should capture semantic and temporal information 
+useful for downstream tasks such as robotic control and imitation learning.
+
+Let
+\begin{itemize}
+    \item $X$ denote a video clip,
+    \item $\bar X$ denote a video clip paired with additional information 
+    such as labels, object masks, bounding boxes, language annotations, or metadata,
+    \item $Y$ denote a learning target derived from $\bar X$.
+\end{itemize}
+
+During training, the encoder learns representations that enable the prediction 
+or alignment of $Y$ from the input video $X$.
+
+\paragraph{Prediction-based Objectives}
+
+Prediction-based approaches learn representations by predicting a target $Y$ 
+from the input video $X$. Depending on the task, $Y$ may correspond to future 
+video frames, masked observations, motion information, or other supervision signals.
+
+For example, in video prediction tasks, the target is defined as the next frame
+
+\[
+Y = X_{t+1},
+\]
+
+which is predicted from previous observations $X_{\leq t}$.
+
+The encoder is optimized using a prediction objective of the form
+
+\[
+\mathcal{L}_{\text{pred}}
+=
+\| \hat{Y} - Y \|^2,
+\]
+
+where $\hat{Y}$ denotes the predicted target.
+
+\paragraph{Joint-Embedding Objectives}
+
+Joint-embedding approaches first map both the video input $X$ and the target $Y$ 
+into a shared latent embedding space:
+
+\[
+z_X = f(X),
+\qquad
+z_Y = g(Y).
+\]
+
+A loss function is then applied to align semantically similar embeddings:
+
+\[
+\mathcal{L}_{\text{align}}
+=
+L(z_X, z_Y).
+\]
+
+Contrastive learning is one of the most widely used approaches in this setting. 
+A common contrastive objective is the InfoNCE loss:
+
+\[
+\mathcal{L}_{\text{NCE}}
+=
+-
+\log
+\frac{
+\exp(\mathrm{sim}(z_X, z_Y)/\tau)
+}{
+\sum_k
+\exp(\mathrm{sim}(z_X, z_k)/\tau)
+}.
+\]
+
