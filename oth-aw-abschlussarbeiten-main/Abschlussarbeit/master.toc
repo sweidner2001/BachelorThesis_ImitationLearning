@@ -52,8 +52,9 @@
 \contentsline {paragraph}{Autoregressive and Masked Transformer Models.}{39}{paragraph*.24}%
 \contentsline {paragraph}{Conditioning mechanisms}{40}{paragraph*.25}%
 \contentsline {subsection}{\numberline {5.1.3}Video-to-Text Models.}{40}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}{40}{section.5.2}%
-\contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{40}{section.5.3}%
-\contentsline {chapter}{Literaturverzeichnis}{41}{section*.26}%
-\contentsline {chapter}{Abbildungsverzeichnis}{44}{section*.28}%
-\contentsline {chapter}{Tabellenverzeichnis}{45}{section*.30}%
+\contentsline {paragraph}{Relevance for Robotics.}{40}{paragraph*.26}%
+\contentsline {section}{\numberline {5.2}Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}{42}{section.5.2}%
+\contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{42}{section.5.3}%
+\contentsline {chapter}{Literaturverzeichnis}{43}{section*.27}%
+\contentsline {chapter}{Abbildungsverzeichnis}{46}{section*.29}%
+\contentsline {chapter}{Tabellenverzeichnis}{47}{section*.31}%

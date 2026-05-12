@@ -193,6 +193,7 @@ To improve computational efficiency, many approaches perform diffusion in a lear
     \item \textbf{Latent-Space Diffusion:} In latent diffusion models, the video frames are first encoded into a lower-dimensional latent representation using an encoder before noise is added. The diffusion process is then performed in this compressed latent space instead of directly on pixels. The denoised latent representation is subsequently decoded back into video frames using a decoder. Operating in latent space reduces computational cost and removes low-level pixel redundancy while preserving the high-level semantic and temporal structure of the video, leading to improved efficiency and better long-horizon consistency.
 \end{itemize}
 
+% here are some more infos available in the thesis
 
 \paragraph{Autoregressive and Masked Transformer Models.}
 Rather than generating future frames through iterative denoising like diffusion models, transformer-based approaches model videos as a sequence of discrete tokens, typically obtained from a vector-quantized autoencoder (VQ-AE). The encoder maps the input video into a lower-dimensional continuous latent representation. These latent features are then quantized by replacing each feature vector with the nearest embedding vector from a learned codebook. As a result, the video can be represented as a sequence of discrete visual tokens, analogous to words in natural language processing.
@@ -226,8 +227,70 @@ In robotics, such conditioning effectively turns video prediction models into co
 
 
 \subsection{Video-to-Text Models.}
+Video-to-text models are multimodal systems that map video inputs to natural language outputs:
+\[
+p(text \mid \tau),
+\]
+where $\tau$ is a video sequence and $text$ is a natural language description. These models are trained on large-scale video-text datasets and learn to extract semantic information from videos while generating coherent language outputs.
+
+Video-to-text models can be used to generate natural language descriptions of video content, video question answering, video summarization.
 
 
+
+
+\paragraph{Relevance for Robotics.}
+Their usefulness in robotics can be summarized in the following aspects:
+
+\begin{itemize}
+    \item \textbf{High-quality representations:}
+    By learning to generate natural language descriptions of video content, video-to-text models learn to extract high-level semantic representations that capture object properties, actions, interactions, and scene context. These representations can be transferred to downstream robotic tasks, improving generalization and task understanding compared to video-only or image-to-text models. The learned representations can capture both high-level semantic information and temporal dynamics, which are critical for understanding complex robotic tasks and environments.
+
+    \item \textbf{Grounded reasoning and planning:}
+    % what is with VL-Models?
+    Large language models (LLMs) have demonstrated strong capabilities as high-level planners in robotics. However, their lack of direct grounding in physical perception limits their reliability in real-world environments.
+
+    Video-to-text models address this limitation by conditioning reasoning directly on rich visual-temporal input. This enables:
+    \begin{itemize}
+        \item improved grounding of symbolic reasoning in observed physical states
+        \item better modeling of object interactions and environment dynamics
+        \item more consistent closed-loop reasoning, where predictions are continuously informed by perceptual feedback
+    \end{itemize}
+
+    \item \textbf{Annotating robot data:}
+    Video-to-text models can be used to generate high-quality language annotations for robot datasets. By automatically describing video demonstrations of robotic tasks, these models can create rich textual annotations that capture task-relevant information such as object properties, actions, goals or step-by-step task descriptions. 
+    % Video-to-text models can be used as automated annotation systems to generate:
+    % - step-by-step natural language descriptions of demonstrations
+    % - action labels or sub-task segmentation
+    % - goal-conditioned summaries of trajectories
+
+    % This can facilitate the creation of large-scale annotated datasets for training and evaluating robotic learning algorithms, reducing the need for manual annotation and enabling more scalable data collection.
+
+    \item \textbf{Rewards:}
+    % \item video-to-text models can also be used to derive reward signals or value estimates for reinforcement learning and imitation learning systems. By framing reward learning as a visual-question answering problem, the model can be trained to predict reward signals based on the visual context of a robot's actions and their outcomes. For example, the model can be trained to answer questions such as "Did the robot successfully grasp the object?" or "How well did the robot's trajectory align with the desired goal?" based on video input. The predicted answers can then be used as reward signals to guide policy learning. Alternatively, in a reinforcement learning from AI feedback framework, the model can provide feedback on the quality of a robot's behavior by evaluating how well the predicted video outcomes align with desired task objectives or expert demonstrations. This enables a form of imitation learning where the robot learns to optimize its behavior based on feedback derived from video-based reasoning, without requiring explicit reward engineering.
+    Video-to-text models can also be used to provide reward or value estimates for a robot learner. By framing reward learning as a visual-question answering problem, the model can be trained to predict reward signals based on the visual context of a robot's actions and their outcomes. Alternatively, in a reinforcement learning from AI feedback framework, the model can provide feedback on the quality of a robot's behavior by evaluating how well the predicted video outcomes align with desired task objectives or expert demonstrations. This enables a form of imitation learning where the robot learns to optimize its behavior based on feedback derived from video-based reasoning, without requiring explicit reward engineering.
+
+    This can be achieved through:
+    \begin{itemize}
+    \item visual question answering formulations (e.g., “Did the robot successfully grasp the object?”)
+    \item learned evaluators that score trajectories based on semantic criteria
+    \item RL from AI feedback (RLAIF), where the model acts as a surrogate reward function
+    \end{itemize}
+
+\end{itemize}
+
+- ***High-quality representations:***
+    - compared to a **video-only** / **image-to-text model**
+    - improved **high-level semantic representations and temporal-dynamic representations.**
+- ***Grounded reasoning and planning:***
+    - **LLMs** have proven useful as **planning modules** in robotics, but lack of physical knowledge
+    - **Improved and closed-loop reasoning and planning**
+- ***Annotating robot data:***
+    - High-quality language annotations for the datasets
+- ***Rewards:***
+    - VtT can provide reward or value estimates for a robot learner
+    - achieved via a
+        - visual-question answering framework
+        - RL-from-AI-feedback framework
 
 
 
