@@ -1,3 +1,5 @@
+% What is model based control?
+
 \chapter{Learning from Video Techniques}
 
 Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This section addresses the two key questions for LfV research:
@@ -130,7 +132,177 @@ Recent work has proposed scalable methods for learning rich spatio-temporal vide
 %  The learned representations can then be used for tasks such as action recognition, video classification, and robotic control.
 
 
+
+
+
+
 \subsection{Video Prediction Models}
+Video prediction models (VPMs) aim to model the conditional distribution over future visual observations given past context. The standard formulation is next-frame prediction
+\[
+p(o_{t+1} \mid o_{t-k:t}),
+\]
+while more generally VPMs can be expressed as conditional video generation models
+\[
+p(\tau \mid c),
+\]
+where $\tau$ is a video sequence and $c$ denotes conditioning information such as past observations, actions, robot actions, language instructions, or goal images.
+Trained on large-scale video data, these models implicitly learn priors over physical dynamics, object interactions, and human behavior, making them relevant for robotic learning and imitation learning.
+
+
+
+During training, the model learns to predict future visual outcomes from past context, either in pixel space or in a learned latent space:
+
+
+\paragraph{Relevance for Robotics.}
+Video prediction models are useful in robotics in several complementary ways:
+\begin{itemize}
+    \item \texttt{Dynamics Models:}
+    Video prediction models can be extended into action-conditioned dynamics models of the form
+    \[
+    p(o_{t+1} \mid o_{t-k:t}, a_t),
+    \]
+    to serve as simulator or planner. 
+    In this setting, the model predicts future observations conditioned on actions, which allows model-predictive control by evaluating candidate action sequences in visual or latent space.
+
+    \item \texttt{Policy Learning:}
+    VPMs implicitly learn the distribution of behaviors present in the training data by modeling how visual scenes evolve over time. This allows them to generate multiple plausible future trajectories given a current observation. In a robotics context, these generated trajectories can be interpreted as candidate action outcomes.
+
+    This enables an “observation-as-action” perspective, where control is not performed by directly predicting actions, but by evaluating or selecting among predicted future video rollouts. The resulting policy can be viewed as choosing the trajectory that best aligns with a desired objective (e.g., reaching a goal state or matching expert demonstrations), thereby directly connecting video prediction with imitation learning and planning.
+
+    \item \texttt{Representation Learning:} Learned latent spaces capture semantically meaningful information about objects, motion, and interactions, which can be transferred to downstream imitation learning and reinforcement learning tasks.
+
+    \item \texttt{Reward Learning:} 
+    Video prediction models can also be used to define reward functions by measuring how well a robot's predicted future aligns with desired behaviors. For example, a reward signal can be derived from the similarity between generated trajectories and expert demonstrations in latent space, or from the likelihood of a trajectory under a learned video prior. This enables imitation learning without manually engineered reward functions.
+    % Video prediction models can define reward signals by measuring similarity between predicted rollouts and expert demonstrations in latent space or likelihood under a learned video prior, enabling imitation without explicit manually reward design.
+\end{itemize}
+
+\subsubsection{Methods}
+Modern video prediction approaches are dominated by diffusion models, autoregressive transformers, and masked transformers. Each of these approaches has unique strengths and limitations, and they can be combined with various conditioning mechanisms to enable controllable video generation for robotics applications.
+
+During training, the model learns to predict future visual outcomes from past context, either in pixel space or in a learned latent space.
+
+\paragraph{Diffusion Models.}
+Diffusion-based video prediction models generate future frames through an iterative denoising process. During generation, the model starts from random sampled noise and progressively reconstructs a plausible future video sequence conditioned on previous observations, actions, or other conditioning inputs. The denoising model learns to reverse a forward corruption process in which noise is gradually added to training samples.
+
+Diffusion models are particularly effective at modeling complex continuous distributions and producing high-fidelity video samples. However, they suffer from two main limitations: slow sampling speed due to the iterative denoising process, and difficulty maintaining long-horizon temporal consistency across generated frames.
+
+To improve computational efficiency, many approaches perform diffusion in a learned latent space rather than directly in pixel space. In addition, many methods leverage large-scale image datasets alongside video data during training to improve visual quality and generalization. Below are the key differences between pixel-space and latent-space diffusion models:
+\begin{itemize}
+    \item \textbf{Pixel-Space Diffusion:} In pixel-space diffusion, noise is added directly to raw video frames during training. The model learns to denoise these noisy frames to reconstruct the original video conditioned on context information such as previous frames, actions, or language instructions. While this approach can capture fine-grained visual details, it is computationally expensive and may struggle with long-horizon consistency due to the high-dimensionality of pixel space.
+
+    \item \textbf{Latent-Space Diffusion:} In latent diffusion models, the video frames are first encoded into a lower-dimensional latent representation using an encoder before noise is added. The diffusion process is then performed in this compressed latent space instead of directly on pixels. The denoised latent representation is subsequently decoded back into video frames using a decoder. Operating in latent space reduces computational cost and removes low-level pixel redundancy while preserving the high-level semantic and temporal structure of the video, leading to improved efficiency and better long-horizon consistency.
+\end{itemize}
+
+In robotics, diffusion-based models can generate future robot trajectories.
+
+
+
+
+\paragraph{Autoregressive and Masked Transformer Models.}
+Transformer-based approaches typically operate in a discrete latent space learned via vector-quantized autoencoders (VQ-AE). This provides a tokenized representation of video that is suitable for sequence modeling.
+
+
+In latent diffusion models, observed video frames are first compressed into a lower-dimensional latent representation that captures the semantic and temporal structure of the scene. The diffusion process then iteratively denoises this latent representation to generate plausible future observations conditioned on context information such as previous frames, robot actions, language instructions, or goal states. A decoder subsequently reconstructs the generated latent representation back into video frames.
+
+Autoregressive models factorize the joint distribution as:
+\[
+p(x) = \prod_t p(x_t \mid x_{<t}),
+\]
+and generate tokens sequentially. While expressive, these models suffer from exposure bias, where errors accumulate over long rollouts due to conditioning on previous predictions.
+
+
+\textbf{Autoregressive and masked transformers} operate in discrete latent spaces, typically obtained via vector-quantized autoencoders (VQ-AE). Autoregressive models factorize video generation sequentially, which leads to exposure bias and error accumulation over long horizons. Masked transformers instead predict missing tokens in parallel using iterative refinement (e.g., MaskGIT-style decoding), offering improved efficiency and reduced drift, making them attractive for long-horizon robotics tasks.
+
+\textbf{Conditioning mechanisms} are critical for controllability. VPMs can be conditioned on actions, language, or goal images, enabling structured control over generated futures:
+\[
+p(\tau \mid c).
+\]
+Action conditioning enables counterfactual simulation of control strategies, language conditioning supports high-level task specification, and image conditioning enables goal-directed prediction. In robotics, such conditioning effectively turns video prediction models into controllable world models, bridging perception, planning, and imitation learning.
+
+--------------
+
+
+
+
+
+\paragraph{General Overview of Video Prediction.}
+Video prediction aims to model the temporal evolution of visual observations by learning a distribution over future frames conditioned on past context and additional inputs. The goal is to capture both short-term motion dynamics and long-horizon scene evolution.
+
+\texttt{How to learn a Video Prediction Model?}
+
+Let
+\begin{itemize}
+    \item $X = o_{t-k:t}$ denote a sequence of observed video frames,
+    \item $A = a_{t-k:t}$ denote optional action inputs,
+    \item $Y = o_{t+1:t+T}$ denote future video frames to be predicted.
+\end{itemize}
+
+The learning objective is to model:
+\[
+p(Y \mid X, A)
+\]
+
+or in the unconditional case:
+\[
+p(Y \mid X)
+\]
+
+During training, the model learns to map past observations (and optionally actions) to future visual outcomes:
+\[
+(X, A) \xrightarrow{p(\cdot)} Y
+\]
+
+The objective is typically to minimize a reconstruction or likelihood-based loss that encourages accurate prediction of future frames or latent representations.
+
+\paragraph{Diffusion Models}
+Diffusion-based video prediction models learn to generate future frames by iteratively denoising a latent representation of the video. They are particularly effective at modeling high-dimensional continuous outputs and producing high-fidelity video samples.
+
+However, they exhibit two key limitations:
+
+\begin{itemize}
+    \item \textbf{Slow Sampling:} Generation requires multiple denoising steps, which significantly increases inference time.
+    \item \textbf{Long-Horizon Consistency:} Maintaining temporal coherence over long video sequences remains challenging.
+\end{itemize}
+
+To improve efficiency, many approaches operate in a learned latent space rather than pixel space, reducing computational cost while preserving semantic structure. Additionally, training often leverages large-scale image datasets alongside video data to improve visual quality and generalization.
+
+Some methods decompose video generation into multiple stages, such as key-frame generation, temporal interpolation, and spatial upsampling. In contrast, recent approaches generate full video sequences in a single forward pass, improving global temporal consistency and simplifying the generation pipeline.
+
+\paragraph{Autoregressive and Masked Transformer Models}
+Transformer-based video prediction models typically operate in a discrete latent space, often learned via vector-quantized autoencoders (VQ-AE), which convert continuous video frames into sequences of discrete tokens.
+
+Autoregressive models factorize the joint distribution as:
+\[
+p(x) = \prod_t p(x_t \mid x_{<t})
+\]
+and generate tokens sequentially. While expressive, these models suffer from error accumulation over long rollouts due to exposure bias, where small prediction errors compound over time (drift effect).
+
+Masked transformer models address this limitation by predicting masked tokens in parallel and iteratively refining predictions. This is commonly implemented using MaskGIT-style decoding. Compared to autoregressive approaches, masked models are:
+
+\begin{itemize}
+    \item more computationally efficient at inference,
+    \item less prone to temporal drift,
+    \item better suited for long-horizon video generation.
+\end{itemize}
+
+\paragraph{Conditioning Mechanisms}
+Conditioning plays a central role in simplifying video prediction and enabling controllability, which is crucial for robotic applications. By conditioning on additional information, the model learns a more structured and task-relevant distribution:
+\[
+p(\tau \mid c)
+\]
+
+Common conditioning modalities include:
+
+\begin{itemize}
+    \item \texttt{Action Conditioning:} enables simulation of different control strategies and integration with planning or reinforcement learning systems.
+    \item \texttt{Language Conditioning:} allows flexible and interpretable task specification using natural language instructions.
+    \item \texttt{Image / Goal Conditioning:} supports goal-directed prediction, including video inpainting and future-state conditioning.
+    \item \texttt{Hybrid Conditioning:} combines multiple modalities such as language, actions, and goal images for structured control.
+\end{itemize}
+
+From a robotics perspective, conditioning transforms video prediction models into controllable world models, enabling counterfactual reasoning over actions and facilitating imitation learning by allowing direct comparison between predicted and expert behaviors.
+
+
 \subsection{Video-to-Text Models.}
 
 
