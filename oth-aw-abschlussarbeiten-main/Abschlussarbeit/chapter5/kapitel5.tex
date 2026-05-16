@@ -313,10 +313,14 @@ Existing approaches can be broadly categorized into compositional pipelines, LLM
 
 
 \subsection{Challenges and Future Directions}
+Despite recent progress, video representation learning still faces several limitations:
+\begin{itemize}
+    \item Current models may \textbf{hallucinate} or fail to capture fine-grained spatial relationships, precise spatio-temporal dynamics, and long-term temporal dependencies. 
+    \item Another key bottleneck is the \textbf{limited quality and scale of low-level annotated video data}, particularly for tasks requiring detailed fine-grained understanding. 
+    \item Additionally, processing \textbf{high-dimensional and long video sequences} remains computationally expensive, motivating more efficient model architectures. 
+\end{itemize}
 
-
-
-
+Further directions include reinforcement learning-based finetuning to reduce hallucinations, the integration of 3D information, like depth to improve physical realism, and improved single-step conditioning mechanisms for fine-grained video prediction tasks.
 
 
 \section{Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}
