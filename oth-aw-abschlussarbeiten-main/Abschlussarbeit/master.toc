@@ -53,6 +53,7 @@
 \contentsline {paragraph}{Conditioning mechanisms}{40}{paragraph*.25}%
 \contentsline {subsection}{\numberline {5.1.3}Video-to-Text Models.}{40}{subsection.5.1.3}%
 \contentsline {paragraph}{Relevance for Robotics.}{40}{paragraph*.26}%
+\contentsline {subsubsection}{\numberline {5.1.3.1}Methods}{41}{subsubsection.5.1.3.1}%
 \contentsline {section}{\numberline {5.2}Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}{42}{section.5.2}%
 \contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{42}{section.5.3}%
 \contentsline {chapter}{Literaturverzeichnis}{43}{section*.27}%
