@@ -323,7 +323,108 @@ Despite recent progress, video representation learning still faces several limit
 Further directions include reinforcement learning-based finetuning to reduce hallucinations, the integration of 3D information, like depth to improve physical realism, and improved single-step conditioning mechanisms for fine-grained video prediction tasks.
 
 
+
+
+
+
+
+
+
 \section{Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter5/media/RecoveringActionFepresentationsFromVideo_1}
+	\caption[To label action-free videos, an Alternative action $\hat{a}$ can be derived from video data instead of the missing Action $a$]{To label action-free videos, an Alternative Action $\hat{a}$ can be derived from video data instead of the missing action $a$ \cite{McCarthy_2025}.}
+	\label{fig:RecoveringActionFepresentationsFromVideo_1}
+\end{figure}
+% which can be used to label action-free videos and enable video-to-robot transfer despite missing action labels and distribution shift
+
+
+The main challenges for transferring video-extracted knowledge to robotics are: 
+\begin{itemize}
+    \item (i) The missing action labels in video data, which are critical for learning control policies and dynamics models. 
+    \item (ii) The distribution shift between (human) internet videos and the robot execution, w.r.t the robot domain. This includes differences in visual appearance, dynamics, and behavior patterns, which can lead to poor generalization of video-trained models when applied to real-world robotic tasks.
+\end{itemize}
+To address these challenges, alternative action representations $\hat{a} \in \hat{A}$ can be derived from video data, which can be used to label action-free videos and enable video-to-robot transfer despite missing action labels and distribution shift, see Figure \ref{fig:RecoveringActionFepresentationsFromVideo_1}. 
+
+
+Formally 
+- **Problem**: Video data only provides state transitions $(o_t, o_{t+1})$, without explicit action labels.
+- **Solution**: Learn or define an **alternative action representation** $\hat{a}$ from the alternative-action space $\hat{A}$ so that transitions can be relabeled as $(o_t, \hat{a}_t, o_{t+1})$.
+
+
+Video data provides state transition information in the form of $(o_t, o_{t+1})$ pairs, which can be used to derive alternative action representations $\hat{a}$ that capture the underlying behavior or intent of the observed transitions. By learning to predict $\hat{a}$ from video observations, the model can capture high-level behavioral patterns that are relevant for robotic control, even in the absence of direct action labels.
+
+
+\paragraph{What is an Alternative Action Representation $\hat{a}$?}
+
+In many real-world video datasets, explicit robot action labels (e.g., joint velocities or torques) are not available. Recovering such low-level actions directly from video is a challenging problem due to ambiguity and the lack of physical interaction information.
+
+
+To overcome this limitation, recent approaches introduce an Alternative Action Representation Space $\hat{A}$, which defines a latent or abstract action or feature space. Instead of modeling raw robot control signals, actions are represented in a semantic feature space that captures high-level behavior such as grasping, moving, or pushing. The learned Alternative Action Embedding space captures what actions \textit{mean}, which are easier to infer from video, rather than the raw motor commands.
+
+Formally, an alternative action representation is defined as
+\[
+\hat{a} \in \hat{A},
+\]
+where $\hat{A}$ is a learned or predefined latent action space derived from visual or multimodal video data.
+
+
+The key idea is that $\hat{a}$ serves as a proxy for the missing action labels, allowing the model to learn from video data without requiring explicit action annotations. A Policy in the Alternative Action Space can then be defined as
+\[
+\pi_{\hat{A}}(\hat{a} \mid o_t)
+\]
+which maps observations to alternative action representations. Later, the $\hat{a}$ can be decoded or translated into the robot's actual action space.
+
+Example:
+\begin{itemize}
+    \item The \textbf{Video Encoder} extracts visual features (what is being done).
+    \item The \textbf{Action Embedding Space $\hat{A}$} captures \textit{abstract actions} such as \textit{reach}, \textit{grasp}, \textit{move up}.
+    \item The \textbf{Policy $\pi_{alt}$} predicts the next action \textit{in this latent action space} based on current visual observations.
+    \item Later, a \textbf{Decoder} or \textbf{Alignment Model} maps these latent actions to the robot's real motor commands.    
+\end{itemize}
+
+Formally:
+\[
+\pi_{alt}( \hat{a}_t | o_t ), \quad \hat{a}_t \in \hat{A}
+\]
+and then
+\[
+a_t = f_{align}(\hat{a}_t)
+\]
+where $f_{align}$ translates from latent to actual robot actions.
+
+
+
+
+
+---------
+By learning to predict $\hat{a}$ from video observations, the model can capture high-level behavioral patterns that are relevant for robotic control, even in the absence of direct action labels.
+
+
+Action free Video data often lacks on explicit action labels for robotics. But it is difficult to recover these missing robot action labels from video data directly. 
+
+The Idea is to label the videos with an alternative Action $\hat{a} \in \hat{A}$ from an Alternative Representation Space $\hat{A}$, which should be easier than directly derive the specific robot action labels from video data.
+
+representations $\hat{a}$ from video data, which can serve as proxies for the missing action labels. 
+
+
+from $(o_t, o_{t+1})$ to $(o_t, \hat{a}_t, o_{t+1})$.
+
+To address this, we can derive alternative action representations $\hat{a}$ from video data, which serve as proxies for the missing action labels. These alternative representations can be obtained through various methods, such as:
+
+
+Goal: Recovering the missing action representations from video
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter5/media/RecoveringActionFepresentationsFromVideo_2}
+	\caption[Categories of Alternative Action Representations that can be learned or obtained from video data.]{Categories of Alternative Action Representations that can be learned or obtained from video data
+ \cite{McCarthy_2025}.}
+	\label{fig:RecoveringActionFepresentationsFromVideo_2}
+\end{figure}
+
 
 
 \section{LfV and Reinforcement Learning}

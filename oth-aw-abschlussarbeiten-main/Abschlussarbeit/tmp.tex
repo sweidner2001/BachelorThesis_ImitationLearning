@@ -568,3 +568,109 @@ These limitations motivate tighter integration with physical interaction data an
 ---
 
 Overall, video-to-text models provide a powerful interface between perception, language, and decision-making, making them a key component in modern imitation learning and robot foundation model pipelines.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To address these challenges, alternative action representations $\hat{a} \in \hat{A}$ can be derived from video data. These representations serve as proxy supervision signals that enable learning from action-free videos and facilitate video-to-robot transfer under missing action labels and domain shift, as illustrated in Figure~\ref{fig:RecoveringActionFepresentationsFromVideo_1}.
+
+\paragraph{Alternative Action Representations $\hat{a}$}
+
+In many real-world video datasets, explicit robot action labels (e.g., joint velocities or torques) are not available. Recovering such low-level actions directly from video is an ill-posed problem due to ambiguity and the lack of physical interaction information.
+
+To overcome this limitation, recent approaches introduce an alternative action representation space $\hat{A}$, which defines a latent or abstract action domain. Instead of modeling raw robot control signals, actions are represented in a semantic feature space that captures high-level behavior such as grasping, moving, or pushing.
+
+Formally, an alternative action representation is defined as
+\[
+\hat{a} \in \hat{A},
+\]
+where $\hat{A}$ is a learned or predefined latent action space derived from visual or multimodal video data. The elements $\hat{a}$ do not correspond directly to robot motor commands, but encode behavior-relevant semantics that are easier to infer from video.
+
+These representations act as an intermediate bridge between visual observations and robot control, enabling policies to be learned in $\hat{A}$ and later mapped to the robot's true action space.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\paragraph{Challenges in Video-to-Robot Transfer}
+
+The main challenges in transferring knowledge from video data to robotic systems are:
+\begin{itemize}
+    \item (i) \textbf{Missing action labels}: Most video datasets do not contain explicit robot action annotations, which are required for learning control policies and dynamics models.
+    \item (ii) \textbf{Distribution shift}: There exists a significant domain gap between human or internet videos and robot execution. This includes differences in visual appearance, embodiment, dynamics, and behavior patterns, which can severely degrade the generalization of models trained on video data when applied to robotic tasks.
+\end{itemize}
+
+\paragraph{Problem Formulation}
+
+Formally, video data provides only state transitions of the form $(o_t, o_{t+1})$, without access to the corresponding actions $a_t$. This makes it difficult to directly apply standard imitation learning or reinforcement learning methods, which typically require triplets $(o_t, a_t, o_{t+1})$.
+
+\paragraph{Alternative Action Representations}
+
+To address this limitation, recent approaches propose to infer \textbf{alternative action representations} $\hat{a} \in \hat{A}$ from video data. These representations serve as proxy supervision signals that encode the underlying behavior generating a transition.
+
+Instead of attempting to recover true robot control signals directly from video—which is inherently ill-posed due to ambiguity and missing physical interaction information—the idea is to define a latent action space $\hat{A}$ that captures higher-level, semantically meaningful behavior such as \textit{grasping}, \textit{pushing}, or \textit{moving an object}.
+
+Formally, this induces a relabeling of video transitions as:
+\[
+(o_t, o_{t+1}) \;\rightarrow\; (o_t, \hat{a}_t, o_{t+1}), \quad \hat{a}_t \in \hat{A}.
+\]
+
+Here, $\hat{A}$ can be interpreted as a learned or predefined latent action space derived from visual or multimodal representations.
+
+\paragraph{Learning in the Alternative Action Space}
+
+The key idea is that $\hat{a}$ acts as a surrogate for missing action labels, enabling learning from action-free video data. A policy can then be defined in this alternative space as:
+\[
+\pi_{\hat{A}}(\hat{a}_t \mid o_t),
+\]
+which maps observations to latent action representations rather than low-level motor commands.
+
+To execute such actions on a physical robot, a mapping function is required that translates latent actions into the robot’s actual action space:
+\[
+a_t = f_{\text{align}}(\hat{a}_t),
+\]
+where $f_{\text{align}}$ bridges the gap between the learned latent representation and real robot control signals.
+
+\paragraph{Intuition}
+
+Intuitively, this framework introduces an intermediate level of abstraction between perception and control. A video encoder extracts visual information about \textit{what is happening}, while the latent action space $\hat{A}$ represents \textit{what is being done} in a semantic sense, independent of embodiment-specific motor details.
+
+\begin{itemize}
+    \item The \textbf{video encoder} extracts visual state representations.
+    \item The \textbf{alternative action space $\hat{A}$} encodes semantic behaviors such as \textit{reach}, \textit{grasp}, or \textit{lift}.
+    \item The \textbf{policy $\pi_{\hat{A}}$} predicts latent actions from observations.
+    \item The \textbf{alignment function $f_{\text{align}}$} maps latent actions to executable robot commands.
+\end{itemize}
+
+This decomposition enables learning from large-scale, unlabelled video data while mitigating both the missing-action problem and the domain shift between human videos and robotic systems.
