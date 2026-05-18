@@ -1,6 +1,6 @@
 % What is model based control?
 
-\chapter{Learning from Video Techniques}
+\chapter{Learning from Videos - Data Modality and Challenges}
 
 Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This section addresses the two key questions for LfV research:
 \begin{enumerate}
@@ -457,21 +457,22 @@ Their exist different approaches to derive alternative action representations $\
 
 
 \paragraph{Single-step Latent Actions:}
-These approaches learn latent actions that describe the transition from one observation to the next:
+These approaches learn latent actions that describe the transition from one observation to the next \cite{McCarthy_2025}:
 \[
-\hat{a}_t : o_t \rightarrow o_{t+1}.
+\hat{a}_t : o_t \rightarrow o_{t+1}
 \]
 
 \textbf{Methods:}
 \begin{itemize}
-    \item Forward Dynamics Models (FDM) $p(o_{t+1} \mid \hat{a}_t, o_t)$, which predict the future observation from the current observation and latent action.
-    \item Inverse Dynamics Models (IDM) $p^{-1}(\hat{a}_t \mid o_t, o_{t+1})$, which infer the latent action responsible for a transition.
+    \item Forward Dynamics Models (FDM) $p(o_{t+1} \mid \hat{a}_t, o_t)$, which predict the future observation from the current observation and latent action \cite{Bruce2024GenieGI, Edwards2018ImitatingLP, Schmidt2023LearningTA, Ye2024LatentAP, Rybkin2018LearningWY}.
+    \item Inverse Dynamics Models (IDM) $p^{-1}(\hat{a}_t \mid o_t, o_{t+1})$, which infer the latent action responsible for a transition \cite{Schmidt2023LearningTA, Bruce2024GenieGI}. 
+    % To hinder the IDM from copying the entire observation $o_{t+1}$ into the latent action $\hat{a}_t$, the model is trained with some form of regularisation, such as a quantization bottleneck \cite{McCarthy_2025, Schmidt2023LearningTA, Bruce2024GenieGI}.
 \end{itemize}
 
 \textbf{Limitations:}
 \begin{itemize}
-    \item Often capture all visual changes, not only agent actions.
-    \item May omit important non-visual information such as forces or contact dynamics.
+    \item Often capture all visual changes, not only agent actions \cite{McCarthy_2025}.
+    \item May omit important non-visual information such as forces or contact dynamics \cite{McCarthy_2025}.
 \end{itemize}
 
 
@@ -484,8 +485,8 @@ These methods encode behaviors across multiple time-steps:
 \hat{a}_t : o_t \rightarrow o_{t+k}
 \]
 
-Instead of modeling individual actions, they capture higher-level behavioral patterns or latent plans.
-The key idea is to learn a compact latent representation of a \emph{skill} or \emph{sub-policy} that summarizes an entire sequence of actions. These representations are more abstract, goal orientated and can encode longer-horizon information, which may be beneficial for complex tasks. 
+Instead of modeling individual actions, they capture higher-level behavioral patterns or latent plans \cite{McCarthy_2025}.
+The key idea is to learn a compact latent representation of a \emph{skill} or \emph{sub-policy} that summarizes an entire sequence of actions. These representations are more abstract, goal orientated and can encode longer-horizon information, which may be beneficial for complex tasks \cite{RoseteBeas2022LatentPF, Cui2022FromPT, lynch2020learning}. 
 
 For example these ``skill embeddings'' can capture structures such as ``reach the object'', ``move the arm to the target location'', or ``grasp and lift'', which can later be decoded into a full action sequence.
 
@@ -500,18 +501,19 @@ For example these ``skill embeddings'' can capture structures such as ``reach th
 
 \textbf{Methods:}
 \begin{itemize}
-    \item Variational sequence models: These methods use variational autoencoders (VAE) to encode motion trajectories or sequences of observations into a latent variable $z$ that captures the underlying behavior. The VAE is trained to reconstruct the original trajectory from the latent representation.    
+    \item Variational sequence models: These methods use variational autoencoders (VAE) to encode motion trajectories or sequences of observations into a latent variable $z$ that captures the underlying behavior. The VAE is trained to reconstruct the original trajectory from the latent representation \cite{Wang2023MimicPlayLI}.    
     % Variational auto-encoding of motion or trajectory representations 
-    \item Video-language contrastive learning aligns video segments with natural language descriptions of behaviors.
-    \item Supervised contrastive learning on action-labeled videos pulls videos with the same or similar action labels together in latent space, while pushing videos with different action labels apart.
-    \item Self-supervised clustering approaches group similar motion patterns or trajectories into clusters without requiring labels, with each cluster representing a reusable skill or behavior primitive.
-    \item Further approaches in  [268], Pertsch et al.[204], and Cai et al. [42]. 
+    \item Video-language contrastive learning aligns video segments with natural language descriptions of behaviors \cite{fan2022minedojo, Lifshitz2023STEVE1AG, Sontakke2023RoboCLIPOD}.
+    \item Supervised contrastive learning on action-labeled videos pulls videos with the same or similar action labels together in latent space, while pushing videos with different action labels apart \cite{ChaneSane2023LearningVP, Chen2021LearningGR}.
+    \item Self-supervised clustering approaches group similar motion patterns or trajectories into clusters without requiring labels, with each cluster representing a reusable skill or behavior primitive \cite{Xu2023XSkillCE}.
+    \item Further approaches are presented in the works of Tomar et al. \cite{tomar2023video}, Pertsch et al. \cite{Pertsch2022CrossDomainTV}, and Cai et al. \cite{Cai2023GROOTLT}. 
     % include hierarchical sequence models and latent plan representations (e.g., Pertsch et al., Cai et al.), which explicitly model skills as temporally extended latent variables.
 \end{itemize}
 
 \textbf{Limitations:}
 \begin{itemize}
-    \item Often produce abstract and long-horizon representations that may lose fine-grained control details and be harder to align with low-level robot actions.
+    % Quellen sollten passen
+    \item Often produce abstract and long-horizon representations that may lose fine-grained control details and be harder to align with low-level robot actions \cite{kim2026hierarchical, liang2025clam}.
 \end{itemize}
 
 
@@ -522,31 +524,32 @@ These approaches directly use (encoded) future observations as action representa
 \[
 \hat{a}_t = o_{t+k}.
 \]
-Future observations provide information about the intended behavior or goal state.
+Future observations provide information about the intended behavior or goal state \cite{McCarthy_2025}.
 
 \textbf{Methods:}
 \begin{itemize}
-    \item \texttt{Next-observation-as-action} uses the next observation $o_{t+1}$ as the $\hat{a}_t$ label and provides information regarding the action that should be taken.
-    \item \texttt{Observations-as-subgoals} uses future observations as intermediate goals to guide action selection.
+    \item \texttt{Next-observation-as-action} uses the next observation $o_{t+1}$ as the $\hat{a}_t$ label and provides information regarding the action that should be taken \cite{Du2023LearningUP, Thomas2023PLEXMT, he2024large}.
+    \item \texttt{Observations-as-subgoals} uses future observations as intermediate goals to guide action selection \cite{Black2023ZeroShotRM, park2023hiql, Bhateja2023RoboticOR}.
     \begin{itemize}
-        \item \texttt{Fixed time horizon} uses observations that are fixed $k$ time steps in advance.
-        \item \texttt{Key-frame selection} identify critical states in a trajectory that can serve as action representations, see table \ref{tab:keyframes_pickplace}.
+        \item \texttt{Fixed time horizon} uses observations that are fixed $k$ time steps in advance \cite{Black2023ZeroShotRM, Du2023LearningUP}.
+        \item \texttt{Random time horizon} uses observations that are a randomly sampled number of time steps in advance \cite{Bhateja2023RoboticOR}.
+        \item \texttt{Key-frame selection} identify critical states in a trajectory that can serve as action representations \cite{Pertsch2019KeyframingTF, liu2023learning}, see table \ref{tab:keyframes_pickplace}.
         
         \begin{table}[h]
             \centering
             \begin{tabular}{|c|l|l|}
                 \hline
-                \textbf{Zeitpunkt} & \textbf{Frame-Beschreibung} & \textbf{Bedeutung} \\
+                \textbf{Time Step} & \textbf{Frame Description} & \textbf{Significance} \\
                 \hline
-                $t_0$ & Arm über Tisch & Start \\
-                $t_1$ & Arm nähert sich Tasse & Zwischenzustand \\
-                $t_2$ & \textbf{Hand berührt Tasse} & \checkmark\ Key-frame \\
-                $t_3$ & Tasse wird angehoben & Zwischenzustand \\
-                $t_4$ & \textbf{Tasse über Ablage} & \checkmark\ Key-frame \\
-                $t_5$ & Tasse wird abgestellt & Ende \\
+                $t_0$ & Arm over table & Start \\
+                $t_1$ & Arm approaches cup & Intermediate state \\
+                $t_2$ & \textbf{Hand touches cup} & \checkmark\ Key-frame \\
+                $t_3$ & Cup is lifted & Intermediate state \\
+                $t_4$ & \textbf{Cup over target} & \checkmark\ Key-frame \\
+                $t_5$ & Cup is placed & End \\
                 \hline
             \end{tabular}
-            \caption{Beispielhafte Key-Frames in einer Pick-and-Place-Sequenz}
+            \caption{Example Key-Frames in a Pick-and-Place Sequence}
             \label{tab:keyframes_pickplace}
         \end{table}
     \end{itemize}
@@ -554,75 +557,79 @@ Future observations provide information about the intended behavior or goal stat
 
 \textbf{Limitations:}
 \begin{itemize}
-    \item Future observations may not uniquely determine the underlying action.
-    \item High-dimensional visual observations can increase learning complexity.
+    \item Future observations may not uniquely determine the underlying action \cite{A_hierarchical_representation_for_future_action_prediction}.
+    \item High-dimensional visual observations can increase learning complexity \cite{A_hierarchical_representation_for_future_action_prediction, Losey2021LearningLA}.
 \end{itemize}
 
 
 
 
 \paragraph{Language-as-Actions:}
-Natural language descriptions can be used as high-level action representations for example by captioning video frames with language instructions that describe the observed behavior:
+Natural language descriptions can be used as high-level action representations for example by captioning video frames with language instructions that describe the observed behavior \cite{belkhale2024rt, shi2024yell, xiang2024pandora}:
 \[
 \hat{a}_t = \texttt{"pick up the cube"}.
 \]
-Language-based actions provide semantic supervision and enable integration with large language models, which can facilitate more complex reasoning and planning.
+Language-based actions provide semantic supervision and enable integration with large language models \cite{Du2023VideoLP}, which can facilitate more complex reasoning and planning.
 
 \textbf{Methods:}
 \begin{itemize}
-    \item Language-captioned video datasets
-    \item Automated or semi-automated video captioning
-    \item Video-to-Text Models
-    \item Vision Language Models (VLMs) and variants of them
+    % ToDo: Hier evtl. nochmal die Quellen nachprüfen
+    \item Language-captioned video datasets \cite{Grauman2021Ego4DAT}
+    \item Process and enhance standard captions to generate more detailed action descriptions, for example by using LLMs or VLMs \cite{Mu2023EmbodiedGPTVP}.
+    \item Automated or semi-automated video captioning \cite{Mu2023EmbodiedGPTVP}
+    % ToDo: Quellen für diese beide Stichpunkte
+    \item Video-to-Text Models \cite{McCarthy_2025}
+    \item Vision Language Models (VLMs) and variants of them \cite{McCarthy_2025}
 \end{itemize}
 
+% ToDo: Quellen überprüfen und evtl. bessere suchen
 \textbf{Limitations:}
 \begin{itemize}
-    \item Language is often coarse and omits low-level control details.
-    \item Requires annotated or captioned video data.
+    \item Language is often coarse and omits low-level control details \cite{McCarthy_2025}.
+    \item Requires annotated or captioned video data \cite{McCarthy_2025}.
 \end{itemize}
 
 
 
 \paragraph{Visual Motion Information:}
-These approaches define actions using visual motion cues extracted from video sequences. The underlying assumption is that temporal changes in visual observations (motion patterns) contain implicit information about the actions responsible for observed state transitions. For example, the direction, magnitude, and trajectory of movement can provide information about the intended behavior, goal, or interaction dynamics.
+These approaches define actions using visual motion cues extracted from video sequences \cite{McCarthy_2025}. The underlying assumption is that temporal changes in visual observations (motion patterns) contain implicit information about the actions responsible for observed state transitions. For example, the direction, magnitude, and trajectory of movement can provide information about the intended behavior, goal, or interaction dynamics \cite{yanokura2020understanding, Tokmakov17}.
 
 \textbf{Methods:}
 \begin{itemize}
-    \item 2D or 3D point trajectories of tracked objects or hands via off-the-shelf point trackers
-    \item Optical flow prediction, which captures how image regions move between consecutive video frames 
+    \item \texttt{2D or 3D point trajectories} of tracked objects or hands \cite{Wen2023AnypointTM, Yuan2024GeneralFA} via off-the-shelf point trackers \cite{karaev2024cotracker}
+    \item \texttt{Optical flow prediction}, which captures how image regions move between consecutive video frames \cite{Ko2023LearningTA, xu2022gmflow}
     % \item Optical flow prediction, which captures how image regions move between consecutive video frames
-    \item Visual action arrows that represent movement direction and magnitude directly in the image
-    \item Structure-from-motion approaches, which reconstruct 3D scene geometry and camera motion from video in order to recover information about underlying physical interactions
+    \item \texttt{Visual action arrows} that represent movement direction and magnitude directly in the image \cite{Nasiriany2024PIVOTIV}
+    \item \texttt{Structure-from-motion} approaches, which reconstruct 3D scene geometry and camera motion from video in order to recover information about underlying physical interactions \cite{Wang2023ManipulateBS, Yuan2021DMotionRV, Yang2023LearningIR}
 \end{itemize}
 
 \textbf{Limitations:}
 \begin{itemize}
-    \item Motion estimates can be noisy or ambiguous.
-    \item Visual motion does not always correspond directly to robot actions.
+    \item Motion estimates can be noisy or ambiguous \cite{booij2010efficient}.
+    \item Visual motion does not always correspond directly to robot actions \cite{booij2010efficient}.
 \end{itemize}
 
 
 
 
-
+% ToDo: Quellen neu anordnen + überprüfen wo welche gebraucht wird.
 \paragraph{(Human)-Embodiment Information:}
-These approaches explicit models human body structure and kinematics. 
+These approaches explicit models human body structure and kinematics \cite{McCarthy_2025, Bharadhwaj2023TowardsGZ, Shaw2022VideoDexLD, Bahl2023AffordancesFH, Qin2022FromOH, Qin2021DexMVIL}. 
 In contrast to generic motion-based methods, which focus on pixel or object movement, these approaches aim to represent the \emph{agent performing the action} using structured human pose information. 
-Embodiment-specific information such as hand poses, affordances, or trajectories can provide useful cues about the intended actions and interactions in the video, which can be transferred to robotic embodiments.
+Embodiment-specific information such as hand poses, affordances, or trajectories can provide useful cues about the intended actions and interactions in the video, which can be transferred to robotic embodiments \cite{rong2020frankmocap, Shan2020UnderstandingHH}.
 For example, an alternative action representation can be defined as:
 \[
-\hat{a}_t = \text{hand pose at time } t+1,
+\hat{a}_t = \text{hand pose at next time-step} t+1,
 \]
-which encodes the intended end-effector movement and can be associated with actions such as reaching, grasping, or manipulating objects.
+which encodes the intended end-effector movement and can be associated with actions such as reaching, grasping, or manipulating objects. Animal embodiment could also be usefull \cite{peng2020learning}.
 % which can be used to infer actions such as reaching, grasping, or manipulating objects.
 
 \textbf{Methods:}
 \begin{itemize}
-    \item Human pose estimation (full-body kinematics)
-    \item Hand pose estimation and hand trajectory tracking
-    \item Affordance prediction (e.g., graspable regions, interaction points)
-    \item Object- and hand-mask conditioned representations, which focus on the regions of the video that are relevant for action understanding and ignore irrelevant background information
+    \item Human pose estimation (full-body kinematics) \cite{Bharadhwaj2023TowardsGZ}
+    \item Hand pose estimation and hand trajectory tracking \cite{rong2020frankmocap, Shan2020UnderstandingHH}
+    \item Affordance prediction (e.g., graspable regions, interaction points, grasp trajectories) \cite{Bahl2023AffordancesFH, Bharadhwaj2023TowardsGZ}
+    \item Object- and hand-mask conditioned representations, which focus on the regions of the video that are relevant for action understanding and ignore irrelevant background information \cite{Bharadhwaj2023TowardsGZ}
 \end{itemize}
 
 \textbf{Limitations:}
@@ -636,15 +643,15 @@ which encodes the intended end-effector movement and can be associated with acti
 
 
 \paragraph{Inverse Dynamics Model (IDM) pseudo-action Labels:}
-These methods train an inverse dynamics model on robot data and use it to infer pseudo-action labels for action-free (human) videos, which can then be used for learning policies:
+These methods train an inverse dynamics model on robot data and use it to infer pseudo-action labels for action-free (human) videos \cite{Baker2022VideoP, Torabi2018BehavioralCF, Schmeckpeper2020ReinforcementLW}, which can then be used for learning policies \cite{McCarthy_2025}:
 \[
 p^{-1}(a_t \mid o_t, o_{t+1}).
 \]
 
 \textbf{Limitations:}
 \begin{itemize}
-    \item Require action-labeled robot data for model training.
-    \item Small domain shift between demonstration videos and robot execution.
+    \item Require action-labeled robot data for model training \cite{Baker2022VideoP, Torabi2018BehavioralCF, Schmeckpeper2020ReinforcementLW}.
+    \item Small domain shift between demonstration videos and robot execution \cite{Baker2022VideoP, Schmeckpeper2020ReinforcementLW, Kim2023GivingRA}.
 \end{itemize}
 
 

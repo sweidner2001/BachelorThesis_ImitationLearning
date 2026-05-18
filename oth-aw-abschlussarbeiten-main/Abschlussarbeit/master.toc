@@ -39,7 +39,7 @@
 \contentsline {subsection}{\numberline {4.2.4}Reduce the amount of robot data}{25}{subsection.4.2.4}%
 \contentsline {subsection}{\numberline {4.2.5}Challenges of Video Data}{30}{subsection.4.2.5}%
 \contentsline {subsection}{\numberline {4.2.6}Other Paths to Generalist Robots.}{32}{subsection.4.2.6}%
-\contentsline {chapter}{\numberline {5}Learning from Video Techniques}{33}{chapter.5}%
+\contentsline {chapter}{\numberline {5}Learning from Videos - Data Modality and Challenges}{33}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Extracting Foundational Knowledge from Internet Video}{33}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Video Encoders}{34}{subsection.5.1.1}%
 \contentsline {subsubsection}{\numberline {5.1.1.1}Methods}{35}{subsubsection.5.1.1.1}%
@@ -65,8 +65,12 @@
 \contentsline {paragraph}{Language-as-Actions:}{48}{paragraph*.35}%
 \contentsline {paragraph}{Visual Motion Information:}{48}{paragraph*.36}%
 \contentsline {paragraph}{(Human)-Embodiment Information:}{49}{paragraph*.37}%
-\contentsline {paragraph}{Inverse Dynamics Model (IDM) pseudo-action Labels:}{49}{paragraph*.38}%
+\contentsline {paragraph}{Inverse Dynamics Model (IDM) pseudo-action Labels:}{50}{paragraph*.38}%
 \contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{50}{section.5.3}%
-\contentsline {chapter}{Literaturverzeichnis}{51}{section*.39}%
-\contentsline {chapter}{Abbildungsverzeichnis}{54}{section*.41}%
-\contentsline {chapter}{Tabellenverzeichnis}{55}{section*.43}%
+\contentsline {chapter}{\numberline {6}Robot Learning Fundamentals}{51}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Robot Learning - Learning Objectives}{51}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Robot Learning - Approaches}{51}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{51}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{52}{section*.39}%
+\contentsline {chapter}{Abbildungsverzeichnis}{57}{section*.41}%
+\contentsline {chapter}{Tabellenverzeichnis}{58}{section*.43}%
