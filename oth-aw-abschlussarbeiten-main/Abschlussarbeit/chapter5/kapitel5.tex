@@ -384,7 +384,7 @@ The key idea is that $\hat{a}$ serves as a proxy for the missing action labels, 
     \item The \textbf{Video Encoder} extracts visual features (what is being done).
     \item The \textbf{Action Embedding Space $\hat{A}$} captures \textit{abstract actions} such as \textit{reach}, \textit{grasp}, \textit{move up}.
     \item The \textbf{Policy $\pi_{alt}( \hat{a}_t | o_t, c), \quad \hat{a}_t \in \hat{A}$} predicts the next action \textit{in this latent action space} based on current visual observations and probably some additional context information $c$.
-    \item Later, a \textbf{Decoder} or \textbf{Alignment Model $a_t = f_{align}(\hat{a}_t)$} maps these latent actions to the robot's real motor commands.    
+    \item Later, a \textbf{Decoder} $\pi(a_t \mid \hat{a}_t, o_t)$ or \textbf{Alignment Model $a_t = f_{align}(\hat{a}_t)$} maps these latent actions to the robot's real motor commands.    
 \end{itemize}
 
 
@@ -398,16 +398,21 @@ Working in the alternative action space $\hat{A}$ offers several advantages.
     \item \texttt{Transferable Representations across embodiments:} $\hat{A}$ supports transfer across embodiments, because the same semantic action (e.g., ``open drawer'') can be instantiated by different robots with different kinematics.
     % \item \texttt{Structured learning:} $\hat{A}$ provides a structured representation that can be used for learning policies, dynamics models, and value functions in a more data-efficient and generalizable way if $\hat{A}$ is well-structured, minimal, disentangled, and semantically consistent across embodiments.
     \item \texttt{Structured learning:} A well-structured representation $\hat{A}$ that is minimal, disentangled, and semantically consistent across the state space encodes meaningful action information. This makes it easier to learn models that are predictive of both future observations (i.e., learning $p_{\text{alt}}(o_{t+1} \mid \hat{a}_t, o_t)$ instead of $p(o_{t+1} \mid o_t)$) and robot actions (i.e., learning $\pi(a_t \mid \hat{a}_t, o_t)$ instead of $\pi(a_t \mid o_t)$), leading to more data-efficient and generalizable policies, dynamics models, and value functions.
+    The choice of abstraction level for $\hat{A}$ also plays a crucial role: 
+    \begin{itemize}
+        \item \textbf{Higher-level or longer-horizon representations} $\hat{A}$ (such as language-based actions) can benefit performance in complex, long-horizon tasks by providing broader context and intent. This is because they capture more abstract and semantically meaningful information that can guide decision-making over longer time scales, which is particularly beneficial for tasks that require planning and reasoning about future consequences \cite{McCarthy_2025}.
+        \item \textbf{Lower-level or shorter-horizon representations} $\hat{A}$, which retain more fine-grained information, may be more effective for accurately reconstructing or decoding the original robot actions $a_t$ from the alternative actions $\hat{a}_t$ \cite{McCarthy_2025}.
+    \end{itemize}
 \end{itemize}
 % It can improve data efficiency and generalization, since a well-structured alternative action space $\hat{A}$ that is minimal, disentangled, and semantically consistent allows both $\pi(\hat{a}_t \mid o_t)$ and $\pi(a_t \mid \hat{a}_t, o_t)$ to be learned more easily and with fewer samples.
 % The desired characteristics are:
 
 
-Once $\hat{A}$ is defined, the same representation can be used for:
+Once $\hat{A}$ is defined, the same representation can be used for example for:
 \begin{itemize}
-    \item policies $\pi_{\hat{A}}(\hat{a}_t \mid o_t)$,
-    \item dynamics models $p(o_{t+1} \mid o_t, \hat{a}_t)$ or
-    \item state-action value functions $Q(o_t, \hat{a}_t)$,
+    \item policies $\pi_{\hat{A}}(\hat{a}_t \mid o_t)$ [227],
+    \item dynamics models $p(o_{t+1} \mid o_t, \hat{a}_t)$ [40] or
+    \item state-action value functions $Q(o_t, \hat{a}_t)$ [27],
 \end{itemize}
 which further encourages consistent and transferable action abstractions.
 
@@ -433,6 +438,9 @@ which further encourages consistent and transferable action abstractions.
 
 % Goal: Recovering the missing action representations from video
 
+\subsection{Categories of Alternative Action Representations}
+
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter5/media/RecoveringActionFepresentationsFromVideo_2}
@@ -440,6 +448,206 @@ which further encourages consistent and transferable action abstractions.
  \cite{McCarthy_2025}.}
 	\label{fig:RecoveringActionFepresentationsFromVideo_2}
 \end{figure}
+
+
+Their exist different approaches to derive alternative action representations $\hat{a} \in \hat{A}$ from video data. These methods differ in how actions are represented and which information is extracted from visual observations.
+
+
+
+
+
+\paragraph{Single-step Latent Actions:}
+These approaches learn latent actions that describe the transition from one observation to the next:
+\[
+\hat{a}_t : o_t \rightarrow o_{t+1}.
+\]
+
+\textbf{Methods:}
+\begin{itemize}
+    \item Forward Dynamics Models (FDM) $p(o_{t+1} \mid \hat{a}_t, o_t)$, which predict the future observation from the current observation and latent action.
+    \item Inverse Dynamics Models (IDM) $p^{-1}(\hat{a}_t \mid o_t, o_{t+1})$, which infer the latent action responsible for a transition.
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item Often capture all visual changes, not only agent actions.
+    \item May omit important non-visual information such as forces or contact dynamics.
+\end{itemize}
+
+
+
+
+
+\paragraph{Multi-step Latent Actions:}
+These methods encode behaviors across multiple time-steps:
+\[
+\hat{a}_t : o_t \rightarrow o_{t+k}
+\]
+
+Instead of modeling individual actions, they capture higher-level behavioral patterns or latent plans.
+The key idea is to learn a compact latent representation of a \emph{skill} or \emph{sub-policy} that summarizes an entire sequence of actions. These representations are more abstract, goal orientated and can encode longer-horizon information, which may be beneficial for complex tasks. 
+
+For example these ``skill embeddings'' can capture structures such as ``reach the object'', ``move the arm to the target location'', or ``grasp and lift'', which can later be decoded into a full action sequence.
+
+
+% Instead of modeling individual actions, they capture higher-level behavioral patterns or latent plans. These representations are more abstract, goal orientated and can encode longer-horizon information, which may be beneficial for complex tasks. 
+
+% The key idea is that the model does not explicitly output every intermediate action, but instead learns a compact representation of a \emph{skill} or \emph{sub-policy} that executes a sequence of actions over time. These representations are more abstract, goal orientated and can encode longer-horizon information, which may be beneficial for complex tasks. 
+
+% In this way, the representation captures higher-level structure such as ``reach the object'', ``move the arm to the target location'', or ``grasp and lift'', which can then be decoded into a full action sequence. This encourages the model to compress long action trajectories into a compact latent ``skill embedding'' that captures the essence of the behavior, rather than modeling every low-level action step.
+
+
+
+\textbf{Methods:}
+\begin{itemize}
+    \item Variational sequence models: These methods use variational autoencoders (VAE) to encode motion trajectories or sequences of observations into a latent variable $z$ that captures the underlying behavior. The VAE is trained to reconstruct the original trajectory from the latent representation.    
+    % Variational auto-encoding of motion or trajectory representations 
+    \item Video-language contrastive learning aligns video segments with natural language descriptions of behaviors.
+    \item Supervised contrastive learning on action-labeled videos pulls videos with the same or similar action labels together in latent space, while pushing videos with different action labels apart.
+    \item Self-supervised clustering approaches group similar motion patterns or trajectories into clusters without requiring labels, with each cluster representing a reusable skill or behavior primitive.
+    \item Further approaches in  [268], Pertsch et al.[204], and Cai et al. [42]. 
+    % include hierarchical sequence models and latent plan representations (e.g., Pertsch et al., Cai et al.), which explicitly model skills as temporally extended latent variables.
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item Often produce abstract and long-horizon representations that may lose fine-grained control details and be harder to align with low-level robot actions.
+\end{itemize}
+
+
+
+
+\paragraph{Observations-as-Actions:}
+These approaches directly use (encoded) future observations as action representations:
+\[
+\hat{a}_t = o_{t+k}.
+\]
+Future observations provide information about the intended behavior or goal state.
+
+\textbf{Methods:}
+\begin{itemize}
+    \item \texttt{Next-observation-as-action} uses the next observation $o_{t+1}$ as the $\hat{a}_t$ label and provides information regarding the action that should be taken.
+    \item \texttt{Observations-as-subgoals} uses future observations as intermediate goals to guide action selection.
+    \begin{itemize}
+        \item \texttt{Fixed time horizon} uses observations that are fixed $k$ time steps in advance.
+        \item \texttt{Key-frame selection} identify critical states in a trajectory that can serve as action representations, see table \ref{tab:keyframes_pickplace}.
+        
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{|c|l|l|}
+                \hline
+                \textbf{Zeitpunkt} & \textbf{Frame-Beschreibung} & \textbf{Bedeutung} \\
+                \hline
+                $t_0$ & Arm über Tisch & Start \\
+                $t_1$ & Arm nähert sich Tasse & Zwischenzustand \\
+                $t_2$ & \textbf{Hand berührt Tasse} & \checkmark\ Key-frame \\
+                $t_3$ & Tasse wird angehoben & Zwischenzustand \\
+                $t_4$ & \textbf{Tasse über Ablage} & \checkmark\ Key-frame \\
+                $t_5$ & Tasse wird abgestellt & Ende \\
+                \hline
+            \end{tabular}
+            \caption{Beispielhafte Key-Frames in einer Pick-and-Place-Sequenz}
+            \label{tab:keyframes_pickplace}
+        \end{table}
+    \end{itemize}
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item Future observations may not uniquely determine the underlying action.
+    \item High-dimensional visual observations can increase learning complexity.
+\end{itemize}
+
+
+
+
+\paragraph{Language-as-Actions:}
+Natural language descriptions can be used as high-level action representations for example by captioning video frames with language instructions that describe the observed behavior:
+\[
+\hat{a}_t = \texttt{"pick up the cube"}.
+\]
+Language-based actions provide semantic supervision and enable integration with large language models, which can facilitate more complex reasoning and planning.
+
+\textbf{Methods:}
+\begin{itemize}
+    \item Language-captioned video datasets
+    \item Automated or semi-automated video captioning
+    \item Video-to-Text Models
+    \item Vision Language Models (VLMs) and variants of them
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item Language is often coarse and omits low-level control details.
+    \item Requires annotated or captioned video data.
+\end{itemize}
+
+
+
+\paragraph{Visual Motion Information:}
+These approaches define actions using visual motion cues extracted from video sequences. The underlying assumption is that temporal changes in visual observations (motion patterns) contain implicit information about the actions responsible for observed state transitions. For example, the direction, magnitude, and trajectory of movement can provide information about the intended behavior, goal, or interaction dynamics.
+
+\textbf{Methods:}
+\begin{itemize}
+    \item 2D or 3D point trajectories of tracked objects or hands via off-the-shelf point trackers
+    \item Optical flow prediction, which captures how image regions move between consecutive video frames 
+    % \item Optical flow prediction, which captures how image regions move between consecutive video frames
+    \item Visual action arrows that represent movement direction and magnitude directly in the image
+    \item Structure-from-motion approaches, which reconstruct 3D scene geometry and camera motion from video in order to recover information about underlying physical interactions
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item Motion estimates can be noisy or ambiguous.
+    \item Visual motion does not always correspond directly to robot actions.
+\end{itemize}
+
+
+
+
+
+\paragraph{(Human)-Embodiment Information:}
+These approaches explicit models human body structure and kinematics. 
+In contrast to generic motion-based methods, which focus on pixel or object movement, these approaches aim to represent the \emph{agent performing the action} using structured human pose information. 
+Embodiment-specific information such as hand poses, affordances, or trajectories can provide useful cues about the intended actions and interactions in the video, which can be transferred to robotic embodiments.
+For example, an alternative action representation can be defined as:
+\[
+\hat{a}_t = \text{hand pose at time } t+1,
+\]
+which encodes the intended end-effector movement and can be associated with actions such as reaching, grasping, or manipulating objects.
+% which can be used to infer actions such as reaching, grasping, or manipulating objects.
+
+\textbf{Methods:}
+\begin{itemize}
+    \item Human pose estimation (full-body kinematics)
+    \item Hand pose estimation and hand trajectory tracking
+    \item Affordance prediction (e.g., graspable regions, interaction points)
+    \item Object- and hand-mask conditioned representations, which focus on the regions of the video that are relevant for action understanding and ignore irrelevant background information
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item Human embodiment is structurally different from robotic embodiments, limiting direct transferability.
+    \item Accurate pose and hand tracking or estimation can be unreliable in cluttered or occluded scenes.
+    \item Focuses on human-centric actions, which may not generalize to non-human interaction styles.
+\end{itemize}
+
+
+
+
+\paragraph{Inverse Dynamics Model (IDM) pseudo-action Labels:}
+These methods train an inverse dynamics model on robot data and use it to infer pseudo-action labels for action-free (human) videos, which can then be used for learning policies:
+\[
+p^{-1}(a_t \mid o_t, o_{t+1}).
+\]
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item Require action-labeled robot data for model training.
+    \item Small domain shift between demonstration videos and robot execution.
+\end{itemize}
+
+
 
 
 

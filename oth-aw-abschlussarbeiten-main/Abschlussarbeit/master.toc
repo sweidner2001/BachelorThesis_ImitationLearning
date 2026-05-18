@@ -58,7 +58,15 @@
 \contentsline {section}{\numberline {5.2}Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}{42}{section.5.2}%
 \contentsline {paragraph}{What is an Alternative Action Representation?}{43}{paragraph*.28}%
 \contentsline {paragraph}{Why is $\hat {A}$ useful?}{44}{paragraph*.29}%
-\contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{45}{section.5.3}%
-\contentsline {chapter}{Literaturverzeichnis}{46}{section*.31}%
-\contentsline {chapter}{Abbildungsverzeichnis}{49}{section*.33}%
-\contentsline {chapter}{Tabellenverzeichnis}{50}{section*.35}%
+\contentsline {subsection}{\numberline {5.2.1}Categories of Alternative Action Representations}{45}{subsection.5.2.1}%
+\contentsline {paragraph}{Single-step Latent Actions:}{45}{paragraph*.31}%
+\contentsline {paragraph}{Multi-step Latent Actions:}{46}{paragraph*.32}%
+\contentsline {paragraph}{Observations-as-Actions:}{47}{paragraph*.33}%
+\contentsline {paragraph}{Language-as-Actions:}{48}{paragraph*.35}%
+\contentsline {paragraph}{Visual Motion Information:}{48}{paragraph*.36}%
+\contentsline {paragraph}{(Human)-Embodiment Information:}{49}{paragraph*.37}%
+\contentsline {paragraph}{Inverse Dynamics Model (IDM) pseudo-action Labels:}{49}{paragraph*.38}%
+\contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{50}{section.5.3}%
+\contentsline {chapter}{Literaturverzeichnis}{51}{section*.39}%
+\contentsline {chapter}{Abbildungsverzeichnis}{54}{section*.41}%
+\contentsline {chapter}{Tabellenverzeichnis}{55}{section*.43}%

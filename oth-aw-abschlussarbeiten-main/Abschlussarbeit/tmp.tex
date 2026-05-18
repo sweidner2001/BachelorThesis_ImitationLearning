@@ -674,3 +674,40 @@ Intuitively, this framework introduces an intermediate level of abstraction betw
 \end{itemize}
 
 This decomposition enables learning from large-scale, unlabelled video data while mitigating both the missing-action problem and the domain shift between human videos and robotic systems.
+
+
+
+
+
+
+\paragraph{Multi-step Latent Actions}
+
+Multi-step latent action methods aim to represent robot behavior over extended time horizons rather than predicting single low-level actions at each time step. 
+Instead of learning a direct mapping from an observation $o_t$ to an instantaneous action $a_t$, these methods learn a latent representation of behavior that spans multiple future steps:
+
+\[
+z_t = f(o_t), \quad \text{where } z_t \text{ encodes a transition from } o_t \rightarrow o_{t+k}.
+\]
+
+The key idea is that the model does not explicitly output every intermediate action, but instead learns a compact representation of a \emph{skill} or \emph{sub-policy} that executes a sequence of actions over time.
+
+In this way, the representation captures higher-level structure such as “reach the object”, “move the arm to the target location”, or “grasp and lift”, rather than individual motor commands.
+
+\textbf{Methods:}
+\begin{itemize}
+    \item \textbf{Variational sequence models:} These methods use variational autoencoders (VAE) to encode motion trajectories or sequences of observations into a latent variable $z$, which can then be decoded into a full action sequence. This encourages the model to compress long action trajectories into a compact latent “skill embedding”.
+
+    \item \textbf{Video-language contrastive learning:} These approaches align video segments with natural language descriptions of behaviors. The model learns embeddings where similar behaviors (e.g., “pick up the cup”) are close in latent space, allowing multi-step actions to be represented semantically.
+
+    \item \textbf{Supervised contrastive learning on action-labeled videos:} Here, videos with the same or similar action labels are pulled together in embedding space, while different behaviors are pushed apart. This helps the model learn consistent representations of long-horizon skills.
+
+    \item \textbf{Self-supervised clustering methods:} These approaches group similar motion patterns or trajectories into clusters without requiring labels. Each cluster can be interpreted as a reusable skill or behavior primitive.
+
+    \item \textbf{Other approaches:} Additional methods include hierarchical sequence models and latent plan representations (e.g., Pertsch et al., Cai et al.), which explicitly model skills as temporally extended latent variables.
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}
+    \item These methods often learn highly abstract representations that capture long-horizon structure, but they may lose fine-grained control information needed for precise low-level motor execution.
+    \item As a result, mapping latent skills back to accurate robot actions can be challenging, especially in contact-rich manipulation tasks.
+\end{itemize}
