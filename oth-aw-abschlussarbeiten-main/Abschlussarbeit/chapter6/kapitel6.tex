@@ -2,9 +2,194 @@
 
 
 \section{Robot Learning - Learning Objectives}
+% \section{Overview to Acquiring Relevant Robot Skills}
+
+Learning robot manipulation skills needs a comprehensive visual pipeline and objectives such as learning meaningful representations of the environment, understanding object affordances and human-object interactions, recognizing human actions and activities, and modeling 3D hand movements for fine-grained manipulation. These objectives are crucial for enabling robots to perform complex tasks in dynamic environments.
+
+
+
+% Representation Learning  
+% interpret dynamic scenes and extract task-relevant spatio-temporal features (Multi-view, lighting, depth)
+% Object Affordance and Human-Object Interaction
+% Understand Action possibilities of an object and how humans interact with them (interaction regions, Grasp planning)
+
+% Human Action and Activity Recognition
+% Allows robots to understand what humans are doing and replicate task structure, timing, and sequencing.
+% 3D Hand Modeling
+% fine-grained manipulation skills
+% human hands  robot grippers commands
+% Large Scale VLA
+% Foundation of general-purpose robot policies
+
+
+
+
+
+
+\subsection{Representation Learning}
+\textbf{Goal:} Representation Learning aims to extract meaningful and task-relevant spatio-temporal features from large amounts of unlabeled visual data. In robotics and Imitation Learning, the goal is to learn representations that enable agents to interpret dynamic scenes, understand interactions, and generalize across varying environments and embodiments. 
+
+A key challenge is that robotic observations are high-dimensional and subject to variations such as viewpoint changes, lighting conditions, cluttered backgrounds, and partial occlusions. Therefore, learned representations should be invariant to irrelevant visual changes while preserving information relevant for control and decision making.
+%  and supports high-level feature transfer from human videos to robot policies.
+
+Modern representation learning methods focus on several key aspects:
+\begin{itemize}
+    \item \textbf{Spatial Understanding:} Capturing objects, scene layouts, semantic structures or patterns, and relationships between entities.
+    
+    \item \textbf{Temporal Modeling:} Understanding motion dynamics, temporal coherence, and action progression across video frames.
+    
+    \item \textbf{Spatio-Temporal Modeling:} Extracting features within a frame (spatial) and tracking changes across frames (temporal coherence and dynamics)
+    
+    \item \textbf{Geometry-Aware Representations:} Understanding of three-dimensional scene geometry. Geometry-aware representations enable the agent to infer depth, 3D structure, and spatial consistency from monocular or multi-view visual observations. This capability is particularly relevant for robotic manipulation tasks, where accurate spatial reasoning is a prerequisite for grasp planning, obstacle avoidance, and trajectory optimization
+    
+    \item \textbf{Robustness and Invariance:} Learning consistent representations across multiple views, lighting conditions, and environmental variations.
+    % \item thereby facilitating more robust sim-to-real transfer and cross-embodiment generalization
+\end{itemize}
+
+% Many approaches rely on self-supervised learning to generate training signals directly from raw videos without requiring manual annotations. Common techniques include contrastive learning, temporal consistency objectives, object tracking, and masked modeling approaches such as Masked Autoencoders (MAE).
+
+\paragraph{Understand the importance of Representation Learning:}
+\begin{enumerate}
+    \item \textbf{Spatial Feature Extraction (The "What" and "Where")}
+    
+    \textit{Definition:} Spatial feature extraction focuses on what is happening within a single video frame. It involves identifying patterns, objects, and relationships based on pixel data in a 2D space.
+
+    \textit{Analogy:} If you pause a video, the spatial features are everything you can identify in that still image—the location of the object, the color of the table, and the shape of the hand.
+
+    \textit{Robot Relevance:} Answers the question: "What is the current state of the environment?" (e.g., The red block is on the left.)
+
+    \item \textbf{Temporal Feature Extraction (The "When" and "How")}
+    
+    \textit{Definition:} Temporal feature extraction focuses on the relationships and changes that occur across multiple frames over time (the sequence).
+    
+    \textit{Analogy:} This is the motion and dynamics of the video—understanding that a hand is moving toward a block, or that the block is rotating.
+    
+    \textit{Robot Relevance:} Answers the question: "What is the action and how is the scene changing?" (e.g., The hand is picking up the block.)
+
+    \item \textbf{Incorporate geometry and structure}
+    
+    \textit{Definition:} When your spatial and temporal methods incorporating geometry and structure, it refers to features that move beyond the 2D pixel domain (spatial) and the sequence domain (temporal) to model the 3D physical world.
+    % Incorporating geometry and structure involves understanding the 3D physical world, estimating properties like depth and camera motion/pose.
+    
+    \textit{Analogy:} This involves estimating properties like depth (how far away objects are) and camera motion/pose (the 3D position of the camera).
+
+    \textit{Robot Relevance:} For robotic manipulation, having a 3D and geometry understanding is essential, as the robot must operate in a 3D space, not just a 2D image.
+
+\end{enumerate}
+
+
+Video-centric representation learning is particularly important in robotics because it explicitly models temporal dynamics and multi-view consistency. These learned representations form the backbone of vision-based perception and control systems, enabling the transfer of high-level behavioral information from human videos to robotic policies. As a result, strong representations can significantly improve generalization, robustness, and data efficiency in imitation learning systems or facilitate more robust sim-to-real transfer.
+
+
+
+
+% Goal: Extract relevant and meaningful spatiotemporal features from (unlabeled) visual data
+
+
+% "Why needed: Robots must interpret scenes, objects, motion, and context from raw video",
+% "Key concepts: Temporal consistency, multi-view invariance, masked modeling, geometry-informed features“
+
+% Spatio-Temporal Modeling: Extracting features within a frame (spatial) and tracking changes across frames (temporal coherence and dynamics).
+
+% Time Contrastive Learning: multivariate logistic regression classifier is trained in a supervised manner to look at a sample taken from the series at an unknown time and predict $\tau$, the index of the chunk it came from
+
+
+
+
+
+\subsection{Object Affordance \& Human-Object Interaction}
+Object affordances stands for the actionable properties of objects, namely the interactions and manipulations that an object enables or invites. In other words it describes what you can do with an object for example:
+%  a handle affords \textit{grasping} or \textit{holding}, a button affords \textit{pressing}, a drawer handle affords \textit{pulling}.
+\begin{itemize}
+    \item a handle affords \textit{grasping} or \textit{holding}
+    \item a button affords \textit{pressing}
+    \item a drawer handle affords \textit{pulling}
+\end{itemize}
+In robotics and imitation learning, affordance understanding aims to infer how humans interact with objects and how these interactions can be transferred to robotic manipulation policies.
+
+The central goal is to understand the functional relationships between humans, objects, and actions by observing human manipulation in videos. Unlike purely appearance-based object recognition, affordance learning focuses on \textit{how objects are used} and interacted with over time.
+
+
+Modern affordance learning methods typically address several important aspects:
+\begin{itemize}
+    \item \textbf{Affordance Grounding:} 
+    Affordance grounding refers to the high-level semantic understanding of object functionality. The goal is to identify which actions an object enables and relate them to meaningful interactions.
+
+    \textit{Example:} Scissors afford cutting, while a mug affords holding liquids.
+
+    \item \textbf{Interaction Region Localization:} Interaction region localization focuses on identifying the specific object regions that are relevant for manipulation and interaction. Rather than only understanding what actions an object affords, the goal is to determine where these interactions should physically occur, such as grasp points, handles, buttons, or contact surfaces.
+    
+    \textit{Example:} For scissors, the handle region is associated with grasping, while the blades correspond to the cutting interaction. Similarly, for a mug, the handle represents the primary grasping region.
+
+    \item \textbf{Spatio-Temporal Affordances:} 
+    Capturing how affordances evolve spatially over time during manipulation sequences and task execution. 
+    % These approaches model how affordances evolve spatially and temporally during manipulation and task execution. 
+    This includes interaction dynamics, hand-object contact patterns, grasp types, trajectories, and sequential manipulation behavior.
+
+    \textit{Example:} Cutting paper with scissors requires coordinated hand motion, repeated opening and closing actions, and continuous contact between the blades and the paper. 
+    % Similarly, a door handle initially affords grasping before affording turning and pulling during interaction. 
+    Similarly the affordance of a door handle changes from ``graspable'' to ``turnable'' and then to ``pulling'' during interaction, reflecting the temporal dynamics of the manipulation process.
+
+    \item \textbf{3D and Geometry-Aware Understanding:} 
+    Incorporating depth information, RGB-D observations, point clouds, and multi-view inputs to the affordance model can improve spatial reasoning and manipulation robustness.
+
+    \textit{Example:} Estimating the 3D orientation of scissors and their distance to the paper enables more precise and physically consistent manipulation.
+\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Affordance Grounding:} is the high-level semantic understanding of object functionality. The goal is to identify the possible actions associated with an object and localize functional regions within the environment. 
+
+%     \textit{Example:} Scissors are used to cut things. A Mug is used for holding liquids.
+    
+%     \item \textbf{Interaction Region Localization:} focuses on identifying the specific object regions that are relevant for manipulation and interaction. Rather than only understanding what actions an object affords, the goal is to determine where these interactions should physically occur, such as grasp points, handles, buttons, or contact surfaces.
+    
+%     \textit{Example:} For scissors, the handle region is associated with grasping, while the blades correspond to the cutting interaction. Similarly, for a mug, the handle represents the primary grasping region.
+
+
+%     \item \textbf{Human-Object Interaction Modeling:} aims to understand how humans manipulate objects through hand trajectories, contact patterns, grasp types, and temporal interaction dynamics.
+
+%     \textit{Example:} Cutting paper with scissors involves coordinated hand motion, repeated opening and closing actions, and continuous contact between the blades and the paper.
+
+%     \item \textbf{3D and Geometry-Aware Understanding:} 
+%     These approaches incorporate depth information, RGB-D observations, point clouds, or multi-view inputs to improve spatial reasoning and manipulation robustness.
+
+%     \textit{Example:} Estimating the 3D orientation of scissors and their distance to the paper enables more precise and physically consistent manipulation.
+
+%     \item \textbf{Spatio-Temporal Affordances:} Capturing how affordances evolve over time during manipulation sequences and task execution.
+
+%     \textit{Example:} The affordance of a door handle changes from "graspable" to "turnable" as the hand approaches and interacts with it, reflecting the temporal dynamics of the manipulation process.
+% \end{itemize}
+
+\paragraph{Methods.}
+Recent approaches increasingly leverage large-scale human activity videos and self-supervised learning to learn affordances from natural human demonstrations. Hand-centric representations are particularly important because hand movements and contact points provide strong cues about object functionality and intended actions. Several methods therefore use hand localization, hand-state estimation, or hand-object contact prediction to improve affordance grounding and interaction understanding.
+
+The integration of transformer architectures, RGB-D sensing, and multi-modal representations has further improved the ability to jointly reason about objects, actions, temporal dynamics, and scene context. In addition, 3D point cloud representations and multi-view observations help reduce uncertainty in manipulation planning and improve robustness in real-world robotic environments.
+
+Affordance learning plays a critical role in robotic imitation learning because it help to bridge the gap between observing human demonstrations and executing robotic actions. By learning functional object understanding rather than merely visual appearance, robots can better generalize manipulation skills across different environments, viewpoints, and object instances. This enables more robust action grounding for tasks such as grasping, opening, placing, tool use, and long-horizon object manipulation.
+
+
+
+\subsection{Human Action \& Activity Understanding}
+
+\subsection{3D Hand Modeling}
+
+
+
 
 
 \section{Robot Learning - Approaches}
+\subsection{Foundational Perception and Representation Methods}
+Video-centric and approaches for video and images.
+\subsubsection{Spatial and Temporal Feature Extraction}
 
+
+\subsection{Reinforcement Learning}
+
+\subsection{Imitation Learning}
+\subsection{Hybrid Approaches}
+\subsection{Multi-Modal Approaches}
+\subsection{Large-Scale VLA Models}
+
+
+\subsection{Comparison of approaches}
 
 \section{Vision Language Action Models}

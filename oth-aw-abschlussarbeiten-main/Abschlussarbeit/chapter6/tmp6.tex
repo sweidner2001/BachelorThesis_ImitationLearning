@@ -1,0 +1,105 @@
+
+Theoretical Context
+The ability to extract meaningful spatiotemporal features from unlabeled visual data constitutes one of the foundational challenges in modern computer vision and robot learning. Representation learning, as a subfield of machine learning, is concerned with the automatic discovery of data representations that are suitable for downstream tasks such as classification, control, or planning (Bengio et al., 2013). In the context of video-conditioned policy learning, the quality of learned visual representations directly determines whether a robotic agent can successfully interpret dynamic environments and act accordingly.
+
+
+Spatio-Temporal Modeling
+A central requirement for video-based representation learning is the capacity to model both spatial and temporal dimensions of visual input simultaneously. On the spatial axis, learned representations must capture structural patterns within individual frames — including object identities, spatial relationships between entities, and scene semantics. On the temporal axis, representations must encode motion dynamics, state transitions, and temporal coherence across consecutive frames. This dual requirement distinguishes video representation learning from its image-based counterpart, as the temporal dimension introduces additional complexity related to motion estimation, occlusion handling, and long-range temporal dependencies. Approaches such as 3D convolutional networks (Tran et al., 2015) and Video Transformers (Arnab et al., 2021) have been proposed to jointly capture these spatio-temporal structures within unified architectures.
+
+
+Geometry-Aware Representations
+Beyond surface-level appearance features, a robust visual encoder must develop an implicit or explicit understanding of three-dimensional scene geometry. Geometry-aware representations enable the inference of depth, object scale, and spatial configuration from monocular or multi-view inputs. This capability is particularly relevant for robotic manipulation tasks, where accurate spatial reasoning is a prerequisite for grasp planning, obstacle avoidance, and trajectory optimization. Recent work has demonstrated that self-supervised depth estimation (Godard et al., 2019) and neural radiance fields (Mildenhall et al., 2020) can serve as effective geometric priors, enriching the feature space available to downstream policy networks.
+
+
+Perceptual Consistency and Invariance
+A further desirable property of visual representations is robustness to variations that are irrelevant to the underlying task. Specifically, learned features should exhibit invariance to changes in viewpoint, illumination conditions, and visual clutter — a property commonly referred to as perceptual consistency. Without such invariance, a policy trained on demonstrations from one visual perspective may fail catastrophically when deployed under slightly different conditions. Contrastive learning frameworks (Chen et al., 2020) and multi-view consistency objectives (Sermanet et al., 2018) have proven effective at encouraging representations that remain stable across such nuisance variations, thereby facilitating more robust sim-to-real transfer and cross-embodiment generalization.
+
+Self-Supervised Learning Paradigms
+A defining characteristic of video-based representation learning is its reliance on self-supervised learning paradigms, which generate training signals from the data itself rather than requiring manual annotations. Three principal approaches have emerged in the literature. First, (time-)contrastive learning constructs positive and negative pairs based on temporal proximity, encouraging the encoder to produce similar embeddings for temporally adjacent frames and dissimilar embeddings for distant ones (Sermanet et al., 2018). Second, visual tracking methods leverage object persistence across frames as a supervisory signal, learning representations that maintain consistent object identity over time. Third, masked autoencoding (MAE) approaches (He et al., 2022) randomly mask portions of the input and train the encoder to reconstruct the missing content, thereby forcing the model to develop rich internal representations of visual structure. These paradigms are not mutually exclusive and can be combined to yield complementary feature spaces.
+
+Relevance to Policy Learning
+The representations produced through these methods serve as the perceptual backbone for downstream visuomotor control pipelines. Rather than learning task-specific visual features from scratch — which would require prohibitively large amounts of task-specific demonstration data — pre-trained visual encoders provide a compact, informative feature space upon which policy networks can be efficiently trained. This is particularly advantageous in the context of learning from human demonstration videos, where the visual domain differs substantially from the robot's embodiment. High-quality representations enable the extraction of task-relevant semantic features (e.g., object states, contact events, goal configurations) that transfer across the human-to-robot domain gap, thereby supporting high-level feature transfer from human videos to robot policies.
+
+Approaches and Generalization
+Current approaches to video representation learning can be broadly categorized into video-centric methods, which operate exclusively on video sequences and exploit temporal structure, and hybrid video-and-image methods, which additionally leverage large-scale image datasets to improve spatial feature quality. The capacity for generalization — i.e., the ability of learned representations to transfer to novel objects, scenes, and task configurations not encountered during pre-training — remains a critical evaluation criterion and an active area of research.
+
+Key Takeaways
+Spatio-temporal duality is the defining challenge: representations must simultaneously capture frame-level spatial structure and cross-frame motion dynamics.
+Geometry awareness and perceptual invariance are essential for robotic applications where viewpoint and lighting conditions vary between training and deployment.
+Self-supervised objectives (contrastive learning, tracking, MAE) eliminate the need for labeled data, making large-scale video pre-training feasible.
+Transfer quality of learned representations determines how efficiently downstream policies can be trained, particularly when bridging the human-to-robot domain gap.
+
+
+
+
+
+
+
+
+
+
+
+Modern affordance learning methods typically focus on several key aspects:
+
+\begin{itemize}
+    \item \textbf{Affordance Grounding:} Understanding the functional properties of objects by identifying possible actions and localizing interaction-relevant regions such as handles, buttons, or grasp points.
+    
+    \item \textbf{Human-Object Interaction Modeling:} Learning how humans manipulate objects through hand trajectories, contact patterns, grasp types, and temporal interaction dynamics.
+    
+    \item \textbf{3D and Geometry-Aware Understanding:} Incorporating depth information, 3D scene structure, and multi-view observations to improve spatial reasoning and manipulation robustness.
+\end{itemize}
+
+
+
+Modern affordance learning methods typically focus on several key aspects:
+
+\begin{itemize}
+    \item \textbf{Affordance Grounding:} Understanding the functional properties of objects and identifying the actions they enable. For example, scissors afford cutting, while their handles afford grasping.
+    
+    \item \textbf{Interaction Region Localization:} Detecting object regions that are relevant for interaction, such as grasp points, handles, or cutting surfaces. In the case of scissors, the handle region is associated with grasping, whereas the blades correspond to the cutting interaction.
+    
+    \item \textbf{Human-Object Interaction Modeling:} Learning how humans manipulate objects through hand trajectories, contact patterns, grasp types, and temporal interaction dynamics. For example, cutting paper with scissors requires coordinated hand motion, grip adaptation, and sequential manipulation over time.
+    
+    \item \textbf{3D and Geometry-Aware Understanding:} Incorporating depth information, RGB-D inputs, point clouds, and multi-view observations to improve spatial reasoning and manipulation robustness.
+\end{itemize}
+
+
+    \item \textbf{Interaction Region Localization:} 
+    Interaction Region Localization focuses on identifying the specific object regions that are relevant for manipulation and interaction. Rather than only understanding what actions an object affords, the goal is to determine where these interactions should physically occur, such as grasp points, handles, buttons, or contact surfaces.
+
+    \textit{Example:} For scissors, the handle region is associated with grasping, while the blades correspond to the cutting interaction. Similarly, for a mug, the handle represents the primary grasping region.
+
+
+        \item \textbf{Affordance Grounding:} 
+    Affordance grounding refers to the semantic understanding of object functionality by associating objects with the actions they enable.
+
+    \textit{Example:} Scissors afford cutting, while a mug affords holding liquids.
+
+  
+
+    Modern affordance learning methods typically address several important aspects:
+
+\begin{itemize}
+    \item \textbf{Affordance Grounding:} 
+    Affordance grounding refers to the semantic understanding of object functionality. The goal is to identify which actions an object enables and relate them to meaningful interactions.
+
+    \textit{Example:} Scissors afford cutting, while a mug affords holding liquids.
+
+    \item \textbf{Interaction Region Localization:} Interaction region localization focuses on identifying the specific object regions that are relevant for manipulation and interaction. Rather than only understanding what actions an object affords, the goal is to determine where these interactions should physically occur, such as grasp points, handles, buttons, or contact surfaces.
+    
+    \textit{Example:} For scissors, the handle region is associated with grasping, while the blades correspond to the cutting interaction. Similarly, for a mug, the handle represents the primary grasping region.
+
+    \item \textbf{Spatio-Temporal Affordances:} 
+    Capturing how affordances evolve spatially over time during manipulation sequences and task execution. 
+    % These approaches model how affordances evolve spatially and temporally during manipulation and task execution. 
+    This includes interaction dynamics, hand-object contact patterns, grasp types, trajectories, and sequential manipulation behavior.
+
+    \textit{Example:} Cutting paper with scissors requires coordinated hand motion, repeated opening and closing actions, and continuous contact between the blades and the paper. 
+    % Similarly, a door handle initially affords grasping before affording turning and pulling during interaction. 
+    Similarly the affordance of a door handle changes from ``graspable'' to ``turnable'' and then to ``pulling'' during interaction, reflecting the temporal dynamics of the manipulation process.
+
+    \item \textbf{3D and Geometry-Aware Understanding:} 
+    Incorporating depth information, RGB-D observations, point clouds, and multi-view inputs to the affordance model can improve spatial reasoning and manipulation robustness.
+
+    \textit{Example:} Estimating the 3D orientation of scissors and their distance to the paper enables more precise and physically consistent manipulation.
+\end{itemize}
