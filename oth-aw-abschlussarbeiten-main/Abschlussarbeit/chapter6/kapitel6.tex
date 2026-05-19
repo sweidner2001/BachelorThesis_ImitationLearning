@@ -83,6 +83,16 @@ Video-centric representation learning is particularly important in robotics beca
 
 
 
+% \paragraph{Methods.}
+% Recent approaches in representation learning leverage large-scale, unlabelled video data and self-supervised objectives to extract spatio-temporal features from raw observations [35, 36]. Video-centric methods are especially relevant for imitation learning, as they explicitly model temporal dynamics and multi-view consistency. For instance, time-contrastive learning and Siamese-triplet losses encode viewpoint invariance while preserving task-relevant temporal changes [37, 38]. Dense predictive coding and LSTM-based autoencoders further capture long-range dependencies and support future prediction [39, 40].
+
+% Contrastive learning frameworks align augmented views of the same clip while separating unrelated ones, producing robust embeddings that transfer across domains [44].
+
+% More recently, masked autoencoders (MAE) and universal frozen perception modules have shown that self-supervised pretraining on images or videos outperforms traditional ImageNet initialization in robotic benchmarks [45, 46]. Universal representations such as R3M combine time-contrastive learning with sparse encoding from human activity datasets, enabling efficient policy learning across simulated and real-world manipulation tasks [47].
+
+% Together, these representation learning methods bridge the gap between high-dimensional visual input and downstream control policies. By learning temporally coherent, viewpoint-invariant, and task-relevant features, they improve generalization, data efficiency, and robustness in imitation learning systems.
+
+
 % Goal: Extract relevant and meaningful spatiotemporal features from (unlabeled) visual data
 
 
@@ -97,7 +107,7 @@ Video-centric representation learning is particularly important in robotics beca
 
 
 
-\subsection{Object Affordance \& Human-Object Interaction}
+\subsection{Object Affordances \& Human-Object Interaction}
 Object affordances stands for the actionable properties of objects, namely the interactions and manipulations that an object enables or invites. In other words it describes what you can do with an object for example:
 %  a handle affords \textit{grasping} or \textit{holding}, a button affords \textit{pressing}, a drawer handle affords \textit{pulling}.
 \begin{itemize}
@@ -135,6 +145,16 @@ Modern affordance learning methods typically address several important aspects:
 
     \textit{Example:} Estimating the 3D orientation of scissors and their distance to the paper enables more precise and physically consistent manipulation.
 \end{itemize}
+
+
+
+% | Affordance Grounding              | What actions does the object enable?              |
+% | Interaction Region Localization   | Where should the interaction occur?               |
+% | Spatio-Temporal Affordances       | How does the interaction evolve over time?        |
+% | 3D / Geometry-Aware Understanding | What is the spatial structure of the interaction? |
+
+
+
 % \begin{itemize}
 %     \item \textbf{Affordance Grounding:} is the high-level semantic understanding of object functionality. The goal is to identify the possible actions associated with an object and localize functional regions within the environment. 
 
@@ -160,21 +180,73 @@ Modern affordance learning methods typically address several important aspects:
 % \end{itemize}
 
 \paragraph{Methods.}
-Recent approaches increasingly leverage large-scale human activity videos and self-supervised learning to learn affordances from natural human demonstrations. Hand-centric representations are particularly important because hand movements and contact points provide strong cues about object functionality and intended actions. Several methods therefore use hand localization, hand-state estimation, or hand-object contact prediction to improve affordance grounding and interaction understanding.
+Recent approaches increasingly leverage large-scale human activity videos and self-supervised learning to infer affordances from natural human demonstrations [48]. Hand-centric representations are particularly important, as hand motion and contact points provide strong cues about object functionality and intended actions [49]. Several methods therefore use hand localization, hand-state estimation, or hand-object contact prediction to improve affordance grounding and interaction understanding.
 
-The integration of transformer architectures, RGB-D sensing, and multi-modal representations has further improved the ability to jointly reason about objects, actions, temporal dynamics, and scene context. In addition, 3D point cloud representations and multi-view observations help reduce uncertainty in manipulation planning and improve robustness in real-world robotic environments.
+The usage of transformer architectures and the integration of RGB-D sensing and multi-modal inputs has further improved the ability to jointly reason about objects, actions, spatial-temporal dynamics, and scene context. In addition, 3D point cloud representations and multi-view observations help reduce uncertainty in manipulation planning and improve robustness in real-world robotic environments.
 
-Affordance learning plays a critical role in robotic imitation learning because it help to bridge the gap between observing human demonstrations and executing robotic actions. By learning functional object understanding rather than merely visual appearance, robots can better generalize manipulation skills across different environments, viewpoints, and object instances. This enables more robust action grounding for tasks such as grasping, opening, placing, tool use, and long-horizon object manipulation.
+Affordance learning plays a critical role in robotic imitation learning by bridging the gap between observing human demonstrations and executing robotic actions. By learning functional object understanding rather than purely visual appearance, robots can better generalize manipulation skills across environments, viewpoints, and object instances. This enables more robust action grounding for tasks such as grasping, opening, placing, tool use, and long-horizon manipulation.
+
 
 
 
 \subsection{Human Action \& Activity Understanding}
+\textbf{Goal:} Human Action and Activity Understanding aims to recognize what humans are doing in videos, which is crucial for understanding object affordances. It allows robots to interpret fine-grained manipulation skills, replicate task structure, timing, and sequencing from human demonstrations. The goal is to learn a hierarchical understanding of human actions, from low-level movements to high-level activities, by analyzing visual cues such as hand trajectories, object interactions, and scene context.
+
+% It also involves decomposing complex, multi-step activities into meaningful sub-actions. In imitation learning, this enables robots to interpret fine-grained manipulation skills, replicate task structure, timing, and sequencing from human demonstrations [48, 49, 65].
+
+Modern methods therefore focus on several essential aspects:
+\begin{itemize}
+    \item \textbf{Temporal Action Identification and Segmentation:} 
+    % Breaking complex activities into meaningful sub-actions or coherent sub-activities segments, allowing robots to understand the sequential structure of a task [68, 69].
+    Modeling the temporal structure of tasks by decomposing complex activities into meaningful sub-actions or atomic interaction steps, allowing robots to understand the sequential structure of a task [68, 69].
+    
+    \item \textbf{Fine-Grained Action Recognition:} Distinguishing visually similar manipulation differences (e.g., grasping vs. pinching, rotating vs. twisting) by jointly leveraging appearance and motion cues.
+    % , often through deep convolutional or hybrid architectures [66, 67].
+    % Distinguishing visually similar manipulations (e.g., grasping vs. pinching, turning vs. twisting) by combining appearance and motion cues [66, 67].
+    
+    \item \textbf{Motion Flow and Interaction Region Understanding:} Predicting keypoints, interaction regions, and motion trajectories from demonstrations to capture where and how human hands interact with objects over time [68].
+    % Predicting interaction regions, motion trajectories, and keypoints to capture how humans interact with objects over time, providing explicit signals for manipulation understanding and imitation [68].
+    
+    \item \textbf{Hierarchical Task Intention Modeling:} Learning relationships between fine-grained low-level actions and high-level task goals, Allows robots to understand what humans are doing and replicate task structure, timing, and sequencing.
+    % enabling robots to generalize across different sequences that achieve the same high-level goal [51, 66].
+\end{itemize}
+
+% ToDo: Überprüfen ob 69 und 68 stimmt von der erklärung her
+\paragraph{Methods.}
+Recent advances include unsupervised and weakly supervised methods that reduce the need for dense annotations. 
+In [69], the method models complex actions as sequences of latent sub-activities by alternating between a discriminative step, which separates meaningful temporal segments, and a generative step, which reconstructs or explains the observed sequence. An explicit background model is used to suppress non-informative regions (e.g. scene clutter), allowing the system to focus on action-relevant frames under weak supervision.
+IRMT-Net [68] directly learns interaction structure from demonstration videos by jointly predicting spatial interaction regions and corresponding motion trajectories, effectively coupling ``where interaction happens'' with ``how it evolves over time,'' which reduces dependence on manual annotations and improves generalization across settings.
+
+% In [69], actions are decomposed into sub-activities by alternating between discriminative and generative learning, while an explicit background model suppresses irrelevant visual content, enabling effective learning from limited supervision. For interaction understanding, IRMT-Net [68] predicts both interaction regions and motion trajectories directly from demonstrations, minimizing the need for manual labeling and improving generalization across settings. In contrast, [66] focuses on representing affordances as structured object-hand interaction strings, prioritizing functional relationships over visual appearance.
+
 
 \subsection{3D Hand Modeling}
+% \textbf{Goal:} 3D Hand Modeling aims to capture the complex geometry and motion of human hands during manipulation. It enables robots to understand fine-grained manipulation skills by modeling hand-object interactions, grasp types, and contact dynamics in three-dimensional space. The goal is to learn a detailed representation of hand pose, shape, and motion from videos, which can be transferred to robotic grippers for precise and dexterous manipulation.
+
+\textbf{Goal:} 3D hand modeling aims to estimate accurate 3D pose, shape, and contact of the human hand from video, to directly translate human hand movements into robot gripper commands.
+
+By reconstructing a full 3D mesh of the hand, the system can understand fine-grained manipulation details—such as finger placement, grasp type, and hand-object contact—and retarget these to robot end-effectors.
+3D Hand Modeling helps to bridge the embodiment gap between human hands and robot grippers [71, 72, 75].
+
+Key challenges include handling occlusions (e.g., self-occlusion of fingers), recovering realistic hand-object contact, and mapping human joint angles to robot kinematics. Modern methods therefore focus on several essential aspects:
+
+\begin{itemize}
+    \item \textbf{Parametric Hand Models:} Low-dimensional, realistic representations of the human hand (e.g., MANO [75], built on SMPL [76]) that enable 3D mesh reconstruction from monocular images [73, 74]. These models capture hand pose, shape, and articulation while being computationally efficient for real-time applications.
+    
+    \item \textbf{Occlusion Handling:} Robust estimation of finger positions and hand shape despite self-occlusions or object-induced occlusions during manipulation.
+    
+    \item \textbf{Grasp Realism and Hand-Object Contact:} Enforcing consistency between hand contact points and object surfaces, often through self-supervised objectives that improve physical plausibility [60].
+    
+    \item \textbf{Motion Retargeting:} Mapping human hand joint angles and poses to robot gripper or anthropomorphic hand commands, enabling transfer of dexterous skills across embodiments [11, 71].
+\end{itemize}
 
 
+\paragraph{Methods.}
+% Early approaches introduced anthropomorphic robotic hands for teleoperation and video-based learning. For instance, LEAP Hand provides a low-cost design that supports visual teleoperation, passive learning, and sim-to-real transfer by extracting hand poses from web videos [71]. Similarly, DexMV offers a simulation and vision-based pipeline that maps 3D human hand poses to robot-compatible demonstrations [11], while DexVIP leverages YouTube videos and human hand priors to learn dexterous grasping without expensive lab data, enabling generalization to novel objects [72].
 
+Advances in motion capture have further improved fidelity. FrankMocap enables fast monocular 3D hand and body pose estimation using SMPL-X [73, 74], whereas MANO provides a parametric hand model widely used in robotics and graphics [75, 76]. Complementary work focuses on grasp realism, enforcing consistency between hand-object contact points through self-supervised objectives, improving flexibility and accuracy even during testing [60].
 
+Collectively, these methods reduce embodiment differences and establish robust hand modeling pipelines, laying the foundation for high-fidelity manipulation learning from human demonstrations [71, 72, 75].
 
 \section{Robot Learning - Approaches}
 \subsection{Foundational Perception and Representation Methods}
