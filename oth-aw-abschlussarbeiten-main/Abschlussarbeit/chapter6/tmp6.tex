@@ -277,3 +277,46 @@ Modern methods focus on several key aspects:
 Progress in this area has been strongly driven by large-scale datasets such as UCF101 [70], which provide diverse and realistic in-the-wild videos for benchmarking action recognition models, as well as by methods that reduce annotation requirements through weakly supervised or unsupervised learning strategies.
 
 
+
+
+
+
+
+
+
+
+
+
+\paragraph{Feature Extraction Methods.}
+Feature extraction methods aim to obtain task-relevant information from visual demonstrations, ranging from holistic scene understanding to fine-grained motion structure. In robotic imitation learning, these approaches provide the perceptual foundation for mapping visual observations to robot actions.
+
+\textbf{CNN-based Feature Extraction:} CNN-based methods learn spatial and temporal representations directly from raw image or video inputs. These approaches are widely used for detecting objects, segmenting interaction regions, and modeling hand–object relationships from demonstrations. By learning hierarchical visual features, CNN-based pipelines enable end-to-end mapping from perception to robot control and form the basis of many video-based imitation learning systems.
+
+\textbf{Pose and Keypoint Detection:} In contrast, pose and keypoint-based methods focus on extracting structured motion representations such as body joints, hand poses, fingertips, or object centers. These representations explicitly capture geometry, spatial relationships, and motion dynamics, providing interpretable and transferable cues for action understanding. Pose-based methods are particularly useful for retargeting human demonstrations to robot kinematics and complement CNN-based approaches by adding fine-grained structural information.
+
+
+
+\textbf{CNN-based Feature Extraction:} Convolutional Neural Networks (CNNs) excel at spatial feature extraction and learn spatio-temporal representations directly from raw pixels. These approaches are widely used for detecting objects, segmenting interaction regions, and modeling hand-object relationships from demonstrations. CNN-based pipelines form the foundation of many Robot Learning systems and support the mapping of raw visual observations to robot actions. For example, several methods use CNNs to detect hand-object interactions and predict corresponding motor commands from demonstration videos.
+
+\textbf{Pose and Keypoint Detection:} In contrast, pose and keypoint-based methods focus on extracting structured motion representations such as body joints, hand poses, fingertips, or object centers. These representations explicitly capture geometry and motion dynamics, providing interpretable and transferable cues for action understanding. Pose-based methods are particularly useful for retargeting human demonstrations to robot kinematics. For example, several approaches reconstruct 3D human poses and map them to robot trajectories to create strong priors for policy learning.
+
+
+\textbf{Pose and Keypoint Detection:} In contrast, pose and keypoint-based methods focus on extracting structured motion representations such as body joints, hand poses, fingertips, or object centers. Instead of processing the full image holistically, these methods first detect sparse keypoints and then model their spatial relationships and temporal motion dynamics. This provides interpretable and transferable cues for understanding human actions and manipulation behavior. Pose-based methods are particularly useful for retargeting human demonstrations to robot kinematics, since the reconstructed joint trajectories can be directly mapped to robot motions. For example, several approaches reconstruct 3D human poses from monocular videos and transfer the resulting trajectories into robot-compatible action representations for policy learning.
+
+
+\textbf{Pose and Keypoint Detection:} In contrast, pose and keypoint-based methods focus on extracting structured motion representations such as body joints, hand poses, fingertips, or object centers. Instead of analyzing the entire image equally, these methods identify important points of the human body or hand, such as elbows, wrists, fingertips, or object locations, and track these points how they move over time. By modeling these spatial relationships and motion dynamics, pose-based approaches provide interpretable and transferable information about human actions and manipulation behavior. They are particularly useful for retargeting human demonstrations to robot kinematics, since the reconstructed joint trajectories can be mapped to robot motions. For example, several approaches reconstruct 3D human poses from monocular videos and transfer the resulting trajectories into robot-compatible action representations for policy learning.
+
+
+\textbf{Pose and Keypoint Detection:} In contrast, pose and keypoint-based methods focus on extracting structured motion representations such as body joints, hand poses, fingertips, or object centers. Instead of analyzing the entire image equally, these methods identify important points of the human body or hand, such as elbows, wrists, fingertips, or object locations, and track how they move over time. This helps the system understand how a person moves, how body parts relate to each other, and how humans interact with objects during a task. Pose-based methods are particularly useful for retargeting human demonstrations to robot kinematics, since the reconstructed joint trajectories can be mapped to robot motions. For example, several approaches reconstruct 3D human poses from monocular videos and transfer the resulting trajectories into robot-compatible action representations for policy learning.
+
+
+\textbf{Pose and Keypoint Detection:} In contrast, pose and keypoint-based methods focus on extracting structured motion representations such as body joints, hand poses, fingertips, or object centers. Instead of analyzing the entire image equally, these methods identify important points of the human body or hand, such as elbows, wrists, fingertips, or object locations, and track how these points move and interact over time. This allows the system to understand body posture, movement direction, and how humans manipulate objects during a task. Pose-based methods are particularly useful for retargeting human demonstrations to robot kinematics, since the reconstructed joint trajectories can be mapped to robot motions. For example, several approaches reconstruct 3D human poses from monocular videos and transfer the resulting trajectories into robot-compatible action representations for policy learning.
+
+
+
+
+
+
+
+
+

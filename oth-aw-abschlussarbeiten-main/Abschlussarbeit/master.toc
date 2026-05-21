@@ -79,14 +79,18 @@
 \contentsline {paragraph}{Methods.}{56}{paragraph*.42}%
 \contentsline {section}{\numberline {6.2}Robot Learning - Approaches}{56}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}Foundational Perception and Representation Methods}{56}{subsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.1.1}Spatial and Temporal Feature Extraction}{56}{subsubsection.6.2.1.1}%
-\contentsline {subsection}{\numberline {6.2.2}Reinforcement Learning}{56}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{56}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{56}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{56}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{56}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{56}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Vision Language Action Models}{56}{section.6.3}%
-\contentsline {chapter}{Literaturverzeichnis}{57}{section*.43}%
-\contentsline {chapter}{Abbildungsverzeichnis}{64}{section*.45}%
-\contentsline {chapter}{Tabellenverzeichnis}{65}{section*.47}%
+\contentsline {subsubsection}{\numberline {6.2.1.1}Feature Extraction Methods}{56}{subsubsection.6.2.1.1}%
+\contentsline {subsubsection}{\numberline {6.2.1.2}Domain Bridging via Translation Approaches}{58}{subsubsection.6.2.1.2}%
+\contentsline {paragraph}{Image Translation}{58}{paragraph*.44}%
+\contentsline {paragraph}{Context Translation}{59}{paragraph*.45}%
+\contentsline {paragraph}{Example}{59}{paragraph*.46}%
+\contentsline {subsection}{\numberline {6.2.2}Reinforcement Learning}{59}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{59}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{59}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{59}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{59}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{59}{subsection.6.2.7}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{59}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{60}{section*.47}%
+\contentsline {chapter}{Abbildungsverzeichnis}{68}{section*.49}%
+\contentsline {chapter}{Tabellenverzeichnis}{69}{section*.51}%
