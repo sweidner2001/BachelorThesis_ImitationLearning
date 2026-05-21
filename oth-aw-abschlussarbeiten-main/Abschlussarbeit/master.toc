@@ -81,16 +81,14 @@
 \contentsline {subsection}{\numberline {6.2.1}Foundational Perception and Representation Methods}{56}{subsection.6.2.1}%
 \contentsline {subsubsection}{\numberline {6.2.1.1}Feature Extraction Methods}{56}{subsubsection.6.2.1.1}%
 \contentsline {subsubsection}{\numberline {6.2.1.2}Domain Bridging via Translation Approaches}{58}{subsubsection.6.2.1.2}%
-\contentsline {paragraph}{Image Translation}{58}{paragraph*.44}%
-\contentsline {paragraph}{Context Translation}{59}{paragraph*.45}%
-\contentsline {paragraph}{Example}{59}{paragraph*.46}%
-\contentsline {subsection}{\numberline {6.2.2}Reinforcement Learning}{59}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{59}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{59}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{59}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{59}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{59}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Vision Language Action Models}{59}{section.6.3}%
-\contentsline {chapter}{Literaturverzeichnis}{60}{section*.47}%
-\contentsline {chapter}{Abbildungsverzeichnis}{68}{section*.49}%
-\contentsline {chapter}{Tabellenverzeichnis}{69}{section*.51}%
+\contentsline {paragraph}{Example}{59}{paragraph*.44}%
+\contentsline {subsection}{\numberline {6.2.2}Reinforcement Learning}{60}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{60}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{60}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{60}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{60}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{60}{subsection.6.2.7}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{60}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{61}{section*.45}%
+\contentsline {chapter}{Abbildungsverzeichnis}{69}{section*.47}%
+\contentsline {chapter}{Tabellenverzeichnis}{70}{section*.49}%

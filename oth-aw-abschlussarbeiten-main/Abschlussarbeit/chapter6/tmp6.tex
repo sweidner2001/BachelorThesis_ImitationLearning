@@ -320,3 +320,9 @@ Feature extraction methods aim to obtain task-relevant information from visual d
 
 
 
+\paragraph{Context Translation}
+Context translation methods extend beyond visual appearance alignment and focus on transferring skills across varying tasks, environments, viewpoints, and object configurations. The main goal is to enable robots to generalize learned behaviors to new contexts by capturing the underlying structure of a task rather than relying on specific visual conditions.
+
+Early approaches learn from paired demonstrations collected in different environments, where the same action is shown under varying contexts. These models learn to translate how a skill appears across settings, enabling robots to reproduce the same behavior in novel environments through reinforcement learning [133]. Later methods improve robustness by learning context-agnostic task representations that are combined with multi-modal inverse dynamics models. By integrating RGB and depth information, these systems achieve more stable action prediction across changes in viewpoint and object layout [134].
+
+More recent approaches focus on scalability through unsupervised learning. The Learning by Watching (LbW) framework [121] combines video translation models with unsupervised keypoint extraction to map human demonstrations into robot domains without task-specific supervision. The resulting structured keypoint representations are then used as inputs for reinforcement learning, enabling imitation under varying contextual conditions while reducing the need for expert-labeled data.

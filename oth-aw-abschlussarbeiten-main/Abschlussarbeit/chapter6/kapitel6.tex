@@ -267,10 +267,10 @@ The foundation of video-based robot learning relies on the ability to extract ta
 %  By learning meaningful representations of the environment, understanding object affordances and human-object interactions, recognizing human actions and activities, and modeling 3D hand movements, robots can acquire complex manipulation skills from videos. These foundational capabilities enable robots to interpret dynamic scenes, extract task-relevant features, and generalize across varying environments and embodiments, ultimately facilitating more effective imitation learning and skill acquisition.
 
 This section is divided into:
-\begin{itemize}
+\begin{enumerate}
     \item \textit{Feature Extraction Methods} which focus on extracting meaningful structured spatio-temporal features from video data, including spatial understanding, temporal modeling, and geometry-aware representations.
     \item \textit{Domain Bridging Approaches} which aim to reduce the gap between different domains, such as sim-to-real or human-to-robot transfer, by translating visual or contextual information from videos into robot-compatible representations.
-\end{itemize}
+\end{enumerate}
 
 
 
@@ -306,23 +306,57 @@ Feature extraction methods are generally data-efficient and flexible, making the
 This category addresses the domain shift—the mismatch in human and robot embodiment, visual appearance, and context—between human demonstration videos and robot execution. Translation techniques convert visual and contextual data into robot-compatible representations, such that human demonstrations become more directly usable for robot learning. 
 % These approaches are crucial for enabling sim-to-real transfer and human-to-robot imitation learning, as they reduce the gap between the source (human videos) and target (robot policies) domains.
 
+\begin{itemize}
+    \item \textbf{Image Translation:}
+    Image Translation techniques focus on aligning visual appearance between human and robot domains. The main idea is to translate human videos directly into a robot-like visual style or make simulated robot data more realistic. For example, mapping the visual appearance of a human arm to the robot arm or the human hand to the robot gripper. This allows robots to learn from human demonstrations while observing them in a visually consistent format.
 
-\paragraph{Image Translation}
-Image Translation techniques focus on aligning visual appearance between human and robot domains. The main idea is to translate human videos directly into a robot-like visual style or make simulated robot data more realistic. For example, mapping the visual appearance of a human arm to the robot arm or the human hand to the robot gripper. This allows robots to learn from human demonstrations while observing them in a visually consistent format.
+    A common approach is based on GANs (Generative Adversarial Networks), which consist of two competing models: a generator that produces the translated robot images and a discriminator that tries to distinguish between real and generated robot images. The goal is for the generator to generate robot images that look realistic enough that the discriminator cannot distinguish them from real ones. Through this competition, the generator learns to produce increasingly realistic images that match the target domain. CycleGAN extends this idea by adding a cycle-consistency constraint, meaning that translating an image from domain A to B and back to A should reconstruct the original image. This allows learning translation between human and robot domains without requiring paired examples.
 
-A common approach is based on GANs (Generative Adversarial Networks), which consist of two competing models: a generator that produces the translated robot images and a discriminator that tries to distinguish between real and generated robot images. The goal is for the generator to generate robot images that look realistic enough that the discriminator cannot distinguish them from real ones. Through this competition, the generator learns to produce increasingly realistic images that match the target domain. CycleGAN extends this idea by adding a cycle-consistency constraint, meaning that translating an image from domain A to B and back to A should reconstruct the original image. This allows learning translation between human and robot domains without requiring paired examples.
-
-% ToDo: Quellen nicht vollständig
-Based on these principles, early GAN-based methods [122,123,124] improved the realism of training data and supported better generalization to robot manipulation tasks [125]. More advanced approaches use conditional GANs to predict intermediate visual goals from demonstrations, which are then executed by a separate low-level controller, effectively separating perception from control [126]. Other methods, such as AVID [128], apply CycleGAN to directly translate human videos into robot-like images, using the resulting frames as reward signals for reinforcement learning. More recent approaches extend this idea with transformer-based architectures, bidirectional translation, meta-learning and RL, enabling fast adaptation to new tasks with minimal demonstrations [130, 131].
+    % ToDo: Quellen nicht vollständig
+    Based on these principles, early GAN-based methods [122,123,124] improved the realism of training data and supported better generalization to robot manipulation tasks [125]. More advanced approaches use conditional GANs to predict intermediate visual goals from demonstrations, which are then executed by a separate low-level controller, effectively separating perception from control [126]. Other methods, such as AVID [128], apply CycleGAN to directly translate human videos into robot-like images, using the resulting frames as reward signals for reinforcement learning. More recent approaches extend this idea with transformer-based architectures, bidirectional translation, meta-learning and RL, enabling fast adaptation to new tasks with minimal demonstrations [130, 131].
 
 
-\paragraph{Context Translation}
-Context Translation techniques transfer skills across broader contextual variables, such as tasks, environments, viewpoints, and objects.
+    \item \textbf{Context Translation:}
+    Context translation methods extend beyond visual appearance alignment and focus on transferring skills across varying tasks, environments, viewpoints, and object configurations. The main goal is to enable robots to generalize learned behaviors to new contexts by capturing the underlying structure of a task or the relationships between different elements in the environment rather than relying on specific visual conditions. In short terms, the idea is to learn ``what is being done'' rather than ``how it looks'' in a particular scene.
+    % Context Translation techniques transfer skills across broader contextual variables, such as tasks, environments, viewpoints, and objects. These methods aim to generalize learned behaviors to new situations by understanding the underlying structure of the task and the relationships between different elements in the environment.
 
+    Early approaches learn from paired demonstrations collected in different environments, where the same action is shown under varying contexts. These models learn to translate how a skill appears across settings, enabling robots to reproduce the same behavior in novel environments through reinforcement learning [133]. Later methods improve robustness by learning context-agnostic task representations that are combined with multi-modal inverse dynamics models $p^{-1}(\hat{a}_t \mid o_t, c_t, o_{t+1}, c_{t+1})$, by integrating RGB ($o$) and depth (represented as conditional modality $c$) information as the input. These systems achieve more stable action prediction across changes in viewpoint and object layout [134].
+
+    % ToDo:
+    % context-agnostic task representations = independent of specific visual conditions such as camera viewpoint, background, or object placement
+
+    More recent approaches focus on scalability through unsupervised learning. The Learning by Watching (LbW) framework [121] combines video translation models with unsupervised keypoint extraction to map human demonstrations into robot domains without task-specific supervision. The resulting structured keypoint representations are then used as inputs for reinforcement learning, enabling imitation under varying contextual conditions while reducing the need for expert-labeled data.
+\end{itemize}
 
 
 
 \paragraph{Example}
+Learning goal: The Robot should learn to bake a cake from a YouTube video
+\begin{enumerate}
+    \item \textbf{Feature Extraction:} 
+    \begin{itemize}
+        \item The robot uses \textit{CNN-based feature extraction} to identify the kitchen counter, the ingredients, and the tools.
+        \item It also applies \textit{pose and keypoint detection} to track precise hand movements, such as how the person exactly grips the whisk or the angle of the hand when pouring.
+    \end{itemize}
+
+
+    \item \textbf{Domain Bridging:} 
+    \begin{itemize} 
+        \item The robot applies \textit{image translation} to make the human's hand look like the robot's gripper in the video.
+        \item It also uses \textit{context translation} to adapt the skill learned in a brightly lit human kitchen to be successfully executed in the robot's dimly lit, specialized lab environment, effectively adapting the action plan to the novel context.
+    \end{itemize} 
+\end{enumerate}
+
+
+\paragraph{Summary \& Limitations}
+Image and context translation provide complementary approaches to bridging domain gaps between training data and real-world execution. Image translation focuses on visual alignment, making human demonstrations look like robot observations, while context translation captures the underlying task structure and relationships that enable generalization across varying environments and embodiments. 
+
+However, methods still lack at precise action alignment, translation artifacts, and managing mismatches between embodiment alignment.
+
+
+
+
+
 
 \subsection{Reinforcement Learning}
 
