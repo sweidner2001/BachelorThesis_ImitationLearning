@@ -92,12 +92,16 @@
 \contentsline {subsubsection}{\numberline {6.2.2.2}Policies}{63}{subsubsection.6.2.2.2}%
 \contentsline {paragraph}{a) Representation Transfer}{63}{paragraph*.50}%
 \contentsline {paragraph}{c) Alternative action Policy $\pi _{alt}(\hat {a}_t|o_t)$ and Decoder $\pi (a_t|\hat {a}_t, o_t)$}{63}{paragraph*.51}%
-\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{67}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{67}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{67}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{67}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{67}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Vision Language Action Models}{67}{section.6.3}%
-\contentsline {chapter}{Literaturverzeichnis}{68}{section*.52}%
-\contentsline {chapter}{Abbildungsverzeichnis}{76}{section*.54}%
-\contentsline {chapter}{Tabellenverzeichnis}{77}{section*.56}%
+\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{66}{subsection.6.2.3}%
+\contentsline {paragraph}{Meta- \& Few-Shot Imitation Learning}{67}{paragraph*.52}%
+\contentsline {paragraph}{Methods}{68}{paragraph*.53}%
+\contentsline {paragraph}{Cross-Domain \& Human-to-Robot Transfer}{68}{paragraph*.54}%
+\contentsline {paragraph}{Methods.}{68}{paragraph*.55}%
+\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{68}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{68}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{68}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{68}{subsection.6.2.7}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{68}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{69}{section*.56}%
+\contentsline {chapter}{Abbildungsverzeichnis}{77}{section*.58}%
+\contentsline {chapter}{Tabellenverzeichnis}{78}{section*.60}%
