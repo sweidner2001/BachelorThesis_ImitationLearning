@@ -391,12 +391,31 @@ However, methods still lack at precise action alignment, translation artifacts, 
 
 
 \subsection{Reinforcement Learning}
+% RL enables robots to acquire manipulation skills via trial-and-error guided by reward signals. By learning from interaction with the environment, RL can optimize policies for complex tasks. However, RL typically requires large amounts of interaction data, which can be impractical for real-world robotic applications. Simulation data can be used, but requires some engeneering effort too. Leveraging video data to extract useful information for RL can significantly improve performance and learning efficiency to require less amounts of interaction data.
+
+Reinforcement Learning (RL) enables robots to acquire manipulation skills through trial-and-error interaction guided by reward signals. By continuously interacting with the environment, RL can optimize policies for complex and long-horizon tasks that are difficult to solve with purely supervised approaches. However, RL typically requires large amounts of interaction data and carefully designed reward functions, making real-world robotic training expensive and time-consuming. While simulation environments can alleviate this issue, they often require substantial engineering effort and suffer from sim-to-real transfer challenges. Leveraging information extracted from large-scale video data can significantly improve the data efficiency, robustness, and generalization capabilities of RL systems.
+
+In the context of learning from videos, RL approaches often combine exploratory learning with structured information extracted from human demonstrations. Rather than forming strictly separated categories, the following approaches represent complementary strategies that can be integrated within broader RL frameworks.
+
+\begin{itemize}
+    \item \textbf{Visual RL with Feature Extraction}
+    
+    Visual RL with feature extraction focuses on deriving meaningful visual representations from pretrained models on video data and using them to guide reinforcement learning. Video demonstrations are transformed into structured training signals, such as object trajectories, motion representations, latent embeddings, or dense reward functions, which help RL agents learn more efficiently from limited interaction data. These approaches reduce the need for manually engineered rewards and improve policy learning by grounding exploration in semantically meaningful visual features.
+
+% Combine RL's exploration and optimization power with rich perceptual inputs from videos.
+% Goal: Transform video demonstrations into usable training signals for RL policies.
+% Leveraging these representations to generate dense reward signals for RL policies
+    \item \textbf{Structured and Hierarchical RL} 
+    
+    Structured and hierarchical RL approaches decompose complex tasks into reusable skills, subtasks, or high-level goals. Instead of learning a single monolithic policy, the agent learns hierarchical representations that separate high-level planning from low-level control. Video data can be used to learn task embeddings, latent skills, or subgoal representations that enable multi-task learning, long-horizon reasoning, and improved generalization across manipulation tasks.
+
+    In particular, hierarchical and multi-task RL frameworks enable the reuse of learned skills and improve generalization across diverse environments
+\end{itemize}
+
+% A major strength of reinforcement learning lies in its ability to solve complex, long-horizon manipulation tasks through interaction-driven optimization. In particular, hierarchical and multi-task RL frameworks enable the reuse of learned skills and improve generalization across diverse environments
 
 
-% \subsubsection{Visual RL with Feature Extraction}
-
-% \subsubsection{Structured and Hierarchical RL}
-
+\subsubsection{Discover the usage of Video Data for RL Knowledge Modalities}
 Reinforcement Learning (RL) can benefit from knowledge extracted from large-scale video data in multiple ways.
 In the following, we analyze how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
 \begin{itemize}

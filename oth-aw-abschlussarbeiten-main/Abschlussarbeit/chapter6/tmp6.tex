@@ -390,3 +390,14 @@ In practice, the same underlying architecture can often be used both as a genera
 
 
 
+\paragraph{Structured and Hierarchical RL}
+
+Structured and hierarchical reinforcement learning approaches aim to improve scalability and generalization by decomposing complex tasks into reusable subtasks, skills, or high-level goals. Instead of learning a single end-to-end policy, these methods separate high-level decision making from low-level motor control, enabling more efficient learning for long-horizon manipulation tasks.
+
+Video data provides a natural source for discovering task structure and hierarchical behaviour. Human demonstrations often contain meaningful temporal abstractions, such as subtasks, intermediate goals, and reusable motion primitives, which can be extracted and used to guide policy learning. In hierarchical RL, high-level policies typically predict latent skills, subgoals, or task embeddings, while lower-level controllers execute the corresponding robot actions.
+
+Several approaches learn structured latent representations directly from video demonstrations. Neural Task Programming (NTP) \cite{139} decomposes manipulation tasks into hierarchical compositions of primitive operations parameterized by demonstrations or trajectories, enabling rapid adaptation across tasks through meta-learning. Similarly, Adversarial Skill Networks (ASN) \cite{140} learn task-agnostic skill embeddings from unlabeled observations using adversarial and metric learning objectives, allowing reusable behaviours to emerge without explicit action supervision.
+
+More recent methods condition reinforcement learning policies directly on video representations. Video-conditioned Policy Learning (ViP) \cite{141}, for example, learns high-level video embeddings from large-scale human activity datasets and uses these embeddings to condition downstream robot policies. During inference, relevant task representations can be retrieved from a library of demonstrations and used to guide policy execution, enabling multi-task learning and zero-shot generalization.
+
+By incorporating hierarchical structure and high-level video representations, these methods improve exploration efficiency, facilitate long-horizon reasoning, and enable the reuse of learned skills across tasks. However, they also introduce additional challenges, including hierarchical credit assignment, stable multi-level training, and the need for large and diverse demonstration datasets.
