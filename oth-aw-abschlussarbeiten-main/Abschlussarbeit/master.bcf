@@ -2545,6 +2545,26 @@
     <bcf:citekey order="119" intorder="4">41</bcf:citekey>
     <bcf:citekey order="119" intorder="5">108</bcf:citekey>
     <bcf:citekey order="119" intorder="6">174</bcf:citekey>
+    <bcf:citekey order="120" intorder="1">Schmidt2023LearningTA</bcf:citekey>
+    <bcf:citekey order="120" intorder="2">Bruce2024GenieGI</bcf:citekey>
+    <bcf:citekey order="120" intorder="3">Wang2023MimicPlayLI</bcf:citekey>
+    <bcf:citekey order="120" intorder="4">Du2023VideoLP</bcf:citekey>
+    <bcf:citekey order="120" intorder="5">Black2023ZeroShotRM</bcf:citekey>
+    <bcf:citekey order="120" intorder="6">Wen2023AnypointTM</bcf:citekey>
+    <bcf:citekey order="120" intorder="7">Bharadhwaj2023TowardsGZ</bcf:citekey>
+    <bcf:citekey order="121" intorder="1">Du2023VideoLP</bcf:citekey>
+    <bcf:citekey order="121" intorder="2">Wen2023AnypointTM</bcf:citekey>
+    <bcf:citekey order="122" intorder="1">Wang2023MimicPlayLI</bcf:citekey>
+    <bcf:citekey order="123" intorder="1">Yang2023LearningIR</bcf:citekey>
+    <bcf:citekey order="123" intorder="2">Du2023VideoLP</bcf:citekey>
+    <bcf:citekey order="123" intorder="3">Mu2023EmbodiedGPTVP</bcf:citekey>
+    <bcf:citekey order="124" intorder="1">Yang2023LearningIR</bcf:citekey>
+    <bcf:citekey order="124" intorder="2">Du2023VideoLP</bcf:citekey>
+    <bcf:citekey order="124" intorder="3">Mu2023EmbodiedGPTVP</bcf:citekey>
+    <bcf:citekey order="125" intorder="1">Black2023ZeroShotRM</bcf:citekey>
+    <bcf:citekey order="126" intorder="1">Black2023ZeroShotRM</bcf:citekey>
+    <bcf:citekey order="127" intorder="1">Schmidt2023LearningTA</bcf:citekey>
+    <bcf:citekey order="128" intorder="1">jain2024vid2robot</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

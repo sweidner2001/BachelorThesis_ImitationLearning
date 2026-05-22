@@ -437,6 +437,55 @@ Several large-scale studies have demonstrated the effectiveness of transferring 
 
 \paragraph{c) Alternative action Policy $\pi_{alt}(\hat{a}_t|o_t)$ and Decoder $\pi(a_t|\hat{a}_t, o_t)$}
 % \paragraph{d) Alternative-action Decoders $\pi(a_t|\hat{a}_t, o_t)$}
+\underline{Alternative action Policy $\pi_{alt}(\hat{a}_t|o_t)$:}
+
+An Alternative-action policy $\pi_{alt}(\hat{a}_t|o_t, c_t)$ learns to predict an Alternative Action Representation $\hat{a}_t \in \hat{A}$ based on observation $o$ and some other conditional information $c$, rather than directly outputting low-level robot actions. For Further Information about Alternative Action Representations see Section~\ref{sec:AddressingMissingActionLabelsAndDistributionShift}. 
+
+
+Alternative-action policies are typically trained on large-scale internet video data to gather diverse behavioral patterns and general knowledge about the world and physical interactions.
+
+A common training procedure assumes that the video data contains approximately expert behaviour. The videos are first labelled with alternative-action representations, after which the alternative-action policy $\pi_{alt}(\hat{a}_t \mid o_t)$ is trained using supervised behaviour cloning objectives \cite{Schmidt2023LearningTA,Bruce2024GenieGI,Wang2023MimicPlayLI,Du2023VideoLP,Black2023ZeroShotRM,Wen2023AnypointTM,Bharadhwaj2023TowardsGZ}. The learned policy can then either be used directly for representation transfer or to condition a downstream action decoder $\pi(a_t \mid \hat{a}_t, o_t)$ trained on robot interaction data.
+
+When the behaviour contained in the video data is noisy or suboptimal, additional conditioning signals can improve learning. In particular, language conditioning \cite{Du2023VideoLP,Wen2023AnypointTM} and goal conditioning \cite{Wang2023MimicPlayLI} help constrain the learned behaviour towards task-relevant objectives. Offline reinforcement learning may provide another mechanism for leveraging imperfect demonstrations, although this direction remains relatively underexplored in the current literature.
+
+Several recent approaches instantiate alternative-action policies using pretrained vision-language or large language models on internet-scale data. For example, \textcite{Yang2023LearningIR,Du2023VideoLP,Mu2023EmbodiedGPTVP} finetuned VLMs or LLMs to produce language-based action representations. In contrast, \textcite{Black2023ZeroShotRM} train an image-editing diffusion model that transforms the current observation into a predicted subgoal image, which serves as the alternative-action representation.
+
+
+
+
+\underline{Alternative Action Decoder $\pi(a_t|\hat{a}_t, o_t)$:}
+
+A separate Action Decoder $\pi(a_t|\hat{a}_t, o_t)$ can subsequently be trained on robot data to map these Alternative Action Representations $\hat{a}_t \in \hat{A}$ to real robot actions commands $a_t$. This approach to define an Alternative Action Policy and Decoder effectively decouples the learning of high-level action representations from low-level control, allowing the policy to leverage rich information from video data while still grounding its outputs in robot-compatible actions.
+
+There exist two approaches to obtain the decoder:
+\texttt{Learning the decoder.}
+In this setting, the robot dataset $D_{robot}$ is augmented with alternative action representations, resulting in tuples of the form $(o_t, \hat{a}_t, a_t, o_{t+1})$. The decoder $\pi(a_t \mid \hat{a}_t, o_t)$ can then be trained using supervised learning objectives to predict low-level robot actions conditioned on both the current observation and the alternative action representation. 
+
+Other Approaches to learn a decoder include:
+\begin{itemize}
+    \item Instead of keeping the alternative-action policy fixed, some approaches jointly optimize the compositional policy
+    \[
+    \pi(a_t \mid \pi_{alt}(\hat{a}_t \mid o_t), o_t)
+    \]
+    using online reinforcement learning, enabling end-to-end training between high-level planning and low-level control \cite{Schmidt2023LearningTA}.
+    \item \cite{jain2024vid2robot} learns a direct mapping from human demonstration videos to robot actions from paired human-video and robot-trajectory data in an end-to-end setting.
+\end{itemize}
+
+
+\texttt{Manually defining the decoder.}
+Instead of learning the decoder from data, the decoder can be manually crafted using explicit engineered geometric or kinematic mappings. 
+Manually defined decoders reduce the need for paired robot supervision and can incorporate strong inductive biases about the robot embodiment. 
+%  These methods exploit engineered correspondences between visual motion cues and robot control commands.
+
+Examples of manually defined decoders include:
+\begin{itemize}
+    \item Inferring low-level robot actions from optical flow patterns in the video, which capture the direction and magnitude of motion in the scene.
+    \item Mapping robot actions to visual arrows, which projecting future robot pose as on-screen hints and subsequently decoding them back into executable control commands.
+    \item Retargeting human hand poses or body motions to equivalent robot joint commands.
+\end{itemize}
+
+
+% However, they often require task-specific engineering and may generalize less effectively across diverse environments and robot platforms compared to learned decoding approaches.
 
 \paragraph{d) Policy-as-video and Inverse Dynamics Model (IDM) Pseudo-actions}
 
