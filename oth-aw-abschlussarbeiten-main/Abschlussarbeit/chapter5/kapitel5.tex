@@ -13,7 +13,8 @@ We first review different approaches for extracting foundational knowledge from 
 % it is high-dimensional, noisy, and poorly labelled. Second, video lacks information critical to robotics, including action labels and low-level force and proprioceptive information. Moreover, there may be various distribution shifts between internet video and the robot domain.
 
 
-\section{Extracting Foundational Knowledge from Internet Video}
+\section{Extracting Foundational Knowledge from Internet Video} 
+\label{sec:ExtractingFoundationalKnowledgeFromInternetVideo}
 
 % The Answer to the first question of how to extract relevant knowledge from internet video is may be using techniques and datasets inspired by video foundation Models (FMs).
 
@@ -37,7 +38,8 @@ Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promi
 	\label{fig:VideoFoundationModellingForLfV}
 \end{figure}
 
-
+% Furthermore, these models can serve as strong initialization policies for reinforcement learning. A common strategy is to first pretrain the model using supervised sequence prediction on large-scale multi-modal datasets, and subsequently fine-tune the policy using reinforcement learning with task-specific rewards. This often improves sample efficiency and generalization compared to training reinforcement learning policies from scratch.
+% Even when the action prediction head is discarded, the learned encoder can still provide transferable cross-modal representations for downstream robotic tasks. 
 
 
 \subsection{Video Encoders}
@@ -312,6 +314,58 @@ Existing approaches can be broadly categorized into compositional pipelines, LLM
 \end{itemize}
 
 
+
+
+
+
+
+
+
+
+% ToDo: Paper Towards Generarlist Robot Learning
+\subsection{Multi-Modal Models}
+Multi-modal models jointly learn from multiple data modalities, which can include text, images, videos, robot observations, and robot actions. Unlike specialized vision-language models, these approaches aim to learn a unified sequence model that can process heterogeneous modalities within a shared architecture, that can connect visual perception, language understanding, and robot control.
+
+% \paragraph{Methods.}
+Most multi-modal models are trained using autoregressive next-token prediction objectives over interleaved sequences of tokens from different modalities. 
+Depending on the model, tokens may represent text, image patches, video frames, proprioceptive robot observations, or robot actions. 
+The objective is to predict the next token in the sequence conditioned on the previous context:
+\[
+p(x_t \mid x_{<t}).
+\]
+where tokens may correspond to different data modalities or a combination or concatenation of them. This training paradigm allows the model to learn cross-modal relationships between perception, language, and control.
+
+
+
+% Multi-modal sequence models are trained jointly on several modalities beyond video and language, including still images, robot perceptions, and robot actions. These models are typically trained with a supervised next-token prediction objective over interleaved sequences of tokens from different modalities. Examples include the Gato architecture \citep{reed2022gato}, which processes text, images, and robot actions, the humanoid locomotion model of \citet{radosavovic2024humanoid} trained on pose trajectories from YouTube videos, and the 8-billion-parameter any-to-any transformer of \citet{sohn2024introducing}.
+
+% ToDo: i Think it is correct, but i have no references for this.
+\paragraph{Relevance for Robotics.}
+% Multi-modal models can serve as general-purpose \textbf{representation backbones} for robotic learning, to initial policies or Knowledge Modalities in Reinforcement Learning, which can then be fine-tuned.
+% They are highly relevant for robot learning as general-purpose \textbf{representation backbones} or as initial policies that can be fine-tuned with RL.
+\begin{itemize}
+    \item \textbf{High-quality representations:} By training on robot data together with web-scale video, image, and text data, these models learn a shared latent space that bridges perception, language, and control. This enables positive transfer and can serve as general-purpose representation backbones for robotic learning.
+    
+    \item \textbf{Knowledge Modality initialization:} The supervised multi-modal model can serve as a strong inital Knowledge Modality, such as Policies, Reward Models, Value Functions, or Dynamics Models. For Example, RL can fine-tune an inital Policy  using task-specific rewards. This two-stage approach (supervised pretraining + RL finetuning) has been shown to improve sample efficiency and final performance compared to RL from scratch.
+    \item \textbf{Annotating robot data:} Multi-modal models can also be used to generate annotations for robot datasets.
+    % , like Video-to-Text Models, etc. such as action labels, sub-task segmentation, or natural language descriptions of demonstrations. This can facilitate the creation of large-scale annotated datasets for training and evaluating robotic learning algorithms, reducing the need for manual annotation and enabling more scalable data collection.
+    
+%     \item \textbf{Representation transfer:} Even if the action head is discarded, the multi-modal model's encoder provides a task-agnostic, cross-modal representation that can be frozen or adapted for downstream RL. This is analogous to using video foundation models, but with the added benefit of being explicitly aligned with robot action data.
+\end{itemize}
+
+\paragraph{Relation to Vision-Language-Action (VLA) Models.}
+Multi-modal models that explicitly include robot actions are often called Vision-Language-Action (VLA) models. 
+However, the distinction between both categories is not always strict. 
+VLA models typically focus on direct policy inference, where robot actions are predicted from visual observations and language instructions, while the multi-modal models discussed here are general-purpose token predictors that model arbitrary modality sequences.
+% In contrast, many multi-modal sequence models are designed as general-purpose token predictors that model arbitrary modality sequences. 
+In practice, the same underlying architecture can often be used both as a general multi-modal foundation model and as a robotic control policy.
+
+
+
+
+
+
+
 \subsection{Challenges and Future Directions}
 Despite recent progress, video representation learning still faces several limitations:
 \begin{itemize}
@@ -321,10 +375,6 @@ Despite recent progress, video representation learning still faces several limit
 \end{itemize}
 
 Further directions include reinforcement learning-based finetuning to reduce hallucinations, the integration of 3D information, like depth to improve physical realism, and improved single-step conditioning mechanisms for fine-grained video prediction tasks.
-
-
-
-
 
 
 

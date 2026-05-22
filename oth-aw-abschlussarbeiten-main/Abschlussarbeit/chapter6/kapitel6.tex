@@ -87,8 +87,40 @@ Video-centric representation learning is particularly important in robotics beca
 
 
 
-% \paragraph{Methods.}
-% Recent approaches in representation learning leverage large-scale, unlabelled video data and self-supervised objectives to extract spatio-temporal features from raw observations [35, 36]. Video-centric methods are especially relevant for imitation learning, as they explicitly model temporal dynamics and multi-view consistency. For instance, time-contrastive learning and Siamese-triplet losses encode viewpoint invariance while preserving task-relevant temporal changes [37, 38]. Dense predictive coding and LSTM-based autoencoders further capture long-range dependencies and support future prediction [39, 40].
+\paragraph{Methods.}
+Video-centric methods (see Section~\ref{sec:ExtractingFoundationalKnowledgeFromInternetVideo}) are especially relevant for Robot Representation Learning, as they explicitly model temporal dynamics and multi-view consistency. 
+% For instance, time-contrastive learning and Siamese-triplet losses encode viewpoint invariance while preserving task-relevant temporal changes [37, 38]. Dense predictive coding and LSTM-based autoencoders further capture long-range dependencies and support future prediction [39, 40].
+
+% ToDo: Quellen from Learning By Watching Paper
+Recent approaches in representation learning leverage large-scale, unlabelled video data and self-supervised objectives to extract spatio-temporal features from raw observations [35, 36]. 
+% ToDo: Quellen from Towards Generalist Robot Learning from... Paper
+Works have often combined multiple learning objectives [188, 170, 125] for Representation Learning. Learning objectives for Representation Learning can include:
+\begin{itemize}
+    \item Frame-level objectives such as \textbf{masked-autoencoding (MAE)} [213]
+    \item \textbf{contrastive learning} [52, 120].
+    \item others [328]
+    \item \textbf{Time-contrastive learning objectives} [171, 170, 188]: 
+    % these objectives train a model to predict the temporal order of video frames, encouraging the learning of features that capture temporal dynamics and action progression. multivariate logistic regression classifier is trained in a supervised manner to look at a sample taken from the series at an unknown time and predict $\tau$, the index of the chunk it came from
+    % By learning to distinguish frames from different time segments, the model encodes temporal dynamics and action progression without explicit action labels.
+    \item \textbf{video prediction objectives} [289, 95, 116];
+    \item \textbf{temporal-difference learning} [27];
+    \item \textbf{predicting affordances from videos} [15];
+    \item \textbf{predicting latent actions} [227];
+    \item objectives that leverage \textbf{language labels}, such as \textbf{image-language contrastive learning} [170], \textbf{video-language alignment} [188] and \textbf{video captioning} [125].
+\end{itemize}
+
+\textbf{Combining datasets} to enhance data diversity is beneficial [120] [174, 61, 213]. Datasets may include the following types of videos:
+\begin{itemize}
+    \item Datasets often leverage ego-centric human/navigation video [188, 170, 125, 174]
+    \item or third-person video of human interaction [213, 239, 181].
+    \item Others have leveraged videos of robots [61],
+    \item or first-person videos of humans operating robot-like grippers [237].
+\end{itemize}
+
+
+
+
+
 
 % Contrastive learning frameworks align augmented views of the same clip while separating unrelated ones, producing robust embeddings that transfer across domains [44].
 
@@ -359,6 +391,56 @@ However, methods still lack at precise action alignment, translation artifacts, 
 
 
 \subsection{Reinforcement Learning}
+
+
+% \subsubsection{Visual RL with Feature Extraction}
+
+% \subsubsection{Structured and Hierarchical RL}
+
+Reinforcement Learning (RL) can benefit from knowledge extracted from large-scale video data in multiple ways.
+In the following, we analyze how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
+\begin{itemize}
+    \item Policy
+    \item Dynamics Model
+    \item Reward Function
+    \item Value Function
+\end{itemize}
+
+
+\subsubsection{Policies}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter6/media/LearningPoliciesFromVideo}
+	\caption[Learning Policies from Video]{Learning Policies from Video \cite{McCarthy_2025}.}
+	\label{fig:LearningPoliciesFromVideo}
+\end{figure}
+
+
+Representations can be pretrained from video data and used downstream whilst training a policy on robot data. 
+Jointly train on video, robot, image and text data to predict actions to predict robot actions. 
+A policy trained to output an action representation which conditions an action-decoding policy trained on robot data. 
+specific instantiation: hierarchical setup where the action representation is a video and the decoder is (often) an inverse dynamics model (IDM)
+
+
+The core idea is to learn useful representations, actions, or abstractions from video data $D_{video}$ to improve robot policies $\pi(a_t \mid o_t)$.
+\paragraph{a) Representation Transfer}
+Large-scale video data can be leveraged to pretrain visual models that learn semantically meaningful representations of environments, objects, and task dynamics. Instead of learning directly from limited robot interaction data, the agent first acquires general visual priors from diverse video datasets. These pretrained representations can subsequently be transferred to downstream policy learning, where they improve both data efficiency and generalization capabilities.
+
+In this setting, Video Foundation Models (see Section~\ref{sec:ExtractingFoundationalKnowledgeFromInternetVideo}), are typically trained using self-supervised or unsupervised objectives on large collections of videos. The learned visual encoder captures high-level features such as object permanence, motion patterns, spatial relationships, and temporal consistency. During downstream reinforcement or imitation learning, the pretrained encoder is either frozen or fine-tuned while the policy is optimized on robot-specific data.
+
+The main advantage of representation transfer is that the policy no longer needs to learn low-level visual features from scratch. Instead, it can focus on task-specific decision making, substantially reducing the amount of robot interaction required for effective learning. Furthermore, pretrained representations often generalize better across environments, viewpoints, and object variations, making policies more robust in real-world settings.
+
+Several large-scale studies have demonstrated the effectiveness of transferring representations learned from video data to robotic policy learning \cite{120,246,328,41,108,174}.
+
+
+
+
+\paragraph{c) Alternative action Policy $\pi_{alt}(\hat{a}_t|o_t)$ and Decoder $\pi(a_t|\hat{a}_t, o_t)$}
+% \paragraph{d) Alternative-action Decoders $\pi(a_t|\hat{a}_t, o_t)$}
+
+\paragraph{d) Policy-as-video and Inverse Dynamics Model (IDM) Pseudo-actions}
+
+
 
 \subsection{Imitation Learning}
 \subsection{Hybrid Approaches}

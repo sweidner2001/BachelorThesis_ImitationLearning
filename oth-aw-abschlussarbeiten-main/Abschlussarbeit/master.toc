@@ -54,41 +54,51 @@
 \contentsline {subsection}{\numberline {5.1.3}Video-to-Text Models.}{40}{subsection.5.1.3}%
 \contentsline {paragraph}{Relevance for Robotics.}{40}{paragraph*.26}%
 \contentsline {subsubsection}{\numberline {5.1.3.1}Methods}{41}{subsubsection.5.1.3.1}%
-\contentsline {subsection}{\numberline {5.1.4}Challenges and Future Directions}{42}{subsection.5.1.4}%
-\contentsline {section}{\numberline {5.2}Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}{42}{section.5.2}%
-\contentsline {paragraph}{What is an Alternative Action Representation?}{43}{paragraph*.28}%
-\contentsline {paragraph}{Why is $\hat {A}$ useful?}{44}{paragraph*.29}%
-\contentsline {subsection}{\numberline {5.2.1}Categories of Alternative Action Representations}{45}{subsection.5.2.1}%
-\contentsline {paragraph}{Single-step Latent Actions:}{45}{paragraph*.31}%
-\contentsline {paragraph}{Multi-step Latent Actions:}{46}{paragraph*.32}%
-\contentsline {paragraph}{Observations-as-Actions:}{47}{paragraph*.33}%
-\contentsline {paragraph}{Language-as-Actions:}{48}{paragraph*.35}%
-\contentsline {paragraph}{Visual Motion Information:}{48}{paragraph*.36}%
-\contentsline {paragraph}{(Human)-Embodiment Information:}{49}{paragraph*.37}%
-\contentsline {paragraph}{Inverse Dynamics Model (IDM) pseudo-action Labels:}{50}{paragraph*.38}%
-\contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{50}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Robot Learning Fundamentals}{51}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Robot Learning - Learning Objectives}{51}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Representation Learning}{51}{subsection.6.1.1}%
-\contentsline {paragraph}{Understand the importance of Representation Learning:}{52}{paragraph*.39}%
-\contentsline {subsection}{\numberline {6.1.2}Object Affordances \& Human-Object Interaction}{53}{subsection.6.1.2}%
-\contentsline {paragraph}{Methods.}{54}{paragraph*.40}%
-\contentsline {subsection}{\numberline {6.1.3}Human Action \& Activity Understanding}{54}{subsection.6.1.3}%
-\contentsline {paragraph}{Methods.}{55}{paragraph*.41}%
-\contentsline {subsection}{\numberline {6.1.4}3D Hand Modeling}{55}{subsection.6.1.4}%
-\contentsline {paragraph}{Methods.}{56}{paragraph*.42}%
-\contentsline {section}{\numberline {6.2}Robot Learning - Approaches}{56}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Foundational Perception and Representation Methods}{56}{subsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.1.1}Feature Extraction Methods}{56}{subsubsection.6.2.1.1}%
-\contentsline {subsubsection}{\numberline {6.2.1.2}Domain Bridging via Translation Approaches}{58}{subsubsection.6.2.1.2}%
-\contentsline {paragraph}{Example}{59}{paragraph*.44}%
-\contentsline {subsection}{\numberline {6.2.2}Reinforcement Learning}{60}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{60}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{60}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{60}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{60}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{60}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Vision Language Action Models}{60}{section.6.3}%
-\contentsline {chapter}{Literaturverzeichnis}{61}{section*.45}%
-\contentsline {chapter}{Abbildungsverzeichnis}{69}{section*.47}%
-\contentsline {chapter}{Tabellenverzeichnis}{70}{section*.49}%
+\contentsline {subsection}{\numberline {5.1.4}Multi-Modal Models}{42}{subsection.5.1.4}%
+\contentsline {paragraph}{Relevance for Robotics.}{43}{paragraph*.27}%
+\contentsline {paragraph}{Relation to Vision-Language-Action (VLA) Models.}{43}{paragraph*.28}%
+\contentsline {subsection}{\numberline {5.1.5}Challenges and Future Directions}{43}{subsection.5.1.5}%
+\contentsline {section}{\numberline {5.2}Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift}{44}{section.5.2}%
+\contentsline {paragraph}{What is an Alternative Action Representation?}{45}{paragraph*.30}%
+\contentsline {paragraph}{Why is $\hat {A}$ useful?}{45}{paragraph*.31}%
+\contentsline {subsection}{\numberline {5.2.1}Categories of Alternative Action Representations}{46}{subsection.5.2.1}%
+\contentsline {paragraph}{Single-step Latent Actions:}{46}{paragraph*.33}%
+\contentsline {paragraph}{Multi-step Latent Actions:}{47}{paragraph*.34}%
+\contentsline {paragraph}{Observations-as-Actions:}{48}{paragraph*.35}%
+\contentsline {paragraph}{Language-as-Actions:}{49}{paragraph*.37}%
+\contentsline {paragraph}{Visual Motion Information:}{49}{paragraph*.38}%
+\contentsline {paragraph}{(Human)-Embodiment Information:}{50}{paragraph*.39}%
+\contentsline {paragraph}{Inverse Dynamics Model (IDM) pseudo-action Labels:}{51}{paragraph*.40}%
+\contentsline {section}{\numberline {5.3}LfV and Reinforcement Learning}{51}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Robot Learning Fundamentals}{52}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Robot Learning - Learning Objectives}{52}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Representation Learning}{52}{subsection.6.1.1}%
+\contentsline {paragraph}{Understand the importance of Representation Learning:}{53}{paragraph*.41}%
+\contentsline {paragraph}{Methods.}{54}{paragraph*.42}%
+\contentsline {subsection}{\numberline {6.1.2}Object Affordances \& Human-Object Interaction}{54}{subsection.6.1.2}%
+\contentsline {paragraph}{Methods.}{56}{paragraph*.43}%
+\contentsline {subsection}{\numberline {6.1.3}Human Action \& Activity Understanding}{56}{subsection.6.1.3}%
+\contentsline {paragraph}{Methods.}{57}{paragraph*.44}%
+\contentsline {subsection}{\numberline {6.1.4}3D Hand Modeling}{57}{subsection.6.1.4}%
+\contentsline {paragraph}{Methods.}{58}{paragraph*.45}%
+\contentsline {section}{\numberline {6.2}Robot Learning - Approaches}{58}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Foundational Perception and Representation Methods}{58}{subsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.1.1}Feature Extraction Methods}{58}{subsubsection.6.2.1.1}%
+\contentsline {subsubsection}{\numberline {6.2.1.2}Domain Bridging via Translation Approaches}{59}{subsubsection.6.2.1.2}%
+\contentsline {paragraph}{Example}{61}{paragraph*.47}%
+\contentsline {paragraph}{Summary \& Limitations}{61}{paragraph*.48}%
+\contentsline {subsection}{\numberline {6.2.2}Reinforcement Learning}{61}{subsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.2.1}Policies}{62}{subsubsection.6.2.2.1}%
+\contentsline {paragraph}{a) Representation Transfer}{62}{paragraph*.50}%
+\contentsline {paragraph}{b) Multi-Modal Models}{64}{paragraph*.51}%
+\contentsline {paragraph}{c) Alternative action Policy $\pi _{alt}(\hat {a}_t|o_t)$ and Decoder $\pi (a_t|\hat {a}_t, o_t)$}{64}{paragraph*.52}%
+\contentsline {paragraph}{d) Policy-as-video and Inverse Dynamics Model (IDM) Pseudo-actions}{64}{paragraph*.53}%
+\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{64}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{64}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{64}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{64}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{64}{subsection.6.2.7}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{64}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{65}{section*.54}%
+\contentsline {chapter}{Abbildungsverzeichnis}{73}{section*.56}%
+\contentsline {chapter}{Tabellenverzeichnis}{74}{section*.58}%
