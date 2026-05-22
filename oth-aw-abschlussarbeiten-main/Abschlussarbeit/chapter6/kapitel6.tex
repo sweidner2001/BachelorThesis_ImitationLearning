@@ -483,13 +483,30 @@ Examples of manually defined decoders include:
     \item Mapping robot actions to visual arrows, which projecting future robot pose as on-screen hints and subsequently decoding them back into executable control commands.
     \item Retargeting human hand poses or body motions to equivalent robot joint commands.
 \end{itemize}
-
-
 % However, they often require task-specific engineering and may generalize less effectively across diverse environments and robot platforms compared to learned decoding approaches.
 
-\paragraph{d) Policy-as-video and Inverse Dynamics Model (IDM) Pseudo-actions}
 
 
+\underline{Example Workflow with $\hat{A} = \text{Policy-as-video}$}
+
+In this workflow, generated videos serve directly as the policy output. The procedure consists of two steps:
+\begin{enumerate}
+    \item A \textbf{language-conditioned video predictor} $p(\tau \mid o_{t-k:t}, c)$, generates a future video sequence that imagines successful task completion given the current observation and a language instruction. $\tau$ represents a generated video trajectory and $c$ some conditional information, like language commands or other context.
+    
+
+
+    \item An \textbf{action-decoding inverse-dynamics model (IDM)} $p^{-1}(a_t \mid o_t, o_{t+1})$ is used to infer low-level robot actions $a_t$ from these generated video frames. The IDM is trained on the robot dataset $D_{\text{robot}}$.
+\end{enumerate}
+
+
+Potential improvements of this compositional approach include:
+\begin{itemize}
+    \item Compositional alignment between video, language, and the IDM actions within a multi-modal approach, where each modality informs the others.
+    \item Improving the action decoding model by incorporating goal-conditioned behavior cloning.
+    \item Add additional conditioning modalities of Alternative Action Representations $\hat{A}$ to the IDM to improve the predicted low-level robot actions.
+\end{itemize}
+
+% ToDo: Disussion Section of the RL Policy Modality
 
 \subsection{Imitation Learning}
 \subsection{Hybrid Approaches}

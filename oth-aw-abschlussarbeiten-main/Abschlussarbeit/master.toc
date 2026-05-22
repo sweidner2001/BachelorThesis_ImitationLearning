@@ -91,13 +91,12 @@
 \contentsline {subsubsection}{\numberline {6.2.2.1}Policies}{62}{subsubsection.6.2.2.1}%
 \contentsline {paragraph}{a) Representation Transfer}{62}{paragraph*.50}%
 \contentsline {paragraph}{c) Alternative action Policy $\pi _{alt}(\hat {a}_t|o_t)$ and Decoder $\pi (a_t|\hat {a}_t, o_t)$}{64}{paragraph*.51}%
-\contentsline {paragraph}{d) Policy-as-video and Inverse Dynamics Model (IDM) Pseudo-actions}{65}{paragraph*.52}%
-\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{65}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{65}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{65}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{65}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{65}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Vision Language Action Models}{65}{section.6.3}%
-\contentsline {chapter}{Literaturverzeichnis}{66}{section*.53}%
-\contentsline {chapter}{Abbildungsverzeichnis}{74}{section*.55}%
-\contentsline {chapter}{Tabellenverzeichnis}{75}{section*.57}%
+\contentsline {subsection}{\numberline {6.2.3}Imitation Learning}{66}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Hybrid Approaches}{66}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{66}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{66}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{66}{subsection.6.2.7}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{66}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{67}{section*.52}%
+\contentsline {chapter}{Abbildungsverzeichnis}{75}{section*.54}%
+\contentsline {chapter}{Tabellenverzeichnis}{76}{section*.56}%
