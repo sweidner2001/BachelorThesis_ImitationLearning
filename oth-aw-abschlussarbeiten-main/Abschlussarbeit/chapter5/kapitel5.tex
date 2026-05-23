@@ -43,6 +43,7 @@ Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promi
 
 
 \subsection{Video Encoders}
+\label{sec:VideoEncoder}
 Foundational video encoders $p(z \mid \tau)$ are capable of extracting rich and robust representations from raw video observations. Given a video clip $\tau$, the encoder maps the visual input into a latent representation $z$, which captures semantic and temporal information relevant for downstream robotic tasks.
 
 In robotic imitation learning, pretrained video encoders are commonly used in two ways:
@@ -393,14 +394,14 @@ Further directions include reinforcement learning-based finetuning to reduce hal
 
 The main challenges for transferring video-extracted knowledge to robotics are: 
 \begin{itemize}
-    \item (i) \textbf{Missing action labels}: Most video datasets do not contain explicit robot action annotations, which are required for learning control policies and dynamics models.
-    \item (ii) \textbf{Distribution shift}: There exists a significant domain gap between human or internet videos and robot execution. This includes differences in visual appearance, embodiment, dynamics, and behavior patterns, which can severely degrade the generalization of models trained on video data when applied to robotic tasks.
+    \item (i) \textbf{Missing action labels}: Most video datasets do not contain explicit robot action annotations, which are required for learning robot control policies \cite{McCarthy_2025}.
+    \item (ii) \textbf{Distribution shift}: There exists a significant domain gap between human or internet videos and robot execution. This includes differences in visual appearance, embodiment, dynamics, and behavior patterns, which can severely degrade the generalization of models trained on video data when applied to robotic tasks \cite{McCarthy_2025}.
 \end{itemize}
 
-
+% ToDo: real world datasets with no robot labels
 In many real-world video datasets, explicit robot action labels (e.g., joint velocities or torques) are not available.
 % Problem. 
-Raw video data provides only state transitions pairs $(o_t, o_{t+1})$, without access to the corresponding actions $a_t$. This makes it difficult to directly apply Behavior Cloning or reinforcement learning methods, which typically require triplets of the form $(o_t, a_t, o_{t+1})$. Recovering such low-level actions directly from video is a challenging problem due to ambiguity and the lack of physical interaction information. 
+Raw video data provides only state transitions pairs $(o_t, o_{t+1})$, without access to the corresponding actions $a_t$. This makes it difficult to directly apply Behavior Cloning or reinforcement learning methods, which typically require triplets of the form $(o_t, a_t, o_{t+1})$. Recovering such low-level actions directly from video is a challenging problem due to ambiguity and the lack of physical interaction information \cite{McCarthy_2025}. 
 % Solution.
 % To overcome this limitation, recent approaches introduce an Alternative Action Representation $\hat{a} \in \hat{A}$ within the alternative-action Space $\hat{A}$ so that transitions can be relabeled as $(o_t, \hat{a}_t, o_{t+1})$. 
 To overcome this limitation, recent approaches introduce an Alternative Action Representation $\hat{a} \in \hat{A}$, which can be used to relabel action-free videos and enable video-to-robot transfer despite missing action labels and distribution shift, see Figure \ref{fig:RecoveringActionFepresentationsFromVideo_1}.
@@ -424,18 +425,18 @@ Formally, an alternative action representation is defined as
 \hat{a} \in \hat{A},
 \]
 where
-$\hat{A}$ denotes an Alternative (latent or abstract) Action Representation Space derived from visual or multimodal video data. 
-Instead of modeling actions as raw robot control signals, actions are encoded in a semantic feature space that captures high-level behavior such as grasping, moving, or pushing. In other words, $\hat{A}$ captures what actions \textit{mean}, rather than how it is executed at the motor level.
+$\hat{A}$ denotes an Alternative (latent or abstract) Action Representation Space. 
+Instead of modeling actions as raw robot control signals, actions are encoded in a semantic feature space that captures high-level behavior such as grasping, moving, or pushing. In other words, $\hat{A}$ captures what actions \textit{mean}, rather than how it is executed at the motor level \cite{McCarthy_2025}.
 % which are easier to infer from video, rather than the raw motor commands.
-The key idea is that $\hat{a}$ serves as a proxy for the missing action labels, allowing the model to learn from video data without requiring explicit action annotations. Later, the $\hat{a}$ can be decoded or translated into the robot's actual action space if a mapping $f: A \to \hat{A}$ exist. Otherwise, they still provide valuable structure [278, 288, 67]. However it is also valid to define a $\hat{A}$ that requires labelled video (e.g., language captions).
+The key idea is that $\hat{a}$ serves as a proxy for the missing action labels, allowing the model to learn from video data without requiring explicit action annotations. Later, the $\hat{a}$ can be decoded or translated into the robot's actual action space if a mapping $f: A \to \hat{A}$ exist \cite{Wang2023MimicPlayLI, Wen2023AnypointTM, Du2023LearningUP}. Otherwise, they still provide valuable structure \cite{Bhateja2023RoboticOR, Schmidt2023LearningTA}. However it is also valid to define a $\hat{A}$ that requires labelled video (e.g., language captions) \cite{McCarthy_2025}.
 
 
 \underline{Example:} Consider a video of a human performing a pick-and-place task. The raw video data provides visual observations of the human's hand and the objects being manipulated, but does not include explicit robot action labels such as joint angles or end-effector velocities.
 \begin{itemize}
-    \item The \textbf{Video Encoder} extracts visual features (what is being done).
+    \item The \textbf{Video Encoder} extracts visual features (what is being done), see section~\ref{sec:VideoEncoder}.
     \item The \textbf{Action Embedding Space $\hat{A}$} captures \textit{abstract actions} such as \textit{reach}, \textit{grasp}, \textit{move up}.
-    \item The \textbf{Policy $\pi_{alt}( \hat{a}_t | o_t, c), \quad \hat{a}_t \in \hat{A}$} predicts the next action \textit{in this latent action space} based on current visual observations and probably some additional context information $c$.
-    \item Later, a \textbf{Decoder} $\pi(a_t \mid \hat{a}_t, o_t)$ or \textbf{Alignment Model $a_t = f_{align}(\hat{a}_t)$} maps these latent actions to the robot's real motor commands.    
+    \item The \textbf{Policy $\pi_{alt}( \hat{a}_t | o_t, c), \quad \hat{a}_t \in \hat{A}$} predicts the next action \textit{in this latent action space} based on current visual observations and probably some additional context information $c$, see section~\ref{sec:AlternativeActionPolicy}.  
+    \item Later, a \textbf{Decoder} $\pi(a_t \mid \hat{a}_t, o_t)$ or \textbf{Alignment Model $a_t = f_{align}(\hat{a}_t)$} maps these latent actions to the robot's real motor commands, see section~\ref{sec:AlternativeActionDecoder}.    
 \end{itemize}
 
 
@@ -444,11 +445,11 @@ The key idea is that $\hat{a}$ serves as a proxy for the missing action labels, 
 
 Working in the alternative action space $\hat{A}$ offers several advantages. 
 \begin{itemize}
-    \item \texttt{Bridging the domain gap:} $\hat{A}$ bridges the gap between human video data and robot control by focusing on action semantics rather than platform-specific motor commands. 
-    \item \texttt{Learning from weak labels:} $\hat{A}$ enables learning from raw or weakly labeled videos, since inferring high-level actions from video is easier than recovering low-level motor commands.
-    \item \texttt{Transferable Representations across embodiments:} $\hat{A}$ supports transfer across embodiments, because the same semantic action (e.g., ``open drawer'') can be instantiated by different robots with different kinematics.
+    \item \texttt{Bridging the domain gap:} $\hat{A}$ bridges the gap between human video data and robot control by focusing on action semantics rather than platform-specific motor commands \cite{McCarthy_2025}. 
+    \item \texttt{Learning from weak labels:} $\hat{A}$ enables learning from raw or weakly labeled videos, since inferring high-level actions from video is easier than recovering low-level motor commands \cite{McCarthy_2025}.
+    \item \texttt{Transferable Representations across embodiments:} $\hat{A}$ supports transfer across embodiments, because the same semantic action (e.g., ``open drawer'') can be instantiated by different robots with different kinematics \cite{McCarthy_2025}.
     % \item \texttt{Structured learning:} $\hat{A}$ provides a structured representation that can be used for learning policies, dynamics models, and value functions in a more data-efficient and generalizable way if $\hat{A}$ is well-structured, minimal, disentangled, and semantically consistent across embodiments.
-    \item \texttt{Structured learning:} A well-structured representation $\hat{A}$ that is minimal, disentangled, and semantically consistent across the state space encodes meaningful action information. This makes it easier to learn models that are predictive of both future observations (i.e., learning $p_{\text{alt}}(o_{t+1} \mid \hat{a}_t, o_t)$ instead of $p(o_{t+1} \mid o_t)$) and robot actions (i.e., learning $\pi(a_t \mid \hat{a}_t, o_t)$ instead of $\pi(a_t \mid o_t)$), leading to more data-efficient and generalizable policies, dynamics models, and value functions.
+    \item \texttt{Structured learning:} A well-structured representation $\hat{A}$ that is minimal, disentangled, and semantically consistent across the state space encodes meaningful action information. This makes it easier to learn models that are predictive of both future observations (i.e., learning $p_{\text{alt}}(o_{t+1} \mid \hat{a}_t, o_t)$ instead of $p(o_{t+1} \mid o_t)$) and robot actions (i.e., learning $\pi(a_t \mid \hat{a}_t, o_t)$ instead of $\pi(a_t \mid o_t)$), leading to more data-efficient and generalizable policies, dynamics models, and value functions \cite{McCarthy_2025, Rybkin2018LearningWY, Bruce2024GenieGI}.
     The choice of abstraction level for $\hat{A}$ also plays a crucial role: 
     \begin{itemize}
         \item \textbf{Higher-level or longer-horizon representations} $\hat{A}$ (such as language-based actions) can benefit performance in complex, long-horizon tasks by providing broader context and intent. This is because they capture more abstract and semantically meaningful information that can guide decision-making over longer time scales, which is particularly beneficial for tasks that require planning and reasoning about future consequences \cite{McCarthy_2025}.
@@ -461,9 +462,9 @@ Working in the alternative action space $\hat{A}$ offers several advantages.
 
 Once $\hat{A}$ is defined, the same representation can be used for example for:
 \begin{itemize}
-    \item policies $\pi_{\hat{A}}(\hat{a}_t \mid o_t)$ [227],
-    \item dynamics models $p(o_{t+1} \mid o_t, \hat{a}_t)$ [40] or
-    \item state-action value functions $Q(o_t, \hat{a}_t)$ [27],
+    \item policies $\pi_{\hat{A}}(\hat{a}_t \mid o_t)$ \cite{Schmidt2023LearningTA},
+    \item dynamics models $p_{\hat{A}}(o_{t+1} \mid o_t, \hat{a}_t)$ \cite{Bruce2024GenieGI} or
+    \item state-action value functions $Q_{\hat{A}}(o_t, \hat{a}_t)$ \cite{Bhateja2023RoboticOR},
 \end{itemize}
 which further encourages consistent and transferable action abstractions.
 
