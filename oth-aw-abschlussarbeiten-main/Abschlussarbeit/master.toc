@@ -103,5 +103,5 @@
 \contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{68}{subsection.6.2.7}%
 \contentsline {section}{\numberline {6.3}Vision Language Action Models}{68}{section.6.3}%
 \contentsline {chapter}{Literaturverzeichnis}{69}{section*.56}%
-\contentsline {chapter}{Abbildungsverzeichnis}{79}{section*.58}%
-\contentsline {chapter}{Tabellenverzeichnis}{80}{section*.60}%
+\contentsline {chapter}{Abbildungsverzeichnis}{82}{section*.58}%
+\contentsline {chapter}{Tabellenverzeichnis}{83}{section*.60}%

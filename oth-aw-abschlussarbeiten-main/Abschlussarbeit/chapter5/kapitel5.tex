@@ -18,16 +18,16 @@ We first review different approaches for extracting foundational knowledge from 
 
 % The Answer to the first question of how to extract relevant knowledge from internet video is may be using techniques and datasets inspired by video foundation Models (FMs).
 
-Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video foundation models are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions, and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications.
+Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video Foundation Models are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions, and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications \cite{Madan2024FoundationMF}.
 
 \begin{samepage}
 \cite{McCarthy_2025} says, Video FMs can be highly applicable for the following LfV use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
 \begin{itemize}
     \item \texttt{Using pretrained FMs:} 
-    One important application of Video FMs is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video FM. 
+    One important application of Video FMs is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video FM \cite{Yang2023LearningIR, rt22023arxiv, Ahn2022DoAI, Kim2024OpenVLAAO}. 
     
     \item \texttt{Using techniques and datasets inspired by Video FMs:}
-    In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot FM can be directly trained by combining robot data with large-scale video inspired by video FMs techniques [251].
+    In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot FM can be directly trained by combining robot data with large-scale video inspired by video FMs techniques \cite{Team2024OctoAO, rt12022arxiv}.
 \end{itemize}
 \end{samepage}
 
@@ -46,35 +46,37 @@ Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promi
 \label{sec:VideoEncoder}
 Foundational video encoders $p(z \mid \tau)$ are capable of extracting rich and robust representations from raw video observations. Given a video clip $\tau$, the encoder maps the visual input into a latent representation $z$, which captures semantic and temporal information relevant for downstream robotic tasks.
 
-In robotic imitation learning, pretrained video encoders are commonly used in two ways:
+In robotic imitation learning, pretrained video encoders are commonly used in two ways \cite{McCarthy_2025}:
 \begin{itemize}
     \item \texttt{Representation Learning:}
-    Pretrained video encoders can be transferred to robotic learning frameworks and further fine-tuned on robot-specific data for downstream tasks such as policy learning or an RL Knowledge Modality. The learned latent representations provide compact and informative features that improve generalization and sample efficiency, by allowing the model to learn task-specific features while still leveraging the general knowledge captured from internet video.
+    Pretrained video encoders can be transferred to robotic learning frameworks and further fine-tuned on robot-specific data for downstream tasks such as policy learning or an RL Knowledge Modality. The learned latent representations provide compact and informative features that improve generalization and sample efficiency, by allowing the model to learn task-specific features while still leveraging the general knowledge captured from internet video
+    % ToDo: , see Section~\ref{} and maybe some references.
     
     \item \texttt{Reward Learning:} 
-    Frozen video representations can also be used to define reward functions for robotic agents. By comparing the latent representations of demonstrations and robot executions, the system can measure behavioral similarity without requiring manually engineered reward signals. This approach enables the robot to learn from video demonstrations by optimizing its behavior to match the latent representations of successful demonstrations, thus facilitating imitation learning and skill acquisition.
+    Frozen video representations can also be used to define reward functions for robotic agents \cite{Nair2022R3MAU, Sontakke2023RoboCLIPOD, Fan2022MineDojoBO}. By comparing the latent representations of demonstrations and robot executions, the system can measure behavioral similarity without requiring manually engineered reward signals. This approach enables the robot to learn from video demonstrations by optimizing its behavior to match the latent representations of successful demonstrations, thus facilitating imitation learning and skill acquisition.
+    % ToDo: , see Section~\ref{}.
 \end{itemize}
 
 \subsubsection{Methods}
 \paragraph{General Overview of of Video Representation Learning.}
-Video representation learning aims to learn meaningful latent representations from raw video data. These representations capture semantic, spatial and temporal information that can be used for various downstream tasks.
+Video representation learning aims to learn meaningful latent representations from raw video data. These representations capture semantic, spatial and temporal information that can be used for various downstream tasks \cite{McCarthy_2025}.
 
 \texttt{How to learn a video encoder?}
 
 Let
 \begin{itemize}
     \item $X$ denote a video clip
-    \item $\bar X$ denote a video clip paired with some corresponding labels (bounding boxes, object masks) and data modalities (language annotations, meta-data)
+    \item $\bar X$ denote a video clip paired with some corresponding labels (bounding boxes and object masks \cite{Ding2023MOSEAN}) and data modalities (language annotations \cite{Grauman2021Ego4DAT}, meta-data \cite{ChantrySchiappa2022SelfSupervisedLF})
     \item $Y$ denote a learning objective, derived from $\bar X$
 \end{itemize}
 \textbf{Learning goal during training:} predict $Y$ from $X$.
-Or in other words, learn a video encoder $p(z|X)$ that maps the video clip $X$ to a latent representation $z$ that can be used to predict $Y$: $X \xrightarrow{p(z|X)} z \rightarrow Y$.
+Or in other words, learn a video encoder $p(z|X)$ that maps the video clip $X$ to a latent representation $z$ that can be used to predict $Y$: $X \xrightarrow{p(z|X)} z \rightarrow Y$ \cite{McCarthy_2025}.
 % The objective of the video encoder $p(z|X)$ is then to learn representations $z$ that enable the prediction or alignment of $Y$ from the input video $X$.
 % During training, the objective is to learn representations $z$ that enable the prediction or alignment of $Y$ from the input video $X$.
 
 Basic techniques for learning $Y$ include:
 \begin{itemize}
-    \item \textbf{Prediction-based Objectives}: The target $Y$, which is derived from the annotated video clip $\bar X$, may correspond to future video frames, masked regions, motion information, or other supervision signals. For example, in video prediction tasks, the model predicts the next frame $X_{t+1}$ from the raw previous observations $X_{\leq t}$. 
+    \item \textbf{Prediction-based Objectives}: The target $Y$, which is derived from the annotated video clip $\bar X$, may correspond to future video frames, masked regions, motion information, or other supervision signals. For example, in video prediction tasks, the model predicts the next frame $X_{t+1}$ from the raw previous observations $X_{\leq t}$ \cite{Gao2022SimVPSY, Jang2024VisualRL}. 
     % The Encoder is optimized using a prediction loss that encourages the learned representation to capture temporal structure and motion dynamics in video sequences.
     % The encoder is optimized using a prediction loss of the form
     % \[
@@ -83,7 +85,7 @@ Basic techniques for learning $Y$ include:
     % where $\hat{Y}$ denotes the predicted target. 
     % Such objectives encourage the learned representation to capture temporal structure and motion dynamics in video sequences.
 
-    \item \textbf{Joint-Embedding Objectives}: Joint-embedding approaches first map both the video input $X$ and the target $Y$ into a shared latent embedding space:
+    \item \textbf{Joint-Embedding Objectives}: Joint-embedding approaches \cite{Oord2018RepresentationLW, Xian2023TowardsGR, bardes2023v} first map both the video input $X$ and the target $Y$ into a shared latent embedding space:
     \[
     z_X = f(X),
     \qquad
@@ -94,7 +96,7 @@ Basic techniques for learning $Y$ include:
     \[
     \mathcal{L}_{\text{pred}} = L_{\text{align}}(z_X, z_Y)
     \]
-    Contrastive learning is one of the most widely used approaches in this setting. 
+    Contrastive learning is one of the most widely used approaches in this setting \cite{ChantrySchiappa2022SelfSupervisedLF}. 
     % These approaches have become highly effective for learning transferable video representations from large-scale unlabeled video datasets.
 \end{itemize}
 
@@ -104,34 +106,35 @@ Recent work has proposed scalable methods for learning rich spatio-temporal vide
 
 \texttt{Video-text objectives} leverage language annotations to learn semantic representations from video data. Common approaches include:
 \begin{itemize}
-    \item \textbf{Video-Text Contrastive Learning:} This approach learns to align video representations with corresponding text descriptions. By maximizing the similarity between video and text embeddings, the model captures semantic relationships between visual content and language.
+    \item \textbf{Video-Text Contrastive Learning:} This approaches learn to align video representations with corresponding text descriptions. By maximizing the similarity between video and text embeddings, the model captures semantic relationships between visual content and language \cite{Xu2021VideoCLIPCP, Zhao2024VideoPrismAF, Wang2023InternVidAL, Papalampidi2023ASR, Li2023UnmaskedTT}.
     
-    \item \textbf{Video-Text Matching:} This method trains the model to determine whether a given video clip and text description correspond to each other. The model learns to distinguish between matching and non-matching pairs, which encourages it to capture relevant features for both modalities.
+    \item \textbf{Video-Text Matching:} This methods train the model to determine whether a given video clip and text description correspond to each other. The model learns to distinguish between matching and non-matching pairs, which encourages it to capture relevant features for both modalities \cite{Li2023UnmaskedTT}.
 
-    \item \textbf{Masked Language Modelling:} In this approach, the model learns to predict masked words in a text description based on the corresponding video content. This encourages the model to learn contextual relationships between visual information and language.
+    \item \textbf{Masked Language Modelling:} In this approaches, the model learns to predict masked words in a text description based on the corresponding video content. This encourages the model to learn contextual relationships between visual information and language \cite{Li2023UnmaskedTT}.
 
-    \item \textbf{Video-to-Text Generation:} This method trains the model to generate descriptive text based on video input. By learning to produce coherent and relevant descriptions, the model captures high-level semantic information from the video data.
+    % ToDo: steht als Video-to-text losses in McCarthy2025 --> ist das hier so richtig
+    \item \textbf{Video-to-Text Generation:} This method trains the model to generate descriptive text based on video input. By learning to produce coherent and relevant descriptions, the model captures high-level semantic information from the video data \cite{Papalampidi2023ASR, Yan2022VideoCoCaVM}.
 \end{itemize}
 
 
 \texttt{Auto-encoding approaches} have also become highly effective for self-supervised video representation learning. Auto-Encoding Approaches learn video representations by reconstructing input data from compressed latent representations. Common approaches include:
 \begin{itemize}
-    \item \textbf{Masked Auto-Encoding (MAE):} In this approach, parts of the video input are randomly masked, and the model is trained to reconstruct the missing regions from the visible observations. This encourages the encoder to learn meaningful spatial and temporal representations from incomplete video information.
+    \item \textbf{Masked Auto-Encoding (MAE):} In this approach, parts of the video input are randomly masked, and the model is trained to reconstruct the missing regions from the visible observations. This encourages the encoder to learn meaningful spatial and temporal representations from incomplete video information \cite{Wang2023VideoMAEVS, Tong2022VideoMAEMA, Girdhar2022OmniMAESM}.
     % This method learns to reconstruct masked regions of video input, encouraging the model to capture meaningful spatio-temporal structure and context from incomplete observations.
     
     \item \textbf{Vector-Quantized Auto-Encoding (VQ-AE):} 
     In this approach, the encoder first extracts continuous latent features from the video input. 
     These features are then quantized by mapping them to the nearest vector in a finite set of learned codebook embeddings/vectors. 
     The decoder reconstructs the original video from these vector, encouraging the model to learn compact and semantically meaningful representations, due to the limited set of learned embeddings. 
-    The underlying principle is similar to language modelling, where a finite vocabulary of discrete tokens is used to represent words, syllables or letters. Analogously, VQ-AE learns a finite set of discrete visual tokens that capture recurring patterns in video data. These tokens may represent object appearances, motion patterns, textures, actions, or scene structures. 
+    The underlying principle is similar to language modelling, where a finite vocabulary of discrete tokens is used to represent words, syllables or letters. Analogously, VQ-AE learns a finite set of discrete visual tokens that capture recurring patterns in video data. These tokens may represent object appearances, motion patterns, textures, actions, or scene structures \cite{Bruce2024GenieGI, Villegas2022PhenakiVL, Yu2022MAGVITMG, Yan2021VideoGPTVG, Seo2022HARPAL}. 
     % By reusing a limited set of learned embeddings, the model can construct compact and semantically meaningful representations of complex visual observations.
 \end{itemize}
 
-\texttt{Student-Teacher Distillation Approaches} learn representations by transferring knowledge from a pretrained teacher network to a smaller student model. The student is trained to match the representations or predictions generated by the teacher model. This encourages the student network to learn robust and generalized video representations while often requiring fewer computational resources.
+\texttt{Student-Teacher Distillation Approaches} learn representations by transferring knowledge from a pretrained teacher network to a smaller student model \cite{Zhao2024VideoPrismAF, Wang2022MaskedVD, Li2023UnmaskedTT}. The student is trained to match the representations or predictions generated by the teacher model. This encourages the student network to learn robust and generalized video representations while often requiring fewer computational resources.
 
 % \item \textbf{Student-Teacher Distillation:} These methods train a student network to match the representations of a pretrained teacher model, transferring knowledge and improving generalization.
 
-\texttt{Joint-Embedding Predictive Architectures (JEPA)} learn representations by predicting high-level latent embeddings instead of reconstructing raw video pixels. Rather than modeling every visual detail, the model predicts semantic representations of future or masked observations in a shared embedding space. This approach improves robustness against the high-dimensionality and noise commonly present in video data while focusing on semantically relevant information.
+\texttt{Joint-Embedding Predictive Architectures (JEPA)} learn representations by predicting high-level latent embeddings instead of reconstructing raw video pixels. Rather than modeling every visual detail, the model predicts semantic representations of future or masked observations in a shared embedding space. This approach improves robustness against the high-dimensionality and noise commonly present in video data while focusing on semantically relevant information \cite{bardes2023v}.
 %  The learned representations can then be used for tasks such as action recognition, video classification, and robotic control.
 
 
