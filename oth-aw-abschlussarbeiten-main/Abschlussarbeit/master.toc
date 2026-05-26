@@ -98,14 +98,19 @@
 \contentsline {subsubsection}{\numberline {6.2.4.2}Policies}{65}{subsubsection.6.2.4.2}%
 \contentsline {paragraph}{a) Representation Transfer}{65}{paragraph*.54}%
 \contentsline {paragraph}{c) Alternative action Policy $\pi _{alt}(\hat {a}_t|o_t)$ and Decoder $\pi (a_t|\hat {a}_t, o_t)$}{67}{paragraph*.55}%
-\contentsline {subsubsection}{\numberline {6.2.4.3}Summary \& Limitations}{69}{subsubsection.6.2.4.3}%
-\contentsline {subsubsection}{\numberline {6.2.4.4}Dynamics Models}{69}{subsubsection.6.2.4.4}%
-\contentsline {paragraph}{Adaptation of video predictors to robot dynamics models}{70}{paragraph*.56}%
-\contentsline {paragraph}{Discussion}{71}{paragraph*.57}%
-\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{71}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{71}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{71}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Vision Language Action Models}{71}{section.6.3}%
-\contentsline {chapter}{Literaturverzeichnis}{72}{section*.58}%
-\contentsline {chapter}{Abbildungsverzeichnis}{85}{section*.60}%
-\contentsline {chapter}{Tabellenverzeichnis}{86}{section*.62}%
+\contentsline {paragraph}{Summary \& Limitations}{69}{paragraph*.56}%
+\contentsline {subsubsection}{\numberline {6.2.4.3}Dynamics Models}{69}{subsubsection.6.2.4.3}%
+\contentsline {paragraph}{Adaptation of video predictors to robot dynamics models}{70}{paragraph*.57}%
+\contentsline {subparagraph}{Evaluation of Model-Generated Trajectories.}{71}{subparagraph*.58}%
+\contentsline {paragraph}{Discussion}{71}{paragraph*.59}%
+\contentsline {subsubsection}{\numberline {6.2.4.4}Reward Functions}{71}{subsubsection.6.2.4.4}%
+\contentsline {paragraph}{Downstream Usage of LfV Reward Functions}{74}{paragraph*.60}%
+\contentsline {paragraph}{Summary}{74}{paragraph*.61}%
+\contentsline {subsubsection}{\numberline {6.2.4.5}Value Functions}{75}{subsubsection.6.2.4.5}%
+\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{75}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{75}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{75}{subsection.6.2.7}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{75}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{76}{section*.62}%
+\contentsline {chapter}{Abbildungsverzeichnis}{89}{section*.64}%
+\contentsline {chapter}{Tabellenverzeichnis}{90}{section*.66}%

@@ -2,6 +2,15 @@
 % Time Contrastive Learning: multivariate logistic regression classifier is trained in a supervised manner to look at a sample taken from the series at an unknown time and predict $\tau$, the index of the chunk it came from
 
 
+% ToDo: 
+% 1. **Addressing LfV Distribution Shift**
+%     - Work has utilized representations designed to explicitly ignore distribution shifts (Section 4.2.2) to enable meaningful comparisons between human and robot videos. This methods includes:
+%         - embodiment-invariant representations [321];
+%         - object-centric representations [140, 245, 46];
+%         - the retargeting of poses from human to robot embodiments [176, 211];
+%         - viewpoint invariant representations [234, 12]
+
+
 \chapter{Robot Learning Fundamentals}
 
 
@@ -589,7 +598,7 @@ Potential improvements of this compositional approach include:
 
 
 
-\subsubsection{Summary \& Limitations}
+\paragraph{Summary \& Limitations}
 Overall, hybrid approaches provide a flexible framework that combines the strengths of multiple learning paradigms.
 This synergy enables robots to learn robust skills from limited demonstrations, adapt policies online, and generalize more effectively across tasks and environments.
 
@@ -633,7 +642,7 @@ The resulting dynamics models can then be used for
 \begin{itemize}
     \item \textbf{Generate synthetic training data}
     The model can generate synthetic training data by simulating how the environment evolves in response to different actions. This allows for data augmentation and policy training without requiring real-world robot interaction. 
-    \item \textbf{Differentiable Simulation:}
+    \item \textbf{Differentiable Simulator:}
     By enabling backpropagation through model-generated rollouts, the dynamics model allows policies to be trained end-to-end using gradient-based optimization. This is especially useful for learning complex behaviors efficiently.
     \item \textbf{Planning and Control:}
     The dynamics model can be used for model-based control and trajectory planning, allowing the robot to anticipate the consequences of its actions and make informed decisions. Examples are here Tree search and Model Predictive Control (MPC). MPC optimizes a trajectory over a short horizon and replans frequently. Systematically simulates and evaluates many possible action sequences, often over a longer or variable horizon, by branching at each decision point. %This allows it to consider more possibilities and deeper future outcomes than MPC.
@@ -645,7 +654,7 @@ The resulting dynamics models can then be used for
     \item as part of a larger policy learning framework, where the dynamics model provides a predictive component that informs policy updates, value estimation, or hierarchical decision making.
 \end{itemize}
 
-\subitem{Evaluation of Model-Generated Trajectories.}
+\subparagraph{Evaluation of Model-Generated Trajectories.}
 To assess the quality of simulated trajectories, it is necessary to evaluate them using a value or reward function. The reward function can be learned from reward-labeled robot data or even from video data, enabling the model to assign meaningful scores to predicted outcomes and guide decision-making.
 
 
@@ -653,22 +662,142 @@ To assess the quality of simulated trajectories, it is necessary to evaluate the
 
 Large pretrained video foundation models demonstrate strong generalization capabilities and enable dynamics models to learn useful world knowledge even from non-expert internet video data. In particular, diffusion-based video models have shown promising performance for long-horizon prediction and planning tasks.
 
-Future research directions include scalable alternative-action conditioning methods, hierarchical world models that combine video-level abstractions with robot-level control, and integrating learned video predictors with classical physics simulators. Another promising avenue is the generation of synthetic robot training data and trajectory rollouts using large pretrained video generation models.
+Future research directions include scalable Alternative Action $\hat{A}$ conditioning methods, hierarchical world models that combine video-level abstractions with robot-level control, and integrating learned video predictors with classical physics simulators. Another promising avenue is the generation of synthetic robot training data and trajectory rollouts using large pretrained video generation models. 
+An underexplored direction is to combine standard analytic or physical simulation [267, 175] with video prediction simulation systems [306] to combine the physical accuracy and controllability of analytic simulators with the strong visual realism and planning capabilities of video predictors.
+Inspired by synthetic data practices in other domains [287, 150], future research could leverage foundational video predictors to create synthetic video rollouts [306, 40] or to expand and enhance existing dataset diversity through video editing techniques [316].
 
 Overall, video-based dynamics models provide a scalable framework for bridging visual world understanding and robot control through large-scale video pretraining, action conditioning, and model-based planning.
 
 % model-based control, trajectory planning, or as part of a larger policy learning framework.
 
 
-% One common approach is to first pretrain a Video Prediction Model $p(o_{t+1} \mid o_t)$ on $D_{video}$ to learn the dynamics and physics of the world and then transfer this knowledge to a robot dynmaics model $p(o_{t+1} \mid o_t, a_t)$ using $D_{robot}$, which additionally incorporates the influence of robot actions on future states of the environment.
-% Anothern approach is pretraining an alternative-action video predictor $p_{alt}(o_{t+1} \mido_t, \hat{a}_t)$ with an alternative action representation $\hat{a}_t$ extracted from video data, which can then be used to condition a downstream action decoder trained on robot data. Conditioning on an $\hat{A} $ allows for more control over video generations, and often be a mapping can be obtained from $\hat{A} $ to the robot action-space.
-% Anothern approach is to jointly pretrain a dynmaics model $p(o_{t+1} \mid o_t, a_t)$ on $D_{video}$ and $D_{robot}$, where the video data provides rich information about the environment's dynamics, while the robot data grounds the model in actionable interactions. UniSim can handle temporally extended actions in various modalities such as motor controls, language descriptions, and actions extracted from camera motions and
-% other sources.
+% > Pretraining on massive video data, adding action conditioning, and using models for simulation or planning are key to scalable robot learning.
+
+
+
+
+\subsubsection{Reward Functions}
+
+Reward functions are a central component of reinforcement learning, as they define the objective that guides policy optimization. However, manually designing reward functions for open, complex and unstructured robotic environments is difficult, often task-specific and hard to scale. To address this limitation, Learning from Video (LfV) approaches aim to automatically extract visual reward functions directly from video data. The core idea is to transform robot transition tuples $(o_t, a_t, o_{t+1})$ into reward-annotated tuples $(o_t, a_t, r_t, o_{t+1})$, enabling their use in both online and offline reinforcement learning settings.
+
+
+\underline{Video-Language Model as Reward Functions}
+
+One common approach is to use Video-Language Models (VidLMs) to derive reward signals from language descriptions and video observations. \cite{McCarthy_2025} identify two categories of methods:
+\begin{itemize}
+    \item \textbf{Video-text similarity:} Dual-encoder architectures embed videos and natural language instructions into a shared representation space. The reward is defined as the similarity between the robot observation and the language-conditioned task representation in the embedding space.
+    
+    \item \textbf{Visual Question Answering (VQA):} Video-to-text models answer questions about the current state of the task, such as whether the task has been completed or estimating the current task progress. The answers are then used to provide dense reward signals that guide policy learning. [] used VQA with images as input to provide rewards.
+\end{itemize}
+
+
+
+\underline{Video Prediction Models as Reward Functions}
+Video Prediction Models $p(o_{t+1}|o_t)$ learn to predict future observations based on the current visual state of the environment.
+% learn to predict the next frame from the current one. 
+Such models can be converted into reward functions by measuring how likely the next performed robot action, as observed by it's camera, is under the pretrained video predictor.
+% Such models can be converted into reward functions by evaluating how likely the observed robot trajectory is under the pretrained video predictor.
+% Such a model can be converted into a reward function by measuring how likely the action performed by the robot, observed by the robot's camera, occurs according to the model. 
+In this setting, the robot receives a high reward when the actual next frame from the robot's camera closely matches the predicted future observations of the model. % model's prediction
+This encourages the robot to produce behaviors whose visual dynamics resemble those observed in the video data used during pretraining. To improve scalability across diverse and non-expert internet videos, recent approaches additionally condition the video predictor on language instructions, enabling task-specific reward generation for a broad range of behaviors.
+% This encourages the robot to produce behaviors whose visual dynamics are similar to those in the video data the model was trained on. To scale this approach to diverse, non-expert internet videos, the video predictor can be conditioned on language instructions, allowing the reward to be tailored to various tasks.
+
+
+
+\underline{Visual Representational Similarity to a Reference as Reward Functions}
+
+This approaches define the reward as the similarity between the current robot observation and a reference observation, such as goal images or demonstration videos. In this setting, deep visual representations are used to compare the semantic similarity between observations rather than relying on raw pixel comparisons.
+
+Several methods employ time-contrastive learning objectives, which provide implicit estimates of the temporal distance between two observations and therefore encode task progress information about the current robot observation and the visual reference. Meanful visual representations are needed to address the distribution shift between human demonstrations and robot observations, like 
+\begin{itemize}
+    \item viewpoint-invariant representations,
+    \item embodiment-invariant representations, and
+    \item object-centric representations.
+\end{itemize}
+Other methods apply pose retargeting techniques to map human motions to robot-compatible embodiments before computing the reward signal.
+% ToDo: maby refernce to representation learning and domain adaption
+% Pose retargeting techniques additionally enable comparisons across different embodiments by mapping human motions to robot-compatible representations.
 
 
 
 
 
+
+% \underline{Potential-based Shaping with Value Functions}
+% Dense reward signals can be obtained from pretrained value functions $V(o_t)$ or $Q(o_t, a_t)$. A value function estimates the future task progress or success likelihood based on the current observation and is learned from video demonstrations using temporal-difference learning or time-contrastive objectives.
+
+% The reward is then computed through potential-based reward shaping:
+% \[
+% r_t = V(o_{t+1}) - V(o_t)
+% \]
+% This formulation provides smooth and dense optimization signals, which can significantly improve the stability and efficiency of downstream reinforcement learning.
+
+
+
+\underline{Potential-based Shaping with Value Functions}
+
+% ToDo: The context c is correct i think. I was is the paper 'TOWARDS UNIVERSAL VISUAL REWARD AND REPRESENTATION VIA VALUE-IMPLICIT PRE-TRAINING'
+Dense reward signals can be obtained from pretrained value functions $V(o_t, c)$ or $Q(o_t, a_t, c)$, where $c$ represents the goal condition of the task. The value function estimates how much progress has been made toward achieving the goal represented by $c$ from the current observation $o_t$.
+% A value function estimates the expected future task progress or the likelihood of eventual success from a given observation. 
+Such value functions can be learned from video demonstrations using either Temporal-Difference (TD) learning or Time-Contrastive learning.
+
+
+
+\begin{itemize}
+    \item \textbf{Temporal-Difference (TD) Learning} 
+    TD learning requires reward annotations, such as success or failure labels for the demonstration videos. The Value function is trained by comparing its current prediction $V(o_t, c)$ with the received reward $r_t$ plus the predicted future value $V(o_{t+1}, c)$ at the next step. The difference between these two quantities (the TD error) is used to correct the estimate step by step. This method is a standard algorithm in reinforcement learning but depends on having reward labels for the demonstration videos.
+
+    \item \textbf{Time-Contrastive Learning} 
+    Time-contrastive approaches learn task progress directly from the temporal structure of videos without requiring explicit reward labels. The model is trained such that observations temporally closer to the goal condition $c$ obtain more similar representations, while temporally distant observations are separated in the embedding space. For example, a task can be specified via a set of goal images. The model learns that observations close in time to the goal should have high value, while observations far from the goal (in time) should have low value. As a result, the learned representation implicitly captures progression toward task completion and can be used to derive dense reward signals from raw video demonstrations.
+    % does not need any reward labels. Instead, it uses the goal condition $c$ as a reference point. For example, a task can be specified via a set of goal images. The model learns that observations close in time to the goal should have high value, while observations far from the goal (in time) should have low value. By pulling goal-similar frames together and pushing temporally distant frames apart in the embedding space, the model learns a smooth progress function directly from raw video. Observations that are closer in time to the goal get a high value, effectively measuring how near the task is to completion.
+    
+\end{itemize}
+
+Once a value function $V(o_t, c)$ is learned, it can be used to generate a dense reward signal via potential-based reward shaping:
+\[
+r_t = V(o_{t+1}, c) - V(o_t, c).
+\]
+This reward is positive when the robot moves toward states with higher predicted success (i.e., makes progress toward the goal) and negative when it regresses.This formulation provides smooth and dense optimization signals, which can significantly improve the stability and efficiency of downstream reinforcement learning.
+The principle can be applied to action-value functions $Q(o_t, a_t, c)$ too.
+% I dont know if it is right, we need there a paper!, where the reward is defined as the difference in predicted value before and after taking an action.
+
+
+
+
+
+\underline{Generative Adversarial Imitation Learning (GAIL)}
+
+Generative Adversarial Imitation Learning (GAIL) approaches aim to match the behavior distribution observed in video demonstrations during online reinforcement learning. In this setting, the robot policy is optimized such that the executed robot trajectories become indistinguishable from trajectories contained in the video dataset.
+
+Since human demonstrations and robot observations often differ significantly in viewpoint, embodiment, and visual appearance, these approaches typically require invariant feature representations to reduce the impact of distribution shift between video and robot domains.
+% These approaches often require invariant feature representations to handle distribution shifts between human demonstrations and robot observations.
+
+
+
+\underline{Other Reward Extraction Methods}
+
+Additional methods train a task classifier on task-labelled video datasets to provide downstream reward signals for reinforcement learning. 
+Other approaches estimate the number of remaining steps-to-completion in a video and use this quantity as a proxy signal for task progress.
+
+Further work encourages similarity to video-derived behavioral priors, such as pretrained video policies or human affordance distributions, allowing the robot to align its behavior with patterns extracted from large-scale video demonstrations.
+
+
+\paragraph{Downstream Usage of LfV Reward Functions}
+
+Video-pretrained reward functions can either be transferred zero-shot to downstream robotic tasks or further finetuned on robot data $D_{robot}$. The extracted rewards may serve as the sole optimization objective for reinforcement learning, or act as auxiliary shaping and exploration rewards in combination with sparse rewards. In some approaches, the reward functions are additionally used to pretrain policies before subsequent finetuning the reward model on manually defined task rewards.
+
+
+\paragraph{Summary}
+
+Compared to directly learning policies or dynamics models, reward functions are often easier to extract from large-scale video data, since they only require estimating task progress or behavioral similarity rather than generating complete action sequences. 
+Recent advances in pretrained foundation models, particularly video-language models and video prediction architectures, have significantly improved the quality and scalability of visual reward extraction.
+
+Future research directions include combining LfV reward functions with other video-based knowledge modalities, such as finetuning policies through online Reinforcement Learning using the learned reward functions, as well as using LfV rewards to augment reward annotations in datasets. Another promising avenue is the use of video-derived rewards for safety monitoring and constraint estimation. Furthermore, extracting dense reward signals from video-to-text models through Reinforcement Learning from AI Feedback (RL-AI-F) represents an emerging direction.
+
+Overall, video-based reward functions provide a scalable mechanism for translating visual demonstrations into optimization signals for reinforcement learning, reducing the need for manually engineered reward design in robotic systems.
+
+
+\subsubsection{Value Functions}
 
 
 \subsection{Multi-Modal Approaches}

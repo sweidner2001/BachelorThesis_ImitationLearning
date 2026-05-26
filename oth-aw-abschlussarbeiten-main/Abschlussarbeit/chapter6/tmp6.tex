@@ -418,13 +418,8 @@ By incorporating hierarchical structure and high-level video representations, th
 
 \subsection{Dynamics Models}
 
-Dynamics models aim to learn how the environment evolves over time by predicting future observations from the current state and actions. In the context of learning from videos, video prediction models $p(o_{t+1} \mid o_t)$ are pretrained on large-scale internet video datasets to capture temporal dynamics, physical interactions, and object behaviour. This knowledge can subsequently be transferred to robot dynamics models $p(o_{t+1} \mid o_t, a_t)$, which additionally model how robot actions influence future states of the environment.
-
-Recent approaches employ large-scale generative architectures such as video diffusion models, autoregressive transformers, and recurrent state-space models to learn world dynamics from diverse internet and video-game data. Scaling both model size and dataset diversity has shown strong improvements in generalization and long-horizon prediction capabilities. To introduce controllability, many methods incorporate action conditioning either by jointly training on robot and video datasets or by conditioning predictions on alternative action representations such as language instructions, latent actions, goal images, motion cues, or affordance information.
-
-After pretraining, the dynamics models are adapted to robotic tasks using robot interaction data. Rather than directly finetuning pretrained video predictors, several approaches preserve pretrained knowledge by adding action-conditioned prediction heads or combining video-based and robot-specific conditioning mechanisms. The resulting dynamics models can then be used for simulation, trajectory planning, differentiable policy optimization, or synthetic data generation, enabling more data-efficient robot learning.
-
 A key advantage of dynamics-model-based approaches is their ability to learn useful world knowledge even from non-expert or unlabelled internet videos, making them more scalable than directly learning policies from video data alone. In particular, large pretrained video diffusion models have demonstrated promising generalization and long-horizon reasoning capabilities. Future research directions include hierarchical world models, integrating analytic simulators with learned video predictors, and generating synthetic robotic training data through large-scale video generation models.
+
 
 
 
