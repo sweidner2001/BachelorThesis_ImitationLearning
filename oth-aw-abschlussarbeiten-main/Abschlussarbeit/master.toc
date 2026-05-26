@@ -106,11 +106,16 @@
 \contentsline {subsubsection}{\numberline {6.2.4.4}Reward Functions}{71}{subsubsection.6.2.4.4}%
 \contentsline {paragraph}{Downstream Usage of LfV Reward Functions}{74}{paragraph*.60}%
 \contentsline {paragraph}{Summary}{74}{paragraph*.61}%
-\contentsline {subsubsection}{\numberline {6.2.4.5}Value Functions}{75}{subsubsection.6.2.4.5}%
-\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{75}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{75}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{75}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Vision Language Action Models}{75}{section.6.3}%
-\contentsline {chapter}{Literaturverzeichnis}{76}{section*.62}%
-\contentsline {chapter}{Abbildungsverzeichnis}{89}{section*.64}%
-\contentsline {chapter}{Tabellenverzeichnis}{90}{section*.66}%
+\contentsline {subsubsection}{\numberline {6.2.4.5}Value Functions}{74}{subsubsection.6.2.4.5}%
+\contentsline {paragraph}{Pretraining: Temporal-Difference Learning}{75}{paragraph*.62}%
+\contentsline {paragraph}{Pretraining: Time-Contrastive Learning}{75}{paragraph*.63}%
+\contentsline {paragraph}{Pretraining: Heuristic and Weak Supervision}{76}{paragraph*.64}%
+\contentsline {paragraph}{Downstream Usage}{76}{paragraph*.65}%
+\contentsline {paragraph}{Summary}{76}{paragraph*.66}%
+\contentsline {subsection}{\numberline {6.2.5}Multi-Modal Approaches}{77}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Large-Scale VLA Models}{77}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Comparison of approaches}{77}{subsection.6.2.7}%
+\contentsline {section}{\numberline {6.3}Vision Language Action Models}{77}{section.6.3}%
+\contentsline {chapter}{Literaturverzeichnis}{78}{section*.67}%
+\contentsline {chapter}{Abbildungsverzeichnis}{91}{section*.69}%
+\contentsline {chapter}{Tabellenverzeichnis}{92}{section*.71}%
