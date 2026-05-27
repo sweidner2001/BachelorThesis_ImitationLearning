@@ -10,3 +10,6 @@
 *.blg
 *.log
 *.bcf-SAVE-ERROR
+*.mtc*
+*.toc
+*.maf

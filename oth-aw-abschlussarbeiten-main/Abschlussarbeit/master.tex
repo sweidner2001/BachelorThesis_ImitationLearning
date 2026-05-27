@@ -50,7 +50,7 @@
 \setlength{\headwidth}{\textwidth}			% Kopf- und Fusszeile so breit wie der Haupttext
 \fancyfoot[R]{\thepage} 					% Festlegung des Seitenstils: Seitenzahlen in der Fusszeile rechts
 \fancyfoot[L]{\leftmark}					% Kapitelnr. und -Bezeichnung in der Fusszeile links
-\fancyhead[R]{\IhreArbeit}					% "Bachelorarbeit" in der Kopfzeile rechts
+\fancyhead[R]{\IhreArbeitEN}					% "Bachelorarbeit" in der Kopfzeile rechts
 \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
 \renewcommand{\chaptermark}[1]{			% Definition der Ausgabe des Kapitels
   \markboth{Chapter \thechapter. #1}{}}
@@ -58,9 +58,16 @@
 \renewcommand{\footrulewidth}{0.5pt}		% Trennlinie zwischen Haupttext und Fusszeile
 \fancypagestyle{plain}{					% Anpassung des Seitenstils 'plain' bei Beginn neuer Kapitel
   \fancyhf{}								% Vorbelegung loeschen
-  \fancyfoot[C]{\thepage}					% Seitenzeilen in der Fusszeile mittig
-  \fancyhead[R]{\IhreArbeit}				% "Bachelorarbeit" in der Kopfzeile rechts
-  \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
+  % \fancyfoot[C]{\thepage}					% Seitenzeilen in der Fusszeile mittig
+  % \fancyhead[R]{\IhreArbeit}				% "Bachelorarbeit" in der Kopfzeile rechts
+  % \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
+
+
+  \fancyfoot[LE,RO]{\thepage}                
+  \fancyfoot[LO,RE]{\nouppercase\leftmark}
+  \fancyhead[R]{\IhreArbeitEN}					        % "Bachelorarbeit" in der Kopfzeile rechts
+  \fancyhead[L]{\IhrVorname\ \IhrNachname}	  % Vorname und Name in der Kopfzeile links
+
 }
 
 
@@ -113,22 +120,28 @@
 %
 % Persoenliche Angaben
 %
-\newcommand*{\IhrVorname}{Thomas}
-\newcommand*{\IhrNachname}{Mustermann}
-\newcommand*{\IhrStudiengang}{Elektro- und Informationstechnik}
+\newcommand*{\IhrVorname}{Sebastian}
+\newcommand*{\IhrNachname}{Weidner}
+\newcommand*{\IhrStudiengang}{Bachelor Künstliche Intelligenz}
 \newcommand*{\IhreArbeit}{Bachelorarbeit}
-\newcommand*{\IhrTitelDE}{\LaTeX\ im Griff}
-\newcommand*{\IhrTitelEN}{\LaTeX\ under control}
-\newcommand*{\IhrBearbeitungszeitraumVON}{1. Oktober 2013}
-\newcommand*{\IhrBearbeitungszeitraumBIS}{31. Januar 2014}
-\newcommand*{\IhrErstpruefer}{Prof. Dr. Axel Maier}
-\newcommand*{\IhrZweitpruefer}{Prof. Dr. Bruno Müller}
-\newcommand*{\IhreFirma}{Renner-Verlag, Musterstadt}
-\newcommand*{\IhrFirmenbetreuer}{Dr. Karl Schulze}
-\newcommand*{\IhreZusammenfassung}{%
+\newcommand*{\IhreArbeitEN}{Bachelor Thesis}
+\newcommand*{\IhrTitelDE}{Imitation Learning unter Verwendung videokonditionierter Policies für visuell gesteuertes Roboterverhalten}
+\newcommand*{\IhrTitelEN}{Imitation Learning using Video-Conditioned Policies for Visually Guided Robotic Behavior}
+\newcommand*{\IhrBearbeitungszeitraumVON}{20. Januar 2026}
+\newcommand*{\IhrBearbeitungszeitraumBIS}{20. Juni 2026}
+\newcommand*{\IhrErstpruefer}{Prof. Dr.-Ing. Christian Bergler}
+\newcommand*{\IhrZweitpruefer}{Prof. Dr. phil. Tatyana Ivanovska}
+\newcommand*{\IhreFirma}{OTH Amberg-Weiden}
+\newcommand*{\IhrFirmenbetreuer}{Prof. Dr.-Ing. Christian Bergler}
+\newcommand*{\IhreZusammenfassungDe}{%
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 }
-\newcommand*{\IhreSchluesselwoerter}{\LaTeX, Textsatz, Formeln, Graphiken}
+
+\newcommand*{\IhreSchluesselwoerterDe}{\LaTeX, Textsatz, Formeln, Graphiken}
+\newcommand*{\IhreZusammenfassungEn}{%
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+}
+\newcommand*{\IhreSchluesselwoerterEn}{\LaTeX, Textsatz, Formeln, Graphiken}
 
 
 \usepackage[bookmarks, raiselinks, pageanchor, % PDF-Einstellungen
@@ -139,7 +152,25 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 \hypersetup{pdftitle={\IhrTitelDE},%
             pdfauthor={\IhrVorname\ \IhrNachname},%
             pdfsubject={\IhreArbeit},%
-            pdfkeywords={\IhreSchluesselwoerter}}
+            pdfkeywords={\IhreSchluesselwoerterDe}}
+
+
+%Linebreaks of urls in bibliography
+\usepackage{url}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+
+
+\usepackage{minitoc}
+\dominitoc
+\setcounter{minitocdepth}{2}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\addto{\captionsenglish}{
+  \renewcommand{\mtctitle}{} % Remove "Contents" from minitoc title
+}
+
 
 %
 % Beginn des Textteils
@@ -223,3 +254,8 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
   %\include{anhang}
 \end{document}
+
+
+% ToDo: unter jede Überschrift muss ein Text kommen, z.B. übersicht über das Kapitel oder die Section
+
+% ToDo: Acronym Package
