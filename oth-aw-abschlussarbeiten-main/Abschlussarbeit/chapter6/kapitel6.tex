@@ -877,16 +877,81 @@ Research on learning value functions directly from video remains relatively scar
     
 % \end{itemize}
 
-\subsection{Multi-Modal Approaches}
-\subsection{Large-Scale VLA Models}
-Multi-modal models that explicitly include robot actions are often called Vision-Language-Action (VLA) models. 
-However, the distinction between both categories is not always strict. 
-VLA models typically focus on direct policy inference, where robot actions are predicted from visual observations and language instructions, while the multi-modal models discussed here are general-purpose token predictors that model arbitrary modality sequences.
-% In contrast, many multi-modal sequence models are designed as general-purpose token predictors that model arbitrary modality sequences. 
-In practice, the same underlying architecture can often be used both as a general multi-modal foundation model and as a robotic control policy.
+\subsection{Multi-Modal Approaches \& VLA Models}
+% Vision-Language-Action (VLA) models represent a recent frontier in robotic intelligence by jointly integrating visual perception, natural language understanding, and robot action generation into a unified framework. These models enable robots to interpret visual environments, understand human instructions expressed in natural language, and execute grounded robotic actions accordingly.
 
+Multi-modal robotic learning aims to integrate several modalities, including visual observations, language instructions, robot states, tactile information, and robot actions, into a unified learning framework. The main objective is to improve task understanding, robustness, and generalization across diverse environments and manipulation tasks. These approaches are considered an important step toward general-purpose robotic intelligence.
+
+
+Multi-modal models that explicitly include robot actions are often called Vision-Language-Action (VLA) models, which jointly model visual perception, language understanding, and robotic control. VLA models extend Vision-Language Models by incorporating robot actions as an additional modality, enabling end-to-end policy learning from observations and natural language instructions. Their goal is to learn general-purpose robot policies capable of executing complex tasks across different environments.
+
+
+Another objective of VLA models is to bridge the semantic gap between high-level multimodal inputs and low-level robotic control. To achieve this, they learn shared representations across modalities such as Language, Vision (images, videos), Robot States and Actions and sometimes other modalities, like proprioception or depth. Through large-scale training on multimodal datasets, VLA models align semantic understanding with motor behavior, allowing robots to generalize across diverse tasks and environments.
+
+
+
+\paragraph{General VLA Architectural Overview}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter6/media/VLAArchitecture.png}
+	\caption[General Vision-Language-Action Architecture]{General Vision-Language-Action Architecture \cite{}.}
+	\label{fig:VLAArchitecture}
+\end{figure}
+
+Figure \ref{fig:VLAArchitecture} illustrates the general architecture of a Vision-Language-Action (VLA) model for robotic manipulation. Such systems typically process three main inputs: a visual observation of the scene, a natural language instruction, and the robot's internal state information. These inputs are encoded separately using Visual, Language, and State Encoders to obtain modality-specific feature representations.
+
+The resulting embeddings are then fused within a large language model (LLM) or multimodal transformer, which performs high-level semantic reasoning and generates a semantic representation of the task. Finally, this representation is combined with robot state features and passed to an Action Decoder, which predicts the sequence of robot actions or trajectories required to execute the commanded task. The Action Decoder can take various forms and is here illustrated as Diffusion Policy, which directly generates actions based on the fused representation.
+
+Technically, these systems combine advances in deep representation learning, multimodal alignment, and decision making, often leveraging transformer-based architectures trained with large-scale supervised or autoregressive objectives.
+
+
+
+
+The mind map in Figure \ref{fig:VLAComponentsOverview} shows the main categories of Vision Encoders, Language Encoders, and Action Decoders used in modern Vision-Language-Action (VLA) models. The listed architectures represent common design choices for multimodal perception, semantic reasoning, and robotic action generation in current large-scale robotic systems.
+
+Some models appear under multiple encoder categories because they employ hybrid architectures that combine several pretrained backbones within a unified framework, to improve visual representation quality, grounding capabilities, and downstream manipulation performance.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter6/media/VLAComponentsOverview.png}
+	\caption[Vision-Language-Action Components Overview]{Vision-Language-Action Components Overview \cite{}.}
+	\label{fig:VLAComponentsOverview}
+\end{figure}
+
+
+
+
+
+
+% Unlike traditional imitation learning approaches that are often specialized for a single task or embodiment, VLA models aim to support broad task generalization. 
+% This includes robotic manipulation, navigation, and human-robot interaction tasks, where the robot must reason about both the visual scene and the linguistic instruction before producing sequential control actions. 
+
+
+
+
+\paragraph{Main VLA Architectural Paradigms}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter6/media/VLAModalityArchitectureLearningParadigm.png}
+	\caption[Vision-Language-Action Modality Architecture and Learning Paradigm]{Vision-Language-Action Modality Architecture and Learning Paradigm \cite{}.}
+	\label{fig:VLAModalityArchitectureLearningParadigm}
+\end{figure}
+
+Vision-Language-Action (VLA) models encompass a broad range of architectural designs that differ in how perception, language understanding, and robotic control are integrated. Learning paradigms also vary and include supervised learning, self-supervised learning, and reinforcement learning, which can be combined in various ways.
+\cite{} categorizes VLA architectures into three main classes: sensorimotor models, world models, and affordance-based models. Each class represents a different strategy for grounding multimodal inputs into robotic actions and has its own architectures.
+% Most modern approaches combine advances in deep representation learning, multimodal alignment, and sequential decision making, typically using transformer-based architectures trained on large-scale multimodal datasets.
+\begin{itemize}
+    \item \textbf{Sensorimotor Models.} Sensorimotor Models jointly learn representations of visual observations, language instructions, and robot actions within a unified policy model. These architectures directly map images and textual commands to robot actions and may employ either flat end-to-end policies or hierarchical structures that separate high-level reasoning from low-level control.
+    \item \textbf{World Models.} Beyond direct policy learning, several alternative VLA paradigms have emerged. World-model-based approaches learn the temporal dynamics of the environment by predicting future visual or latent states conditioned on actions and language inputs. These predicted future trajectories can then guide planning and action generation. 
+    \item \textbf{Affordance-Based Models.} Another direction are Affordance-Based Models, which predict task-relevant affordances or interaction regions from visual and language inputs before generating corresponding robot actions.
+\end{itemize}
+
+Together, these architectural strategies illustrate the ongoing shift from task-specific robotic policies toward more general-purpose, multimodal robotic intelligence systems. VLAs represent the recent frontier in robotic intelligence by jointly integrating visual perception, natural language understanding, and robot action generation into a unified framework.
+% Vision-Language-Action (VLA) models represent a recent frontier in robotic intelligence by jointly integrating visual perception, natural language understanding, and robot action generation into a unified framework.
+
+
+
+
+% Recent large-scale VLA systems further extend ideas from vision-language foundation models to embodied control by treating robot actions as another modality within a unified token-based prediction framework. This enables the transfer of semantic knowledge from internet-scale visual and language data to robotic policy learning, improving task flexibility and zero-shot generalization capabilities.
 
 
 \subsection{Comparison of approaches}
-
-\section{Vision Language Action Models}

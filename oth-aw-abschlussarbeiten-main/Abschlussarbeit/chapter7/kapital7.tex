@@ -1,1 +1,115 @@
 \chapter{Challenges and Future Directions}
+
+Despite significant progress in imitation learning and video-based robotic learning, several fundamental challenges still limit the deployment of robust and generalizable robotic systems. Current methods often struggle with data availability, computational scalability, domain transfer, and efficient policy learning. At the same time, emerging architectures such as diffusion models, world models, and causally-aware systems provide promising directions for future research.
+
+
+\section{Data}
+
+% Problem: Data Availability
+The performance of modern Robotic models strongly depends on the availability, diversity, and quality of demonstration data. However, collecting large-scale robotic datasets remains expensive and time-consuming, particularly when expert annotations or robot demonstrations are required. Existing datasets are often domain-specific, weakly balanced, or limited to narrow task distributions, reducing the ability of models to generalize to unseen environments, objects, or robot embodiments.
+
+% Solution: Internet videos
+One promising approach is the use of internet videos, which provide a vast amount of diverse visual demonstrations at a significantly lower collection cost than robot-specific datasets. However, such data often lacks precise action annotations and task labels.
+
+% Solution: Weak supervision and self-supervised learning
+To address this limitation, weakly supervised learning methods utilize coarse or incomplete labels, such as video captions, task descriptions, or automatically generated annotations, instead of relying on expensive frame-by-frame expert labeling. Similarly, self-supervised learning objectives enable models to learn useful visual and temporal representations directly from raw video data. Common objectives include predicting future video frames, reconstructing masked observations, or learning representations that remain consistent across temporally related frames. These approaches allow robots to exploit large amounts of unlabeled data while reducing the dependence on manual annotation.
+
+% Solution: Active Learning
+Another challenge is the efficient acquisition of high-quality labels. Active learning addresses this issue by allowing a model to strategically select the most informative or uncertain samples for annotation rather than labeling entire datasets uniformly. For example, a robot may request human annotations only for demonstrations in which its predictions are uncertain, thereby reducing annotation costs while maximizing the benefit of labeled data.
+
+% Solution: Active physical interaction
+Beyond passive observation, future imitation learning systems may also integrate active physical trials, where robots interact directly with their environment to refine policies learned from demonstrations. Such interaction-based learning combines the strengths of imitation learning and reinforcement learning, enabling robots to adapt to environmental variations, recover from failures, and acquire knowledge that is difficult to infer from observation alone.
+
+
+
+
+% Problem: data efficiency
+Another important challenge is sample efficiency. Many high-capacity imitation learning and RL methods still require large amounts of demonstrations or interaction data. Current approaches therefore investigate meta-learning, contrastive representation learning, and one-shot or few-shot imitation learning to reduce data requirements. Goal-conditioned RL and Representation Learning have also shown improved data efficiency, although robust learning from weakly-labeled or noisy demonstrations remains an open problem.
+
+
+% Solution: data efficiency and availability
+Future research must focus not only on improving generalization, but also on enabling rapid adaptation to new tasks, robots, and environments. Achieving this level of adaptability is considered a key requirement for scalable and general-purpose robotic intelligence.
+
+
+
+% Data Availability and Annotation
+% - To overcome the data sparsity, use internet videos and weak supervision, self-supervised objectives 
+
+% Improving Data Annotation 
+% - Active Learning: Strategically select informative video data for labeling
+% - Integrate active physical trials (robot interaction) in Imitation Learning
+
+% Sample Efficiency
+% - Approaches: meta-learning, contrastive objectives, and one/few-shot imitation
+% - Data-efficient approaches: feature extraction, goal-conditioned RL, some hybrid models --> currently problems with weakly-labeled data
+
+% Tackling data efficiency and availability
+% - Goal: Enhance generalization and quick adaptation to new tasks/environments.
+% - Key Requirement: New methods must ensure quick adaptation to new tasks, robots & environments, moving beyond simple generalization
+
+
+
+
+\section{Computional Costs}
+% Problem:
+The increasing adoption of large-scale transformer architectures and multimodal foundation models has significantly improved robotic perception and policy learning. However, these advances come at the cost of high computational and memory requirements.
+
+State-of-the-art Vision-Language-Action models often require substantial GPU resources during both training and inference. This creates major deployment challenges for real-world robotic systems, especially on embedded or resource-constrained platforms where real-time execution is required.
+
+% Solution:
+% ToDo: Quelle für potential directions
+Future work must therefore address efficient scaling strategies for both data and model architectures. Potential directions include for example lightweight transformer designs, modular architectures and model compression techniques.
+
+% High computational costs of SOTA multi-modal and large-scale transformer architectures --> real-time execution <-> Robot hardware
+
+\section{Domain Shift}
+% Problem
+A persistent challenge in imitation learning is the domain shift between
+human demonstrations and robot execution. In particular, transferring skills from humans to robots is difficult because of differences in appearance, motion dynamics of task execution, embodiment, environment and action spaces. 
+% This problem is commonly referred to as the embodiment gap.
+
+% Solution
+Current approaches attempt to learn domain-invariant or domain-adaptive representations using hybrid and multi-modal architectures, image translation techniques, or context-aware feature learning. Methods such as adversarial learning, keypoint-based transfer, and CycleGAN-based translation can partially reduce visual discrepancies between domains. However, translation artifacts, inaccurate pose estimation, and misaligned action representations still limit robust skill transfer.
+
+% Future Directions
+Future research will likely focus on more robust sim-to-real transfer methods, continual learning strategies during inference, and advanced domain adaptation techniques. Multi-modal learning approaches that integrate additional sensory modalities, such as force or tactile feedback, may further reduce the dependence on purely visual transfer. In addition, causal reasoning and few-shot adaptation methods could improve the transfer of manipulation skills across different robots and environments. Furthermore, researchers should investigate in attention mechanisms, unsupervised techniques, and transformer-based architectures.
+% , which may also help to mitigate the domain shift problem.
+
+
+% Domain Shift and Embodiment Gap
+
+% Translation artifacts, misaligned action representations, imperfect pose estimation
+% --> Approaches: adversarial learning, keypoint-based transfer, CycleGANs
+
+% Need of domain-invariant or domain-adaptive features
+% --> Approaches: hybrid- & multi-modal models, image/context translation 
+
+
+% Tackling domain shift
+% Future Directions: 
+% - adversarial training, meta-learning Multi-modal strategies, Sim-to-real transfer strategies, continual learning
+% - Causal reasoning and few-shot learning for skill transfer
+% - Investigating in attention mechanisms, unsupervised techniques, and transformer-based architectures
+
+
+\section{Emerging techniques and architectures}
+
+\subsection{Diffusion models}
+\subsection{World models}
+\subsection{Integration of causal reasoning}
+
+\section{Evaluation Metrics and Benchmarks}
+Another major challenge is the lack of standardized evaluation metrics and benchmarking protocols for imitation learning and video-based robot learning. Current evaluations are often task-specific and rely on custom experimental setups, making fair comparisons between methods difficult.
+
+Existing benchmarks primarily focus on task success rates, while aspects such as robustness, generalization, sim-to-real transfer, and adaptability are often insufficiently evaluated. Moreover, the design of a benchmark strongly influences research directions by implicitly prioritizing certain capabilities over others.
+
+% ToDo: Future Directions:
+
+
+% Evaluation Metrics and Benchmarks
+% No standardized evaluatioin metrics/benchmarks for video-based robot learning
+% Need of metrics that capture not only task success but also generalization, robustness and sim-to-real performance
+
+% The design of a benchmark implicitly steers research priorities
+% Causal Gap: None of the current benchmarks explicitly test causal understanding
+% Need of a "Causal-CALVIN" or "Interventional RLBench" where the underlying causal structure (e.g., object physics) is perturbed to test for robustness against spurious correlations
