@@ -428,3 +428,26 @@ A key advantage of dynamics-model-based approaches is their ability to learn use
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Large-Scale VLA Models}
+
+Multi-modal robotic learning aims to integrate several modalities, including visual observations, language instructions, robot states, tactile information, and actions, into a unified learning framework. The main objective is to improve task understanding, robustness, and generalization across diverse environments and manipulation tasks. These approaches are considered an important step toward general-purpose robotic intelligence.
+
+A major class of such systems are Vision-Language-Action (VLA) models, which jointly model visual perception, language understanding, and robotic control. VLA models extend vision-language foundation models by incorporating robot actions as an additional modality, enabling end-to-end policy learning from multimodal observations and natural language instructions. Their goal is to learn general-purpose robot policies capable of executing complex tasks across different environments.
+
+Modern VLA systems typically combine large visual backbones, large language models, and action prediction modules. Early approaches represented robot actions as discrete tokens and directly adapted pretrained vision-language models for robotic control. More recent methods instead model continuous actions and temporal dependencies using diffusion or flow-based generative architectures, enabling smoother and more expressive robot behavior.
+
+Conceptually, current VLA approaches can be grouped into three main categories. The first category directly adapts pretrained vision-language models for robotic control. The second separates high-level semantic reasoning from low-level action generation through hierarchical architectures. The third focuses on large-scale pretraining on internet videos, simulations, and robot demonstrations to learn general physical dynamics before specializing to robotic tasks. These approaches often follow a ``data pyramid'' strategy that combines heterogeneous data sources to overcome the limited availability of robot demonstrations.
+
+Overall, recent progress suggests that scalable robotic intelligence requires both strong multimodal perception and expressive continuous action modeling, forming the foundation for future general-purpose robotic systems.

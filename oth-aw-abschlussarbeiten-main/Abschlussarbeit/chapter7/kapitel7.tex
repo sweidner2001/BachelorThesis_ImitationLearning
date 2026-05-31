@@ -101,9 +101,71 @@ Future research will likely focus on more robust sim-to-real transfer methods, c
 \section{Evaluation Metrics and Benchmarks}
 Another major challenge is the lack of standardized evaluation metrics and benchmarking protocols for imitation learning and video-based robot learning. Current evaluations are often task-specific and rely on custom experimental setups, making fair comparisons between methods difficult.
 
-Existing benchmarks primarily focus on task success rates, while aspects such as robustness, generalization, sim-to-real transfer, and adaptability are often insufficiently evaluated. Moreover, the design of a benchmark strongly influences research directions by implicitly prioritizing certain capabilities over others.
+Existing benchmarks primarily focus on task success rates, while aspects such as robustness, generalization, sim-to-real transfer, and adaptability are often insufficiently evaluated. Moreover, the design of a benchmark strongly influences research directions by implicitly prioritizing certain capabilities over others. Table \ref{tab:benchmark} summarizes a three prominent benchmarks and their principal focus.
 
-% ToDo: Future Directions:
+
+% \textbf{Short notes on the three benchmarks.} 
+% CALVIN become a de-facto standard for evaluating long-horizon, language-conditioned policy learning and compositional reasoning, by providing large-scale, compositional interaction data with tasks that require planning and instruction grounding. RLBench is a prominent benchmark for evaluating few-shot and multi-task manipulation, enabling consistent comparisons of meta-learning and generalization techniques. RoboTube focuses on learning from human demonstrations and on human-to-robot transfer, emphasizing sim-to-real metrics and the use of large, video-derived demonstration corpora.
+% Table \ref{tab:benchmark} summarizes a three prominent benchmarks and their principal focus.
+
+\begin{table}[htbp]
+	\centering
+	\small
+	\begin{tabular}{|p{2.2cm}|p{6.0cm}|c|p{4.4cm}|}
+		\hline
+		\textbf{Benchmark} & \textbf{Focus} & \textbf{\# of Tasks} & \textbf{Key metrics} \\
+		\hline
+		CALVIN & Long-horizon, language-conditioned, compositional tasks & 34 & Long-horizon multi-task language-conditioned control success \\
+		\hline
+		RLBench & Few-shot, meta- and multi-task learning; broad skill acquisition & 100 & Few-shot task success \\
+		\hline
+		RoboTube & Learning from human demonstrations; human-to-robot transfer & 50 & Policy success rate in RT-sim; sim-to-real transfer success \\
+		\hline
+	\end{tabular}
+    \caption{Prominent benchmarks and their focus}
+	\label{tab:benchmark}
+\end{table}
+
+% An important limitation of current benchmarks is the absence of explicit evaluation of causal understanding, whether a model truly understands physical interactions or merely exploits statistical shortcuts.
+\textbf{The causal gap.} An important limitation of current benchmarks is that they primarily reward correlational, task-level success. They do not explicitly test whether an agent has learned causal relationships that govern object interactions and task dynamics. As a result, an agent may reach high success rates by exploiting statistical regularities in the training data rather than by acquiring a robust causal model. For example, a policy might learn that pushing a particular red button is followed by a light turning on, without understanding the causal mechanism. If the button's function were altered, an object's physical properties were changed, or an unobserved confounding factor were introduced, a correlational policy will often fail. 
+% If the wiring is changed, or the object's mass or friction is altered, such a correlational policy will often fail.
+
+\textbf{Towards causal evaluation protocols.} To close the causal gap \cite{?} propose evaluation protocols inspired by the Minimal Video Pairs (MVP) idea [207], adapted to robotic control. MVP forces models to distinguish minimally different scenarios by changing a single causal detail. 
+% Applied to robotics, this suggests an "interventional" evaluation that perturbs the causal structure of the environment at test time. 
+A potential protocol would proceed in two stages:
+\begin{enumerate}
+    \item Train agents using the standard benchmark dataset and metrics (as today).
+    \item Evaluate robustness and causal understanding on a suite of interventional test tasks where underlying causal factors are systematically perturbed. Examples include changing object mass or friction, rewiring the causal relation between a switch and an effect, or introducing previously absent confounders (e.g., making a drawer stick).
+\end{enumerate}
+
+Under this protocol a purely correlational policy that overfits the training statistics is expected to fail on the perturbed tasks, while a model that internalizes causal relationships should either adapt its policy to the new dynamics or detect the distributional shift and trigger safer, more informed failure recovery strategies. Quantitatively, such a benchmark would report both standard task success and robustness metrics, such as performance drop under interventions, adaptation speed, and diagnostic measures of causal inference.
+
+Developing and releasing such interventional benchmarks will provide a concrete, quantitative way to measure the benefits of causal reasoning in robotic manipulation, and will help steer the field toward methods that generalize in meaningful, physically grounded ways.
+
+
+% Table \ref{tab:benchmark} shows the most prominent Benchmarks in a short overview overview and where their focus.
+
+% \begin{table}[htbp]
+% 	\centering
+% 	\caption{Prominent benchmarks and their focus}
+% 	\label{tab:benchmark}
+% 	\small
+% 	\begin{tabular}{|p{3.0cm}|p{6.0cm}|c|p{5.0cm}|}
+% 		\hline
+% 		\textbf{Benchmark} & \textbf{Focus} & \textbf{\# of Tasks} & \textbf{Key metrics} \\
+% 		\hline\hline
+% 		Calvin & Long-horizon, language-conditioned, compositional tasks & 34 & Long-horizon multi-task language-conditioned control success \\
+% 		\hline
+% 		RLBench & few-shot, meta- and multi-task learning; broad skill acquisition & 100 & Few-shot task success \\
+% 		\hline
+% 		RoboTube & Learning from human demonstrations; human-to-robot transfer & 50 & Policy success rate in RT-sim; sim-to-real transfer success \\
+% 		\hline
+% 	\end{tabular}
+% \end{table}
+
+
+
+
 
 
 % Evaluation Metrics and Benchmarks
