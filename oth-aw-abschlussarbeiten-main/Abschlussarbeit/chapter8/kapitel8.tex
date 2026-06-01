@@ -125,7 +125,7 @@ L_{\text{total}} = \tfrac{1}{4}\big( L_{\text{action}} + L_{\text{video alignmen
 
 
 
-\subsection{Training Dataset}
+\subsection{Used Training Datasets}
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Datasets.png}
@@ -153,6 +153,113 @@ The experimental results demonstrate that Vid2Robot can successfully perform var
 % This approach significantly reduces the need for manual task specification and allows robots to learn from the rich visual information present in human demonstrations, paving the way for more intuitive and efficient robot learning in real-world scenarios.
 
 \section{Paper - ORION: Vision-based Manipulation from Single Human Video with Open-World Object Graphs}
+ORION (Open-woRld video ImitatiON) is a framework for learning robotic manipulation skills directly from human demonstration videos. The core idea is to extract an object-centric manipulation plan from a single RGB or RGB-D video and use it to derive a policy that can be executed by a robot. Instead of directly imitating human motions, ORION focuses on the motion of manipulated objects, learning policies that move objects along trajectories that match the directional and curvature patterns observed in the demonstration.
+
+A key advantage of ORION is its ability to learn from videos captured using everyday mobile devices, such as an iPad equipped with a TrueDepth camera. The only requirement for task recording is that the camera must be stationary. Furthermore, the framework is designed to generalize across variations in visual backgrounds, camera viewpoints, spatial arrangements, and previously unseen object instances. This object-centric representation also enables effective scaling to long-horizon manipulation tasks.
+
+
+\subsection{Architecture}
+ORION consists of two main stages: manipulation plan generation from video and policy rollout. 
+% The first stage processes the demonstration video to extract a sequence of Open-world Object Graphs (OOGs) that represent the spatiotemporal structure of the task. The second stage synthesizes robot actions based on the generated manipulation plan, allowing the robot to execute the demonstrated task in its own environment.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter8/media/ORION_Achitecture}
+	\caption[ORION: Overview of plan generation]{Overview of the ORION framework for plan generation \cite{?}.}
+	\label{fig:ORIONArchitecture}
+\end{figure}
+
+
+Overview of the manipulation plan generation pipeline shown in Figure~\ref{fig:ORIONArchitecture}, 
+\begin{enumerate}
+    \item \textbf{Detect and track objects and keypoints across the demonstration video frames.} This is done via VLM, open-world vision model and Video Object Segmentation Model.
+    \item \textbf{Find important keyframes.} Keyframes are identified based on the velocity statistics of the keypoint trajectories.
+    \item \textbf{Build Open-world Object Graphs (OOGs) per keyframe.} This results in a sequence of OOGs that serves as the spatiotemporal abstraction of the video.
+    \item \textbf{Synthesize robot actions from OOG plan.}
+\end{enumerate}
+
+
+\paragraph{What are Open-world Object Graphs (OOGs)?}
+To represent the environment, ORION introduces OOGs, which provide an object-centric state description of the scene and the relationships between task-relevant objects. Sequences of OOGs serve as a spatiotemporal manipulation plan that guides the robot's actions throughout the task.
+
+
+
+The OOG is a hierarchical graph structure and consists of three types of nodes, which are seperated in high-level and low-level nodes. The edges between nodes model their relationships, see OOG Data Structure in Figure~\ref{fig:}.
+\begin{itemize}
+    \item \textbf{High-level nodes:} Represent the objects in the scene and their relationships.
+    
+    \texttt{Object node:} Represents a task-relevant object in the scene, encoding its geometry and appearance. From RGB-D camera frames it is represented as colored 3D point-clouds. In plain RGB  frames, the mesh and depth are estimated. Object nodes provide information about what the objects are and where they are located in the environment.
+
+    \texttt{Grasp node:} Represents the robot's interaction with the objects, encoding contact points and grip status (open/closed), which can be mapped to robot end-effector commands.
+
+    \item \textbf{Low-level nodes:} Represent the motion of the objects over time.
+    % , encoding how the objects should be moved.
+    
+    \texttt{Point node:} Represents sampled keypoints on the objects, along with their object-centric feature trajectories (3D points or 6-DOF pose sequences) that describe how the objects should be moved over time.
+\end{itemize}
+
+
+\paragraph{Manipulation Plan Generation from Video}
+
+ORION represents a task as a \textit{manipulation plan}, which consists of a sequence of object-centric keyframes. Each keyframe describes a sub-goal state of the environment, including object poses, contact relationships, and grasp-related information. Rather than modeling every intermediate robot motion, the plan abstracts the task through object-centric trajectories, represented as 3D translations or full 6-DOF pose trajectories. Since the number of keyframes is not fixed, manipulation plans can naturally represent long-horizon tasks by chaining multiple Open-world Object Graphs (OOGs). By focusing on object motions and contact relations instead of human-specific movements, the representation generalizes across different viewpoints, camera setups, and robot embodiments.
+
+To construct these plans, ORION first estimates the transformation matrix of the supporting table plane and uses it to align all point-cloud features within the OOGs to the world coordinate system. Contact relationships between objects are then inferred from their spatial arrangement and the distances between their corresponding point clouds. Depending on whether the demonstration is provided as an RGB or RGB-D video, ORION employs slightly different pipelines for keypoint detection and object mapping before generating the final manipulation plan.
+
+
+\paragraph{ORION Policy Rollout}
+The second stage of ORION is the policy rollout, where the manipulation plan generated from the demonstration video is used to synthesize robot actions. 
+% The policy focuses on replicating the motion of manipulated objects rather than directly imitating human motions, enabling it to generalize across different viewpoints, camera setups, and robot embodiments.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter8/media/ORION_PolicyRollout}
+	\caption[ORION: Policy Rollout]{Overview of the ORION policy rollout \cite{?}.}
+	\label{fig:ORIONPolicyRollout}
+\end{figure}
+Given a manipulation plan, ORION constructs a policy that synthesizes actions in four steps, see Figure~\ref{fig:ORIONPolicyRollout}.
+\begin{enumerate}
+    \item Task-relevant objects are detected and localized in the robot's current environment using the same perception pipeline employed during demonstration processing.
+    
+    % ORION first localizes task-relevant objects in the robot's current environment using the same vision pipeline as during the demonstration process. 
+    \item The Policy retrieves the Open-world Object Graph (OOG) from the manipulation plan that best matches the current scene configuration, which has the same set of relations as the current state.
+    \item Based on this graph extracted from, ORION predicts the desired object motions by transferring the object-centric feature trajectories extracted from the demonstration video to the new environment. 
+    \item The robot's end-effector trajectory is optimized as a sequence of SE(3) transformations and executed by the robot.
+\end{enumerate}
+
+To transfer object trajectories between environments, ORION identifies the initial and target locations of keypoints in the current scene and aligns them with the corresponding keypoints from the demonstration. The resulting object motions are used to optimize a sequence of SE(3) transformations that move the robot from one sub-goal state to the next. Gripper actions are incorporated using the interaction information stored in the grip node of the OOG. During execution, the generated trajectory is converted into robot commands using a combination of inverse kinematics (IK) and joint impedance control, enabling both accurate and compliant motion. Task success is evaluated using a sparse reward function that returns a value of 1 when all required object relations are satisfied and 0 otherwise.
+
+\subsection{Used Training Datasets}
+The datasets used for training are not described in the paper. 
+ORION does not rely on pre-existing data, models, or ground-truth annotations, and instead learns directly from raw video demonstrations. The used video data does not come with any robot actions. 
+
+\subsection{Summary}
+ORION is a framework for learning robotic manipulation skills directly from human demonstration videos. It extracts object-centric manipulation plans from single RGB or RGB-D videos and synthesizes robot actions based on these plans. The core idea is to focus on the motion of manipulated objects rather than directly imitating human motions, enabling generalization across different viewpoints, camera setups, and robot embodiments. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
+% ORION represents tasks as sequences of Open-world Object Graphs (OOGs), which capture the spatial relationships and trajectories of objects in the scene. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
+
 \section{Paper - Learning an Actionable Discrete Diffusion Policy via Large-Scale Actionless Video Pre-Training}
 
 \section{Paper - Learning Video-Conditioned Policies for Unseen Manipulation Tasks}
+
+
+
+1. Introduction and Motivation
+
+2. Foundations
+2.1 Machine Learning
+2.2 Robotic
+
+3. IL
+3.1 ....
+3.2 Approaches
+
+4 RL
+4.1 ...
+4.2 Approaches
+
+5. Hybrid Approaches
+5.1 ...
+5.2 Approaches
+
+6. Challenges and Future Directions????
+
+Literaturverzeichnis
+...
