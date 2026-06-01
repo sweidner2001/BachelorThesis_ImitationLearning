@@ -174,7 +174,9 @@ A current limitation of imitation learning systems is their weak ability to perf
 
 The main issue is that neural networks typically learn statistical correlations from data, but correlation does not necessarily imply causation. This leads to models that may rely on irrelevant features in the environment. For example, a robot might incorrectly associate the color of an object with the force needed to lift it, instead of learning that mass is the true determining factor. The goal of causal reasoning is therefore to capture the underlying cause-and-effect structure of the environment.
 
-Such causal models are considered a foundation for better generalization. They enable robots to act more robustly in changing environments, adapt to novel situations, and perform counterfactual reasoning, meaning they can reason about what would have happened if a different action had been taken (e.g., pushing instead of grasping an object). Overall, causality supports more efficient, robust, and intelligent decision-making and improves long-term action planning.
+Such causal models are considered a foundation for better generalization. They enable robots to act more robustly in changing environments, adapt to novel situations, and perform counterfactual reasoning, meaning they can reason about what would have happened if a different action had been taken (e.g., pushing instead of grasping an object). This enables robots to simulate the outcomes of actions they have never taken in situations or seen during training. Additionaly Causal Models can extend error diagnosis and correction by tracing the chain of causal events that led to failure. In RL, this allows for more intelligent exploration by identifying which actions or variables are most likely to influence success, enabling targeted data collection and faster learning. Overall, causality supports more efficient, robust, and intelligent decision-making and improves long-term action planning.
+
+
 
 % Causality enables three main benefits:    
 % \begin{enumerate}
