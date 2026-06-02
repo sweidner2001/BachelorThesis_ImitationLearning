@@ -235,11 +235,138 @@ ORION does not rely on pre-existing data, models, or ground-truth annotations, a
 ORION is a framework for learning robotic manipulation skills directly from human demonstration videos. It extracts object-centric manipulation plans from single RGB or RGB-D videos and synthesizes robot actions based on these plans. The core idea is to focus on the motion of manipulated objects rather than directly imitating human motions, enabling generalization across different viewpoints, camera setups, and robot embodiments. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
 % ORION represents tasks as sequences of Open-world Object Graphs (OOGs), which capture the spatial relationships and trajectories of objects in the scene. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
 
-\section{Paper - Learning an Actionable Discrete Diffusion Policy via Large-Scale Actionless Video Pre-Training}
+\section{Paper - Learning an Actionable Discrete Diffusion Policy via 
+Large-Scale Actionless Video Pre-Training}
+This work introduces Video-based Policy Learning via Discrete Diffusion (VPDD), a framework that leverages large-scale actionless video data to learn robotic policies. The key idea is to first learn predictive representations from videos and subsequently use a Discrete Diffusion Model to predict future video sequences and later the corresponding actions based on these predictions. 
+
+
+\subsection{Architecture}
+Training the VPDD framework consists three main stages: video tokenization, video prediction, and policy learning. This design allows the model to first learn a compact representation of visual observations, then acquire an understanding of temporal dynamics from large-scale video data, and finally transfer this knowledge to robot action prediction.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter8/media/LearningAnActionableDDPolicy_Architecture}
+	\caption[VPDD: Overview of the Training stages]{VPDD: Overview of the Training stages \cite{?}.}
+	\label{fig:LearningAnActionableDDPolicy_Architecture}
+\end{figure}
+
+
+\begin{enumerate}
+    % A Video is compressed in multiple tokens and a token refer to multiple frames.
+    \item \textbf{Video Tokenization:}
+    
+    In the first stage, both human and robot videos are encoded into discrete visual tokens using a Vector Quantized Variational Autoencoder (VQ-VAE). The Encoder maps video frames into a discrete latent space by assigning latent representations to entries in a learned codebook, which serves as a ``vocabulary list'' like in NLP. 
+    % During training, videos are encoded to these discrete tokens, while the decoder tries to reconstructs the original frames from these tokens. 
+    During the training stage, the VQ-VAE is trained to reconstruct the original video frames from these discrete tokens, ensuring that the tokenization captures the necessary details for accurate video representation.
+    As a result, each video is represented as a sequence of discrete tokens that compactly capture objects, scene structure, and motion patterns. 
+    Furthermore, the shared latent space between robot and human vidoes helps to reduce the domain gap between them and providing a common representation for subsequent diffusion modeling.
+    % \item \textbf{Video Tokenization:} Videos are encoded into discrete visual tokens using a Vector Quantized Variational Autoencoder (VQ-VAE). This process compresses the high-dimensional video data into a more manageable form while preserving essential visual information. During the Training stage, the VQ-VAE is trained to reconstruct video frames from these discrete tokens, ensuring that the tokenization captures the necessary details for accurate video representation.
+    
+    \item \textbf{Discrete Diffusion Pre-Training:} 
+    
+    The second stage performs large-scale actionless video pre-training. A discrete diffusion model is trained in a self-supervised manner to predict future video tokens in the learned latent space of the VQ-VAE conditioned on historical video observations and language instructions, see Perceiver IO Transformer in Figure~\ref{fig:LearningAnActionableDDPolicy_Architecture}. The training data consists of both human and robot videos, while language descriptions are obtained either from available metadata or generated automatically using large language models. Since future video frames serve as the supervision signal, no action labels are required during this stage. By learning to generate future visual observations, the model acquires an understanding of temporal dynamics, object interactions, and task semantics. The resulting latent representations are later used to guide action generation during policy learning. 
+    
+    \item \textbf{Policy Learning:}
+    
+    In the last training stage, the pre-trained model is fine-tuned on a smaller dataset of robot demonstrations containing both videos and action labels. The model continues to perform future video prediction while simultaneously learning to predict robot actions. Instead of generating actions directly from raw observations, the policy leverages the task language description and the hidden representations produced during video prediction, which encode information about future states of the environment, see GPT2 Transformer in Figure~\ref{fig:LearningAnActionableDDPolicy_Architecture}. This enables the robot to exploit the dynamics learned during large-scale video pre-training and improves sample efficiency. During this stage, the Perceiver IO Transformer is frozen. 
+\end{enumerate}
+
+
+% To achieve this, videos are encoded into discrete visual tokens using a Vector Quantized Variational Autoencoder (VQ-VAE). A diffusion model is then trained on these tokens to generate future video observations by iteratively denoising latent video representations. Through this process, the model learns to predict plausible future states of the environment and captures the temporal dynamics of tasks from large-scale video data.
+
+% The learned video representations are subsequently used for policy learning, enabling the prediction of robot actions conditioned on the generated future observations. Furthermore, VPDD incorporates language instructions, allowing the system to learn and execute a wide range of tasks specified through natural language. An important capability of the framework is its ability to generate temporally consistent egocentric video sequences, providing a strong foundation for action planning and decision-making.
+
+
+
+\subsection{Used Training Data}
+The training data consists of two sources. 
+Robot data is collected from Meta-World (20 expert demonstrations per task, single-view RGB) and RLBench (10 demonstrations per task, multi-view RGB from front, left shoulder, right shoulder, and wrist cameras)
+Human data is drawn from the Ego4D dataset.
+
+
+\subsection{Summary}
+VPDD demonstrates how large-scale actionless human videos can be leveraged to improve downstream robot policy learning. By introducing a shared discrete latent space through a VQ-VAE tokenizer, the framework reduces the domain gap between human and robot videos and enables unified modeling of both data sources. The core contribution is a discrete diffusion framework that formulates both video prediction and action learning as denoising processes. Through large-scale self-supervised pre-training, VPDD learns temporal dynamics and task-relevant visual representations, which are subsequently transferred to robot control using only a limited number of labeled demonstrations.
+Furthermore, the integration of language instructions allows the model to generalize across diverse tasks, while its ability to generate temporally consistent future video sequences provides a strong foundation for action planning. Experimental results show that this approach achieves strong generalization performance and effectively transfers knowledge from human video prediction to embodied robotic tasks.
+
+% - VPDD demonstrates superior ability in transferring valuable knowledge from large-scale actionless human videos to downstream embodied tasks
+% - We formulate both video prediction and action learning processes as unified discrete denoising problems, showing the supreme effectiveness in handling high-dimensional, multi-modal data
+% After the pre-training, VPDD exhibits the capability to generate future video clips across diverse tasks while maintaining dynamic consistency.
+% Furthermore, VPDD incorporates language instructions, allowing the system to learn and execute a wide range of tasks specified through natural language. An important capability of the framework is its ability to generate temporally consistent egocentric video sequences, providing a strong foundation for action planning and decision-making.
+
+
 
 \section{Paper - Learning Video-Conditioned Policies for Unseen Manipulation Tasks}
+ This work introduces the Video-conditioned Policy (ViP) learning framework, which maps human demonstration videos to robot actions. ViP trains a policy conditioned on video embeddings given by a video encoder pretrained on a large dataset of annotated human videos.
+The core idea is to use embeddings extracted from human demonstration videos as conditioning signals for predicting robot actions, effectively enabling outcome-conditioned action regression. Instead of relying on explicit action labels or predefined reward functions, the policy is conditioned on trajectory-level information. ViP enables zero-shot generalization to previously unseen, in-the-wild manipulation tasks and does not require paired human-robot demonstration data, thus avoiding the need for task-labeled robot datasets. However, task-labeled human videos are still required.
+
+% This allows the system to transfer knowledge from human demonstrations to robotic control without direct alignment between the two domains.
+
+% Core Idea: Learn a policy that maps video embeddings of human demonstrations to robot actions.
+% Approach: outcome-conditioned action regression
+% Learning policies conditioned on trajectory information --> future returns, previous timesteps, goal-configuration
+
+% Special features:
+% Zero-shot generalization to unseen in-the-wild human demonstrated tasks
+% No paired human-robot data is required.
+% No Need of task labelled robot datasets --> (but task labelled human videos required)
+% Reward inferred for the controller through a human video of the task
+
+% - Goal:
+%     - we designed a method to train a policy conditioned on robot video embeddings given by a video encoder pretrained on a large dataset of annotated human videos
+%     - our method can map human video instructions to robot manipulation skills without supervision from paired data to bridge the gap between the human and robot domain;
+%     - our approach outperforms prior works on a set of multi-task robotic environments
+%     - our approach plans a full trajectory in the embedding space of robot videos
+%     - using unlabeled robot datasets
+% - specify robot skills through language or video commands unlocks solving more complex long-horizon tasks by chaining human instructions
+
+\subsection{Architecture}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter8/media/ViP_Architecture}
+	\caption[ViP: Overview how it works]{ViP: Overview how it works \cite{?}.}
+	\label{fig:ViP_Architecture}
+\end{figure}
 
 
+As seen in Figure \ref{fig:ViP_Architecture}, ViP is based on learning a shared video embedding space that can be used to condition a robot policy. First, a video encoder is pretrained on large-scale human action datasets using supervised contrastive learning). This encoder learns a similarity function that assigns high similarity scores to videos showing the same task and low scores otherwise.
+This enforces a structured embedding space where similar tasks are close together and different tasks are far apart. This similarity function is later used as a reward signal and is learned solely from human video data.
+
+In the next stage, a dataset of robot trajectories is used for policy learning. Each trajectory, consisting of robot states, actions, and it's corresponding camera observation, is encoded into a fixed embedding using the same pretrained frozen video encoder. All embeddings of the robot training dataset are stored in a library and serve as task representations. A behavior cloning policy is then trained to predict actions conditioned on the current robot state and the reached video embedding from the storage of embedded robot trajectories. This allows the policy to interpret the embedding as a task descriptor that guides action generation. The image encoder, which represents the current state of the environment is learned end-to-end together with the policy. 
+
+
+% Training Pipeline:
+% Pretrain a video encoder on human action datasets using Supervised Contrastive Learning
+% Dataset: Something-Something-v2
+% Policy Training with Dataset of Robot Trajectories 
+% Encode full robot trajectories into embeddings using the same (frozen) encoder 
+% Store Embedding
+% Train policy to predict actions conditioned on: Current robot state & Robot video embedding
+
+% Dataset of Robot Trajectories (robot states, actions, video)
+% Store all embeddings of the robot training dataset
+
+At inference time, the pipeline is as follows:
+\begin{enumerate}
+    \item The human demonstration Video is encoded in the embedding space through the Video Encoder.
+    \item Find the $k$ nearest robot video embeddings using cosine similarity
+    \item Calculate the average embedding of these $k$ nearest embeddings
+    \item Use this mean embedding to condition the policy
+    \item Robot executes the task in its environment
+\end{enumerate}
+
+
+\subsection{Used Training Data}
+The Something-Something-v2 dataset is used to learn the embedding space for mapping between human video instructions and robotic manipulation.
+The paper does not mention any specific used robot dataset.
+
+\subsection{Summary}
+ViP demonstrates that video encoders trained on large-scale human action recognition datasets can serve as effective task embeddings for robotic manipulation. By leveraging a shared embedding space between human and robot videos, the method enables conditioning robot policies on high-level visual task descriptions without requiring paired human-robot data.
+
+A key advantage of this approach is its scalability to large human video datasets and its ability to achieve zero-shot generalization to unseen manipulation tasks. ViP relies on a simpler nearest-neighbor retrieval mechanism in the embedding space, making it computationally efficient and conceptually straightforward. However, the method is strongly dependent on the quality and coverage of the pretrained video encoder. If the robot dataset does not contain trajectories sufficiently similar to the human demonstration, nearest-neighbor retrieval may fail to produce meaningful task embeddings. In practice, performance is therefore best when the robot dataset spans a diverse set of manipulation primitives such as pushing, pulling, opening, and closing.
+
+
+
+---
 
 1. Introduction and Motivation
 
