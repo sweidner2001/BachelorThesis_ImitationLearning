@@ -4,12 +4,12 @@ In this chapter, we will explore some Imitation Learning approaches, that were a
 % ToDo: End-to-End trained
 \section{Paper - Vid2Robot: End-to-end Video-conditioned Policy Learning with Cross-Attention Transformers}
 
-Vid2Robot, a end-to-end video-based learning framework for robots. Given a human or robot video demonstration of a manipulation task and the robot's current visual observations, Vid2Robot directly produces corresponding robot actions in it's own environment. The Demonstration Video can be taken in a different environment or from a different viewpoint. Additionally, Vid2Robot exhibits emergent capabilities, such as successfully transferring observed motions from one object to another (see Figure~\ref{fig:Vid2RobotGeneralization}), and long-horizon composition, thus showcasing its potential for real-world applications.
+Vid2Robot \cite{Jain2024Vid2RobotEV}, a end-to-end video-based learning framework for robots. Given a human or robot video demonstration of a manipulation task and the robot's current visual observations, Vid2Robot directly produces corresponding robot actions in it's own environment. The Demonstration Video can be taken in a different environment or from a different viewpoint. Additionally, Vid2Robot exhibits emergent capabilities, such as successfully transferring observed motions from one object to another (see Figure~\ref{fig:Vid2RobotGeneralization}), and long-horizon composition, thus showcasing its potential for real-world applications.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Generalization.png}
-	\caption[Vid2Robot can transfer observed motions from one object to another]{Vid2Robot can transfer observed motions from one object to another. \cite{?}.}
+	\caption[Vid2Robot can transfer observed motions from one object to another]{Vid2Robot can transfer observed motions from one object to another \cite{Jain2024Vid2RobotEV}.}
 	\label{fig:Vid2RobotGeneralization}
 \end{figure}
 
@@ -34,7 +34,7 @@ modules:
             Encode demonstration video into meaningful representations that capture the essential information about the task being demonstrated.
             \item \textbf{Input:} A human or robot demonstration video of a manipulation task, which should be performed by the robot. 
             \item \textbf{Processing:} 
-            Each frame of the demonstration video is first passed through a \texttt{Per-Frame Image Encoder}, which is implemented as a Vision Transformer and capture spatial visual information in each frame. Afterwards, a \texttt{Perceiver Prompt Resampler} aggregates frame tokens over time, reducing the number of tokens while preserving and restructuring temporal information, enabling temporal learning across frames. 
+            Each frame of the demonstration video is first passed through a \texttt{Per-Frame Image Encoder}, which is implemented as a Vision Transformer \cite{Dosovitskiy2020AnII} and capture spatial visual information in each frame. Afterwards, a \texttt{Perceiver Prompt Resampler} \cite{Bousmalis2023RoboCatAS, Jaegle2021PerceiverIA} aggregates frame tokens over time, reducing the number of tokens while preserving and restructuring temporal information, enabling temporal learning across frames. 
             % \item \textbf{Output:} A set of N tokens of dimension d, which form a compact semantic representation of the demonstration video that can be effectively used to condition the policy.
             \item \textbf{Output:} 
             The Prompt Video Encoder produces a set of d-dimensional \texttt{Prompt Tokens}, which form a compact semantic representation of the demonstration video, capturing \textit{what} needs to be done in the task and \textit{how} to do it. 
@@ -45,7 +45,7 @@ modules:
         \begin{itemize}
             \item \textbf{Task:} 
             Encode the robot's current visual observation about objects and the environment into meaningful representations.
-            \item \textbf{Input:} The robot's observation, which includes the current and last k robot camera frames.
+            \item \textbf{Input:} The robot's observation, which includes the current and last $k$ robot camera frames.
             \item \textbf{Processing:} 
             The Processing pipeline is the same as in the Prompt Video Encoder, where each frame is first passed through a \texttt{Per-Frame Image Encoder} and then aggregated over time using a \texttt{Perceiver State Resampler}. The weights of the \texttt{Per-Frame Image Encoder} between the Prompt Encoder and State Encoder are shared.
             % , which encourages the model to learn a shared visual representation space for both human and robot videos, thus facilitating better generalization and transfer of learned skills from human demonstrations to robot actions.
@@ -59,7 +59,7 @@ modules:
             \item \textbf{Task:} 
             Align the robot's current view with the demonstrated goal
             % \item fuses the information from the prompt and observation encoders to produce a combined representation.
-            \item \textbf{Input:} The State
+            \item \textbf{Input:} State tokons from the Robot State Encoder and Prompt tokens from the Prompt Video Encoder. 
             \item \textbf{Processing:} 
             Implemented using a Cross-Attention Transformer, with the robot state tokens as queries and the prompt tokens as keys and values. 
             \item \textbf{Output:} 
@@ -71,9 +71,9 @@ modules:
         \begin{itemize}
             \item \textbf{Task:} 
             Predict next robot action
-            \item \textbf{Input:} The State
+            \item \textbf{Input:} Action position embeddings and prompt-aware state tokens from the State-Prompt Encoder. The action position embeddings are fixed learnable parameters that represent the temporal positions of the future actions to be predicted.
             \item \textbf{Processing:} 
-            Implemented using a transformer decoder architecture, with fixed action position embeddings as queries, and the prompt-aware state tokens as keys and values. Each output token embedding is projected to 256 dimensions and the action bin with the highest probability is selected.
+            Implemented using a transformer decoder architecture \cite{Zhao2023LearningFB}, with fixed action position embeddings as queries, and the prompt-aware state tokens as keys and values. Each output token embedding is projected to 256 dimensions and the action bin with the highest probability is selected.
             \item \textbf{Output:} 
             Multi-dimensional robot action vector, with components for the mode, arm and base. Mode determines whether to terminate the epsidoe, move only the arm, the base or both. Arm describes the gripper pose and the state of the gripper (degree of closedness) and base the displacement and rotation of the robot base.
             \item \textbf{Purpose:} 
@@ -94,7 +94,7 @@ To handle the varying lengths of demonstration videos, Vid2Robot samples randoml
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Loss.png}
-	\caption[Vid2Robot Loss]{Vid2Robot Loss \cite{?}.}
+	\caption[Vid2Robot Loss]{Vid2Robot Loss \cite{Jain2024Vid2RobotEV}.}
 	\label{fig:Vid2RobotLoss}
 \end{figure}
 
@@ -104,23 +104,24 @@ Vid2Robot is trained using with one main loss and three Auxiliary losses to enco
     \item \textbf{Main Loss: Action prediction loss.}
     The primary training objective is an action prediction loss based on behavior cloning. Each action dimension is discretized into a set of bins, and the model predicts a probability distribution over these bins. Training is performed using a cross-entropy loss between the predicted distribution and the ground-truth action label. This loss supervises the entire architecture, including the Prompt Encoder, State Encoder, Cross-Attention Fusion module, and Action Decoder.
 
+    % ToDo: Explain Soft nearast neighbour
     \item \textbf{Auxiliary Loss: Temporal video alignment loss.}
     The temporal video alignment loss enforces temporal alignment between the  task progress across and the prompt video. For a given frame in the prompt video, a corresponding frame in the robot video is identified using a soft nearest-neighbor matching procedure. The matching process is then Cycle back finding for the soft-nearest neighbor found in robot video, the soft-nearest neighbor from the prompt video, which should be the same.
     The loss minimizes the distance between the circle-back frame and original prompt frame, thereby enforcing temporal consistency across both domains.
 
     \item \textbf{Auxiliary Loss: Contrastive loss between the prompt and robot video performing the same task.}
     This loss encourages that videos showing the same motion or interaction, such as reaching, grasping, or rotating are similar represented in the embedding space.
-    First, an attention pooling layer aggregates the video features into a single embedding for each prompt and robot video. A SigLIP contrastive loss is then applied to these embeddings, promoting similarity between videos that demonstrate the same task. As a result, the model learns visual task semantics in a self-supervised manner.
+    First, an attention pooling layer aggregates the video features into a single embedding for each prompt and robot video. A SigLIP contrastive loss \cite{Zhai2023SigmoidLF} is then applied to these embeddings, promoting similarity between videos that demonstrate the same task. As a result, the model learns visual task semantics in a self-supervised manner.
 
     \item \textbf{Auxiliary Loss: Contrastive loss between a prompt and robot video with the language embedding.}
-    The video-language contrastive loss aligns visual representations with their corresponding language descriptions. Specifically, a SigLIP contrastive objective is applied between prompt token embeddings, produced by the Prompt Encoder and language instruction embeddings associated with the demonstrated task. This encourages videos and their textual descriptions to occupy similar regions of the embedding space, allowing the model to associate visual observations with object and action semantics. Although language information is only used during training, this alignment improves text-conditioned generalization and semantic understanding.
+    The video-language contrastive loss aligns visual representations with their corresponding language descriptions. Specifically, a SigLIP contrastive objective \cite{Zhai2023SigmoidLF} is applied between prompt token embeddings, produced by the Prompt Encoder and language instruction embeddings associated with the demonstrated task. This encourages videos and their textual descriptions to occupy similar regions of the embedding space, allowing the model to associate visual observations with object and action semantics. Although language information is only used during training, this alignment improves text-conditioned generalization and semantic understanding.
 
 \end{enumerate}
 
 The losses are fused equally with the formular:
-\[
+\begin{equation}
 L_{\text{total}} = \tfrac{1}{4}\big( L_{\text{action}} + L_{\text{video alignment}} + L_{\text{video contrastive}} + L_{\text{video-text contrastive}} \big)
-\]
+\end{equation}
 
 
 
@@ -129,7 +130,7 @@ L_{\text{total}} = \tfrac{1}{4}\big( L_{\text{action}} + L_{\text{video alignmen
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Datasets.png}
-	\caption[Datasets used to train Vid2Robot]{Datasets used to train Vid2Robot \cite{?}.}
+	\caption[Datasets used to train Vid2Robot]{Datasets used to train Vid2Robot \cite{Jain2024Vid2RobotEV}.}
 	\label{fig:Vid2RobotDatasets}
 \end{figure}
 Vid2Robot requires paired prompt videos and robot trajectories performing the same task and is trained with three different dataset categories, see Figure~\ref{fig:Vid2RobotDatasets}.
@@ -142,7 +143,7 @@ The three datasets are:
   
     \item \textbf{Co-located Human-Robot Dataset:} Dataset of humans and robots performing the same task in the same physical workspace.
 \end{itemize}
-The training corpus contains approximately 100k robot-robot videos and 10k human-to-robot demonstrations. Over 90 percent of the data are robot-robot pairs, and is collected from public avialable sources.
+The training corpus contains approximately 100k robot-robot videos and 10k human-to-robot demonstrations. Over 90\% of the data are robot-robot pairs from the Open X-Embodiment dataset \cite{ONeill2024OpenXR}.
 
 
 
@@ -152,8 +153,11 @@ Vid2Robot is trained on a large-scale video dataset of human manipulation tasks,
 The experimental results demonstrate that Vid2Robot can successfully perform various manipulation tasks, such as object picking, placing, and tool use, by directly learning from robot or human video demonstrations. 
 % This approach significantly reduces the need for manual task specification and allows robots to learn from the rich visual information present in human demonstrations, paving the way for more intuitive and efficient robot learning in real-world scenarios.
 
+
+
+
 \section{Paper - ORION: Vision-based Manipulation from Single Human Video with Open-World Object Graphs}
-ORION (Open-woRld video ImitatiON) is a framework for learning robotic manipulation skills directly from human demonstration videos. The core idea is to extract an object-centric manipulation plan from a single RGB or RGB-D video and use it to derive a policy that can be executed by a robot. Instead of directly imitating human motions, ORION focuses on the motion of manipulated objects, learning policies that move objects along trajectories that match the directional and curvature patterns observed in the demonstration.
+ORION \cite{Zhu2024VisionbasedMF} (Open-woRld video ImitatiON) is a framework for learning robotic manipulation skills directly from human demonstration videos. The core idea is to extract an object-centric manipulation plan from a single RGB or RGB-D video and use it to derive a policy that can be executed by a robot. Instead of directly imitating human motions, ORION focuses on the motion of manipulated objects, learning policies that move objects along trajectories that match the directional and curvature patterns observed in the demonstration.  To achieve this, ORION designs a graph-based, object-centric representation, called Open-world Object Graphs (OOGs), to model the states of task-relevant objects and their relationships.
 
 A key advantage of ORION is its ability to learn from videos captured using everyday mobile devices, such as an iPad equipped with a TrueDepth camera. The only requirement for task recording is that the camera must be stationary. Furthermore, the framework is designed to generalize across variations in visual backgrounds, camera viewpoints, spatial arrangements, and previously unseen object instances. This object-centric representation also enables effective scaling to long-horizon manipulation tasks.
 
@@ -165,14 +169,14 @@ ORION consists of two main stages: manipulation plan generation from video and p
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/ORION_Achitecture}
-	\caption[ORION: Overview of plan generation]{Overview of the ORION framework for plan generation \cite{?}.}
+	\caption[ORION: Overview of plan generation]{ORION: Overview of plan generation \cite{Zhu2024VisionbasedMF}.}
 	\label{fig:ORIONArchitecture}
 \end{figure}
 
 
 Overview of the manipulation plan generation pipeline shown in Figure~\ref{fig:ORIONArchitecture}, 
 \begin{enumerate}
-    \item \textbf{Detect and track objects and keypoints across the demonstration video frames.} This is done via VLM, open-world vision model and Video Object Segmentation Model.
+    \item \textbf{Detect and track objects and keypoints across the demonstration video frames.} This is done via VLMs, open-world vision models \cite{Liu2023GroundingDM} Video Object Segmentation Models \cite{Cheng2023PuttingTO} and Hand Reconstruction models \cite{Pavlakos2023ReconstructingHI}.
     \item \textbf{Find important keyframes.} Keyframes are identified based on the velocity statistics of the keypoint trajectories.
     \item \textbf{Build Open-world Object Graphs (OOGs) per keyframe.} This results in a sequence of OOGs that serves as the spatiotemporal abstraction of the video.
     \item \textbf{Synthesize robot actions from OOG plan.}
@@ -184,7 +188,7 @@ To represent the environment, ORION introduces OOGs, which provide an object-cen
 
 
 
-The OOG is a hierarchical graph structure and consists of three types of nodes, which are seperated in high-level and low-level nodes. The edges between nodes model their relationships, see OOG Data Structure in Figure~\ref{fig:}.
+The OOG is a hierarchical graph structure and consists of three types of nodes, which are seperated in high-level and low-level nodes. The edges between nodes model their relationships, see OOG Data Structure in Figure~\ref{fig:ORIONArchitecture}.
 \begin{itemize}
     \item \textbf{High-level nodes:} Represent the objects in the scene and their relationships.
     
@@ -201,7 +205,7 @@ The OOG is a hierarchical graph structure and consists of three types of nodes, 
 
 \paragraph{Manipulation Plan Generation from Video}
 
-ORION represents a task as a \textit{manipulation plan}, which consists of a sequence of object-centric keyframes. Each keyframe describes a sub-goal state of the environment, including object poses, contact relationships, and grasp-related information. Rather than modeling every intermediate robot motion, the plan abstracts the task through object-centric trajectories, represented as 3D translations or full 6-DOF pose trajectories. Since the number of keyframes is not fixed, manipulation plans can naturally represent long-horizon tasks by chaining multiple Open-world Object Graphs (OOGs). By focusing on object motions and contact relations instead of human-specific movements, the representation generalizes across different viewpoints, camera setups, and robot embodiments.
+ORION represents a task as a \textit{manipulation plan}, which consists of a sequence of object-centric keyframes. Each keyframe describes a sub-goal state of the environment, including object poses, contact relationships, and grasp-related information. Rather than modeling every intermediate robot motion, the plan abstracts the task through object-centric trajectories, represented as 3D translations or full 6-DOF pose trajectories. Since the number of keyframes is not fixed, manipulation plans can naturally represent long-horizon tasks by chaining multiple OOGs. By focusing on object motions and contact relations instead of human-specific movements, the representation generalizes across different viewpoints, camera setups, and robot embodiments.
 
 To construct these plans, ORION first estimates the transformation matrix of the supporting table plane and uses it to align all point-cloud features within the OOGs to the world coordinate system. Contact relationships between objects are then inferred from their spatial arrangement and the distances between their corresponding point clouds. Depending on whether the demonstration is provided as an RGB or RGB-D video, ORION employs slightly different pipelines for keypoint detection and object mapping before generating the final manipulation plan.
 
@@ -212,7 +216,7 @@ The second stage of ORION is the policy rollout, where the manipulation plan gen
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/ORION_PolicyRollout}
-	\caption[ORION: Policy Rollout]{Overview of the ORION policy rollout \cite{?}.}
+	\caption[ORION: Policy Rollout]{Overview of the ORION policy rollout \cite{Zhu2024VisionbasedMF}.}
 	\label{fig:ORIONPolicyRollout}
 \end{figure}
 Given a manipulation plan, ORION constructs a policy that synthesizes actions in four steps, see Figure~\ref{fig:ORIONPolicyRollout}.
@@ -235,9 +239,8 @@ ORION does not rely on pre-existing data, models, or ground-truth annotations, a
 ORION is a framework for learning robotic manipulation skills directly from human demonstration videos. It extracts object-centric manipulation plans from single RGB or RGB-D videos and synthesizes robot actions based on these plans. The core idea is to focus on the motion of manipulated objects rather than directly imitating human motions, enabling generalization across different viewpoints, camera setups, and robot embodiments. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
 % ORION represents tasks as sequences of Open-world Object Graphs (OOGs), which capture the spatial relationships and trajectories of objects in the scene. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
 
-\section{Paper - Learning an Actionable Discrete Diffusion Policy via 
-Large-Scale Actionless Video Pre-Training}
-This work introduces Video-based Policy Learning via Discrete Diffusion (VPDD), a framework that leverages large-scale actionless video data to learn robotic policies. The key idea is to first learn predictive representations from videos and subsequently use a Discrete Diffusion Model to predict future video sequences and later the corresponding actions based on these predictions. 
+\section{Paper - Learning an Actionable Discrete Diffusion Policy via Large-Scale Actionless Video Pre-Training}
+This work \cite{He2024LearningAA} introduces Video-based Policy Learning via Discrete Diffusion (VPDD), a framework that leverages large-scale actionless video data to learn robotic policies. The key idea is to first learn predictive representations from videos and subsequently use a Discrete Diffusion Model to predict future video sequences and later the corresponding actions based on these predictions. 
 
 
 \subsection{Architecture}
@@ -246,7 +249,7 @@ Training the VPDD framework consists three main stages: video tokenization, vide
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/LearningAnActionableDDPolicy_Architecture}
-	\caption[VPDD: Overview of the Training stages]{VPDD: Overview of the Training stages \cite{?}.}
+	\caption[VPDD: Overview of the Training stages]{VPDD: Overview of the Training stages \cite{He2024LearningAA}.}
 	\label{fig:LearningAnActionableDDPolicy_Architecture}
 \end{figure}
 
@@ -255,7 +258,7 @@ Training the VPDD framework consists three main stages: video tokenization, vide
     % A Video is compressed in multiple tokens and a token refer to multiple frames.
     \item \textbf{Video Tokenization:}
     
-    In the first stage, both human and robot videos are encoded into discrete visual tokens using a Vector Quantized Variational Autoencoder (VQ-VAE). The Encoder maps video frames into a discrete latent space by assigning latent representations to entries in a learned codebook, which serves as a ``vocabulary list'' like in NLP. 
+    In the first stage, both human and robot videos are encoded into discrete visual tokens using a Vector Quantized Variational Autoencoder (VQ-VAE) \cite{Oord2017NeuralDR}. The Encoder \cite{Yan2021VideoGPTVG} maps video frames into a discrete latent space by assigning latent representations to entries in a learned codebook, which serves as a ``vocabulary list'' like in NLP. 
     % During training, videos are encoded to these discrete tokens, while the decoder tries to reconstructs the original frames from these tokens. 
     During the training stage, the VQ-VAE is trained to reconstruct the original video frames from these discrete tokens, ensuring that the tokenization captures the necessary details for accurate video representation.
     As a result, each video is represented as a sequence of discrete tokens that compactly capture objects, scene structure, and motion patterns. 
@@ -264,11 +267,11 @@ Training the VPDD framework consists three main stages: video tokenization, vide
     
     \item \textbf{Discrete Diffusion Pre-Training:} 
     
-    The second stage performs large-scale actionless video pre-training. A discrete diffusion model is trained in a self-supervised manner to predict future video tokens in the learned latent space of the VQ-VAE conditioned on historical video observations and language instructions, see Perceiver IO Transformer in Figure~\ref{fig:LearningAnActionableDDPolicy_Architecture}. The training data consists of both human and robot videos, while language descriptions are obtained either from available metadata or generated automatically using large language models. Since future video frames serve as the supervision signal, no action labels are required during this stage. By learning to generate future visual observations, the model acquires an understanding of temporal dynamics, object interactions, and task semantics. The resulting latent representations are later used to guide action generation during policy learning. 
+    The second stage performs large-scale actionless video pre-training. A discrete diffusion model is trained in a self-supervised manner to predict future video tokens in the learned latent space of the VQ-VAE conditioned on historical video observations and language instructions, see Perceiver IO Transformer \cite{Jaegle2021PerceiverIA} in Figure~\ref{fig:LearningAnActionableDDPolicy_Architecture}. The training data consists of both human and robot videos, while language descriptions are obtained either from available metadata or generated automatically using large language models. Since future video frames serve as the supervision signal, no action labels are required during this stage. By learning to generate future visual observations, the model acquires an understanding of temporal dynamics, object interactions, and task semantics. The resulting latent representations are later used to guide action generation during policy learning. 
     
     \item \textbf{Policy Learning:}
     
-    In the last training stage, the pre-trained model is fine-tuned on a smaller dataset of robot demonstrations containing both videos and action labels. The model continues to perform future video prediction while simultaneously learning to predict robot actions. Instead of generating actions directly from raw observations, the policy leverages the task language description and the hidden representations produced during video prediction, which encode information about future states of the environment, see GPT2 Transformer in Figure~\ref{fig:LearningAnActionableDDPolicy_Architecture}. This enables the robot to exploit the dynamics learned during large-scale video pre-training and improves sample efficiency. During this stage, the Perceiver IO Transformer is frozen. 
+    In the last training stage, the pre-trained model is fine-tuned on a smaller dataset of robot demonstrations containing both videos and action labels. The model continues to perform future video prediction while simultaneously learning to predict robot actions. Instead of generating actions directly from raw observations, the policy leverages the task language description and the hidden representations produced during video prediction, which encode information about future states of the environment, see GPT2 Transformer \cite{Radford2019LanguageMA} in Figure~\ref{fig:LearningAnActionableDDPolicy_Architecture}. This enables the robot to exploit the dynamics learned during large-scale video pre-training and improves sample efficiency. During this stage, the Perceiver IO Transformer is frozen. 
 \end{enumerate}
 
 
@@ -280,8 +283,8 @@ Training the VPDD framework consists three main stages: video tokenization, vide
 
 \subsection{Used Training Data}
 The training data consists of two sources. 
-Robot data is collected from Meta-World (20 expert demonstrations per task, single-view RGB) and RLBench (10 demonstrations per task, multi-view RGB from front, left shoulder, right shoulder, and wrist cameras)
-Human data is drawn from the Ego4D dataset.
+Robot data is collected from Meta-World \cite{Yu2019MetaWorldAB} (20 expert demonstrations per task, single-view RGB) and RLBench \cite{James2019RLBenchTR} (10 demonstrations per task, multi-view RGB from front, left shoulder, right shoulder, and wrist cameras)
+Human data is drawn from the Ego4D dataset \cite{Grauman2021Ego4DAT}.
 
 
 \subsection{Summary}
@@ -296,8 +299,8 @@ Furthermore, the integration of language instructions allows the model to genera
 
 
 \section{Paper - Learning Video-Conditioned Policies for Unseen Manipulation Tasks}
- This work introduces the Video-conditioned Policy (ViP) learning framework, which maps human demonstration videos to robot actions. ViP trains a policy conditioned on video embeddings given by a video encoder pretrained on a large dataset of annotated human videos.
-The core idea is to use embeddings extracted from human demonstration videos as conditioning signals for predicting robot actions, effectively enabling outcome-conditioned action regression. Instead of relying on explicit action labels or predefined reward functions, the policy is conditioned on trajectory-level information. ViP enables zero-shot generalization to previously unseen, in-the-wild manipulation tasks and does not require paired human-robot demonstration data, thus avoiding the need for task-labeled robot datasets. However, task-labeled human videos are still required.
+This work \cite{ChaneSane2023LearningVP} introduces the Video-conditioned Policy (ViP) learning framework, which maps human demonstration videos to robot actions. ViP trains a policy conditioned on video embeddings given by a video encoder pretrained on a large dataset of annotated human videos.
+The core idea is to use embeddings extracted from human demonstration videos as conditioning signals for predicting robot actions, effectively enabling outcome-conditioned action regression \cite{Emmons2021RvSWI, Lynch2019LearningLP, Furuta2021GeneralizedDT}. Instead of relying on explicit action labels or predefined reward functions, the policy is conditioned on trajectory-level information. ViP enables zero-shot generalization to previously unseen, in-the-wild manipulation tasks and does not require paired human-robot demonstration data, thus avoiding the need for task-labeled robot datasets. However, task-labeled human videos are still required.
 
 % This allows the system to transfer knowledge from human demonstrations to robotic control without direct alignment between the two domains.
 
@@ -323,12 +326,12 @@ The core idea is to use embeddings extracted from human demonstration videos as 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/ViP_Architecture}
-	\caption[ViP: Overview how it works]{ViP: Overview how it works \cite{?}.}
+	\caption[ViP: Overview how it works]{ViP: Overview how it works \cite{ChaneSane2023LearningVP}.}
 	\label{fig:ViP_Architecture}
 \end{figure}
 
 
-As seen in Figure \ref{fig:ViP_Architecture}, ViP is based on learning a shared video embedding space that can be used to condition a robot policy. First, a video encoder is pretrained on large-scale human action datasets using supervised contrastive learning). This encoder learns a similarity function that assigns high similarity scores to videos showing the same task and low scores otherwise.
+As seen in Figure \ref{fig:ViP_Architecture}, ViP is based on learning a shared video embedding space that can be used to condition a robot policy. First, a video encoder is pretrained on large-scale human action datasets using supervised contrastive learning \cite{Khosla2020SupervisedCL}. This encoder learns a similarity function that assigns high similarity scores to videos showing the same task and low scores otherwise.
 This enforces a structured embedding space where similar tasks are close together and different tasks are far apart. This similarity function is later used as a reward signal and is learned solely from human video data.
 
 In the next stage, a dataset of robot trajectories is used for policy learning. Each trajectory, consisting of robot states, actions, and it's corresponding camera observation, is encoded into a fixed embedding using the same pretrained frozen video encoder. All embeddings of the robot training dataset are stored in a library and serve as task representations. A behavior cloning policy is then trained to predict actions conditioned on the current robot state and the reached video embedding from the storage of embedded robot trajectories. This allows the policy to interpret the embedding as a task descriptor that guides action generation. The image encoder, which represents the current state of the environment is learned end-to-end together with the policy. 
@@ -356,7 +359,7 @@ At inference time, the pipeline is as follows:
 
 
 \subsection{Used Training Data}
-The Something-Something-v2 dataset is used to learn the embedding space for mapping between human video instructions and robotic manipulation.
+The Something-Something-v2 dataset \cite{Goyal2017TheS} is used to learn the embedding space for mapping between human video instructions and robotic manipulation.
 The paper does not mention any specific used robot dataset.
 
 \subsection{Summary}
