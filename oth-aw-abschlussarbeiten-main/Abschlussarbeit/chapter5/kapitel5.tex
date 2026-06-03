@@ -1,5 +1,5 @@
 % What is model based control?
-
+% Video to text vs. Video language models?
 \chapter{Learning from Videos - Data Modality and Challenges}
 
 Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This section addresses the two key questions for LfV research:
@@ -143,6 +143,7 @@ Recent work has proposed scalable methods for learning rich spatio-temporal vide
 
 
 \subsection{Video Prediction Models}
+\label{sec:VideoPredictionModels}
 Video prediction models (VPMs) aim to model the conditional distribution over future visual observations given past context \cite{McCarthy_2025}. The standard formulation is next-frame prediction
 \begin{equation}
 p(o_{t+1} \mid o_{t-k:t}),
@@ -233,7 +234,8 @@ In robotics, such conditioning effectively turns video prediction models into co
 
 
 
-\subsection{Video-to-Text Models.}
+\subsection{Video-to-Text Models}
+\label{sec:VideoToTextModels}
 Video-to-text models are multimodal systems that map video inputs to natural language outputs:
 \begin{equation}
 p(text \mid \tau),

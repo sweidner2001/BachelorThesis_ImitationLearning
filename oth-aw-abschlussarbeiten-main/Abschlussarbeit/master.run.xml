@@ -81,6 +81,7 @@
     <requires type="editable">
       <file>General.bib</file>
       <file>Zotero.bib</file>
+      <file>Datasets.bib</file>
       <file>RL.bib</file>
       <file>chapter4/04_InstructRobots.bib</file>
       <file>chapter4/04_DataProblem.bib</file>
