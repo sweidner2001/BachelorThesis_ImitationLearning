@@ -101,29 +101,28 @@ Video-centric methods (see Section~\ref{sec:ExtractingFoundationalKnowledgeFromI
 % For instance, time-contrastive learning and Siamese-triplet losses encode viewpoint invariance while preserving task-relevant temporal changes [37, 38]. Dense predictive coding and LSTM-based autoencoders further capture long-range dependencies and support future prediction [39, 40].
 
 % ToDo: Quellen from Learning By Watching Paper
-Recent approaches in representation learning leverage large-scale, unlabelled video data and self-supervised objectives to extract spatio-temporal features from raw observations [35, 36]. 
-% ToDo: Quellen from Towards Generalist Robot Learning from... Paper
-Works have often combined multiple learning objectives [188, 170, 125] for Representation Learning. Learning objectives for Representation Learning can include:
+Recent approaches in representation learning leverage large-scale, unlabelled video data and self-supervised objectives to extract spatio-temporal features from raw observations \cite{Bousmalis2023RoboCatAS, Brohan2022RT1RT}. 
+Works have often combined multiple learning objectives \cite{Nair2022R3MAU, Ma2023LIVLR, Karamcheti2023LanguageDrivenRL} for Representation Learning. Learning objectives for Representation Learning can include:
 \begin{itemize}
-    \item Frame-level objectives such as \textbf{masked-autoencoding (MAE)} [213]
-    \item \textbf{contrastive learning} [52, 120].
-    \item others [328]
-    \item \textbf{Time-contrastive learning objectives} [171, 170, 188]: 
+    \item Frame-level objectives such as \textbf{masked-autoencoding (MAE)} \cite{Radosavovic2022RealWorldRL}
+    \item \textbf{contrastive learning} \cite{Jing2023ExploringVP, Chen2021AnES}
+    \item others \cite{Zhao2022WhatMR}
+    \item \textbf{Time-contrastive learning objectives} \cite{Ma2023LIVLR, Ma2022VIPTU, Nair2022R3MAU}
     % these objectives train a model to predict the temporal order of video frames, encouraging the learning of features that capture temporal dynamics and action progression. multivariate logistic regression classifier is trained in a supervised manner to look at a sample taken from the series at an unknown time and predict $\tau$, the index of the chunk it came from
     % By learning to distinguish frames from different time segments, the model encodes temporal dynamics and action progression without explicit action labels.
-    \item \textbf{video prediction objectives} [289, 95, 116];
-    \item \textbf{temporal-difference learning} [27];
-    \item \textbf{predicting affordances from videos} [15];
-    \item \textbf{predicting latent actions} [227];
-    \item objectives that leverage \textbf{language labels}, such as \textbf{image-language contrastive learning} [170], \textbf{video-language alignment} [188] and \textbf{video captioning} [125].
+    \item \textbf{video prediction objectives} \cite{He2024LearningAA, Jang2024VisualRL, Wu2023UnleashingLV}
+    \item \textbf{temporal-difference learning} \cite{Bhateja2023RoboticOR}
+    \item \textbf{predicting affordances from videos} \cite{Bahl2023AffordancesFH}
+    \item \textbf{predicting latent actions} \cite{Schmidt2023LearningTA}
+    \item objectives that leverage \textbf{language labels}, such as \textbf{image-language contrastive learning} \cite{Ma2023LIVLR}, \textbf{video-language alignment} \cite{Nair2022R3MAU} and \textbf{video captioning} \cite{Karamcheti2023LanguageDrivenRL}
 \end{itemize}
 
-\textbf{Combining datasets} to enhance data diversity is beneficial [120] [174, 61, 213]. Datasets may include the following types of videos:
+\textbf{Combining datasets} to enhance data diversity is beneficial \cite{Jing2023ExploringVP, Majumdar2023WhereAW, Dasari2023AnUL, Radosavovic2022RealWorldRL}. Works have used Datasets which may include the following types of videos:
 \begin{itemize}
-    \item Datasets often leverage ego-centric human/navigation video [188, 170, 125, 174]
-    \item or third-person video of human interaction [213, 239, 181].
-    \item Others have leveraged videos of robots [61],
-    \item or first-person videos of humans operating robot-like grippers [237].
+    \item Datasets often leverage ego-centric human/navigation video \cite{Nair2022R3MAU, Ma2023LIVLR, Karamcheti2023LanguageDrivenRL, Majumdar2023WhereAW}
+    \item or third-person video of human interaction \cite{Radosavovic2022RealWorldRL, Shan2020UnderstandingHH, Miech2019HowTo100MLA}.
+    \item Others have leveraged videos of robots \cite{Dasari2023AnUL},
+    \item or first-person videos of humans operating robot-like grippers \cite{Shafiullah2023OnBR}.
 \end{itemize}
 
 
@@ -486,7 +485,7 @@ More recent work further \textit{combines RL and IL with control-theoretic metho
 
 \subsubsection{Discover the usage of Video Data for RL Knowledge Modalities}
 Reinforcement Learning (RL) can benefit from knowledge extracted from large-scale video data in multiple ways.
-In the following, we analyze how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
+In the following, is analyzed how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
 \begin{itemize}
     \item Policy
     \item Dynamics Model
@@ -504,21 +503,24 @@ In the following, we analyze how information obtained from videos can be incorpo
 \end{figure}
 
 
-Representations can be pretrained from video data and used downstream whilst training a policy on robot data. 
-Jointly train on video, robot, image and text data to predict actions to predict robot actions. 
-A policy trained to output an action representation which conditions an action-decoding policy trained on robot data. 
-specific instantiation: hierarchical setup where the action representation is a video and the decoder is (often) an inverse dynamics model (IDM)
+% ToDo: what are with these texts?
+% Representations can be pretrained from video data and used downstream whilst training a policy on robot data. 
+% Jointly train on video, robot, image and text data to predict actions to predict robot actions. 
+% A policy trained to output an action representation which conditions an action-decoding policy trained on robot data. 
+% specific instantiation: hierarchical setup where the action representation is a video and the decoder is (often) an inverse dynamics model (IDM)
 
 
-The core idea is to learn useful representations, actions, or abstractions from video data $D_{video}$ to improve robot policies $\pi(a_t \mid o_t)$.
+The core idea is to learn useful representations, actions, or abstractions from video data $D_{video}$ to improve robot policies $\pi$ %(a_t \mid o_t)$ 
+\cite{McCarthy_2025}
+
 \paragraph{a) Representation Transfer}
 Large-scale video data can be leveraged to pretrain visual models that learn semantically meaningful representations of environments, objects, and task dynamics. Instead of learning directly from limited robot interaction data, the agent first acquires general visual priors from diverse video datasets. These pretrained representations can subsequently be transferred to downstream policy learning, where they improve both data efficiency and generalization capabilities.
 
-In this setting, Video Foundation Models (see Section~\ref{sec:ExtractingFoundationalKnowledgeFromInternetVideo}), are typically trained using self-supervised or unsupervised objectives on large collections of videos. The learned visual encoder captures high-level features such as object permanence, motion patterns, spatial relationships, and temporal consistency. During downstream reinforcement or imitation learning, the pretrained encoder is either frozen or fine-tuned while the policy is optimized on robot-specific data.
+In this setting, Video Foundation Models (see Section~\ref{sec:ExtractingFoundationalKnowledgeFromInternetVideo}), are typically trained using self-supervised or unsupervised objectives on large collections of videos. The learned visual encoder captures high-level features such as object permanence, motion patterns, spatial relationships, and temporal consistency. During downstream reinforcement or imitation learning, the pretrained encoder is either frozen or fine-tuned while the policy is optimized on robot-specific data \cite{McCarthy_2025}.
 
 The main advantage of representation transfer is that the policy no longer needs to learn low-level visual features from scratch. Instead, it can focus on task-specific decision making, substantially reducing the amount of robot interaction required for effective learning. Furthermore, pretrained representations often generalize better across environments, viewpoints, and object variations, making policies more robust in real-world settings.
 
-Several large-scale studies have demonstrated the effectiveness of transferring representations learned from video data to robotic policy learning \cite{120,246,328,41,108,174}.
+Several large-scale studies have demonstrated the effectiveness of transferring representations learned from video data to robotic policy learning \cite{Jing2023ExploringVP, Silwal2023WhatDW, Zhao2022WhatMR, Burns2023WhatMP, Hu2023ForPV, Majumdar2023WhereAW}.
 
 
 
@@ -530,8 +532,7 @@ Several large-scale studies have demonstrated the effectiveness of transferring 
 
 An Alternative-action policy $\pi_{alt}(\hat{a}_t|o_t, c_t)$ learns to predict an Alternative Action Representation $\hat{a}_t \in \hat{A}$ based on observation $o$ and some other conditional information $c$, rather than directly outputting low-level robot actions. For Further Information about Alternative Action Representations see Section~\ref{sec:AddressingMissingActionLabelsAndDistributionShift}. 
 
-
-Alternative-action policies are typically trained on large-scale internet video data to gather diverse behavioral patterns and general knowledge about the world and physical interactions.
+Alternative-action policies are typically trained on large-scale internet video data to gather diverse behavioral patterns and general knowledge about the world and physical interactions \cite{Schmidt2023LearningTA}.
 
 A common training procedure assumes that the video data contains approximately expert behaviour. The videos are first labelled with alternative-action representations, after which the alternative-action policy $\pi_{alt}(\hat{a}_t \mid o_t)$ is trained using supervised behaviour cloning objectives \cite{Schmidt2023LearningTA,Bruce2024GenieGI,Wang2023MimicPlayLI,Du2023VideoLP,Black2023ZeroShotRM,Wen2023AnypointTM,Bharadhwaj2023TowardsGZ}. The learned policy can then either be used directly for representation transfer or to condition a downstream action decoder $\pi(a_t \mid \hat{a}_t, o_t)$ trained on robot interaction data.
 
@@ -545,11 +546,11 @@ Several recent approaches instantiate alternative-action policies using pretrain
 \underline{Alternative Action Decoder $\pi(a_t|\hat{a}_t, o_t)$:}
 \label{sec:AlternativeActionDecoder}
 
-A separate Action Decoder $\pi(a_t|\hat{a}_t, o_t)$ can subsequently be trained on robot data to map these Alternative Action Representations $\hat{a}_t \in \hat{A}$ to real robot actions commands $a_t$. This approach to define an Alternative Action Policy and Decoder effectively decouples the learning of high-level action representations from low-level control, allowing the policy to leverage rich information from video data while still grounding its outputs in robot-compatible actions.
+A separate Action Decoder $\pi(a_t|\hat{a}_t, o_t)$ can subsequently be trained on robot data to map these Alternative Action Representations $\hat{a}_t \in \hat{A}$ to real robot actions commands $a_t$. This approach to define an Alternative Action Policy and Decoder effectively decouples the learning of high-level action representations from low-level control, allowing the policy to leverage rich information from video data while still grounding its outputs in robot-compatible actions \cite{Schmidt2023LearningTA, Du2023LearningUP, Wen2023AnypointTM}.
 
 There exist two approaches to obtain the decoder:
 \texttt{Learning the decoder.}
-In this setting, the robot dataset $D_{robot}$ is augmented with alternative action representations, resulting in tuples of the form $(o_t, \hat{a}_t, a_t, o_{t+1})$. The decoder $\pi(a_t \mid \hat{a}_t, o_t)$ can then be trained using supervised learning objectives to predict low-level robot actions conditioned on both the current observation and the alternative action representation. 
+In this setting, the robot dataset $D_{robot}$ is augmented with alternative action representations, resulting in tuples of the form $(o_t, \hat{a}_t, a_t, o_{t+1})$. The decoder $\pi(a_t \mid \hat{a}_t, o_t)$ can then be trained using supervised learning objectives to predict low-level robot actions conditioned on both the current observation and the alternative action representation \cite{mcMcCarthy_2025 Schmidt2023LearningTA, Bruce2024GenieGI, Wang2023MimicPlayLI, Wen2023AnypointTM, Du2023LearningUP, Black2023ZeroShotRM}. 
 
 Other Approaches to learn a decoder include:
 \begin{itemize}
@@ -569,9 +570,9 @@ Manually defined decoders reduce the need for paired robot supervision and can i
 
 Examples of manually defined decoders include:
 \begin{itemize}
-    \item Inferring low-level robot actions from optical flow patterns in the video, which capture the direction and magnitude of motion in the scene.
-    \item Mapping robot actions to visual arrows, which projecting future robot pose as on-screen hints and subsequently decoding them back into executable control commands.
-    \item Retargeting human hand poses or body motions to equivalent robot joint commands.
+    \item Inferring low-level robot actions from optical flow patterns in the video, which capture the direction and magnitude of motion in the scene \cite{Ko2023LearningTA, Yuan2024GeneralFA}.
+    \item Mapping robot actions to visual arrows, which projecting future robot pose as on-screen hints and subsequently decoding them back into executable control commands \cite{Nasiriany2024PIVOTIV}.
+    \item Retargeting human hand poses or body motions to equivalent robot joint commands \cite{Qin2021DexMVIL, Sivakumar2022RoboticTL}.
 \end{itemize}
 % However, they often require task-specific engineering and may generalize less effectively across diverse environments and robot platforms compared to learned decoding approaches.
 
@@ -579,7 +580,7 @@ Examples of manually defined decoders include:
 
 \underline{Example Workflow with $\hat{A} = \text{Policy-as-video}$}
 
-In this workflow, generated videos serve directly as the policy output. The procedure consists of two steps:
+In this workflow, generated videos serve directly as the policy output. The procedure consists of two steps \cite{Du2023LearningUP, McCarthy_2025}:
 \begin{enumerate}
     \item A \textbf{language-conditioned video predictor} $p(\tau \mid o_{t-k:t}, c)$, generates a future video sequence that imagines successful task completion given the current observation and a language instruction. $\tau$ represents a generated video trajectory and $c$ some conditional information, like language commands or other context.
     
@@ -589,19 +590,20 @@ In this workflow, generated videos serve directly as the policy output. The proc
 
 Potential improvements of this compositional approach include:
 \begin{itemize}
-    \item Compositional alignment between video, language, and the IDM actions within a multi-modal approach, where each modality informs the others.
-    \item Improving the action decoding model by incorporating goal-conditioned behavior cloning.
+    \item Compositional alignment between video, language, and the IDM actions within a multi-modal approach, where each modality informs the others \cite{Ajay2023CompositionalFM}.
+    \item Improving the action decoding model by incorporating goal-conditioned behavior cloning \cite{Du2023VideoLP}.
     \item Add additional conditioning modalities of Alternative Action Representations $\hat{A}$ to the IDM to improve the predicted low-level robot actions.
 \end{itemize}
 
+
+
 % ToDo: Disussion Section of the RL Policy Modality
-
-
-
 \paragraph{Summary \& Limitations}
 Overall, hybrid approaches provide a flexible framework that combines the strengths of multiple learning paradigms.
-This synergy enables robots to learn robust skills from limited demonstrations, adapt policies online, and generalize more effectively across tasks and environments.
+This synergy enables robots to learn more robust skills \cite{Radosavovic2022RealWorldRL, Nair2022R3MAU, Parisi2022TheUE} from limited demonstrations \cite{Nair2022R3MAU, Schmidt2023LearningTA, Ye2023ReinforcementLW}, and generalize more effectively across tasks and environments \cite{Du2023LearningUP, Wang2023MimicPlayLI, Black2023ZeroShotRM, Thomas2023PLEXMT, Zhao2022WhatMR, Lin2023SpawnNetLG}.
+% adapt policies online, --> no source
 
+One question that has not yet been clarified is whether A is best suited for use in a hierarchical setup or offers greater value in representation transfer \cite{McCarthy_2025}. Furthermore, it must in hierachical approaches $\pi(a_t \mid \pi_{\hat{A}}(\hat{a}_t \mid o_t), o_t )$ be investigated to what extent the performance gap lies on $\pi$ or $\pi_{\hat{A}}$ \cite{McCarthy_2025}.
 
 
 
@@ -609,62 +611,68 @@ This synergy enables robots to learn robust skills from limited demonstrations, 
 
 \subsubsection{Dynamics Models}
 Dynamic models $p(o_{t+1}|o_t, a_t)$ aim to determine how the environment evolves over time by predicting future observations based on the current state and the next action to be taken.
-To learn dynamics models from video data, the core idea is to leverage the rich temporal and physical information contained in videos to train models that can capture the underlying dynamics of the environment.
+To learn dynamics models from video data, the core idea is to leverage the rich temporal and physical information contained in videos to train models that can capture the underlying dynamics of the environment \cite{McCarthy_2025}.
 
 
-One common approach is to first pretrain a Video Prediction Model $p(o_{t+1} \mid o_t)$ on large-scale video datasets $D_{video}$ in order to learn general temporal dynamics and physical interactions of the environment. The pretrained model is subsequently adapted into a robot dynamics model $p(o_{t+1} \mid o_t, a_t)$ using robot interaction data $D_{robot}$, incorporating the influence of robot actions on future environment states. This transfer enables the model to leverage broad visual world knowledge learned from internet videos while grounding the predictions in robot-specific control dynamics.
+One common approach is to first pretrain a Video Prediction Model $p(o_{t+1} \mid o_t)$ on large-scale video datasets $D_{video}$ in order to learn general temporal dynamics and physical interactions of the environment \cite{Yang2023LearningIR, Du2023LearningUP, Du2023VideoLP}. The pretrained model is subsequently adapted into a robot dynamics model $p(o_{t+1} \mid o_t, a_t)$ using robot interaction data $D_{robot}$, incorporating the influence of robot actions on future environment states \cite{McCarthy_2025}. This transfer enables the model to leverage broad visual world knowledge learned from internet videos while grounding the predictions in robot-specific control dynamics.
 
-Another approach is the usage of Alternative Action Representations by training an alternative-action video predictor $p_{alt}(o_{t+1} \mid o_t, \hat{a}_t)$, where $\hat{a}_t$ denotes high-level actions or latent behavioural representations extracted from video data. The learned alternative-action representations can subsequently condition a downstream action decoder trained on robot data. Conditioning on an alternative action space $\hat{A}$ provides greater control over generated trajectories and often enables mappings between abstract video-derived actions and executable robot actions.
+Another approach is the usage of Alternative Action Representations by training an alternative-action video predictor $p_{alt}(o_{t+1} \mid o_t, \hat{a}_t)$, where $\hat{a}_t$ denotes high-level actions or latent behavioural representations extracted from video data \cite{Bruce2024GenieGI, Yang2023LearningIR, Du2023VideoLP, Du2023LearningUP, Rybkin2018LearningWY, Mendonca2023StructuredWM, Yuan2021DMotionRV, Wang2023ManipulateBS}. The learned alternative-action representations can subsequently condition a downstream action decoder trained on robot data. Conditioning on an alternative action space $\hat{A}$ provides greater control over generated trajectories and often enables mappings between abstract video-derived actions and executable robot actions \cite{Rybkin2018LearningWY, Schmidt2023LearningTA}.
 
-A further direction jointly pretrains dynamics models on both video and robot datasets. Recent approaches such as UniSim extend this paradigm by conditioning dynamics models on temporally extended actions across multiple modalities, including robot motor commands, language instructions, and actions extracted from camera motions and or other video-derived action representations.
+A further direction jointly pretrains dynamics models on both video $D_{video}$ and robot datasets $D_{robot}$ \cite{Yang2023LearningIR}. Recent approaches such as UniSim \cite{Yang2023LearningIR} extend this paradigm by conditioning dynamics models on actions across multiple modalities, including robot motor commands, language instructions, and actions extracted from camera motions and or other video-derived action representations.
 
 
 
 LfV video predictors have been conditioned on:
 \begin{itemize}
-    \item language-as-actions~[306, 68]
-    \item single-step latent actions~[221, 40]
-    \item goal images~[67]
-    \item future grasp-location and post-grasp waypoint affordance information~[180]
-    \item motion information~[319, 279]
-    \item [306] condition on several different action-spaces, including robot actions, language actions, and camera motions
+    \item language-as-actions \cite{Yang2023LearningIR, Du2023VideoLP}
+    \item single-step latent actions \cite{Rybkin2018LearningWY, Bruce2024GenieGI}
+    \item goal images \cite{Du2023LearningUP}
+    \item future grasp-location and post-grasp waypoint affordance information \cite{Mendonca2023StructuredWM}
+    \item motion information \cite{Yuan2021DMotionRV, Wang2023ManipulateBS}
+    \item multiple modalities \cite{Yang2023LearningIR}
+    % \item [306] condition on several different action-spaces, including robot actions, language actions, and camera motions
 \end{itemize}
 
 \paragraph{Adaptation of video predictors to robot dynamics models}
-Adaptation of video predictors to robot dynamics models often involves a fine-tuning step using robot interaction data $D_{robot}$.
+Adaptation of video predictors to robot dynamics models often involves a fine-tuning step using robot interaction data $D_{robot}$ \cite{Du2023LearningUP, Ajay2023CompositionalFM}.
 One challange is that naive finetuning on robot data result in the erasure of %pretraining 
-knowledge acquired during large-scale video pretraining. To mitigate this issue, [232] preserve pretrained knowledge by stacking an action-conditioned prediction model on top of the pretrained video predictor instead of directly modifying the entire model. 
-\textcite{180} first applies video-based conditioning mechanisms during pre-training and subsequently incorporates robot-specific action conditioning in the adaptation phase. 
-\textcite{305} demonstrate that the score function of a large pretrained video diffusion model can guide the generation process of a smaller task-specific video model, enabling efficient specialization while retaining knowledge from large-scale pretraining.
-Adaptation can furthermore involve learning mappings from alternative action representations $\hat{A}$ to executable robot actions \cite{221}.
+knowledge acquired during large-scale video pretraining. To mitigate this issue, \cite{Seo2022ReinforcementLW} preserve pretrained knowledge by stacking an action-conditioned prediction model on top of the pretrained video predictor instead of directly modifying the entire model. 
+\cite{Mendonca2023StructuredWM} first applies video-based conditioning mechanisms during pre-training and subsequently incorporates robot-specific action conditioning in the adaptation phase. 
+\cite{Yang2023ProbabilisticAO} demonstrate that the score function of a large pretrained video diffusion model can guide the generation process of a smaller task-specific video model, enabling efficient specialization while retaining knowledge from large-scale pretraining.
+Adaptation can furthermore involve learning mappings from alternative action representations $\hat{A}$ to executable robot actions \cite{Rybkin2018LearningWY}.
 
 The resulting dynamics models can then be used for 
 \begin{itemize}
-    \item \textbf{Generate synthetic training data}
-    The model can generate synthetic training data by simulating how the environment evolves in response to different actions. This allows for data augmentation and policy training without requiring real-world robot interaction. 
+    \item \textbf{Generate synthetic training data:}
+    The model can generate synthetic training data by simulating how the environment evolves in response to different actions \cite{Yang2023LearningIR, Bruce2024GenieGI}. This allows for data augmentation and policy training without requiring real-world robot interaction. 
     \item \textbf{Differentiable Simulator:}
-    By enabling backpropagation through model-generated rollouts, the dynamics model allows policies to be trained end-to-end using gradient-based optimization. This is especially useful for learning complex behaviors efficiently.
+    By enabling backpropagation through model-generated rollouts, the dynamics model allows policies to be trained end-to-end using gradient-based optimization \cite{Seo2022ReinforcementLW, Wu2023PretrainingCW, Hafner2023MasteringDD}. This is especially useful for learning complex behaviors efficiently.
     \item \textbf{Planning and Control:}
-    The dynamics model can be used for model-based control and trajectory planning, allowing the robot to anticipate the consequences of its actions and make informed decisions. Examples are here Tree search and Model Predictive Control (MPC). MPC optimizes a trajectory over a short horizon and replans frequently. Systematically simulates and evaluates many possible action sequences, often over a longer or variable horizon, by branching at each decision point. %This allows it to consider more possibilities and deeper future outcomes than MPC.
+    The dynamics model can be used for model-based control and trajectory planning, allowing the robot to anticipate the consequences of its actions and make informed decisions. Examples are here Tree search \cite{Du2023VideoLP} and Model Predictive Control (MPC) \cite{Rybkin2018LearningWY, Mendonca2023StructuredWM}. MPC optimizes a trajectory over a short horizon and replans frequently. Systematically simulates and evaluates many possible action sequences, often over a longer or variable horizon, by branching at each decision point. %This allows it to consider more possibilities and deeper future outcomes than MPC.
+    % ToDo: Tree Seach and MPC explaination
     % Model Predictive Control (MPC):
     % MPC uses the model to predict a sequence of future states over a fixed planning horizon. At each step, it optimizes a sequence of actions, but only executes the first action before re-planning at the next step. This approach is typically continuous and re-optimizes as new observations come in.
 
     % Tree Search:
     % Tree search explores many possible sequences of actions by branching at each decision point, simulating different action paths (like building a tree of possibilities). It evaluates these branches to find the most promising sequence, which can be more exhaustive but is often used for discrete or combinatorial problems.
-    \item as part of a larger policy learning framework, where the dynamics model provides a predictive component that informs policy updates, value estimation, or hierarchical decision making.
+    % ToDo: Sources?
+    \item As part of a larger policy learning framework, where the dynamics model provides a predictive component that informs policy updates, value estimation, or hierarchical decision making.
 \end{itemize}
 
 \subparagraph{Evaluation of Model-Generated Trajectories.}
-To assess the quality of simulated trajectories, it is necessary to evaluate them using a value or reward function. The reward function can be learned from reward-labeled robot data or even from video data, enabling the model to assign meaningful scores to predicted outcomes and guide decision-making.
+To assess the quality of simulated trajectories, it is necessary to evaluate them using a value or reward function \cite{Seo2022ReinforcementLW}. The reward function can be learned from reward-labeled robot data or even from video data \cite{Mendonca2023StructuredWM, Rybkin2018LearningWY, Yang2023LearningIR, Du2023VideoLP}, enabling the model to assign meaningful scores to predicted outcomes and guide decision-making.
 
 
 \paragraph{Discussion}
 
-Large pretrained video foundation models demonstrate strong generalization capabilities and enable dynamics models to learn useful world knowledge even from non-expert internet video data. In particular, diffusion-based video models have shown promising performance for long-horizon prediction and planning tasks.
+% ToDo: ist ja eigl. vom original paper --> Quelle erwähnen?
+Large pretrained video foundation models demonstrate strong generalization capabilities and enable dynamics models to learn useful world knowledge even from non-expert internet video data \cite{Yu2020MOPOMO}. In particular, diffusion-based video models have shown promising performance for long-horizon prediction and planning tasks \cite{Du2023VideoLP, Yang2023LearningIR}.
 
-Future research directions include scalable Alternative Action $\hat{A}$ conditioning methods, hierarchical world models that combine video-level abstractions with robot-level control, and integrating learned video predictors with classical physics simulators. Another promising avenue is the generation of synthetic robot training data and trajectory rollouts using large pretrained video generation models. 
-An underexplored direction is to combine standard analytic or physical simulation [267, 175] with video prediction simulation systems [306] to combine the physical accuracy and controllability of analytic simulators with the strong visual realism and planning capabilities of video predictors.
-Inspired by synthetic data practices in other domains [287, 150], future research could leverage foundational video predictors to create synthetic video rollouts [306, 40] or to expand and enhance existing dataset diversity through video editing techniques [316].
+Future research directions include scalable Alternative Action $\hat{A}$ conditioning methods \cite{Bruce2024GenieGI} or hierarchical world models that combine video-level abstractions with robot-level control \cite{LeCun2022APT}. %, and integrating learned video predictors \cite{Yang2023LearningIR} with classical physics simulators \cite{Gao2026NVIDIAIS}. 
+% Another promising avenue is the generation of synthetic robot training data and trajectory rollouts using large pretrained video generation models \cite{Yang2023LearningIR, Bruce2024GenieGI} or enhance existing dataset diversity through video editing techniques \cite{Yu2023ScalingRL}. 
+An underexplored direction is to combine standard analytic or physical simulation \cite{Gao2026NVIDIAIS} with video prediction simulation systems \cite{Yang2023LearningIR} to combine the physical accuracy and controllability of analytic simulators with the strong visual realism and planning capabilities of video predictors. Another promising avenue is the generation of synthetic robot training data and trajectory rollouts using large pretrained video generation models \cite{Yang2023LearningIR, Bruce2024GenieGI} or enhance existing dataset diversity through video editing techniques \cite{Yu2023ScalingRL}. 
+
+% Inspired by synthetic data practices in other domains \cite{Wang2024HelpSteer2OD, numina_math_7b}, future research could leverage foundational video predictors to create synthetic video rollouts \cite{Yang2023LearningIR, Bruce2024GenieGI} or to expand and enhance existing dataset diversity through video editing techniques \cite{Yu2023ScalingRL}.
 
 Overall, video-based dynamics models provide a scalable framework for bridging visual world understanding and robot control through large-scale video pretraining, action conditioning, and model-based planning.
 
@@ -813,18 +821,19 @@ Overall, video-based reward functions provide a scalable mechanism for translati
 \label{sec:ValueFunctions}
 
 
-Value functions play a central role in reinforcement learning, as they estimate the expected return or task progress from a given state or state-action pair. In the context of Learning from Video (LfV), recent approaches investigate how value-function-like models can be pretrained on large-scale video data, with the goal of capturing task-relevant progress signals that can be transferred to downstream robotic control. State-action-value functions $Q(o_t, a_t)$ are preferable to state-value functions $V(o_t)$, because they offer more informative guidance for action selection and policy improvement.
+Value functions play a central role in reinforcement learning, as they estimate the expected return or task progress from a given state or state-action pair \cite{Schulman2017ProximalPO, Haarnoja2018SoftAA}. In the context of Learning from Video (LfV), recent approaches investigate how value-function-like models can be pretrained on large-scale video data, with the goal of capturing task-relevant progress signals that can be transferred to downstream robotic control. State-action-value functions $Q(o_t, a_t)$ are preferable to state-value functions $V(o_t)$, because they offer more informative guidance for action selection and policy improvement \cite{sutton2018reinforcement}.
 
 
 \paragraph{Pretraining: Temporal-Difference Learning}
-One common approach is to pretrain value functions using the Temporal-Difference (TD) Learning. TD learning requires often access to actions, rewards, and goal annotations, which are typically not available in raw video data. 
+One common approach is to pretrain value functions using the Temporal-Difference (TD) Learning \cite{sutton2018reinforcement}. TD learning requires often access to actions, rewards, and goal annotations, which are typically not available in raw video data. 
 % LfV methods therefore introduce alternative formulations to address these missing supervision signals.
 
-To handle missing action labels, value functions are often conditioned on Alternative Action Representations $\hat{A}$, resulting in models of the form $V(o_t, \hat{a}_t)$. 
+To handle missing action labels, value functions are often conditioned on Alternative Action Representations $\hat{A}$, resulting in models of the form $V(o_t, \hat{a}_t)$ \cite{McCarthy_2025}. 
 
 To adress the lack of reward and goal annotations, LfV reward methods described in the Section~\ref{sec:RewardFunctions} can be used. 
-Some approaches leverage object labels together with off-the-shelf object detectors to infer task progress and goal states from observations. In manipulation tasks, object detectors can identify relevant objects, locations or the robot gripper in each frame. By tracking these objects over time, the system can estimate task progress and automatically derive reward signals. For example, decreasing distance between the gripper and an object may indicate approach behavior, while object movement together with gripper interaction can signal successful grasping or task completion. This enables the generation of goal and reward annotations without requiring manually labeled demonstrations.
-Furthermore, video-to-text models can provide semantic goal descriptions in natural language, enabling value functions to be conditioned on textual task objectives.
+% ToDo: should i outsource this in the reward section?
+Some approaches \cite{Chang2020SemanticVN} leverage object labels together with off-the-shelf object detectors to infer task progress and goal states from observations. In manipulation tasks, object detectors can identify relevant objects, locations or the robot gripper in each frame. By tracking these objects over time, the system can estimate task progress and automatically derive reward signals. For example, decreasing distance between the gripper and an object may indicate approach behavior, while object movement together with gripper interaction can signal successful grasping or task completion. This enables the generation of goal and reward annotations without requiring manually labeled demonstrations.
+Furthermore, video-to-text models can provide semantic goal descriptions in natural language, enabling value functions to be conditioned on textual task objectives \cite{McCarthy_2025}.
 
 % Some approaches leverage object labels together with off-the-shelf object detectors to infer task progress and goal states from video. Consider a pick-and-place task where the robot must grasp a red cube and place it into a blue bin. An object detector pre-trained on common objects can identify the red cube, the blue bin, and the robot’s gripper in each video frame. By tracking these objects over time, the system automatically determines progress: the distance between gripper and cube decreasing indicates approach; gripper closing with the cube moving signals a successful grasp; the cube entering the bin indicates task completion. No manual reward or goal labeling is required—only a set of relevant object labels and a standard detector.
 
@@ -832,40 +841,40 @@ Furthermore, video-to-text models can provide semantic goal descriptions in natu
 
 \paragraph{Pretraining: Time-Contrastive Learning}
 
-Value functions can be learned through Time-Contrastive Learning. 
+Value functions can be learned through Time-Contrastive Learning \cite{Ma2022VIPTU}. 
 % These methods enforce temporal consistency in the learned representation space such that observations closer to task completion are embedded closer to the goal state. A value function can then be defined as a distance measure between the current observation and a goal representation.
-Time-contrastive Learning approaches learn task progress directly from the temporal structure of videos. The model is trained such that observations temporally closer to the goal condition $c$ obtain more similar representations, while temporally distant observations are separated in the embedding space. For example, a task can be specified via a set of goal images. The model learns that observations close in time to the goal should have high value, while observations far from the goal (in time) should have low value. As a result, the learned representation implicitly captures progression toward task completion and can be used to derive dense reward signals from raw video demonstrations.
+Time-contrastive Learning approaches learn task progress directly from the temporal structure of videos. The model is trained such that observations temporally closer to the goal condition $c$ obtain more similar representations, while temporally distant observations are separated in the embedding space. For example, a task can be specified via a set of goal images. The model learns that observations close in time to the goal should have high value, while observations far from the goal (in time) should have low value \cite{Ma2022VIPTU}. As a result, the learned representation implicitly captures progression toward task completion and can be used to derive dense reward signals from raw video demonstrations.
 
 Other Approaches discover the use of:
 \begin{itemize}
-    \item \textit{Quasimetric functions}, to learn an asymmetric distance measure that better captures task progress. For example, going from ``object on table'' to ``object in box'' is meaningful progress, while the reverse transition should not necessarily have the same distance.
+    \item \textit{Quasimetric functions}, to learn an asymmetric distance measure that better captures task progress. For example, going from ``object on table'' to ``object in box'' is meaningful progress, while the reverse transition should not necessarily have the same distance \cite{Wang2023OptimalGR}.
     
-    \item \textit{Temporal cycle-consistency objectives} enforce that temporal correspondences between frames remain consistent across videos. If frame A in one video corresponds to frame B in another demonstration, the mapping should also hold when traced back, producing temporally aligned representations across demonstrations.
+    \item \textit{Temporal cycle-consistency objectives} enforce that temporal correspondences between frames remain consistent across videos. If frame A in one video corresponds to frame B in another demonstration, the mapping should also hold when traced back, producing temporally aligned representations across demonstrations \cite{Zakka2021XIRLCI}.
 \end{itemize}
 
-These approaches do not require action labels, making them particularly suitable for large-scale video pretraining. However, they typically require explicit goal images or reference observations at training and inference time. 
+These approaches do not require action labels, making them particularly suitable for large-scale video pretraining. However, they typically require explicit goal images or reference observations at training and inference time \cite{McCarthy_2025}. 
 
 
 \paragraph{Pretraining: Heuristic and Weak Supervision}
 
-Another line of work constructs value functions using heuristic supervision signals extracted from video data. A common strategy is to regress the number of remaining timesteps until task completion, effectively learning a time-to-go metric under the assumption of expert behavior in the provided task demonstration. Other approaches finetune vision-language models to predict such heuristic progress signals.
+Another line of work constructs value functions using heuristic supervision signals extracted from video data \cite{Edwards2019PerceptualVF}. A common strategy is to regress the number of remaining timesteps until task completion, effectively learning a time-to-go metric under the assumption of expert behavior in the provided task demonstration. Other approaches finetune vision-language models to predict such heuristic progress signals \cite{Du2023VideoLP}.
 
-Other methods additionally identify key states in demonstration videos and use them to improve value estimation, although these approaches often still rely on some form of reward or success annotation in the training data.
+Other methods additionally identify key states in demonstration videos and use them to improve value estimation, although these approaches often still rely on some form of reward or success annotation in the training data \cite{Liu2023LearningTI}.
 
 
 
 
 \paragraph{Downstream Usage}
 
-Video-pretrained value functions can be used in several ways in downstream robotic learning. If the value function is explicitly action-conditioned $V(o_t, a_t)$ or alternative-action conditioned $V(o_t, \hat{a}_t)$ with a mapping to robot actions, it can be directly integrated into standard value-based reinforcement learning or planning frameworks. When combined with a learned or given dynamics model $p(o_{t+1} \mid o_t, a_t)$, unconditioned value functions $V(o_t)$ can also be used for tree-search based planning.
+Video-pretrained value functions can be used in several ways in downstream robotic learning. If the value function is explicitly action-conditioned $V(o_t, a_t)$ \cite{Chang2020SemanticVN} or alternative-action conditioned $V(o_t, \hat{a}_t)$ with a mapping to robot actions, it can be directly integrated into standard value-based reinforcement learning or planning frameworks \cite{Chang2022LearningVF}. When combined with a learned or given dynamics model $p(o_{t+1} \mid o_t, a_t)$, unconditioned value functions $V(o_t)$ can also be used for tree-search based planning \cite{Du2023VideoLP}.
 
-In addition, pretrained value functions can serve as initialization for downstream policy or value networks, improving training efficiency in robot domains. They are also commonly used for potential-based reward shaping, where dense rewards are defined as $r_t = V(o_{t+1}) - V(o_t)$ to guide exploration in sparse-reward settings. 
+In addition, pretrained value functions can serve as initialization for downstream policy or value networks, improving training efficiency in robot domains \cite{Bhateja2023RoboticOR}. They are also commonly used for potential-based reward shaping, where dense rewards are defined as $r_t = V(o_{t+1}) - V(o_t)$ to guide exploration in sparse-reward settings \cite{Edwards2019PerceptualVF, Ye2023ReinforcementLW, Chang2022LearningVF}. 
 % ToDo: what is with this paragraph
-Finally, value functions can accelerate TD learning in downstream tasks by serving as bootstrap targets in Bellman updates.
+Finally, value functions can accelerate TD learning in downstream tasks by serving as bootstrap targets in Bellman updates \cite{Edwards2019PerceptualVF}.
 
 
 \paragraph{Summary}
-Research on learning value functions directly from video remains relatively scarce, mainly due to missing action, reward, and goal labels, as well as the multi-modal nature of human behavior in video data. TD learning from video shares similar challenges with offline RL, but existing solutions from that literature (e.g., conservative regularization or latent action inference) offer potential fixes. Despite these difficulties, TD.learning of value functions from large-scale human video is increasingly seen as a promising direction for real-world robotics, enabling reward-free progress estimation and goal-conditioned policy learning.
+Research on learning value functions directly from video remains relatively scarce, mainly due to missing action, reward, and goal labels, as well as the multi-modal nature of human behavior in video data \cite{McCarthy_2025}. TD learning from video shares similar challenges with offline RL \cite{Levine2020OfflineRL}, but existing solutions from that literature (e.g., conservative regularization \cite{Kumar2020ConservativeQF} or latent action inference \cite{Zhou2020PLASLA}) offer potential fixes. Despite these difficulties, TD learning of value functions from large-scale human video is increasingly seen as a promising direction for real-world robotics, enabling reward-free progress estimation and goal-conditioned policy learning \cite{Bhateja2023RoboticOR}.
 
 % This formulation enables learning state-action value estimates from video even when true robot actions are unavailable.
 

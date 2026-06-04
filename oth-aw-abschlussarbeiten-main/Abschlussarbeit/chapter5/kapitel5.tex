@@ -581,7 +581,7 @@ For example these ``skill embeddings'' can capture structures such as ``reach th
 
 
 
-\paragraph{Observations-as-Actions:}
+\paragraph{Next-observations-as-Actions:}
 These approaches directly use (encoded) future observations as action representations:
 \begin{equation}
 \hat{a}_t = o_{t+k}.
@@ -625,7 +625,7 @@ Future observations provide information about the intended behavior or goal stat
 
 
 
-
+% ToDo: Quelle 306, 7 evtl. hinzufügen
 \paragraph{Language-as-Actions:}
 Natural language descriptions can be used as high-level action representations for example by captioning video frames with language instructions that describe the observed behavior \cite{belkhale2024rt, shi2024yell, xiang2024pandora}:
 \begin{equation}
@@ -675,6 +675,7 @@ These approaches define actions using visual motion cues extracted from video se
 
 
 % ToDo: Quellen neu anordnen + überprüfen wo welche gebraucht wird.
+% ToDo: Quelle 203 evtl. hinzufügen
 \paragraph{(Human)-Embodiment Information:}
 These approaches explicit models human body structure and kinematics \cite{McCarthy_2025, Bharadhwaj2023TowardsGZ, Shaw2022VideoDexLD, Bahl2023AffordancesFH, Qin2022FromOH, Qin2021DexMVIL}. 
 In contrast to generic motion-based methods, which focus on pixel or object movement, these approaches aim to represent the \emph{agent performing the action} using structured human pose information. 
