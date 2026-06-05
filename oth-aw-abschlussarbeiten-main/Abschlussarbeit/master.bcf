@@ -2358,31 +2358,20 @@
   <!-- CITATION DATA -->
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
-    <bcf:datasource type="file" datatype="bibtex" glob="false">General.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">Zotero.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">Datasets.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">RL.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">RL_2.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter4/IL_BC_LfV.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter4/04_InstructRobots.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter4/04_DataProblem.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter5/chapter5.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter6/chapter6.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter7/chapter7.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter8/chapter_08.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex" glob="false">BA.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">walkerastro_action_2024</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">walkerastro_action_2024</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">sutton_reinforcement_1998</bcf:citekey>
-    <bcf:citekey order="3" intorder="2">miller_markov_nodate</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">sutton_reinforcement_1998</bcf:citekey>
-    <bcf:citekey order="4" intorder="2">jagtap_understanding_nodate</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">sutton_reinforcement_1998</bcf:citekey>
-    <bcf:citekey order="5" intorder="2">miller_markov_nodate</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">jagtap_understanding_nodate</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">staff_what_2025</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">miller_markov_nodate</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">walkerastroActionSpaceState2024</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">walkerastroActionSpaceState2024</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="3" intorder="2">millerMarkovDecisionProcesses</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="4" intorder="2">jagtapUnderstandingMarkovDecision</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="5" intorder="2">millerMarkovDecisionProcesses</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">jagtapUnderstandingMarkovDecision</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">staffWhatMarkovDecision2025</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">millerMarkovDecisionProcesses</bcf:citekey>
     <bcf:citekey order="9" intorder="1">Wulfmeier2023FoundationsFT</bcf:citekey>
     <bcf:citekey order="10" intorder="1">sutton2018reinforcement</bcf:citekey>
     <bcf:citekey order="11" intorder="1">Wulfmeier2023FoundationsFT</bcf:citekey>
@@ -3018,12 +3007,13 @@
     <bcf:citekey order="421" intorder="1">Schmidt2023LearningTA</bcf:citekey>
     <bcf:citekey order="421" intorder="2">Du2023LearningUP</bcf:citekey>
     <bcf:citekey order="421" intorder="3">Wen2023AnypointTM</bcf:citekey>
-    <bcf:citekey order="422" intorder="1">mcMcCarthy_2025 Schmidt2023LearningTA</bcf:citekey>
-    <bcf:citekey order="422" intorder="2">Bruce2024GenieGI</bcf:citekey>
-    <bcf:citekey order="422" intorder="3">Wang2023MimicPlayLI</bcf:citekey>
-    <bcf:citekey order="422" intorder="4">Wen2023AnypointTM</bcf:citekey>
-    <bcf:citekey order="422" intorder="5">Du2023LearningUP</bcf:citekey>
-    <bcf:citekey order="422" intorder="6">Black2023ZeroShotRM</bcf:citekey>
+    <bcf:citekey order="422" intorder="1">mcMcCarthy_2025</bcf:citekey>
+    <bcf:citekey order="422" intorder="2">Schmidt2023LearningTA</bcf:citekey>
+    <bcf:citekey order="422" intorder="3">Bruce2024GenieGI</bcf:citekey>
+    <bcf:citekey order="422" intorder="4">Wang2023MimicPlayLI</bcf:citekey>
+    <bcf:citekey order="422" intorder="5">Wen2023AnypointTM</bcf:citekey>
+    <bcf:citekey order="422" intorder="6">Du2023LearningUP</bcf:citekey>
+    <bcf:citekey order="422" intorder="7">Black2023ZeroShotRM</bcf:citekey>
     <bcf:citekey order="423" intorder="1">Schmidt2023LearningTA</bcf:citekey>
     <bcf:citekey order="424" intorder="1">jain2024vid2robot</bcf:citekey>
     <bcf:citekey order="425" intorder="1">Ko2023LearningTA</bcf:citekey>

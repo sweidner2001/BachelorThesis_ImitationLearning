@@ -556,7 +556,7 @@ A separate Action Decoder $\pi(a_t|\hat{a}_t, o_t)$ can subsequently be trained 
 
 There exist two approaches to obtain the decoder:
 \texttt{Learning the decoder.}
-In this setting, the robot dataset $D_{robot}$ is augmented with alternative action representations, resulting in tuples of the form $(o_t, \hat{a}_t, a_t, o_{t+1})$. The decoder $\pi(a_t \mid \hat{a}_t, o_t)$ can then be trained using supervised learning objectives to predict low-level robot actions conditioned on both the current observation and the alternative action representation \cite{mcMcCarthy_2025 Schmidt2023LearningTA, Bruce2024GenieGI, Wang2023MimicPlayLI, Wen2023AnypointTM, Du2023LearningUP, Black2023ZeroShotRM}. 
+In this setting, the robot dataset $D_{robot}$ is augmented with alternative action representations, resulting in tuples of the form $(o_t, \hat{a}_t, a_t, o_{t+1})$. The decoder $\pi(a_t \mid \hat{a}_t, o_t)$ can then be trained using supervised learning objectives to predict low-level robot actions conditioned on both the current observation and the alternative action representation \cite{mcMcCarthy_2025, Schmidt2023LearningTA, Bruce2024GenieGI, Wang2023MimicPlayLI, Wen2023AnypointTM, Du2023LearningUP, Black2023ZeroShotRM}. 
 
 Other Approaches to learn a decoder include:
 \begin{itemize}
