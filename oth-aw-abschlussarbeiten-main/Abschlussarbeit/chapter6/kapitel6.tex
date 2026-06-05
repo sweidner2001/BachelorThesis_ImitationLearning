@@ -561,9 +561,9 @@ In this setting, the robot dataset $D_{robot}$ is augmented with alternative act
 Other Approaches to learn a decoder include:
 \begin{itemize}
     \item Instead of keeping the alternative-action policy fixed, some approaches jointly optimize the compositional policy
-    \[
+    \begin{equation}
     \pi(a_t \mid \pi_{alt}(\hat{a}_t \mid o_t), o_t)
-    \]
+    \end{equation}
     using online reinforcement learning, enabling end-to-end training between high-level planning and low-level control \cite{Schmidt2023LearningTA}.
     \item \cite{jain2024vid2robot} learns a direct mapping from human demonstration videos to robot actions from paired human-video and robot-trajectory data in an end-to-end setting.
 \end{itemize}
@@ -744,9 +744,9 @@ Other methods \cite{Qin2021DexMVIL, Mandikal2022DexVIPLD} apply pose retargeting
 % Dense reward signals can be obtained from pretrained value functions $V(o_t)$ or $Q(o_t, a_t)$. A value function estimates the future task progress or success likelihood based on the current observation and is learned from video demonstrations using temporal-difference learning or time-contrastive objectives.
 
 % The reward is then computed through potential-based reward shaping:
-% \[
+% \begin{equation}
 % r_t = V(o_{t+1}) - V(o_t)
-% \]
+% \end{equation}
 % This formulation provides smooth and dense optimization signals, which can significantly improve the stability and efficiency of downstream reinforcement learning.
 
 
@@ -759,9 +759,9 @@ Dense reward signals can be obtained from pretrained value functions $V(o_t, c)$
 Such value functions can be learned from video demonstrations using either Temporal-Difference (TD) learning \cite{Chang2022LearningVF} or Time-Contrastive learning \cite{Ma2022VIPTU}, see Section~\ref{sec:ValueFunctions}.
 
 Once a value function $V(o_t, c)$ is learned, it can be used to generate a dense reward signal via potential-based reward shaping \cite{McCarthy_2025}:
-\[
+\begin{equation}
 r_t = V(o_{t+1}, c) - V(o_t, c)
-\]
+\end{equation}
 This reward is positive when the robot moves toward states with higher predicted success (i.e., makes progress toward the goal) and negative when it regresses. This formulation provides smooth and dense optimization signals, which can significantly improve the stability and efficiency of downstream reinforcement learning.
 The principle can be applied to action-value functions $Q(o_t, a_t, c)$ too.
 % I dont know if it is right, we need there a paper!, where the reward is defined as the difference in predicted value before and after taking an action.

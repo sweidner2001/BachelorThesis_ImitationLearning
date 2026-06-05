@@ -164,19 +164,18 @@ Durch die Explorationsphase wird erst spät der Erfolg des gewählten RL-Ansatze
 
 \subsubsection{Knowledge Modality}
 An RL Knowledge Modality (KM) is some function learned from data that represents specific types of RL-related knowledge.
-% (Souce: https://arxiv.org/pdf/2404.19664#page=46&zoom=100,108,846)
-KMs can be learned through trial-and-error principles or from various data sources, like video datasets, and can capture different aspects of the RL problem. 
+KMs can be learned through trial-and-error principles or from various data sources, like video datasets, and can capture different aspects of the RL problem \cite{Wulfmeier2023FoundationsFT}. 
 
 \textbf{Knowledge Modalities (KMs) from Video}
 \begin{itemize}
-	\item \texttt{Policy:} A Policy $\pi(a_t|s_t)$ is a mapping from states to actions and defines the behavior of the agent that is in a particular state. $\pi(a_t|s_t)$ is the probability of taking action $a_t$ given that the agent is in state $s_t$. $_t$ denotes the time step. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment.
-	It can be learned from video data by observing the actions taken in different states and learning to predict those actions based on the visual input. 
+	\item \texttt{Policy:} A Policy $\pi(a_t|s_t)$ is a mapping from states to actions and defines the behavior of the agent that is in a particular state \cite{sutton2018reinforcement}. $\pi(a_t|s_t)$ is the probability of taking action $a_t$ given that the agent is in state $s_t$. $_t$ denotes the time step. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment.
+	It can be learned from video data by observing the actions taken in different states and learning to predict those actions based on the visual input \cite{Wulfmeier2023FoundationsFT}. 
 	
-	\item \texttt{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state or state-action pair. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input.
+	\item \texttt{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state or state-action pair \cite{sutton2018reinforcement}. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input \cite{Wulfmeier2023FoundationsFT}.
 
 	\begin{itemize}
 		% V-Function
-		\item \texttt{State-value function (V-function):} A V-function $V_\pi(s_t)$ is a mapping from states to the expected future return when acting under a particular policy $\pi$.
+		\item \texttt{State-value function (V-function):} A V-function $V_\pi(s_t)$ is a mapping from states to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}.
 
 		\textbf{Intuition:} ''How good is it to be a certain state, if I follow my policy $\pi$?''
 
@@ -190,7 +189,7 @@ KMs can be learned through trial-and-error principles or from various data sourc
 		% Q-Function
 		\item \texttt{State-action value function (Q-function):} 
 		
-		A Q-function $Q_\pi(s_t,a_t)$ is a mapping from state-action pairs to the expected future return when acting under a particular policy $\pi$. 
+		A Q-function $Q_\pi(s_t,a_t)$ is a mapping from state-action pairs to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}. 
 		
 		\textbf{Intuition:} ''How good is this specific action here, if I continue behaving like my policy $\pi$?''
 
@@ -202,14 +201,16 @@ KMs can be learned through trial-and-error principles or from various data sourc
 		\end{figure}
 
 		\item \texttt{V-function vs. Q-function:}
-		Bei der V-function weiß ich nur, wie gut es ist, in einem bestimmten Zustand zu sein, wenn ich nach meiner Policy $\pi$ agiere, aber nicht, wie gut eine konkrete Aktion in diesem Zustand ist. Bei der Q-function hingegen weiß ich bereits, wie gut die konkrete Aktion $a_t$ im Zustand $s_t$ ist, wenn ich weiterhin nach meiner Policy $\pi$ agiere. Siehe dazu die Abbildung \ref{fig:statevaluefunction} und \ref{fig:stateactionvaluefunction}.
+		The value function $V_\pi(s)$ estimates the expected return of being in a particular state $s$ while following the policy $\pi$ \cite{sutton2018reinforcement}. However, it does not provide information about the quality of individual actions available in that state. In contrast, the action-value function $Q_\pi(s,a)$ evaluates the expected return of taking a specific action $a$ in state $s$ and subsequently following the policy $\pi$ \cite{sutton2018reinforcement}. Therefore, the Q-function offers a more detailed assessment by considering both the state and the chosen action. Figures \ref{fig:statevaluefunction} and \ref{fig:stateactionvaluefunction} illustrate the concepts of the state-value function and the action-value function, respectively.
+
+		% Bei der V-function weiß ich nur, wie gut es ist, in einem bestimmten Zustand zu sein, wenn ich nach meiner Policy $\pi$ agiere, aber nicht, wie gut eine konkrete Aktion in diesem Zustand ist. Bei der Q-function hingegen weiß ich bereits, wie gut die konkrete Aktion $a_t$ im Zustand $s_t$ ist, wenn ich weiterhin nach meiner Policy $\pi$ agiere. Siehe dazu die Abbildung \ref{fig:statevaluefunction} und \ref{fig:stateactionvaluefunction}.
 
 	\end{itemize}
 
 	% Dynamics model:
-	\item \texttt{Dynamics model:} A Dynamic model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$. Video prediction models can be used as robot dynamics models. By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment. This allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states.
+	\item \texttt{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. Video prediction models can be used as robot dynamics models \cite{Eze2024LearningBW}. By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment. This allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states.
 	% Reward model:
-	\item \texttt{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
+	\item \texttt{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$ \cite{sutton2018reinforcement}. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
 \end{itemize}
 
 
@@ -217,18 +218,18 @@ KMs can be learned through trial-and-error principles or from various data sourc
 
 
 \subsection{Imitation Learning} \label{sec:ImitationLearning}
-Imitation Learning  (IL) or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations.
+Imitation Learning  (IL) or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations \cite{Chrysomallis2025ImitationLI}.
 
-Imitation learning makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models.
+Imitation learning makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models \cite{McCarthy_2025}.
 
-The demonstration videos can show a robot, a human, or even a loose sequence of actions, both in the real world or in a simulation environment, performing a specific task. However, videos without a clearly defined objective or with unknown activity can also be used.
+The demonstration videos can show a robot, a human, or even a loose sequence of actions, both in the real world or in a simulation environment, performing a specific task. However, videos without a clearly defined objective or with unknown activity can also be used \cite{McCarthy_2025}.
 
 This allows models to be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This, in turn, is a key prerequisite for the development of a generalist policy.
 Imitation learning can be divided into Behavior Cloning and Learning from Videos/Observation.
 
 
 \subsubsection{Behavior Cloning (BC)}
-Behavior Cloning (BC) is a fundamental approach within imitation learning, where a policy is learned directly from \textbf{annotated expert demonstrations}. The training data consists of state–action pairs $(s_t, a_t)$, and the problem is formulated as a standard supervised learning task.  
+Behavior Cloning (BC) is a fundamental approach within imitation learning, where a policy is learned directly from \textbf{annotated expert demonstrations} \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$, and the problem is formulated as a standard supervised learning task.  
 
 
 Conceptually, Behavior Cloning can be understood as a form of direct imitation (``direct copying'') of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
@@ -268,15 +269,15 @@ where:
 
   
 \subsubsection{Learning from Videos / Observation}
-Learning from Videos (LfV), also referred to as Learning from Observation (LfO), is an Imitation Learning approach that relies solely on \textbf{video demonstrations without explicit action annotations}. In contrast to Behavior Cloning, where state–action pairs are directly available, LfV aims to infer the underlying actions or high-level intent purely from perceptual data, i.e., mapping observations to actions $(s \rightarrow a)$. It often uses \textit{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics (features) by transforming and reducing input in a fully data-driven and automatic manner.
+Learning from Videos (LfV), also referred to as Learning from Observation (LfO), is an Imitation Learning approach that relies solely on \textbf{video demonstrations without explicit action annotations} \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to Behavior Cloning, where state-action pairs are directly available, LfV aims to infer the underlying actions or high-level intent purely from perceptual data, i.e., mapping observations to actions $(s \rightarrow a)$. It often uses \textit{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics (features) by transforming and reducing input in a fully data-driven and automatic manner.
 
-A central challenge in LfV is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
+A central challenge in LfV is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
 
-Due to this property, LfV is typically categorized as a \textbf{weakly supervised or self-supervised imitation learning} approach. 
-Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data, including internet videos or human demonstrations, without the need for costly data annotation. Furthermore, additional actions can be derived from annotated video data too.
+Due to this property, LfV can be seen as a \textbf{weakly supervised or self-supervised imitation learning} approach. 
+Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data, including internet videos or human demonstrations, without the need for costly data annotation \cite{McCarthy_2025}. Furthermore, additional actions can be derived from annotated video data too \cite{McCarthy_2025}.
 
 
-In robotics, Learning from Videos is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic, and dynamical aspects of the environment, which can later be refined using methods such as Behavior Cloning with annotated data or in Reinforcement Learning. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
+In robotics, Learning from Videos is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic, and dynamical aspects of the environment, which can later be refined using methods such as Behavior Cloning with annotated data or in Reinforcement Learning \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
 
 %BC is used to pre-train models for Behavior Cloning and Reinforcement Learning, see Section \textbf{XXX} for more information.
 
@@ -298,11 +299,11 @@ where:
 
 
 \subsection{Summary IL \& RL}
-Reinforcement learning is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or imitation learning, in order to leverage their complementary strengths and improve overall performance.
+Reinforcement learning is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment \cite{Eze2024LearningBW}. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or imitation learning, in order to leverage their complementary strengths and improve overall performance \cite{Eze2024LearningBW,McCarthy_2025}.
 
 Imitation Learning generally refers to a family of methods and techniques that enable learning from demonstrations. Two important approaches in this context are Behavior Cloning (BC) and Learning from Videos (LfV), which differ primarily in the type of data they utilize. BC relies on annotated demonstrations, where state-action pairs are available, and learns a policy directly via supervised learning. In contrast, LfV aims to infer actions from unannotated video observations, where only visual information is provided.
 
-Methods from the LfV paradigm can be used for Action Recovery, making unannotated video data applicable for Behavior Cloning by recovering or estimating the underlying actions. Furthermore, such methods can be employed to pretrain models for BC or Reinforcement Learning, for example by learning expressive state and action representations through Representation Learning.
+Methods from the LfV paradigm can be used for Action Recovery, making unannotated video data applicable for Behavior Cloning by recovering or estimating the underlying actions \cite{McCarthy_2025}. Furthermore, such methods can be employed to pretrain models for BC or Reinforcement Learning, for example by learning expressive state and action representations through Representation Learning \cite{McCarthy_2025}.
 
-Behavior Cloning is also widely used for training Vision-Language-Action (VLA) models and for pretraining  Reinforcement Learning Knowledge Modalities, for instance by learning components like value functions or reward models. In practice, BC and LfV are often combined to exploit the advantages of both approaches, enabling the use of large-scale unannotated data while maintaining the efficiency of supervised policy learning.
+Behavior Cloning is also widely used for training Vision-Language-Action (VLA) models and for pretraining  Reinforcement Learning Knowledge Modalities, for instance by learning components like value functions or reward models \cite{McCarthy_2025, Eze2024LearningBW}. In practice, BC and LfV are often combined to exploit the advantages of both approaches, enabling the use of large-scale unannotated data while maintaining the efficiency of supervised policy learning.
 

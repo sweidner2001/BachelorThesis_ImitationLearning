@@ -346,9 +346,9 @@ Most multi-modal models are trained using autoregressive next-token prediction o
 Depending on the model, tokens may represent text, image patches, video frames, proprioceptive robot observations, or robot actions. 
 The objective is to predict the next token in the sequence conditioned on the previous context:
 
-\[
+\begin{equation}
 p(x_t \mid x_{<t}).
-\]
+\end{equation}
 
 This training paradigm allows the model to learn cross-modal relationships between perception, language, and control.
 
