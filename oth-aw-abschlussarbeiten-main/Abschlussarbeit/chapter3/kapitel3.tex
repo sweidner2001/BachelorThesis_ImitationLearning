@@ -14,8 +14,8 @@ Each approach uses a different strategy for training the robot model. In Figure 
 
 
 
-\subsection{Reinforcement Learning} \label{sec:ReinforcementLearning}
-\ac{RL} is both a fundamental discipline of machine learning and a distinct approach within Robot Learning.
+\section{Reinforcement Learning} \label{sec:ReinforcementLearning}
+\ac{RL} is both a fundamental discipline of \ac{ML} and a distinct approach within Robot Learning.
 The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score, and this score is then used to gradually optimize the policy. See also figure \ref{fig:RLConzept} for a general graphical overview. Below are the key terms in \ac{RL} explained in relation to robotics: 
 \begin{itemize}
 	\item \textbf{Agent:} The agent is the entity that learns to perform a specific behavior through interaction with its environment. In the context of this work, the agent corresponds to the robot, which has to execute a given action or task. 
@@ -138,16 +138,16 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 	\end{itemize}
 
 	% Dynamics model:
-	\item \texttt{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. Video prediction models can be used as robot dynamics models \cite{Eze2024LearningBW}. By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment. This allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states.
+	\item \textit{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. Video prediction models can be used as robot dynamics models \cite{Eze2024LearningBW}. By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment. This allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states.
 	% Reward model:
-	\item \texttt{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$ \cite{sutton2018reinforcement}. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
+	\item \textit{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$ \cite{sutton2018reinforcement}. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
 \end{itemize}
 
 
 
 
 
-\subsection{Imitation Learning} \label{sec:ImitationLearning}
+\section{Imitation Learning} \label{sec:ImitationLearning}
 \ac{IL} or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations \cite{Chrysomallis2025ImitationLI}.
 
 \ac{IL} makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models \cite{McCarthy_2025}.
@@ -158,17 +158,17 @@ This allows models to be trained to capture the visual and semantic relationship
 \ac{IL} can be divided into Behavior Cloning and Learning from Videos/Observation.
 
 
-\subsubsection{Behavior Cloning}
-Behavior Cloning (BC) is a fundamental approach within \ac{IL}, where a policy is learned directly from \textbf{annotated expert demonstrations} \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$, and the problem is formulated as a standard supervised learning task.  
+\subsection{Behavior Cloning}
+\ac{BC} is a fundamental approach within \ac{IL}, where a policy is learned directly from \textbf{annotated expert demonstrations} \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$, and the problem is formulated as a standard supervised learning task.  
 
 
-Conceptually, Behavior Cloning can be understood as a form of direct imitation (``direct copying'') of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
+Conceptually, \ac{BC} can be understood as a form of direct imitation (``direct copying'') of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
 
-BC is used to train Vision Language Action models and for pre-training models used in Reinforcement Learning, see Section \textbf{XXX}
+% BC is used to train Vision Language Action models and for pre-training models used in \ac{RL}, see Section \textbf{XXX}
 
-\textbf{Definition:}
+\paragraph{Purpose: Policy Learning} 
 
-Behavior Cloning (BC) learns a policy by supervised learning on expert demonstrations:
+\ac{BC} learns a policy by supervised learning on expert demonstrations:
 \begin{align}
 	\pi_\theta(a_t \mid s_t)
 \end{align}
@@ -198,22 +198,22 @@ where:
 
 
   
-\subsubsection{Learning from Videos / Observation}
-Learning from Videos (LfV), also referred to as Learning from Observation (LfO), is an \ac{IL} approach that relies solely on \textbf{video demonstrations without explicit action annotations} \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to Behavior Cloning, where state-action pairs are directly available, LfV aims to infer the underlying actions or high-level intent purely from perceptual data, i.e., mapping observations to actions $(s \rightarrow a)$. It often uses \textit{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics (features) by transforming and reducing input in a fully data-driven and automatic manner.
+\subsection{Learning from Videos / Observation}
+\ac{LfV}, also referred to as \ac{LfO}, is an \ac{IL} approach that relies solely on \textbf{video demonstrations without explicit action annotations} \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to \ac{BC}, where state-action pairs are directly available, \ac{LfV} aims to infer the underlying actions or high-level intent purely from perceptual data, i.e. mapping observations to actions $(s \rightarrow a)$. It often uses \textbf{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics by transforming and reducing input in a fully data-driven and automatic manner.	
 
-A central challenge in LfV is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
+A central challenge in \ac{LfV} is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
 
-Due to this property, LfV can be seen as a \textbf{weakly supervised or self-supervised Imitation Learning} approach. 
+Due to this property, \ac{LfV} can be seen as a \textbf{weakly supervised or self-supervised Imitation Learning} approach. 
 Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data, including internet videos or human demonstrations, without the need for costly data annotation \cite{McCarthy_2025}. Furthermore, additional actions can be derived from annotated video data too \cite{McCarthy_2025}.
 
 
-In robotics, Learning from Videos is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic, and dynamical aspects of the environment, which can later be refined using methods such as Behavior Cloning with annotated data or in Reinforcement Learning \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
+In robotics, \ac{LfV} is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic, and dynamical aspects of the environment, which can later be refined using methods such as \ac{BC} with annotated data or in \ac{RL} \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
 
 %BC is used to pre-train models for Behavior Cloning and Reinforcement Learning, see Section \textbf{XXX} for more information.
 
-\textbf{Definition:}
+\paragraph{Purpose: Inferring Actions}
 
-Learning from Videos (LfV) learns to infer actions from observations in a weakly supervised or self-supervised manner. 
+\ac{LfV} learns to infer actions from observations in a weakly supervised or self-supervised manner. 
 \begin{align}
 	\hat{a}_t = f(s_t, s_{t+1})
 \end{align}
@@ -228,12 +228,12 @@ where:
 
 
 
-\subsection{Summary IL \& \ac{RL}}
-Reinforcement learning is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment \cite{Eze2024LearningBW}. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or \ac{IL}, in order to leverage their complementary strengths and improve overall performance \cite{Eze2024LearningBW,McCarthy_2025}.
+\subsection{Summary}
+\ac{RL} is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment \cite{Eze2024LearningBW}. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or \ac{IL}, in order to leverage their complementary strengths and improve overall performance \cite{Eze2024LearningBW, McCarthy_2025}.
 
-\ac{IL} generally refers to a family of methods and techniques that enable learning from demonstrations. Two important approaches in this context are Behavior Cloning (BC) and Learning from Videos (LfV), which differ primarily in the type of data they utilize. BC relies on annotated demonstrations, where state-action pairs are available, and learns a policy directly via supervised learning. In contrast, LfV aims to infer actions from unannotated video observations, where only visual information is provided.
+\ac{IL} generally refers to a family of methods and techniques that enable learning from demonstrations. Two important approaches in this context are \ac{BC} and \ac{LfV}, which differ primarily in the type of data they utilize. \ac{BC} relies on annotated demonstrations, where state-action pairs are available, and learns a policy directly via supervised learning. In contrast, \ac{LfV} aims to infer actions from unannotated video observations, where only visual information is provided.
 
-Methods from the LfV paradigm can be used for Action Recovery, making unannotated video data applicable for Behavior Cloning by recovering or estimating the underlying actions \cite{McCarthy_2025}. Furthermore, such methods can be employed to pretrain models for BC or \ac{RL}, for example by learning expressive state and action representations through Representation Learning \cite{McCarthy_2025}.
+Methods from the \ac{LfV} paradigm can be used for action recovery, making unannotated video data applicable for \ac{BC} by recovering or estimating the underlying actions \cite{McCarthy_2025}. Furthermore, such methods can be employed to pretrain models for \ac{BC} or \ac{RL}, for example by learning expressive state and action representations through representation learning \cite{McCarthy_2025}.
 
-Behavior Cloning is also widely used for training Vision-Language-Action (VLA) models and for pretraining  Reinforcement Learning Knowledge Modalities, for instance by learning components like value functions or reward models \cite{McCarthy_2025, Eze2024LearningBW}. In practice, BC and LfV are often combined to exploit the advantages of both approaches, enabling the use of large-scale unannotated data while maintaining the efficiency of supervised policy learning.
+\ac{BC} is also widely used for training \ac{VLA} models and for pretraining \ac{RL} \ac{KM}s, for instance by learning components like value functions or reward models \cite{McCarthy_2025, Eze2024LearningBW}. In practice, \ac{BC} and \ac{LfV} are often combined to exploit the advantages of both approaches, enabling the use of large-scale unannotated data while maintaining the efficiency of supervised policy learning.
 

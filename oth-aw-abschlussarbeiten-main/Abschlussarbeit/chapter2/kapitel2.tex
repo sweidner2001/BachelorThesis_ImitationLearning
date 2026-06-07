@@ -40,11 +40,19 @@ Inference refers to the process of using a trained model to make predictions or 
 
 Annotating refers to the process of labeling data, in which data is enriched with additional information. For example, this may include assigning class labels, marking target objects in images, or labeling states and actions within robot trajectories. Annotated, or labeled, data forms the foundation for supervised learning approaches.
 
+\paragraph{Weakly Supervised Learning:}
+Weakly supervised learning is a \ac{ML} approach that utilizes limited or incomplete labeled data for training. In this context, the model learns from a combination of labeled and unlabeled data, or from data with noisy or imprecise labels. This approach is particularly relevant in robotics, where obtaining fully annotated data can be costly and time-consuming. Weakly supervised learning allows models to leverage large amounts of unlabeled data while still benefiting from the guidance provided by the available labeled data.
+
+
+\paragraph{Self-Supervised Learning:}
+Self-Supervised Learning is a \ac{ML} approach where the model learns to predict parts of the input data from other parts of the same data. This method does not require external labels, as the model generates its own supervisory signal from the data itself. For example, Large Language Models (LLMs) learn to predict the next word or masked words in a sentence based on the surrounding context, where the correct target words are already contained within the training data. Similarly, in computer vision, a model may learn to reconstruct masked regions of an image, with the original image providing the target information.
+% In robotics, self-supervised learning can be used to learn representations of the environment or to predict future states based on current observations, enabling the robot to learn useful features and dynamics without the need for explicit annotations.
+
 
 
 \section{Machine Learning}
 \subsection{Core Machine Learning Categories}
-There are various approaches to training an AI model for a robot. These involve methods from the four core machine learning categories, which can also be combined.
+There are various approaches to training an AI model for a robot. These involve methods from the four core \ac{ML} categories, which can also be combined.
 
 \paragraph{Supervised Learning:}
 
@@ -61,7 +69,7 @@ Semi-supervised learning is a combination of supervised and unsupervised learnin
 
 \paragraph{Reinforcement Learning:}
 
-Reinforcement learning (RL) differs fundamentally from the previously mentioned approaches. Instead of learning from fixed datasets, an agent actively interacts with its environment and tries to find out an optimal strategy to reach a defined goal. Through its actions, it influences the state of the environment and subsequently receives feedback in the form of rewards or penalties, see Figure \ref{fig:RLConzept} for a short overview. In the context of robotics, the robot is the agent.
+\ac{RL} differs fundamentally from the previously mentioned approaches. Instead of learning from fixed datasets, an agent actively interacts with its environment and tries to find out an optimal strategy to reach a defined goal. Through its actions, it influences the state of the environment and subsequently receives feedback in the form of rewards or penalties, see Figure \ref{fig:RLConzept} for a short overview. In the context of robotics, the robot is the agent.
 The objective is to learn a strategy (= policy) that maximizes the cumulative reward over time for the given task.
 
 \begin{figure}[!ht]
