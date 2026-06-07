@@ -123,6 +123,9 @@
 \usepackage{microtype,relsize}					% Wird verwendet, um Nachnamen auf Titelseite gesperrt darzustellen
 \newcommand*{\Sperren}[1]{\textls*[100]{#1}}
 
+
+
+\usepackage[printonlyused]{acronym}
 %
 % Persoenliche Angaben
 %
@@ -225,6 +228,10 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
   \include{formblatt_selbststaendigkeitserklaerung}		% 3. Seite: Formblatt Bestaetigung nach Paragraph 12 APO
   \include{formblatt_summary}			% 4. Seite: Formblatt Zusammenfassung
   \tableofcontents
+  \cleardoublepage
+  \chapter*{Acronyms}
+  \addcontentsline{toc}{chapter}{Acronyms}
+  \input{acronym}
   \newpage
   \chapter*{Symbole, Formelzeichen und Einheiten}
   \newpage

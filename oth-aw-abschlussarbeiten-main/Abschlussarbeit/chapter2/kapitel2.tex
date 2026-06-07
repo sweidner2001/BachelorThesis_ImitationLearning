@@ -1,8 +1,93 @@
-\chapter{Basics Classical Robotics}
+\chapter{Foundations}
+This chapter provides an overview of the key concepts and theories that form the foundation of the following chapters. 
 
-\section{Erster Abschnitt von Kapitel 2}
-test test test test
 
-\subsection{Ein Unterabschnitt}
-\subsubsection{Ein Unterabschnitt}
-jetzt gehts
+\section{Introduction and Mathematical Notation of Formulas}
+
+\textbf{Capital Letters} are used for random variables, e.g. $S$ represents the set of all states in which the robot can be and $A$ represents the set of all possible actions it can perform. 
+
+\textbf{Lowercase Letters} are used for specific values of these random variables, e.g. $s$ stands for a specific robot state and $a$ for a specific action that the robot performs. A lowercase letter is usually followed by a time index $_t$, representing the specific action taken by the robot at time step $t$. In some cases the time index is omitted for simplicity, e.g. $a$ instead of $a_t$ and the next state or action is then denoted as $s'$ or $a'$ instead of $s_{t+1}$ or $a_{t+1}$.
+
+\textbf{Capital Letters in Bold} represents Matrices, e.g. the matrix $\mathbf{X}$.
+
+\textbf{Lowercase Letters in Bold} are used for specific values of (random) variables that are vectors, e.g. $\mathbf{x}$ represents a specific vector.
+
+
+
+\section{Glossary}
+% \paragraph{Agent:}
+% An agent is an entity that learns to perform a specific behavior through interaction with its environment. In the context of this work, the agent corresponds to the robot, which has to execute a given action or task. 
+
+% \paragraph{Policy:}
+% The policy can be interpreted as the brain of the agent, determining which action to take next in a given situation in order to achieve the task objective. In our example, the policy controls the robot's motion and actions.  
+
+% Formally, a policy can be represented as  
+% \begin{align}
+% 	\pi_\theta(a \mid s)  
+% \end{align}
+% which defines a probability distribution over actions $a$, conditioned on the current state $s$. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment.  
+
+% In the classical meaning, the action $a$ corresponds for example to a robot command, such as moving the gripper to a target position $(x, y, z)$ or setting a joint angle to a specific value with a defined velocity. The state $s$ represents the agent's observation, which may include, for example, a sequence of recent camera images (e.g., the last four frames) as well as additional sensor inputs such as proprioceptive signals.
+
+\paragraph{Robot Trajectory:}
+
+A robot trajectory describes how the robot moves from a starting state to a target state, including position, orientation and, if applicable, speeds, accelerations, and forces acting on the robot. A robot trajectory is a temporal sequence of actions and the resulting robot states.
+
+\paragraph{Inference:}
+Inference refers to the process of using a trained model to make predictions or decisions based on new, unseen data. In the context of robotics, inference involves the robot applying its learned policy in real world or simulation to execute a given task.
+
+\paragraph{Annotation:}
+
+Annotating refers to the process of labeling data, in which data is enriched with additional information. For example, this may include assigning class labels, marking target objects in images, or labeling states and actions within robot trajectories. Annotated, or labeled, data forms the foundation for supervised learning approaches.
+
+
+
+\section{Machine Learning}
+\subsection{Core Machine Learning Categories}
+There are various approaches to training an AI model for a robot. These involve methods from the four core machine learning categories, which can also be combined.
+
+\paragraph{Supervised Learning:}
+
+In supervised learning, a model is trained using labeled training data. This means that, for the input data, the output data to be predicted are known. The goal is to train a model that correctly predicts the output data and makes reliable predictions on unseen data. 
+
+
+\paragraph{Unsupervised Learning:}
+
+In contrast to supervised learning, unsupervised learning uses unlabeled data for model training. The model tries to recognize structures, patterns or relationships in the data on its own. 
+
+\paragraph{Semi-Supervised Learning:}
+
+Semi-supervised learning is a combination of supervised and unsupervised learning. In this approach, a model is trained using a small amount of labeled data and a large amount of unlabeled data. The goal is to leverage the advantages of both approaches, particularly when annotating data is time-consuming or cost intensive. This is relevant in robotics, as the data used in that field is often difficult to label.
+
+\paragraph{Reinforcement Learning:}
+
+Reinforcement learning (RL) differs fundamentally from the previously mentioned approaches. Instead of learning from fixed datasets, an agent actively interacts with its environment and tries to find out an optimal strategy to reach a defined goal. Through its actions, it influences the state of the environment and subsequently receives feedback in the form of rewards or penalties, see Figure \ref{fig:RLConzept} for a short overview. In the context of robotics, the robot is the agent.
+The objective is to learn a strategy (= policy) that maximizes the cumulative reward over time for the given task.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter3/media/RLConzept}
+	\caption[Base concept of Reinforcement Learning]{Base concept of Reinforcement Learning}
+	\label{fig:RLConzept}
+\end{figure}
+
+The agent proceeds in its environment according to the trial-and-error principle to learn this optimal policy. Safety is a critical concern during training, as the agent may execute unpredictable actions while exploring the state space. For this reason, simulation environments are a central component of training and are frequently used for pre-training the policy. The policy is then subsequently often fine-tuned in the real-world environment. Because the agent learns through trial and error, more efficient, unknown, and creative solutions can be found that a human might not have come up with. See section \ref{sec:ReinforcementLearning} for more details.
+
+
+
+\section{Deep Learning}
+\subsection{Neurons}
+
+\subsection{Neural Networks}
+\subsubsection{Activation Functions}
+\subsubsection{Training Neural Networks}
+
+
+\subsection{Convolutional Neural Networks}
+\subsection{Transformer}
+\subsection{Vision Transformer}
+
+
+
+
+\section{Foundation Model vs. Multi-Model Model}
