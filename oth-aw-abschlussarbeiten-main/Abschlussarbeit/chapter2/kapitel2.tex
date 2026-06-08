@@ -141,7 +141,7 @@ The \ac{RL} modularities are represented as follows:
 
 
 
-\paragraph{Markov Decision Process}
+\subsection{Markov Decision Process}
 
 \ac{RL} is based on the \ac{MDP}. A \ac{MDP} is a stochastic decision-making process that formally models the transition probabilities from a state $s$ to a subsequent state $s'$ provided that action $a$ is performed, expressed mathematically as $P(s'|s,a)$ \cite{sutton2018reinforcement, millerMarkovDecisionProcesses}. 
 
@@ -156,7 +156,7 @@ Therefore, in practice, only sufficiently informative state representations are 
 This is often achieved by incorporating a history of observations, such as a sequence of the last five camera frames, to better capture the underlying dynamics of the environment \cite{millerMarkovDecisionProcesses}.
 
 
-\paragraph{Training process:}
+\subsection{Training Process}
 At the beginning of the training process, the policy is typically initialized randomly, meaning that the robot initially performs random movements. Through interaction with the environment, the agent explores different actions and attempts to identify those that yield high rewards. Actions associated with higher rewards are subsequently assigned a higher probability by the policy, making the robot more likely to select them in similar situations in the future.
 
 A successful learning process requires a suitable balance between exploration and exploitation. Exploration refers to the evaluation of previously untried or infrequently selected actions in a given state, whereas exploitation denotes the repeated selection of actions that have already been identified as beneficial. During the early stages of training, greater emphasis is placed on exploration, as the agent must first acquire knowledge about the environment and determine which actions are most effective for accomplishing the task. As training progresses and the agent gains a better understanding of the environment and its reward structure, exploitation becomes increasingly important. This allows the agent to more frequently select actions that have proven successful, thereby improving overall task performance.
@@ -183,7 +183,7 @@ Due to the exploration phase, the success of the chosen \ac{RL} approach only be
 
 
 
-\paragraph{Knowledge Modality from Video}
+\subsection{Knowledge Modality from Video}
 An \ac{RL} \ac{KM} is some function learned from data that represents specific types of \ac{RL}-related knowledge.
 \ac{KM}s can be learned through trial-and-error principles or from various data sources, like video datasets, and can capture different aspects of the \ac{RL} problem \cite{Wulfmeier2023FoundationsFT}. 
 
@@ -306,11 +306,11 @@ In robotics, \ac{LfV} is commonly used as a \textbf{pretraining step}. The learn
 
 \ac{LfV} learns to infer actions from observations in a weakly supervised or self-supervised manner. 
 \begin{align}
-	\hat{a}_t = f(s_t, s_{t+1})
+	a_t = f(s_t, s_{t+1})
 \end{align}
 where:
 \begin{itemize}
-	\item $\hat{a}_t$: The "latent" or predicted action.
+	\item $a_t$: The "latent" or predicted action.
 	\item $s_t$: The current state/video frame.
 	\item $s_{t+1}$: The next state/video frame.
 	\item $f$: The inverse dynamics function (often a neural network) that maps state transitions to actions.
