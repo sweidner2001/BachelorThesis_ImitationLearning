@@ -92,14 +92,14 @@ Future research will likely focus on more robust sim-to-real transfer methods, c
 % - Investigating in attention mechanisms, unsupervised techniques, and transformer-based architectures
 
 
-\section{Emerging techniques and architectures}
+\section{Emerging Techniques and Architectures}
 Several emerging research directions may significantly influence the future of imitation learning and robotics.
 
 Many traditional imitation learning approaches are designed for single tasks and often rely on a single input modality, such as visual observations. To address these limitations, recent research increasingly focuses on multi-task and multi-modal learning architectures.
 
 Furthermore, learning complex manipulation behaviors from demonstrations requires models capable of producing high-dimensional outputs, such as complete action trajectories or future visual observations, rather than single action predictions \cite{Wolf2025DiffusionMF, Eze2024LearningBW}. In particular, diffusion models and world models have emerged as two promising architectural paradigms.
 
-\subsection{Multi-task models}
+\subsection{Multi-Task Models}
 Works like \cite{Mandi2021TowardsMG, ChaneSane2023LearningVP, Huang2021GeneralizationID} outline the efficacy of Multi-task learning and multi-modal architectures for robotics. Such architectures can leverage information from diverse data sources and transfer knowledge across tasks to improve generalization. In contrast \cite{Yu2020GradientSF} explores the Challenges of these approaches, such the varying optimization constraints for each modality.
 % Such methods often struggle to generalize across diverse tasks, environments and robot embodiments, limiting their applicability in real-world robotic systems. 
 % While these methods have achieved strong performance on specific benchmarks, they frequently struggle to generalize across different tasks, environments, and robot embodiments.
@@ -109,7 +109,7 @@ Works like \cite{Mandi2021TowardsMG, ChaneSane2023LearningVP, Huang2021Generaliz
  
 % Unlike traditional approaches that predict a single action or output, these models can generate complex, high-dimensional predictions such as action trajectories, future observations, or complete video sequences, enabling more flexible and robust decision making.
 % At the same time, advances in generative modeling have led to the development of new architectures capable of representing complex behavior distributions. Among the most promising directions are diffusion models and diffusion-based policies, which have recently achieved significant success in robotic manipulation tasks.
-\subsection{Diffusion models}
+\subsection{Diffusion Models}
 
 A fundamental challenge in imitation learning is the inherently multi-modal nature of many robotic tasks \cite{Wolf2025DiffusionMF}. For a given observation, there is often no single optimal action. For example, an object can be grasped from multiple valid directions, and a drawer can be opened using different trajectories. Traditional approaches typically learn a deterministic mapping from observations to actions and are commonly optimized using regression objectives such as mean squared error \cite{Eze2024LearningBW}. As a result, they tend to predict an average of multiple valid behaviors, which may lead to suboptimal or even infeasible actions.
 
@@ -145,7 +145,7 @@ Building on these advantages, diffusion-based policies have emerged as a powerfu
 
 
 
-\subsection{World models}
+\subsection{World Models}
 % Learn a predictive model of the world itself, represented by the probability distribution $p(s_{t+1} \mid s_t, a_t)$
 % Internal Planning: Plan and reason by internally simulating the future consequences of its actions ("imagining")
 % Forecast entire trajectories
@@ -178,7 +178,7 @@ As generative modeling techniques continue to advance, world models are expected
 \end{figure}
 
 
-\subsection{Integration of causal reasoning}
+\subsection{Integration of Causal Reasoning}
 
 % Many current imitation learning systems learn from data by finding statistical patterns in demonstrations. This means they learn what usually happens together, but not why things happen. As a result, these models often rely on correlations instead of understanding cause-and-effect relationships. This becomes a problem when the environment changes, since correlations that worked during training may no longer hold.
 

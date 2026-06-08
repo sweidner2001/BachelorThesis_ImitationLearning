@@ -129,6 +129,23 @@ In the context of learning from videos, RL approaches often combine exploratory 
 
 
 \section{Imitation Learning}
+
+\subsection{Idea Behind Imitation Learning} 
+When we want to learn a new skill, we often turn to How-to videos. There we learn the new skill through speech instructions and visual observations in the video \cite{Jain2024Vid2RobotEV}. The same principle is now to be applied to robots through \ac{IL}.
+
+Visual Imitation Learning ...
+\begin{itemize}
+    \item is ideal for teaching tasks that are difficult or impossible to describe in words.
+    \item allows robots to infer tasks from expert demonstrations in different environments than the robot.
+    \item can be more data efficient than reinforcement learning, especially in high-dimensional state spaces, like a complex robot environment. 
+    \item can leverage large datasets of human demonstrations, which are often easier to collect than expert demonstrations in the specific domain \cite{Jain2024Vid2RobotEV}.
+\end{itemize}
+
+% \texttt{Problems in RL:}
+In relation to \ac{RL}, a task is commonly defined through a reward function, which assigns a high reward to desirable behavior and a low reward to undesirable behavior \cite{sutton2018reinforcement}. However, designing good reward functions is challenging for every task, and many methods based on computer vision rely on annotated demonstrations in every new environment \cite{McCarthy_2025}. Imitation Learning allows us to learn complex behaviors that are difficult to specify through a reward function, or it can help us to define a good adaptive reward function for \ac{RL}.
+
+
+\subsection{Research Directions in Imitation Learning}
 Imitation Learning is one of the promising directions for learning robot policies from videos. It enables robots to acquire skills by directly mimicking actions observed in human or robot demonstrations, without the need for explicit reward functions or extensive trial-and-error interaction. Imitation learning policies can be more sample-efficient and often have a better generalization than pure Reinforcement Learning policies, as they leverage the rich information contained in demonstrations to guide policy learning \cite{Eze2024LearningBW}. 
 % By learning from videos, robots can acquire different behaviors and generalize across diverse tasks and environments, reducing the need for hand-crafted reward functions and extensive environment interactions.
 
@@ -176,8 +193,28 @@ Visual Entity Graphs (VEGs) \cite{Sieb2019GraphStructuredVI} models spatial and 
 % https://www.semanticscholar.org/paper/Adaptive-Video-Conditioned-Imitation-Learning-via-Lin-Chen/ef5c9be1161d01127366c2b9d20fe7378dadd413
 % https://www.semanticscholar.org/paper/Bridging-Simulation-and-Reality%3A-Cross-Domain-with-Tang-Pang/e591fec42e66f5ac44887cf0d58c88d1eea625c5
 
+
+
+
+
 \section{Hybrid Approaches}
-Hybrid approaches combine reinforcement learning (RL), imitation learning (IL), and complementary techniques to overcome the limitations of relying on a single learning paradigm. The central motivation is to integrate the sample efficiency and structured guidance of imitation learning with the exploration and optimization strengths of reinforcement learning \cite{Eze2024LearningBW} \cite{Ramachandruni2020AttentiveTS}. By leveraging multiple training strategies simultaneously, hybrid methods aim to improve data efficiency, robustness, and generalization in complex robotic manipulation tasks.
+\ac{RL} is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment \cite{Eze2024LearningBW}. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or \ac{IL}, in order to leverage their complementary strengths and improve overall performance \cite{Eze2024LearningBW, McCarthy_2025}.
+
+\ac{IL} generally refers to a family of methods and techniques that enable learning from demonstrations. Two important approaches in this context are \ac{BC} and \ac{LfV}, which differ primarily in the type of data they utilize. \ac{BC} relies on annotated demonstrations, where state-action pairs are available, and learns a policy directly via supervised learning. In contrast, \ac{LfV} aims to infer actions from unannotated video observations, where only visual information is provided.
+
+Hybrid approaches combine reinforcement learning (RL), imitation learning (IL), and complementary techniques to overcome the limitations of relying on a single learning paradigm, see Figure~\ref{fig:overviewroboticlearning}. The central motivation is to integrate the sample efficiency and structured guidance of imitation learning with the exploration and optimization strengths of reinforcement learning \cite{Eze2024LearningBW} \cite{Ramachandruni2020AttentiveTS}. By leveraging multiple training strategies simultaneously, hybrid methods aim to improve data efficiency, robustness, and generalization in complex robotic manipulation tasks.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter3/media/OverviewRoboticLearning}
+	\caption[Overview Robotic Learning]{Overview Robotic Learning}
+	\label{fig:overviewroboticlearning}
+\end{figure}
+
+Methods from the \ac{LfV} paradigm can be used for action recovery, making unannotated video data applicable for \ac{BC} by recovering or estimating the underlying actions \cite{McCarthy_2025}. Furthermore, such methods can be employed to pretrain models for \ac{BC} or \ac{RL}, for example by learning expressive state and action representations through representation learning \cite{McCarthy_2025}.
+
+\ac{BC} is also widely used for training \ac{VLA} models and for pretraining \ac{RL} \ac{KM}s, for instance by learning components like value functions or reward models \cite{McCarthy_2025, Eze2024LearningBW}. In practice, \ac{BC} and \ac{LfV} are often combined to exploit the advantages of both approaches, enabling the use of large-scale unannotated data while maintaining the efficiency of supervised policy learning.
+
 
 A common strategy is to use Imitation Learning for policy initialization, followed by RL-based fine-tuning to improve long-horizon performance and adapt policies through interaction with the environment \cite{Ramachandruni2020AttentiveTS, peng2018sfv}. Other approaches incorporate \textit{Residual RL}, where reinforcement learning refines or corrects imperfect demonstration trajectories, enabling adaptation to different robot embodiments or environmental conditions \cite{GarciaHernando2020PhysicsBasedDM}.
 
@@ -186,18 +223,24 @@ More recent work further \textit{combines RL and IL with control-theoretic metho
 
 
 
-\paragraph{Discover the usage of Video Data for RL Knowledge Modalities}
-Reinforcement Learning (RL) can benefit from knowledge extracted from large-scale video data in multiple ways.
-In the following, is analyzed how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
+
+
+
+
+\paragraph{Discover the Usage of Video Data for RL Knowledge Modalities}
+
+Reinforcement Learning (RL) can benefit from knowledge extracted from large-scale video data in multiple ways. In the following section, we analyze how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
 \begin{itemize}
-    \item Policy
-    \item Dynamics Model
-    \item Reward Function
-    \item Value Function
+    \item Policy (Section \ref{sec:HybridPolicies})
+    \item Dynamics Model (Section \ref{sec:DynamicsModels})
+    \item Reward Functions (Section \ref{sec:RewardFunctions})
+    \item Value Functions (Section \ref{sec:ValueFunctions})
 \end{itemize}
 
 
+
 \subsection{Policies}
+\label{sec:HybridPolicies}
 \begin{figure}
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter6/media/LearningPoliciesFromVideo}
@@ -313,6 +356,7 @@ One question that has not yet been clarified is whether A is best suited for use
 
 
 \subsection{Dynamics Models}
+\label{sec:DynamicsModels}
 Dynamic models $p(o_{t+1}|o_t, a_t)$ aim to determine how the environment evolves over time by predicting future observations based on the current state and the next action to be taken.
 To learn dynamics models from video data, the core idea is to leverage the rich temporal and physical information contained in videos to train models that can capture the underlying dynamics of the environment \cite{McCarthy_2025}.
 
@@ -590,6 +634,32 @@ Research on learning value functions directly from video remains relatively scar
     % does not need any reward labels. Instead, it uses the goal condition $c$ as a reference point. For example, a task can be specified via a set of goal images. The model learns that observations close in time to the goal should have high value, while observations far from the goal (in time) should have low value. By pulling goal-similar frames together and pushing temporally distant frames apart in the embedding space, the model learns a smooth progress function directly from raw video. Observations that are closer in time to the goal get a high value, effectively measuring how near the task is to completion.
     
 % \end{itemize}
+
+
+
+% \subsection{Summary}
+% \ac{RL} is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment \cite{Eze2024LearningBW}. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or \ac{IL}, in order to leverage their complementary strengths and improve overall performance \cite{Eze2024LearningBW, McCarthy_2025}.
+
+% \ac{IL} generally refers to a family of methods and techniques that enable learning from demonstrations. Two important approaches in this context are \ac{BC} and \ac{LfV}, which differ primarily in the type of data they utilize. \ac{BC} relies on annotated demonstrations, where state-action pairs are available, and learns a policy directly via supervised learning. In contrast, \ac{LfV} aims to infer actions from unannotated video observations, where only visual information is provided.
+
+
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=0.6\linewidth]{./chapter3/media/OverviewRoboticLearning}
+% 	\caption[Overview Robotic Learning]{Overview Robotic Learning}
+% 	\label{fig:overviewroboticlearning}
+% \end{figure}
+
+
+% Methods from the \ac{LfV} paradigm can be used for action recovery, making unannotated video data applicable for \ac{BC} by recovering or estimating the underlying actions \cite{McCarthy_2025}. Furthermore, such methods can be employed to pretrain models for \ac{BC} or \ac{RL}, for example by learning expressive state and action representations through representation learning \cite{McCarthy_2025}.
+
+% \ac{BC} is also widely used for training \ac{VLA} models and for pretraining \ac{RL} \ac{KM}s, for instance by learning components like value functions or reward models \cite{McCarthy_2025, Eze2024LearningBW}. In practice, \ac{BC} and \ac{LfV} are often combined to exploit the advantages of both approaches, enabling the use of large-scale unannotated data while maintaining the efficiency of supervised policy learning.
+
+
+
+
+
+
 
 \section{Multi-Modal Approaches \& VLA Models}
 % Vision-Language-Action (VLA) models represent a recent frontier in robotic intelligence by jointly integrating visual perception, natural language understanding, and robot action generation into a unified framework. These models enable robots to interpret visual environments, understand human instructions expressed in natural language, and execute grounded robotic actions accordingly.
