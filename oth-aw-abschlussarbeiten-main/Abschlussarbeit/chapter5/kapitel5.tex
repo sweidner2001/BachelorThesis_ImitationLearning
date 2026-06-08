@@ -2,13 +2,13 @@
 % Video to text vs. Video language models?
 \chapter{Learning from Videos - Data Modality and Challenges}
 
-Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This section addresses the two key questions for LfV research:
+Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This section addresses the two key questions for \ac{LfV} research:
 \begin{enumerate}
     \item How to extract relevant knowledge from internet video?
     % \item How to apply video-extracted knowledge to robotics?
     \item How to apply video-extracted knowledge to robotic systems for policy learning and control?
 \end{enumerate}
-We first review different approaches for extracting foundational knowledge from internet video, including video encoders, video prediction models, and video-to-text models. We then discuss methods for transferring video-extracted knowledge to robotics, addressing challenges such as missing action labels and distribution shift. Finally, we explore the intersection of LfV and reinforcement learning, highlighting how video-based learning can enhance RL algorithms and enable more efficient policy learning from visual data.
+We first review different approaches for extracting foundational knowledge from internet video, including video encoders, video prediction models, and video-to-text models. We then discuss methods for transferring video-extracted knowledge to robotics, addressing challenges such as missing action labels and distribution shift. 
 
 % it is high-dimensional, noisy, and poorly labelled. Second, video lacks information critical to robotics, including action labels and low-level force and proprioceptive information. Moreover, there may be various distribution shifts between internet video and the robot domain.
 
@@ -21,7 +21,7 @@ We first review different approaches for extracting foundational knowledge from 
 Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video Foundation Models are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions, and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications \cite{Madan2024FoundationMF}.
 
 \begin{samepage}
-\cite{McCarthy_2025} says, Video FMs can be highly applicable for the following LfV use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
+\cite{McCarthy_2025} says, Video FMs can be highly applicable for the following \ac{LfV} use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
 \begin{itemize}
     \item \texttt{Using pretrained FMs:} 
     One important application of Video FMs is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video FM \cite{Yang2023LearningIR, rt22023arxiv, Ahn2022DoAI, Kim2024OpenVLAAO}. 
@@ -38,7 +38,7 @@ Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promi
 	\label{fig:VideoFoundationModellingForLfV}
 \end{figure}
 
-% Furthermore, these models can serve as strong initialization policies for reinforcement learning. A common strategy is to first pretrain the model using supervised sequence prediction on large-scale multi-modal datasets, and subsequently fine-tune the policy using reinforcement learning with task-specific rewards. This often improves sample efficiency and generalization compared to training reinforcement learning policies from scratch.
+% Furthermore, these models can serve as strong initialization policies for \ac{RL}. A common strategy is to first pretrain the model using supervised sequence prediction on large-scale multi-modal datasets, and subsequently fine-tune the policy using \ac{RL} with task-specific rewards. This often improves sample efficiency and generalization compared to training \ac{RL} policies from scratch.
 % Even when the action prediction head is discarded, the learned encoder can still provide transferable cross-modal representations for downstream robotic tasks. 
 
 
@@ -46,14 +46,14 @@ Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promi
 \label{sec:VideoEncoder}
 Foundational video encoders $p(z \mid \tau)$ are capable of extracting rich and robust representations from raw video observations. Given a video clip $\tau$, the encoder maps the visual input into a latent representation $z$, which captures semantic and temporal information relevant for downstream robotic tasks.
 
-In robotic imitation learning, pretrained video encoders are commonly used in two ways \cite{McCarthy_2025}:
+In robotic \ac{IL}, pretrained video encoders are commonly used in two ways \cite{McCarthy_2025}:
 \begin{itemize}
     \item \texttt{Representation Learning:}
-    Pretrained video encoders can be transferred to robotic learning frameworks and further fine-tuned on robot-specific data for downstream tasks such as policy learning or an RL Knowledge Modality. The learned latent representations provide compact and informative features that improve generalization and sample efficiency, by allowing the model to learn task-specific features while still leveraging the general knowledge captured from internet video
+    Pretrained video encoders can be transferred to robotic learning frameworks and further fine-tuned on robot-specific data for downstream tasks such as policy learning or an \ac{RL} \ac{KM}. The learned latent representations provide compact and informative features that improve generalization and sample efficiency, by allowing the model to learn task-specific features while still leveraging the general knowledge captured from internet video
     % ToDo: , see Section~\ref{} and maybe some references.
     
     \item \texttt{Reward Learning:} 
-    Frozen video representations can also be used to define reward functions for robotic agents \cite{Nair2022R3MAU, Sontakke2023RoboCLIPOD, Fan2022MineDojoBO}. By comparing the latent representations of demonstrations and robot executions, the system can measure behavioral similarity without requiring manually engineered reward signals. This approach enables the robot to learn from video demonstrations by optimizing its behavior to match the latent representations of successful demonstrations, thus facilitating imitation learning and skill acquisition.
+    Frozen video representations can also be used to define reward functions for robotic agents \cite{Nair2022R3MAU, Sontakke2023RoboCLIPOD, Fan2022MineDojoBO}. By comparing the latent representations of demonstrations and robot executions, the system can measure behavioral similarity without requiring manually engineered reward signals. This approach enables the robot to learn from video demonstrations by optimizing its behavior to match the latent representations of successful demonstrations, thus facilitating \ac{IL} and skill acquisition.
     % ToDo: , see Section~\ref{}.
 \end{itemize}
 
@@ -153,7 +153,7 @@ while more generally VPMs can be expressed as conditional video generation model
 p(\tau \mid c),
 \end{equation}
 where $\tau$ is a video sequence and $c$ denotes conditioning information such as past observations, actions, robot actions, language instructions, or goal images \cite{Yang2024VideoAT}.
-Trained on large-scale video data, these models implicitly learn priors over physical dynamics, object interactions, and human behavior, making them relevant for robotic learning and imitation learning \cite{McCarthy_2025}.
+Trained on large-scale video data, these models implicitly learn priors over physical dynamics, object interactions, and human behavior, making them relevant for robotic learning and \ac{IL} \cite{McCarthy_2025}.
 
 During training, the model learns to predict future visual outcomes from past context, either in pixel space or in a learned latent space \cite{McCarthy_2025}.
 
@@ -172,12 +172,12 @@ Video prediction models are useful in robotics in several complementary ways:
     \item \texttt{Policy Learning:}
     VPMs implicitly learn the distribution of behaviors present in the training data by modeling how visual scenes evolve over time \cite{Escontrela2023VideoPM}. This allows them to generate multiple plausible future trajectories given a current observation. In a robotics context, these generated trajectories can be interpreted as candidate action outcomes.
 
-    This enables an ``observation-as-action'' perspective, where control is not performed by directly predicting actions, but by evaluating or selecting among predicted future video rollouts \cite{Du2023LearningUP}. The resulting policy can be viewed as choosing the trajectory that best aligns with a desired objective (e.g., reaching a goal state or matching expert demonstrations), thereby directly connecting video prediction with imitation learning and planning.
+    This enables an ``observation-as-action'' perspective, where control is not performed by directly predicting actions, but by evaluating or selecting among predicted future video rollouts \cite{Du2023LearningUP}. The resulting policy can be viewed as choosing the trajectory that best aligns with a desired objective (e.g., reaching a goal state or matching expert demonstrations), thereby directly connecting video prediction with \ac{IL} and planning.
 
-    \item \texttt{Representation Learning:} Learned latent spaces capture semantically meaningful information about objects, motion, and interactions, which can be transferred to downstream imitation learning and reinforcement learning tasks \cite{Wu2023UnleashingLV, McCarthy_2025}.
+    \item \texttt{Representation Learning:} Learned latent spaces capture semantically meaningful information about objects, motion, and interactions, which can be transferred to downstream \ac{IL} and \ac{RL} tasks \cite{Wu2023UnleashingLV, McCarthy_2025}.
 
     \item \texttt{Reward Learning:} 
-    Video prediction models can also be used to define reward functions by measuring how well a robot's predicted future aligns with desired behaviors \cite{Escontrela2023VideoPM}. For example, a reward signal can be derived from the similarity between generated trajectories and expert demonstrations in latent space, or from the likelihood of a trajectory under a learned video prior. This enables imitation learning without manually engineered reward functions.
+    Video prediction models can also be used to define reward functions by measuring how well a robot's predicted future aligns with desired behaviors \cite{Escontrela2023VideoPM}. For example, a reward signal can be derived from the similarity between generated trajectories and expert demonstrations in latent space, or from the likelihood of a trajectory under a learned video prior. This enables \ac{IL} without manually engineered reward functions.
     % Video prediction models can define reward signals by measuring similarity between predicted rollouts and expert demonstrations in latent space or likelihood under a learned video prior, enabling imitation without explicit manually reward design.
 \end{itemize}
 
@@ -217,7 +217,7 @@ Compared to autoregressive decoding, masked transformers improve computational e
 \paragraph{Conditioning mechanisms}
 % The model can also be conditioned on additional inputs such as language instructions, goal images, or robot state information, allowing it to generate future video predictions that are aligned with a desired task or behavior.
 VPMs can be conditioned on Alternative Actions \cite{Bruce2024GenieGI}, language instructions \cite{Yang2024VideoAT, BarTal2024LumiereAS, Kondratyuk2023VideoPoetAL}, or goal images \cite{Hoppe2022DiffusionMF}, enabling structured control over generated futures \cite{McCarthy_2025, Yang2024VideoAT}.
-In robotics, such conditioning effectively turns video prediction models into controllable world models, bridging perception, planning, and imitation learning. With such a world model, a robot can perform counterfactual reasoning over actions, simulate future outcomes of different control strategies, and evaluate how well predicted trajectories align with expert demonstrations or task objectives \cite{Wang2026WorldMF}.
+In robotics, such conditioning effectively turns video prediction models into controllable world models, bridging perception, planning, and \ac{IL}. With such a world model, a robot can perform counterfactual reasoning over actions, simulate future outcomes of different control strategies, and evaluate how well predicted trajectories align with expert demonstrations or task objectives \cite{Wang2026WorldMF}.
 
 % Action conditioning enables counterfactual simulation of control strategies, language conditioning supports high-level task specification, and image conditioning enables goal-directed prediction. 
 
@@ -226,7 +226,7 @@ In robotics, such conditioning effectively turns video prediction models into co
 % Common conditioning modalities include:
 
 % \begin{itemize}
-%     \item \texttt{Action Conditioning:} enables simulation of different control strategies and integration with planning or reinforcement learning systems.
+%     \item \texttt{Action Conditioning:} enables simulation of different control strategies and integration with planning or \ac{RL} systems.
 %     \item \texttt{Language Conditioning:} allows flexible and interpretable task specification using natural language instructions.
 %     \item \texttt{Image / Goal Conditioning:} supports goal-directed prediction, including video inpainting and future-state conditioning.
 %     \item \texttt{Hybrid Conditioning:} combines multiple modalities such as language, actions, and goal images for structured control.
@@ -255,7 +255,7 @@ Their usefulness in robotics can be summarized in the following aspects:
 
     \item \textbf{Grounded reasoning and planning:}
     % what is with VL-Models?
-    Large language models (LLMs) have demonstrated strong capabilities as high-level planners in robotics \cite{Ahn2022DoAI}. However, their lack of direct grounding in physical perception limits their reliability in real-world environments.
+    \ac{LLMs} have demonstrated strong capabilities as high-level planners in robotics \cite{Ahn2022DoAI}. However, their lack of direct grounding in physical perception limits their reliability in real-world environments.
 
     Video-to-text models address this limitation by conditioning reasoning directly on rich visual-temporal input. This enables:
     \begin{itemize}
@@ -274,15 +274,15 @@ Their usefulness in robotics can be summarized in the following aspects:
     % This can facilitate the creation of large-scale annotated datasets for training and evaluating robotic learning algorithms, reducing the need for manual annotation and enabling more scalable data collection.
 
     \item \textbf{Rewards and Feedback:}
-    Video-to-text models can be used to provide reward signals or value estimates for reinforcement learning and imitation learning systems \cite{McCarthy_2025}. By framing reward learning as a visual-question answering problem, the model can evaluate a robot's behavior directly from video observations \cite{Du2023VisionLanguageMA} For example, the model may answer questions such as ``Did the robot successfully grasp the object?'' or ``Did the trajectory achieve the desired goal?''. This formulation is typically goal-oriented and explicitly tied to predefined task semantics. The predicted responses can then be transformed into reward signals that guide policy optimization.
+    Video-to-text models can be used to provide reward signals or value estimates for \ac{RL} and \ac{IL} systems \cite{McCarthy_2025}. By framing reward learning as a visual-question answering problem, the model can evaluate a robot's behavior directly from video observations \cite{Du2023VisionLanguageMA} For example, the model may answer questions such as ``Did the robot successfully grasp the object?'' or ``Did the trajectory achieve the desired goal?''. This formulation is typically goal-oriented and explicitly tied to predefined task semantics. The predicted responses can then be transformed into reward signals that guide policy optimization.
 
-    In addition, video-to-text models can be integrated into reinforcement learning from AI feedback (RLAIF) frameworks, where the model evaluates the quality of predicted or executed behaviors relative to task objectives or expert demonstrations \cite{Klissarov2023MotifIM}. The model compares different behaviors—either whole trajectories or segments of trajectories—and provides judgments such as which behavior is more successful, safe, or aligned with the desired objective. These ranking-based signals are then distilled into a reward model or value function. 
+    In addition, video-to-text models can be integrated into \ac{RL} from AI feedback (RLAIF) frameworks, where the model evaluates the quality of predicted or executed behaviors relative to task objectives or expert demonstrations \cite{Klissarov2023MotifIM}. The model compares different behaviors—either whole trajectories or segments of trajectories—and provides judgments such as which behavior is more successful, safe, or aligned with the desired objective. These ranking-based signals are then distilled into a reward model or value function. 
 
-    % In addition, video-to-text models can be integrated into reinforcement learning from AI feedback (RLAIF) frameworks. The model assesses predicted or executed behaviors with respect to task objectives or expert demonstrations and provides preference judgments over alternative behaviors, for example in terms of success, safety, or goal alignment. These model outputs can then be aggregated into a reward or value function that is optimized by the RL agent. %ranking-based signals
+    % In addition, video-to-text models can be integrated into \ac{RL} from AI feedback (RLAIF) frameworks. The model assesses predicted or executed behaviors with respect to task objectives or expert demonstrations and provides preference judgments over alternative behaviors, for example in terms of success, safety, or goal alignment. These model outputs can then be aggregated into a reward or value function that is optimized by the RL agent. %ranking-based signals
 
-    % In addition, video-to-text models can be integrated into reinforcement learning from AI feedback (RLAIF) frameworks. In such a setup, the model is queried about the quality of executed or predicted behaviors with respect to a given task objectives or expert demonstrations and returns scores or preferences that reflect how well a behavior matches the intended objective. These model outputs can then be aggregated into a reward or value function that is optimized by the RL agent.
+    % In addition, video-to-text models can be integrated into \ac{RL} from AI feedback (RLAIF) frameworks. In such a setup, the model is queried about the quality of executed or predicted behaviors with respect to a given task objectives or expert demonstrations and returns scores or preferences that reflect how well a behavior matches the intended objective. These model outputs can then be aggregated into a reward or value function that is optimized by the RL agent.
 
-    % This enables a form of imitation learning where the robot learns to optimize its behavior based on feedback derived from video-based reasoning, without requiring explicit reward engineering.    
+    % This enables a form of \ac{IL} where the robot learns to optimize its behavior based on feedback derived from video-based reasoning, without requiring explicit reward engineering.    
 \end{itemize}
 
 
@@ -290,16 +290,16 @@ Their usefulness in robotics can be summarized in the following aspects:
 \subsubsection{Methods}
 \texttt{Video-to-Text Methods}
 % Video-to-text models aim to generate natural language descriptions or summaries from video inputs. 
-Existing approaches can be broadly categorized into compositional pipelines, LLM-based architectures with adaptors, and natively multi-modal sequence models \cite{McCarthy_2025}.
+Existing approaches can be broadly categorized into compositional pipelines, \ac{LLM}-based architectures with adaptors, and natively multi-modal sequence models \cite{McCarthy_2025}.
 
 \begin{itemize}
 
     \item \textbf{Compositional Approaches:} Compositional approaches combine multiple stages of processing with different models and have been often used for video-to-text pipelines \cite{Zeng2022SocraticMC, Chen2023VideoCT, Shang2024TraveLERAM, li2023composing}. 
     % decompose the video-to-text problem into smaller sub-tasks. 
-    For example, an Image-Language Model is first used to process individual video frames by answering frame-level questions. The resulting intermediate descriptions are then aggregated using a Large Language Model (LLM), which generates a global video summary \cite{Chen2023VideoCT}. While effective in practice, these approaches do not involve end-to-end video training, and therefore may fail to learn rich temporal video representations \cite{McCarthy_2025}.
+    For example, an Image-Language Model is first used to process individual video frames by answering frame-level questions. The resulting intermediate descriptions are then aggregated using a \ac{LLM}, which generates a global video summary \cite{Chen2023VideoCT}. While effective in practice, these approaches do not involve end-to-end video training, and therefore may fail to learn rich temporal video representations \cite{McCarthy_2025}.
 
     \item \textbf{Leveraging Pretrained LLMs via Adaptors and Finetuning:}
-    A common strategy is to combine a pretrained video encoder with a pretrained LLM \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Papalampidi2023ASR, Zhang2023VideoLLaMAAI}. Since LLMs operate on token sequences, an adaptor module is introduced to project video features into the LLM input space. With the adaptor, the video encoder and LLM can be trained end-to-end on video-text data, allowing the model to learn to extract video representations that are aligned with language generation.
+    A common strategy is to combine a pretrained video encoder with a pretrained \ac{LLM} \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Papalampidi2023ASR, Zhang2023VideoLLaMAAI}. Since \ac{LLMs} operate on token sequences, an adaptor module is introduced to project video features into the \ac{LLM} input space. With the adaptor, the video encoder and \ac{LLM} can be trained end-to-end on video-text data, allowing the model to learn to extract video representations that are aligned with language generation.
 
     % Training typically follows a two-stage procedure: (i) large-scale next-token prediction pretraining on video-text data converted into token sequences, and (ii) supervised instruction tuning on smaller, high-quality datasets. Following trends in LLMs, future work could investigate a third RLHF finetuning stage [128] 
 
@@ -350,23 +350,23 @@ where tokens may correspond to different data modalities or a combination or con
 
 
 \paragraph{Relevance for Robotics.}
-% Multi-modal models can serve as general-purpose \textbf{representation backbones} for robotic learning, to initial policies or Knowledge Modalities in Reinforcement Learning, which can then be fine-tuned.
+% Multi-modal models can serve as general-purpose \textbf{representation backbones} for robotic learning, to initial policies or Knowledge Modalities in \ac{RL}, which can then be fine-tuned.
 % They are highly relevant for robot learning as general-purpose \textbf{representation backbones} or as initial policies that can be fine-tuned with RL.
 Multi-model models are in serveral ways relevant to robitcs \cite{McCarthy_2025, Eze2024LearningBW}:
 \begin{itemize}
-    \item \textbf{High-quality representations:} By training on robot data together with web-scale video, image, and text data, these models learn a shared latent space that bridges perception, language, and control. This enables positive transfer and can serve as general-purpose representation backbones for robotic learning \cite{Kawaharazuka2025VisionLanguageActionMF}.
+    \item \textbf{High-Quality Representations:} By training on robot data together with web-scale video, image, and text data, these models learn a shared latent space that bridges perception, language, and control. This enables positive transfer and can serve as general-purpose representation backbones for robotic learning \cite{Kawaharazuka2025VisionLanguageActionMF}.
     
-    \item \textbf{Knowledge Modality initialization:} The supervised multi-modal model can serve as a strong inital Knowledge Modality, such as Policies, Reward Models, Value Functions, or Dynamics Models. For Example, RL can fine-tune an inital Policy  using task-specific rewards. This two-stage approach (supervised pretraining + RL finetuning) has been shown to improve sample efficiency and final performance compared to RL from scratch \cite{Kawaharazuka2025VisionLanguageActionMF}.
-    \item \textbf{Annotating robot data:} Multi-modal models can also be used to generate annotations for robot datasets \cite{Sun2024EmmaXAE, Zawalski2024RoboticCV}.
+    \item \textbf{Knowledge Modality Initialization:} The supervised multi-modal model can serve as a strong inital \ac{KM}, such as Policies, Reward Models, Value Functions, or Dynamics Models. For Example, \ac{RL} can fine-tune an inital Policy  using task-specific rewards. This two-stage approach (supervised pretraining + \ac{RL} finetuning) has been shown to improve sample efficiency and final performance compared to \ac{RL} from scratch \cite{Kawaharazuka2025VisionLanguageActionMF}.
+    \item \textbf{Annotating Robot Data:} Multi-modal models can also be used to generate annotations for robot datasets \cite{Sun2024EmmaXAE, Zawalski2024RoboticCV}.
     % , like Video-to-Text Models, etc. such as action labels, sub-task segmentation, or natural language descriptions of demonstrations. This can facilitate the creation of large-scale annotated datasets for training and evaluating robotic learning algorithms, reducing the need for manual annotation and enabling more scalable data collection.
     
-%     \item \textbf{Representation transfer:} Even if the action head is discarded, the multi-modal model's encoder provides a task-agnostic, cross-modal representation that can be frozen or adapted for downstream RL. This is analogous to using video foundation models, but with the added benefit of being explicitly aligned with robot action data.
+%     \item \textbf{Representation transfer:} Even if the action head is discarded, the multi-modal model's encoder provides a task-agnostic, cross-modal representation that can be frozen or adapted for downstream \ac{RL}. This is analogous to using video foundation models, but with the added benefit of being explicitly aligned with robot action data.
 \end{itemize}
 
 \paragraph{Relation to Vision-Language-Action (VLA) Models.}
 Multi-modal models that explicitly include robot actions are often called Vision-Language-Action (VLA) models \cite{Din2025VisionLA, Kawaharazuka2025VisionLanguageActionMF}. 
 However, the distinction between both categories is not always strict. 
-VLA models typically focus on direct policy inference, where robot actions are predicted from visual observations and language instructions, while the multi-modal models discussed here are general-purpose token predictors that model arbitrary modality sequences.
+\ac{VLA} models typically focus on direct policy inference, where robot actions are predicted from visual observations and language instructions, while the multi-modal models discussed here are general-purpose token predictors that model arbitrary modality sequences.
 % In contrast, many multi-modal sequence models are designed as general-purpose token predictors that model arbitrary modality sequences. 
 In practice, the same underlying architecture can often be used both as a general multi-modal foundation model and as a robotic control policy.
 
@@ -386,7 +386,7 @@ Despite recent progress, video representation learning still faces several limit
     \item Additionally, processing \textbf{high-dimensional and long video sequences} remains computationally expensive \cite{McCarthy_2025}, motivating more efficient model architectures \cite{Yang2024VideoAT}. 
 \end{itemize}
 
-Further directions include reinforcement learning-based finetuning to reduce hallucinations \cite{Black2023TrainingDM}, the integration of 3D information \cite{Zhen20243DVLAA3}, like depth to improve physical realism, and improved single-step conditioning mechanisms for fine-grained video prediction tasks \cite{Bruce2024GenieGI}.
+Further directions include \ac{RL}-based finetuning to reduce hallucinations \cite{Black2023TrainingDM}, the integration of 3D information \cite{Zhen20243DVLAA3}, like depth to improve physical realism, and improved single-step conditioning mechanisms for fine-grained video prediction tasks \cite{Bruce2024GenieGI}.
 
 
 
@@ -412,14 +412,14 @@ The main challenges for transferring video-extracted knowledge to robotics are:
 % ToDo: real world datasets with no robot labels
 In many real-world video datasets, explicit robot action labels (e.g., joint velocities or torques) are not available.
 % Problem. 
-Raw video data provides only state transitions pairs $(o_t, o_{t+1})$, without access to the corresponding actions $a_t$. This makes it difficult to directly apply Behavior Cloning or reinforcement learning methods, which typically require triplets of the form $(o_t, a_t, o_{t+1})$. Recovering such low-level actions directly from video is a challenging problem due to ambiguity and the lack of physical interaction information \cite{McCarthy_2025}. 
+Raw video data provides only state transitions pairs $(o_t, o_{t+1})$, without access to the corresponding actions $a_t$. This makes it difficult to directly apply \ac{BC} or \ac{RL} methods, which typically require triplets of the form $(o_t, a_t, o_{t+1})$. Recovering such low-level actions directly from video is a challenging problem due to ambiguity and the lack of physical interaction information \cite{McCarthy_2025}. 
 % Solution.
 % To overcome this limitation, recent approaches introduce an Alternative Action Representation $\hat{a} \in \hat{A}$ within the alternative-action Space $\hat{A}$ so that transitions can be relabeled as $(o_t, \hat{a}_t, o_{t+1})$. 
 To overcome this limitation, recent approaches introduce an Alternative Action Representation $\hat{a} \in \hat{A}$, which can be used to relabel action-free videos and enable video-to-robot transfer despite missing action labels and distribution shift, see Figure \ref{fig:RecoveringActionFepresentationsFromVideo_1}.
 
 Formally, this induces a relabeling of video transitions as:
 \begin{equation}
-(o_t, o_{t+1}) \;\rightarrow\; (o_t, \hat{a}_t, o_{t+1}), \quad \hat{a}_t \in \hat{A}.
+    (o_t, o_{t+1}) \;\rightarrow\; (o_t, \hat{a}_t, o_{t+1}), \quad \hat{a}_t \in \hat{A}.
 \end{equation}
 
 % To overcome this limitation, recent approaches introduce an Alternative Action Representation Space $\hat{A}$, where an alternative action $\hat{a} \in \hat{A}$ can be derived from video data, allowing transitions to be relabeled as $(o_t, \hat{a}_t, o_{t+1})$. 
@@ -433,7 +433,7 @@ Formally, this induces a relabeling of video transitions as:
 \paragraph{What is an Alternative Action Representation?}
 Formally, an alternative action representation is defined as
 \begin{equation}
-\hat{a} \in \hat{A},
+    \hat{a} \in \hat{A},
 \end{equation}
 where
 $\hat{A}$ denotes an Alternative (latent or abstract) Action Representation Space. 
@@ -452,15 +452,18 @@ The key idea is that $\hat{a}$ serves as a proxy for the missing action labels, 
 
 
 
-\paragraph{Why is $\hat{A}$ useful?}
+\paragraph{Why is $\hat{A}$ Useful?}
 
 Working in the alternative action space $\hat{A}$ offers several advantages. 
 \begin{itemize}
-    \item \texttt{Bridging the domain gap:} $\hat{A}$ bridges the gap between human video data and robot control by focusing on action semantics rather than platform-specific motor commands \cite{McCarthy_2025}. 
-    \item \texttt{Learning from weak labels:} $\hat{A}$ enables learning from raw or weakly labeled videos, since inferring high-level actions from video is easier than recovering low-level motor commands \cite{McCarthy_2025}.
-    \item \texttt{Transferable Representations across embodiments:} $\hat{A}$ supports transfer across embodiments, because the same semantic action (e.g., ``open drawer'') can be instantiated by different robots with different kinematics \cite{McCarthy_2025}.
+    \item \texttt{Bridging the Domain Gap:} $\hat{A}$ bridges the gap between human video data and robot control by focusing on action semantics rather than platform-specific motor commands \cite{McCarthy_2025}. 
+    
+    \item \texttt{Learning from Weak Labels:} $\hat{A}$ enables learning from raw or weakly labeled videos, since inferring high-level actions from video is easier than recovering low-level motor commands \cite{McCarthy_2025}.
+    
+    \item \texttt{Transferable Representations Across Embodiments:} $\hat{A}$ supports transfer across embodiments, because the same semantic action (e.g., ``open drawer'') can be instantiated by different robots with different kinematics \cite{McCarthy_2025}.
     % \item \texttt{Structured learning:} $\hat{A}$ provides a structured representation that can be used for learning policies, dynamics models, and value functions in a more data-efficient and generalizable way if $\hat{A}$ is well-structured, minimal, disentangled, and semantically consistent across embodiments.
-    \item \texttt{Structured learning:} A well-structured representation $\hat{A}$ that is minimal, disentangled, and semantically consistent across the state space encodes meaningful action information. This makes it easier to learn models that are predictive of both future observations (i.e., learning $p_{\text{alt}}(o_{t+1} \mid \hat{a}_t, o_t)$ instead of $p(o_{t+1} \mid o_t)$) and robot actions (i.e., learning $\pi(a_t \mid \hat{a}_t, o_t)$ instead of $\pi(a_t \mid o_t)$), leading to more data-efficient and generalizable policies, dynamics models, and value functions \cite{McCarthy_2025, Rybkin2018LearningWY, Bruce2024GenieGI}.
+
+    \item \texttt{Structured Learning:} A well-structured representation $\hat{A}$ that is minimal, disentangled, and semantically consistent across the state space encodes meaningful action information. This makes it easier to learn models that are predictive of both future observations (i.e., learning $p_{\text{alt}}(o_{t+1} \mid \hat{a}_t, o_t)$ instead of $p(o_{t+1} \mid o_t)$) and robot actions (i.e., learning $\pi(a_t \mid \hat{a}_t, o_t)$ instead of $\pi(a_t \mid o_t)$), leading to more data-efficient and generalizable policies, dynamics models, and value functions \cite{McCarthy_2025, Rybkin2018LearningWY, Bruce2024GenieGI}.
     The choice of abstraction level for $\hat{A}$ also plays a crucial role: 
     \begin{itemize}
         \item \textbf{Higher-level or longer-horizon representations} $\hat{A}$ (such as language-based actions) can benefit performance in complex, long-horizon tasks by providing broader context and intent. This is because they capture more abstract and semantically meaningful information that can guide decision-making over longer time scales, which is particularly beneficial for tasks that require planning and reasoning about future consequences \cite{McCarthy_2025}.
@@ -638,11 +641,11 @@ Language-based actions provide semantic supervision and enable integration with 
 \begin{itemize}
     % ToDo: Hier evtl. nochmal die Quellen nachprüfen
     \item Language-captioned video datasets \cite{Grauman2021Ego4DAT}
-    \item Process and enhance standard captions to generate more detailed action descriptions, for example by using LLMs or VLMs \cite{Mu2023EmbodiedGPTVP}.
+    \item Process and enhance standard captions to generate more detailed action descriptions, for example by using \ac{LLMs} or \ac{VLMs} \cite{Mu2023EmbodiedGPTVP}.
     \item Automated or semi-automated video captioning \cite{Mu2023EmbodiedGPTVP}
     % ToDo: Quellen für diese beide Stichpunkte
     \item Video-to-Text Models \cite{McCarthy_2025}
-    \item Vision Language Models (VLMs) and variants of them \cite{McCarthy_2025}
+    \item \ac{VLMs} and variants of them \cite{McCarthy_2025}
 \end{itemize}
 
 % ToDo: Quellen überprüfen und evtl. bessere suchen
