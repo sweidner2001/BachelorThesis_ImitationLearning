@@ -18,16 +18,16 @@ We first review different approaches for extracting foundational knowledge from 
 
 % The Answer to the first question of how to extract relevant knowledge from internet video is may be using techniques and datasets inspired by video foundation Models (FMs).
 
-Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video Foundation Models are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions, and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications \cite{Madan2024FoundationMF}.
+Recent progress in \textbf{Video \ac{FMs}} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video \ac{FMs} are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications \cite{Madan2024FoundationMF}.
 
 \begin{samepage}
-\cite{McCarthy_2025} says, Video FMs can be highly applicable for the following \ac{LfV} use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
+McCarthy et al. \cite{McCarthy_2025} says, Video \ac{FMs} can be highly applicable for the following \ac{LfV} use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
 \begin{itemize}
-    \item \texttt{Using pretrained FMs:} 
-    One important application of Video FMs is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video FM \cite{Yang2023LearningIR, rt22023arxiv, Ahn2022DoAI, Kim2024OpenVLAAO}. 
+    \item \texttt{Finetune Pretrained Video \ac{FMs}:} 
+    One important application of Video \ac{FMs} is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video \ac{FMs} \cite{Yang2023LearningIR, rt22023arxiv, Ahn2022DoAI, Kim2024OpenVLAAO}. 
     
-    \item \texttt{Using techniques and datasets inspired by Video FMs:}
-    In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot FM can be directly trained by combining robot data with large-scale video inspired by video FMs techniques \cite{Team2024OctoAO, rt12022arxiv}.
+    \item \texttt{Leveraging Techniques and Datasets Inspired by Video \ac{FMs}:}
+    In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot \ac{FM} can be directly trained by combining robot data with large-scale video inspired by video \ac{FMs} techniques \cite{Team2024OctoAO, rt12022arxiv}.
 \end{itemize}
 \end{samepage}
 
@@ -44,8 +44,13 @@ Recent progress in \textbf{Video Foundation Models (Video FMs)} provides a promi
 
 \subsection{Video Encoders}
 \label{sec:VideoEncoder}
-Foundational video encoders $p(z \mid \tau)$ are capable of extracting rich and robust representations from raw video observations. Given a video clip $\tau$, the encoder maps the visual input into a latent representation $z$, which captures semantic and temporal information relevant for downstream robotic tasks.
+Foundational video encoders are capable of extracting rich and robust representations from raw video observations:
+\begin{equation}
+    p(z \mid \tau)
+\end{equation}
+Given a video clip $\tau$, the encoder maps the visual input into a latent representation $z$, which captures semantic and temporal information relevant for downstream robotic tasks.
 
+\paragraph{Relevance for Robotics.}
 In robotic \ac{IL}, pretrained video encoders are commonly used in two ways \cite{McCarthy_2025}:
 \begin{itemize}
     \item \texttt{Representation Learning:}
@@ -58,10 +63,8 @@ In robotic \ac{IL}, pretrained video encoders are commonly used in two ways \cit
 \end{itemize}
 
 \subsubsection{Methods}
-\paragraph{General Overview of Video Representation Learning.}
+\paragraph{Video Representation Learning}
 Video representation learning aims to learn meaningful latent representations from raw video data. These representations capture semantic, spatial and temporal information that can be used for various downstream tasks \cite{McCarthy_2025}.
-
-\texttt{How to learn a video encoder?}
 
 Let
 \begin{itemize}
@@ -69,14 +72,13 @@ Let
     \item $\bar X$ denote a video clip paired with some corresponding labels (bounding boxes and object masks \cite{Ding2023MOSEAN}) and data modalities (language annotations \cite{Grauman2021Ego4DAT}, meta-data \cite{ChantrySchiappa2022SelfSupervisedLF})
     \item $Y$ denote a learning objective, derived from $\bar X$
 \end{itemize}
-\textbf{Learning goal during training:} predict $Y$ from $X$.
+\texttt{Learning Goal During Training:} predict $Y$ from $X$.
 Or in other words, learn a video encoder $p(z|X)$ that maps the video clip $X$ to a latent representation $z$ that can be used to predict $Y$: $X \xrightarrow{p(z|X)} z \rightarrow Y$ \cite{McCarthy_2025}.
 % The objective of the video encoder $p(z|X)$ is then to learn representations $z$ that enable the prediction or alignment of $Y$ from the input video $X$.
 % During training, the objective is to learn representations $z$ that enable the prediction or alignment of $Y$ from the input video $X$.
-
 Basic techniques for learning $Y$ include:
 \begin{itemize}
-    \item \textbf{Prediction-based Objectives}: The target $Y$, which is derived from the annotated video clip $\bar X$, may correspond to future video frames, masked regions, motion information, or other supervision signals. For example, in video prediction tasks, the model predicts the next frame $X_{t+1}$ from the raw previous observations $X_{\leq t}$ \cite{Gao2022SimVPSY, Jang2024VisualRL}. 
+    \item \textbf{Prediction-Based Objectives}: The target $Y$, which is derived from the annotated video clip $\bar X$, may correspond to future video frames, masked regions, motion information, or other supervision signals. For example, in video prediction tasks, the model predicts the next frame $x_{t+1}$ from the raw previous observations $x_{\leq t}$ \cite{Gao2022SimVPSY, Jang2024VisualRL}. 
     % The Encoder is optimized using a prediction loss that encourages the learned representation to capture temporal structure and motion dynamics in video sequences.
     % The encoder is optimized using a prediction loss of the form
     % \begin{equation}
@@ -85,14 +87,14 @@ Basic techniques for learning $Y$ include:
     % where $\hat{Y}$ denotes the predicted target. 
     % Such objectives encourage the learned representation to capture temporal structure and motion dynamics in video sequences.
 
-    \item \textbf{Joint-Embedding Objectives}: Joint-embedding approaches \cite{Oord2018RepresentationLW, Xian2023TowardsGR, bardes2023v} first map both the video input $X$ and the target $Y$ into a shared latent embedding space:
+    \item \textbf{Joint-Embedding Objectives}: Joint-embedding approaches \cite{Oord2018RepresentationLW, Xian2023TowardsGR, bardes2023v} first map both the video input $X$ and the known target $Y$ into a shared latent embedding space:
     \begin{equation}
     z_X = f(X),
     \qquad
-    z_Y = g(Y).
+    z_Y = g(Y)
     \end{equation}
 
-    A loss function is then applied to align semantically similar embeddings. 
+    A loss function is then applied to align semantically similar embeddings: 
     \begin{equation}
     \mathcal{L}_{\text{pred}} = L_{\text{align}}(z_X, z_Y)
     \end{equation}
@@ -103,8 +105,7 @@ Basic techniques for learning $Y$ include:
 
 \paragraph{State-of-the-Art Approaches}
 Recent work has proposed scalable methods for learning rich spatio-temporal video representations. 
-
-\texttt{Video-text objectives} leverage language annotations to learn semantic representations from video data. Common approaches include:
+\textit{Video-Text Objectives:} Video-text objectives leverage language annotations to learn semantic representations from video data. Common approaches include:
 \begin{itemize}
     \item \textbf{Video-Text Contrastive Learning:} This approaches learn to align video representations with corresponding text descriptions. By maximizing the similarity between video and text embeddings, the model captures semantic relationships between visual content and language \cite{Xu2021VideoCLIPCP, Zhao2024VideoPrismAF, Wang2023InternVidAL, Papalampidi2023ASR, Li2023UnmaskedTT}.
     
@@ -117,20 +118,20 @@ Recent work has proposed scalable methods for learning rich spatio-temporal vide
 \end{itemize}
 
 
-\texttt{Auto-encoding approaches} have also become highly effective for self-supervised video representation learning. Auto-Encoding Approaches learn video representations by reconstructing input data from compressed latent representations. Common approaches include:
+\textit{Auto-Encoding Approaches.} Auto-encoding approaches have also become highly effective for self-supervised video representation learning. Auto-encoding approaches learn video representations by reconstructing input data from compressed latent representations. Common approaches include:
 \begin{itemize}
-    \item \textbf{Masked Auto-Encoding (MAE):} In this approach, parts of the video input are randomly masked, and the model is trained to reconstruct the missing regions from the visible observations. This encourages the encoder to learn meaningful spatial and temporal representations from incomplete video information \cite{Wang2023VideoMAEVS, Tong2022VideoMAEMA, Girdhar2022OmniMAESM}.
+    \item \textbf{\ac{MAE}:} In this approach, parts of the video input are randomly masked, and the model is trained to reconstruct the missing regions from the visible observations. This encourages the encoder to learn meaningful spatial and temporal representations from incomplete video information \cite{Wang2023VideoMAEVS, Tong2022VideoMAEMA, Girdhar2022OmniMAESM}.
     % This method learns to reconstruct masked regions of video input, encouraging the model to capture meaningful spatio-temporal structure and context from incomplete observations.
     
-    \item \textbf{Vector-Quantized Auto-Encoding (VQ-AE):} 
+    \item \textbf{\ac{VQ-AE}:} 
     In this approach, the encoder first extracts continuous latent features from the video input. 
     These features are then quantized by mapping them to the nearest vector in a finite set of learned codebook embeddings/vectors. 
     The decoder reconstructs the original video from these vector, encouraging the model to learn compact and semantically meaningful representations, due to the limited set of learned embeddings. 
-    The underlying principle is similar to language modelling, where a finite vocabulary of discrete tokens is used to represent words, syllables or letters. Analogously, VQ-AE learns a finite set of discrete visual tokens that capture recurring patterns in video data. These tokens may represent object appearances, motion patterns, textures, actions, or scene structures \cite{Bruce2024GenieGI, Villegas2022PhenakiVL, Yu2022MAGVITMG, Yan2021VideoGPTVG, Seo2022HARPAL}. 
+    The underlying principle is similar to language modelling, where a finite vocabulary of discrete tokens is used to represent words, syllables or letters. Analogously, \ac{VQ-AE} learns a finite set of discrete visual tokens that capture recurring patterns in video data. These tokens may represent object appearances, motion patterns, textures, actions, or scene structures \cite{Bruce2024GenieGI, Villegas2022PhenakiVL, Yu2022MAGVITMG, Yan2021VideoGPTVG, Seo2022HARPAL}. 
     % By reusing a limited set of learned embeddings, the model can construct compact and semantically meaningful representations of complex visual observations.
 \end{itemize}
 
-\texttt{Student-Teacher Distillation Approaches} learn representations by transferring knowledge from a pretrained teacher network to a smaller student model \cite{Zhao2024VideoPrismAF, Wang2022MaskedVD, Li2023UnmaskedTT}. The student is trained to match the representations or predictions generated by the teacher model. This encourages the student network to learn robust and generalized video representations while often requiring fewer computational resources.
+\textit{Student-Teacher Distillation Approaches.} Student-teacher distillation approaches learn representations by transferring knowledge from a pretrained teacher network to a smaller student model \cite{Zhao2024VideoPrismAF, Wang2022MaskedVD, Li2023UnmaskedTT}. The student is trained to match the representations or predictions generated by the teacher model. This encourages the student network to learn robust and generalized video representations while often requiring fewer computational resources.
 
 % \item \textbf{Student-Teacher Distillation:} These methods train a student network to match the representations of a pretrained teacher model, transferring knowledge and improving generalization.
 
@@ -144,15 +145,15 @@ Recent work has proposed scalable methods for learning rich spatio-temporal vide
 
 \subsection{Video Prediction Models}
 \label{sec:VideoPredictionModels}
-Video prediction models (VPMs) aim to model the conditional distribution over future visual observations given past context \cite{McCarthy_2025}. The standard formulation is next-frame prediction
+Video prediction models aim to model the conditional distribution over future visual observations given past context \cite{McCarthy_2025}. The standard formulation is next-frame prediction:
 \begin{equation}
-p(o_{t+1} \mid o_{t-k:t}),
+p(o_{t+1} \mid o_{t-k:t})
 \end{equation}
-while more generally VPMs can be expressed as conditional video generation models
+While more generally Video prediction models can be expressed as conditional video generation models:
 \begin{equation}
-p(\tau \mid c),
+    p(\tau \mid c)
 \end{equation}
-where $\tau$ is a video sequence and $c$ denotes conditioning information such as past observations, actions, robot actions, language instructions, or goal images \cite{Yang2024VideoAT}.
+Where $\tau$ is a video sequence and $c$ denotes conditioning information such as past observations, actions, robot actions, language instructions, or goal images \cite{Yang2024VideoAT}.
 Trained on large-scale video data, these models implicitly learn priors over physical dynamics, object interactions, and human behavior, making them relevant for robotic learning and \ac{IL} \cite{McCarthy_2025}.
 
 During training, the model learns to predict future visual outcomes from past context, either in pixel space or in a learned latent space \cite{McCarthy_2025}.
@@ -161,7 +162,7 @@ During training, the model learns to predict future visual outcomes from past co
 \paragraph{Relevance for Robotics.}
 Video prediction models are useful in robotics in several complementary ways:
 \begin{itemize}
-    \item \texttt{Dynamics Models:}
+    \item \textbf{Dynamics Models:}
     Video prediction models can be extended into action-conditioned dynamics models of the form
     \begin{equation}
     p(o_{t+1} \mid o_{t-k:t}, a_t),
@@ -169,14 +170,14 @@ Video prediction models are useful in robotics in several complementary ways:
     to serve as simulator \cite{Yang2023LearningIR} or planner \cite{Du2023VideoLP}. 
     In this setting, the model predicts future observations conditioned on actions, which allows model-predictive control by evaluating candidate action sequences in visual or latent space.
 
-    \item \texttt{Policy Learning:}
-    VPMs implicitly learn the distribution of behaviors present in the training data by modeling how visual scenes evolve over time \cite{Escontrela2023VideoPM}. This allows them to generate multiple plausible future trajectories given a current observation. In a robotics context, these generated trajectories can be interpreted as candidate action outcomes.
+    \item \textbf{Policy Learning:}
+    Video prediction models implicitly learn the distribution of behaviors present in the training data by modeling how visual scenes evolve over time \cite{Escontrela2023VideoPM}. This allows them to generate multiple plausible future trajectories given a current observation. In a robotics context, these generated trajectories can be interpreted as candidate action outcomes.
 
     This enables an ``observation-as-action'' perspective, where control is not performed by directly predicting actions, but by evaluating or selecting among predicted future video rollouts \cite{Du2023LearningUP}. The resulting policy can be viewed as choosing the trajectory that best aligns with a desired objective (e.g., reaching a goal state or matching expert demonstrations), thereby directly connecting video prediction with \ac{IL} and planning.
 
-    \item \texttt{Representation Learning:} Learned latent spaces capture semantically meaningful information about objects, motion, and interactions, which can be transferred to downstream \ac{IL} and \ac{RL} tasks \cite{Wu2023UnleashingLV, McCarthy_2025}.
+    \item \textbf{Representation Learning:} Learned latent spaces capture semantically meaningful information about objects, motion, and interactions, which can be transferred to downstream \ac{IL} and \ac{RL} tasks \cite{Wu2023UnleashingLV, McCarthy_2025}.
 
-    \item \texttt{Reward Learning:} 
+    \item \textbf{Reward Learning:} 
     Video prediction models can also be used to define reward functions by measuring how well a robot's predicted future aligns with desired behaviors \cite{Escontrela2023VideoPM}. For example, a reward signal can be derived from the similarity between generated trajectories and expert demonstrations in latent space, or from the likelihood of a trajectory under a learned video prior. This enables \ac{IL} without manually engineered reward functions.
     % Video prediction models can define reward signals by measuring similarity between predicted rollouts and expert demonstrations in latent space or likelihood under a learned video prior, enabling imitation without explicit manually reward design.
 \end{itemize}
@@ -195,7 +196,7 @@ To improve computational efficiency, many approaches perform diffusion in a lear
 % ToDo: evtl. könnte man noch folgenden Satz übernehmen: The diffusion video prediction pipeline can often involve several intermediate steps, including: key-frame generation, interpolation between key-frames, and spatial super-resolution upsampling [101, 81, 332]. However, Bar-Tal et al. [20] generate the entire temporal duration in a single forward pass, obtaining improved global temporal consistency.
 Below are the key differences between pixel-space and latent-space diffusion models:
 \begin{itemize}
-    \item \textbf{Pixel-Space Diffusion:} In pixel-space diffusion, noise is added directly to raw video frames during training. The model learns to denoise these noisy frames to reconstruct the original video conditioned on context information such as previous frames, actions, or language instructions. While this approach can capture fine-grained visual details, it is computationally expensive and may struggle with long-horizon consistency due to the high-dimensionality of pixel space.
+    \item \textbf{Pixel-Space Diffusion:} In pixel-space diffusion, noise is added directly to raw video frames during training \cite{Ho2020DenoisingDP}. The model learns to denoise these noisy frames to reconstruct the original video conditioned on context information such as previous frames, actions, or language instructions. While this approach can capture fine-grained visual details, it is computationally expensive and may struggle with long-horizon consistency due to the high-dimensionality of pixel space.
 
     \item \textbf{Latent-Space Diffusion:} In latent diffusion models, the video frames are first encoded into a lower-dimensional latent representation using an encoder before noise is added. The diffusion process is then performed in this compressed latent space instead of directly on pixels. The denoised latent representation is subsequently decoded back into video frames using a decoder. Operating in latent space reduces computational cost and removes low-level pixel redundancy while preserving the high-level semantic and temporal structure of the video, leading to improved efficiency and better long-horizon consistency \cite{Yan2021VideoGPTVG}.
 \end{itemize}
@@ -203,20 +204,20 @@ Below are the key differences between pixel-space and latent-space diffusion mod
 % here are some more infos available in the thesis
 
 \paragraph{Autoregressive and Masked Transformer Models.}
-Rather than generating future frames through iterative denoising like diffusion models, transformer-based approaches \cite{Yan2021VideoGPTVG, Yu2023LanguageMB, Ge2022LongVG, Kondratyuk2023VideoPoetAL} model videos as a sequence of discrete tokens, typically obtained from a vector-quantized autoencoder (VQ-AE). The encoder maps the input video into a lower-dimensional continuous latent representation. These latent features are then quantized by replacing each feature vector with the nearest embedding vector from a learned codebook. As a result, the video can be represented as a sequence of discrete visual tokens, analogous to words in natural language processing.
+Rather than generating future frames through iterative denoising like diffusion models, transformer-based approaches model videos as a sequence of discrete tokens, typically obtained from a vector-quantized autoencoder \ac{VQ-AE} \cite{Yan2021VideoGPTVG, Yu2023LanguageMB, Ge2022LongVG, Kondratyuk2023VideoPoetAL}. The encoder maps the input video into a lower-dimensional continuous latent representation. These latent features are then quantized by replacing each feature vector with the nearest embedding vector from a learned codebook. As a result, the video can be represented as a sequence of discrete visual tokens, analogous to words in natural language processing.
 
-Autoregressive transformers generate future tokens sequentially by predicting the next token conditioned on previously generated tokens \cite{Yan2021VideoGPTVG, Hu2023GAIA1AG, Bruce2024GenieGI}. While effective at modeling temporal dependencies, small prediction errors can accumulate over long horizons, leading to temporal drift and reduced generation quality. 
+\texttt{Autoregressive transformers} generate future tokens sequentially by predicting the next token conditioned on previously generated tokens \cite{Yan2021VideoGPTVG, Hu2023GAIA1AG, Bruce2024GenieGI}. While effective at modeling temporal dependencies, small prediction errors can accumulate over long horizons, leading to temporal drift and reduced generation quality. 
 % This allows the model to capture temporal dependencies in video sequences. However, because each prediction depends on previous generated outputs, small prediction errors can accumulate over long horizons, leading to temporal drift and degraded generation quality.
 
-Masked transformer models \cite{Yu2022MAGVITMG, Yu2023LanguageTR, Gupta2022MaskViTMV} address this limitation by masking subsets of video tokens and predicting multiple missing tokens in parallel instead of generating them strictly one-by-one. The model iteratively refines the masked predictions until a complete video sequence is reconstructed. This can be done for example via MaskGit decoding \cite{Chang2022MaskGITMG}.
+\texttt{Masked transformer models} \cite{Yu2022MAGVITMG, Yu2023LanguageTR, Gupta2022MaskViTMV} address this limitation by masking subsets of video tokens and predicting multiple missing tokens in parallel instead of generating them strictly one-by-one. The model iteratively refines the masked predictions until a complete video sequence is reconstructed. This can be done for example via MaskGit decoding \cite{Chang2022MaskGITMG}.
 % ToDo: This is usually achieved via the use of MaskGIT decoding [44]. 
-During inference, the model can be conditioned on a short history of recent camera observations from the robot environment, which are encoded into visible tokens, while the tokens corresponding to future time steps are initially masked. The model then predicts the missing future tokens for the entire horizon in parallel and iteratively refines these predictions until a coherent future video sequence is obtained.
+During inference, the model can be conditioned on a short history of recent camera observations from the robot environment, which are encoded into tokens, while the tokens corresponding to future time steps are initially masked. The model then predicts the missing future tokens for the entire horizon in parallel and iteratively refines these predictions until a coherent future video sequence is obtained.
 Compared to autoregressive decoding, masked transformers improve computational efficiency and reduce long-horizon error accumulation, called ``drifting'' effect \cite{Yang2024VideoAT}.
 
 
 \paragraph{Conditioning mechanisms}
 % The model can also be conditioned on additional inputs such as language instructions, goal images, or robot state information, allowing it to generate future video predictions that are aligned with a desired task or behavior.
-VPMs can be conditioned on Alternative Actions \cite{Bruce2024GenieGI}, language instructions \cite{Yang2024VideoAT, BarTal2024LumiereAS, Kondratyuk2023VideoPoetAL}, or goal images \cite{Hoppe2022DiffusionMF}, enabling structured control over generated futures \cite{McCarthy_2025, Yang2024VideoAT}.
+Video prediction models can be conditioned on Alternative Actions \cite{Bruce2024GenieGI}, language instructions \cite{Yang2024VideoAT, BarTal2024LumiereAS, Kondratyuk2023VideoPoetAL}, or goal images \cite{Hoppe2022DiffusionMF}, enabling structured control over generated futures \cite{McCarthy_2025, Yang2024VideoAT}.
 In robotics, such conditioning effectively turns video prediction models into controllable world models, bridging perception, planning, and \ac{IL}. With such a world model, a robot can perform counterfactual reasoning over actions, simulate future outcomes of different control strategies, and evaluate how well predicted trajectories align with expert demonstrations or task objectives \cite{Wang2026WorldMF}.
 
 % Action conditioning enables counterfactual simulation of control strategies, language conditioning supports high-level task specification, and image conditioning enables goal-directed prediction. 
@@ -250,21 +251,21 @@ Video-to-text models can be used to generate natural language descriptions of vi
 Their usefulness in robotics can be summarized in the following aspects:
 
 \begin{itemize}
-    \item \textbf{High-quality representations:}
+    \item \textbf{High-Quality Representations:}
     By learning to generate natural language descriptions of video content, video-to-text models learn to extract high-level semantic representations that capture object properties, actions, interactions, and scene context. These representations can be transferred to downstream robotic tasks, improving generalization and task understanding compared to video-only or image-to-text models. The learned representations can capture both high-level semantic information and temporal dynamics, which are critical for understanding complex robotic tasks and environments \cite{McCarthy_2025}.
 
-    \item \textbf{Grounded reasoning and planning:}
+    \item \textbf{Grounded Reasoning and Planning:}
     % what is with VL-Models?
     \ac{LLMs} have demonstrated strong capabilities as high-level planners in robotics \cite{Ahn2022DoAI}. However, their lack of direct grounding in physical perception limits their reliability in real-world environments.
 
-    Video-to-text models address this limitation by conditioning reasoning directly on rich visual-temporal input. This enables:
+    Video-to-text models address this limitation by conditioning reasoning directly on rich visual-temporal input \cite{Wake2023GPT4VisionFR, Huang2026RoboStreamWS, Nguyen2019V2CNetAD,McCarthy_2025}. This enables:
     \begin{itemize}
-        \item improved grounding of symbolic reasoning in observed physical states %ToDo Source
-        \item better modeling of object interactions and environment dynamics %ToDo Source
-        \item more consistent closed-loop reasoning, where predictions are continuously informed by perceptual feedback \cite{McCarthy_2025}.
+        \item Improved grounding of symbolic reasoning in observed physical states
+        \item Better modeling of object interactions and environment dynamics
+        \item More consistent closed-loop reasoning, where predictions are continuously informed by perceptual feedback
     \end{itemize}
 
-    \item \textbf{Annotating robot data:}
+    \item \textbf{Annotating Robot Data:}
     Video-to-text models can be used to generate high-quality language annotations for robot datasets \cite{Blank2024ScalingRP}. By automatically describing video demonstrations of robotic tasks, these models can create rich textual annotations that capture task-relevant information such as object properties, actions, goals or step-by-step task descriptions \cite{Team2024OctoAO}. 
     % Video-to-text models can be used as automated annotation systems to generate:
     % - step-by-step natural language descriptions of demonstrations
@@ -288,7 +289,6 @@ Their usefulness in robotics can be summarized in the following aspects:
 
 
 \subsubsection{Methods}
-\texttt{Video-to-Text Methods}
 % Video-to-text models aim to generate natural language descriptions or summaries from video inputs. 
 Existing approaches can be broadly categorized into compositional pipelines, \ac{LLM}-based architectures with adaptors, and natively multi-modal sequence models \cite{McCarthy_2025}.
 
@@ -296,7 +296,7 @@ Existing approaches can be broadly categorized into compositional pipelines, \ac
 
     \item \textbf{Compositional Approaches:} Compositional approaches combine multiple stages of processing with different models and have been often used for video-to-text pipelines \cite{Zeng2022SocraticMC, Chen2023VideoCT, Shang2024TraveLERAM, li2023composing}. 
     % decompose the video-to-text problem into smaller sub-tasks. 
-    For example, an Image-Language Model is first used to process individual video frames by answering frame-level questions. The resulting intermediate descriptions are then aggregated using a \ac{LLM}, which generates a global video summary \cite{Chen2023VideoCT}. While effective in practice, these approaches do not involve end-to-end video training, and therefore may fail to learn rich temporal video representations \cite{McCarthy_2025}.
+    For example, an image-language model is first used to process individual video frames by answering frame-level questions. The resulting intermediate descriptions are then aggregated using a \ac{LLM}, which generates a global video summary \cite{Chen2023VideoCT}. While effective in practice, these approaches do not involve end-to-end video training, and therefore may fail to learn rich temporal video representations \cite{McCarthy_2025}.
 
     \item \textbf{Leveraging Pretrained LLMs via Adaptors and Finetuning:}
     A common strategy is to combine a pretrained video encoder with a pretrained \ac{LLM} \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Papalampidi2023ASR, Zhang2023VideoLLaMAAI}. Since \ac{LLMs} operate on token sequences, an adaptor module is introduced to project video features into the \ac{LLM} input space. With the adaptor, the video encoder and \ac{LLM} can be trained end-to-end on video-text data, allowing the model to learn to extract video representations that are aligned with language generation.
@@ -304,11 +304,10 @@ Existing approaches can be broadly categorized into compositional pipelines, \ac
     % Training typically follows a two-stage procedure: (i) large-scale next-token prediction pretraining on video-text data converted into token sequences, and (ii) supervised instruction tuning on smaller, high-quality datasets. Following trends in LLMs, future work could investigate a third RLHF finetuning stage [128] 
 
     \item \textbf{Natively Multi-Modal Models:}
-    More recent approaches integrate video and text into a unified autoregressive framework, instead of combining separate models \cite{team2023gemini, Liu2024WorldMO, Jin2023UnifiedLP}. 
-    
+    More recent approaches integrate video and text into a unified autoregressive framework, instead of combining separate models \cite{team2023gemini, Liu2024WorldMO, Jin2023UnifiedLP}.     
     In natively multi-modal any-to-any sequence models, video-to-text generation is formulated as an interleaved sequence modeling problem over visual and textual tokens. Video inputs are first tokenized into discrete visual tokens, which are then combined with text tokens into a unified sequence.
 
-    The model is typically trained autoregressively using next-token prediction over this joint sequence, i.e.,
+    The model can be trained for example autoregressively using next-token prediction over this joint sequence:
     \begin{equation}
     p(x_t \mid x_{<t}),
     \end{equation}
@@ -395,7 +394,7 @@ Further directions include \ac{RL}-based finetuning to reduce hallucinations \ci
 \section{Video-to-Robot Transfer: Addressing Missing Action Labels and Distribution Shift} 
 \label{sec:AddressingMissingActionLabelsAndDistributionShift}
 
-\begin{figure}
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter5/media/RecoveringActionFepresentationsFromVideo_1}
 	\caption[To label action-free videos, an Alternative action $\hat{a}$ can be derived from video data instead of the missing Action $a$]{To label action-free videos, an Alternative Action $\hat{a}$ can be derived from video data instead of the missing action $a$ \cite{McCarthy_2025}.}
@@ -404,18 +403,18 @@ Further directions include \ac{RL}-based finetuning to reduce hallucinations \ci
 
 
 The main challenges for transferring video-extracted knowledge to robotics are: 
-\begin{itemize}
-    \item (i) \textbf{Missing action labels}: Most video datasets do not contain explicit robot action annotations, which are required for learning robot control policies \cite{McCarthy_2025}.
-    \item (ii) \textbf{Distribution shift}: There exists a significant domain gap between human or internet videos and robot execution. This includes differences in visual appearance, embodiment, dynamics, and behavior patterns, which can severely degrade the generalization of models trained on video data when applied to robotic tasks \cite{McCarthy_2025}.
-\end{itemize}
+\begin{enumerate}
+    \item \textbf{Missing action labels}: Most video datasets do not contain explicit robot action annotations, which are required for learning robot control policies \cite{McCarthy_2025}.
+    \item \textbf{Distribution shift}: There exists a significant domain gap between human/internet demonstrationvideos and robot execution. This includes differences in visual appearance, embodiment, dynamics, and behavior patterns, which can severely degrade the generalization of models trained on video data when applied to robotic tasks \cite{McCarthy_2025}.
+\end{enumerate}
 
 % ToDo: real world datasets with no robot labels
-In many real-world video datasets, explicit robot action labels (e.g., joint velocities or torques) are not available.
+In many real-world video datasets, explicit robot action labels (e.g. joint velocities or torques) are not available.
 % Problem. 
 Raw video data provides only state transitions pairs $(o_t, o_{t+1})$, without access to the corresponding actions $a_t$. This makes it difficult to directly apply \ac{BC} or \ac{RL} methods, which typically require triplets of the form $(o_t, a_t, o_{t+1})$. Recovering such low-level actions directly from video is a challenging problem due to ambiguity and the lack of physical interaction information \cite{McCarthy_2025}. 
 % Solution.
 % To overcome this limitation, recent approaches introduce an Alternative Action Representation $\hat{a} \in \hat{A}$ within the alternative-action Space $\hat{A}$ so that transitions can be relabeled as $(o_t, \hat{a}_t, o_{t+1})$. 
-To overcome this limitation, recent approaches introduce an Alternative Action Representation $\hat{a} \in \hat{A}$, which can be used to relabel action-free videos and enable video-to-robot transfer despite missing action labels and distribution shift, see Figure \ref{fig:RecoveringActionFepresentationsFromVideo_1}.
+To overcome this limitation, recent approaches introduce an \textbf{Alternative Action Representation} $\hat{a} \in \hat{A}$, which can be used to relabel action-free videos and enable video-to-robot transfer despite missing action labels and distribution shift, see Figure \ref{fig:RecoveringActionFepresentationsFromVideo_1}.
 
 Formally, this induces a relabeling of video transitions as:
 \begin{equation}
@@ -430,19 +429,20 @@ Formally, this induces a relabeling of video transitions as:
 
 % To address these challenges, recent approaches introduce an alternative action representations $\hat{a} \in \hat{A}$ can be derived from video data, which can be used to label action-free videos and enable video-to-robot transfer despite missing action labels and distribution shift, see Figure \ref{fig:RecoveringActionFepresentationsFromVideo_1}. 
 
-\paragraph{What is an Alternative Action Representation?}
+\subsection{What is an Alternative Action Representation?}
 Formally, an alternative action representation is defined as
 \begin{equation}
     \hat{a} \in \hat{A},
 \end{equation}
 where
-$\hat{A}$ denotes an Alternative (latent or abstract) Action Representation Space. 
+$\hat{A}$ denotes an Alternative latent/abstract Action Representation Space. 
 Instead of modeling actions as raw robot control signals, actions are encoded in a semantic feature space that captures high-level behavior such as grasping, moving, or pushing. In other words, $\hat{A}$ captures what actions \textit{mean}, rather than how it is executed at the motor level \cite{McCarthy_2025}.
 % which are easier to infer from video, rather than the raw motor commands.
-The key idea is that $\hat{a}$ serves as a proxy for the missing action labels, allowing the model to learn from video data without requiring explicit action annotations. Later, the $\hat{a}$ can be decoded or translated into the robot's actual action space if a mapping $f: A \to \hat{A}$ exist \cite{Wang2023MimicPlayLI, Wen2023AnypointTM, Du2023LearningUP}. Otherwise, they still provide valuable structure \cite{Bhateja2023RoboticOR, Schmidt2023LearningTA}. However it is also valid to define a $\hat{A}$ that requires labelled video (e.g., language captions) \cite{McCarthy_2025}.
+The key idea is that the action $\hat{a}$ serves as a proxy for the missing robot action labels $a$, allowing the model to learn from video data without requiring explicit action annotations. Later, $\hat{a}$ can be decoded or translated into the robot's actual action space if a mapping $f: A \to \hat{A}$ exist \cite{Wang2023MimicPlayLI, Wen2023AnypointTM, Du2023LearningUP}. Otherwise, they still provide valuable structure \cite{Bhateja2023RoboticOR, Schmidt2023LearningTA}. However it is also valid to define a $\hat{A}$ that requires labelled video (e.g., language captions) \cite{McCarthy_2025}.
 
 
-\underline{Example:} Consider a video of a human performing a pick-and-place task. The raw video data provides visual observations of the human's hand and the objects being manipulated, but does not include explicit robot action labels such as joint angles or end-effector velocities.
+\paragraph{Example} 
+Consider a video of a human performing a pick-and-place task. The raw video data provides visual observations of the human's hand and the objects being manipulated, but does not include explicit robot action labels such as joint angles or end-effector velocities.
 \begin{itemize}
     \item The \textbf{Video Encoder} extracts visual features (what is being done), see section~\ref{sec:VideoEncoder}.
     \item The \textbf{Action Embedding Space $\hat{A}$} captures \textit{abstract actions} such as \textit{reach}, \textit{grasp}, \textit{move up}.
@@ -460,10 +460,10 @@ Working in the alternative action space $\hat{A}$ offers several advantages.
     
     \item \texttt{Learning from Weak Labels:} $\hat{A}$ enables learning from raw or weakly labeled videos, since inferring high-level actions from video is easier than recovering low-level motor commands \cite{McCarthy_2025}.
     
-    \item \texttt{Transferable Representations Across Embodiments:} $\hat{A}$ supports transfer across embodiments, because the same semantic action (e.g., ``open drawer'') can be instantiated by different robots with different kinematics \cite{McCarthy_2025}.
+    \item \texttt{Transferable Representations Across Embodiments:} $\hat{A}$ supports transfer across embodiments, because the same semantic action (e.g. ``open drawer'') can be instantiated by different robots with different kinematics \cite{McCarthy_2025}.
     % \item \texttt{Structured learning:} $\hat{A}$ provides a structured representation that can be used for learning policies, dynamics models, and value functions in a more data-efficient and generalizable way if $\hat{A}$ is well-structured, minimal, disentangled, and semantically consistent across embodiments.
 
-    \item \texttt{Structured Learning:} A well-structured representation $\hat{A}$ that is minimal, disentangled, and semantically consistent across the state space encodes meaningful action information. This makes it easier to learn models that are predictive of both future observations (i.e., learning $p_{\text{alt}}(o_{t+1} \mid \hat{a}_t, o_t)$ instead of $p(o_{t+1} \mid o_t)$) and robot actions (i.e., learning $\pi(a_t \mid \hat{a}_t, o_t)$ instead of $\pi(a_t \mid o_t)$), leading to more data-efficient and generalizable policies, dynamics models, and value functions \cite{McCarthy_2025, Rybkin2018LearningWY, Bruce2024GenieGI}.
+    \item \texttt{Structured Learning:} A well-structured representation $\hat{A}$ that is minimal, disentangled, and semantically consistent across the state space encodes meaningful action information. This makes it easier to learn models that are predictive of both future observations (i.e. learning $p_{\text{alt}}(o_{t+1} \mid \hat{a}_t, o_t)$ instead of $p(o_{t+1} \mid o_t)$) and robot actions (i.e., learning $\pi(a_t \mid \hat{a}_t, o_t)$ instead of $\pi(a_t \mid o_t)$), leading to more data-efficient and generalizable policies, dynamics models, and value functions \cite{McCarthy_2025, Rybkin2018LearningWY, Bruce2024GenieGI}.
     The choice of abstraction level for $\hat{A}$ also plays a crucial role: 
     \begin{itemize}
         \item \textbf{Higher-level or longer-horizon representations} $\hat{A}$ (such as language-based actions) can benefit performance in complex, long-horizon tasks by providing broader context and intent. This is because they capture more abstract and semantically meaningful information that can guide decision-making over longer time scales, which is particularly beneficial for tasks that require planning and reasoning about future consequences \cite{McCarthy_2025}.
@@ -522,20 +522,24 @@ Their exist different approaches to derive alternative action representations $\
 
 
 
+
+
 \paragraph{Single-step Latent Actions:}
-These approaches learn latent actions that describe the transition from one observation to the next \cite{McCarthy_2025}:
+
+These approaches learn latent actions in vectorized forms (=embedding) that describe the transition from one observation to the next \cite{McCarthy_2025}:
 \begin{equation}
 \hat{a}_t : o_t \rightarrow o_{t+1}
 \end{equation}
 
-\textbf{Methods:}
+\paragraph{Methods:}
+The latent action $\hat{a}_t$ can be learned for example through:
 \begin{itemize}
-    \item Forward Dynamics Models (FDM) $p(o_{t+1} \mid \hat{a}_t, o_t)$, which predict the future observation from the current observation and latent action \cite{Bruce2024GenieGI, Edwards2018ImitatingLP, Schmidt2023LearningTA, Ye2024LatentAP, Rybkin2018LearningWY}.
-    \item Inverse Dynamics Models (IDM) $p^{-1}(\hat{a}_t \mid o_t, o_{t+1})$, which infer the latent action responsible for a transition \cite{Schmidt2023LearningTA, Bruce2024GenieGI}. 
+    \item \textbf{\ac{FDM}} $p(o_{t+1} \mid \hat{a}_t, o_t)$, which predict future observations from the current observation and latent actions \cite{Bruce2024GenieGI, Edwards2018ImitatingLP, Schmidt2023LearningTA, Ye2024LatentAP, Rybkin2018LearningWY}.
+    \item \textbf{\ac{IDM}} $p^{-1}(\hat{a}_t \mid o_t, o_{t+1})$, which infer the latent action responsible for a transition \cite{Schmidt2023LearningTA, Bruce2024GenieGI}. 
     % To hinder the IDM from copying the entire observation $o_{t+1}$ into the latent action $\hat{a}_t$, the model is trained with some form of regularisation, such as a quantization bottleneck \cite{McCarthy_2025, Schmidt2023LearningTA, Bruce2024GenieGI}.
 \end{itemize}
 
-\textbf{Limitations:}
+\paragraph{Limitations:}
 \begin{itemize}
     \item Often capture all visual changes, not only agent actions \cite{McCarthy_2025}.
     \item May omit important non-visual information such as forces or contact dynamics \cite{McCarthy_2025}.
@@ -545,8 +549,12 @@ These approaches learn latent actions that describe the transition from one obse
 
 
 
+
+
+
 \paragraph{Multi-step Latent Actions:}
-These methods encode behaviors across multiple time-steps:
+
+These methods encode behaviors across multiple time-steps in a single embedding:
 \begin{equation}
 \hat{a}_t : o_t \rightarrow o_{t+k}
 \end{equation}
@@ -565,18 +573,18 @@ For example these ``skill embeddings'' can capture structures such as ``reach th
 
 
 
-\textbf{Methods:}
+\paragraph{Methods:}
 \begin{itemize}
-    \item Variational sequence models: These methods use variational autoencoders (VAE) to encode motion trajectories or sequences of observations into a latent variable $z$ that captures the underlying behavior. The VAE is trained to reconstruct the original trajectory from the latent representation \cite{Wang2023MimicPlayLI}.    
+    \item \textbf{Variational Sequence Models:} These methods use \ac{VAEs} to encode motion trajectories or sequences of observations into a latent variable $z$ that captures the underlying behavior. The VAE is trained to reconstruct the original trajectory from the latent representation \cite{Wang2023MimicPlayLI}.    
     % Variational auto-encoding of motion or trajectory representations 
-    \item Video-language contrastive learning aligns video segments with natural language descriptions of behaviors \cite{fan2022minedojo, Lifshitz2023STEVE1AG, Sontakke2023RoboCLIPOD}.
-    \item Supervised contrastive learning on action-labeled videos pulls videos with the same or similar action labels together in latent space, while pushing videos with different action labels apart \cite{ChaneSane2023LearningVP, Chen2021LearningGR}.
-    \item Self-supervised clustering approaches group similar motion patterns or trajectories into clusters without requiring labels, with each cluster representing a reusable skill or behavior primitive \cite{Xu2023XSkillCE}.
-    \item Further approaches are presented in the works of Tomar et al. \cite{tomar2023video}, Pertsch et al. \cite{Pertsch2022CrossDomainTV}, and Cai et al. \cite{Cai2023GROOTLT}. 
+    \item \textbf{Video-Language Contrastive Learning:} Aligns video segments with natural language descriptions of behaviors \cite{fan2022minedojo, Lifshitz2023STEVE1AG, Sontakke2023RoboCLIPOD}.
+    \item \textbf{Supervised Contrastive Learning:} Pulls on a action-labeled dataset, videos with the same or similar action labels together in latent space, while pushing videos with different action labels apart \cite{ChaneSane2023LearningVP, Chen2021LearningGR}.
+    \item \textbf{Self-Supervised Clustering Approaches:} Group similar motion patterns or trajectories into clusters without requiring labels, with each cluster representing a reusable skill or behavior primitive \cite{Xu2023XSkillCE}.
+    \item \textbf{Further Approaches:} Presented in the works of Tomar et al. \cite{tomar2023video}, Pertsch et al. \cite{Pertsch2022CrossDomainTV}, and Cai et al. \cite{Cai2023GROOTLT}. 
     % include hierarchical sequence models and latent plan representations (e.g., Pertsch et al., Cai et al.), which explicitly model skills as temporally extended latent variables.
 \end{itemize}
 
-\textbf{Limitations:}
+\paragraph{Limitations:}
 \begin{itemize}
     % Quellen sollten passen
     \item Often produce abstract and long-horizon representations that may lose fine-grained control details and be harder to align with low-level robot actions \cite{kim2026hierarchical, liang2025clam}.
@@ -585,21 +593,24 @@ For example these ``skill embeddings'' can capture structures such as ``reach th
 
 
 
-\paragraph{Next-observations-as-Actions:}
+
+
+\paragraph{Observations-as-Actions:}
+
 These approaches directly use (encoded) future observations as action representations:
 \begin{equation}
-\hat{a}_t = o_{t+k}.
+    \hat{a}_t = o_{t+k}.
 \end{equation}
 Future observations provide information about the intended behavior or goal state \cite{McCarthy_2025}.
 
-\textbf{Methods:}
+\paragraph{Methods:}
 \begin{itemize}
-    \item \texttt{Next-observation-as-action} uses the next observation $o_{t+1}$ as the $\hat{a}_t$ label and provides information regarding the action that should be taken \cite{Du2023LearningUP, Thomas2023PLEXMT, he2024large}.
-    \item \texttt{Observations-as-subgoals} uses future observations as intermediate goals to guide action selection \cite{Black2023ZeroShotRM, park2023hiql, Bhateja2023RoboticOR}.
+    \item \textbf{Next-Observation-as-Action:} Uses the next observation $o_{t+1}$ as the $\hat{a}_t$ label and provides information regarding the action that should be taken \cite{Du2023LearningUP, Thomas2023PLEXMT, he2024large}.
+    \item \textbf{Observations-as-Subgoals:} Uses future observations as intermediate goals to guide action selection \cite{Black2023ZeroShotRM, park2023hiql, Bhateja2023RoboticOR}. There exist different options to select the future observation that during training stage: 
     \begin{itemize}
-        \item \texttt{Fixed time horizon} uses observations that are fixed $k$ time steps in advance \cite{Black2023ZeroShotRM, Du2023LearningUP}.
-        \item \texttt{Random time horizon} uses observations that are a randomly sampled number of time steps in advance \cite{Bhateja2023RoboticOR}.
-        \item \texttt{Key-frame selection} identify critical states in a trajectory that can serve as action representations \cite{Pertsch2019KeyframingTF, liu2023learning}, see table \ref{tab:keyframes_pickplace}.
+        \item \textbf{Fixed Time Horizon:} Uses observations that are fixed $k$ time steps in advance \cite{Black2023ZeroShotRM, Du2023LearningUP}.
+        \item \textbf{Random Time Horizon:} Uses observations that are a randomly sampled number of time steps in advance \cite{Bhateja2023RoboticOR}.
+        \item \textbf{Key-Frame Selection:} Identifies critical states in a trajectory that can serve as action representations \cite{Pertsch2019KeyframingTF, liu2023learning}, see table \ref{tab:keyframes_pickplace}.
         
         \begin{table}[h]
             \centering
@@ -621,7 +632,7 @@ Future observations provide information about the intended behavior or goal stat
     \end{itemize}
 \end{itemize}
 
-\textbf{Limitations:}
+\paragraph{Limitations:}
 \begin{itemize}
     \item Future observations may not uniquely determine the underlying action \cite{A_hierarchical_representation_for_future_action_prediction}.
     \item High-dimensional visual observations can increase learning complexity \cite{A_hierarchical_representation_for_future_action_prediction, Losey2021LearningLA}.
@@ -629,27 +640,38 @@ Future observations provide information about the intended behavior or goal stat
 
 
 
+
+
+
 % ToDo: Quelle 306, 7 evtl. hinzufügen
 \paragraph{Language-as-Actions:}
+
 Natural language descriptions can be used as high-level action representations for example by captioning video frames with language instructions that describe the observed behavior \cite{belkhale2024rt, shi2024yell, xiang2024pandora}:
 \begin{equation}
 \hat{a}_t = \texttt{"pick up the cube"}.
 \end{equation}
-Language-based actions provide semantic supervision and enable integration with large language models \cite{Du2023VideoLP}, which can facilitate more complex reasoning and planning.
+Language-based actions provide semantic supervision and enable integration with \ac{LLMs} \cite{Du2023VideoLP}, which can facilitate more complex reasoning and planning.
 
-\textbf{Methods:}
+\paragraph{Methods:}
 \begin{itemize}
-    % ToDo: Hier evtl. nochmal die Quellen nachprüfen
-    \item Language-captioned video datasets \cite{Grauman2021Ego4DAT}
-    \item Process and enhance standard captions to generate more detailed action descriptions, for example by using \ac{LLMs} or \ac{VLMs} \cite{Mu2023EmbodiedGPTVP}.
-    \item Automated or semi-automated video captioning \cite{Mu2023EmbodiedGPTVP}
     % ToDo: Quellen für diese beide Stichpunkte
     \item Video-to-Text Models \cite{McCarthy_2025}
     \item \ac{VLMs} and variants of them \cite{McCarthy_2025}
 \end{itemize}
 
+\paragraph{Methods for Missing Language Captions:}
+Video datasets may not always contain usable language captions. To address this, several methods can be used to generate or enhance captions for video data: 
+\begin{itemize}
+    % ToDo: Hier evtl. nochmal die Quellen nachprüfen
+    % \item Language-captioned video datasets \cite{Grauman2021Ego4DAT}
+    \item Process and enhance standard captions to generate more detailed action descriptions, for example by using \ac{LLMs} or \ac{VLMs} \cite{Mu2023EmbodiedGPTVP}.
+    \item \textbf{}
+    \item Usage of automated or semi-automated video captioning methods \cite{Mu2023EmbodiedGPTVP}
+\end{itemize}
+
+
 % ToDo: Quellen überprüfen und evtl. bessere suchen
-\textbf{Limitations:}
+\paragraph{Limitations:}
 \begin{itemize}
     \item Language is often coarse and omits low-level control details \cite{McCarthy_2025}.
     \item Requires annotated or captioned video data \cite{McCarthy_2025}.
@@ -657,19 +679,23 @@ Language-based actions provide semantic supervision and enable integration with 
 
 
 
+
+
+
 \paragraph{Visual Motion Information:}
+
 These approaches define actions using visual motion cues extracted from video sequences \cite{McCarthy_2025}. The underlying assumption is that temporal changes in visual observations (motion patterns) contain implicit information about the actions responsible for observed state transitions. For example, the direction, magnitude, and trajectory of movement can provide information about the intended behavior, goal, or interaction dynamics \cite{yanokura2020understanding, Tokmakov17}.
 
-\textbf{Methods:}
+\paragraph{Methods:}
 \begin{itemize}
-    \item \texttt{2D or 3D point trajectories} of tracked objects or hands \cite{Wen2023AnypointTM, Yuan2024GeneralFA} via off-the-shelf point trackers \cite{karaev2024cotracker}
-    \item \texttt{Optical flow prediction}, which captures how image regions move between consecutive video frames \cite{Ko2023LearningTA, xu2022gmflow}
+    \item \textbf{2D or 3D Point Trajectories:} Tracking objects or hands \cite{Wen2023AnypointTM, Yuan2024GeneralFA} via off-the-shelf point trackers \cite{karaev2024cotracker}
+    \item \textbf{Optical Flow Predictions:} Capturing  how image regions move between consecutive video frames \cite{Ko2023LearningTA, xu2022gmflow}
     % \item Optical flow prediction, which captures how image regions move between consecutive video frames
-    \item \texttt{Visual action arrows} that represent movement direction and magnitude directly in the image \cite{Nasiriany2024PIVOTIV}
-    \item \texttt{Structure-from-motion} approaches, which reconstruct 3D scene geometry and camera motion from video in order to recover information about underlying physical interactions \cite{Wang2023ManipulateBS, Yuan2021DMotionRV, Yang2023LearningIR}
+    \item \textbf{Visual Action Arrows:} Representing movement direction and magnitude directly in the image \cite{Nasiriany2024PIVOTIV}
+    \item \textbf{Structure-from-Motion Approaches:} Reconstructing 3D scene geometry and camera motion from video in order to recover information about underlying physical interactions \cite{Wang2023ManipulateBS, Yuan2021DMotionRV, Yang2023LearningIR}
 \end{itemize}
 
-\textbf{Limitations:}
+\paragraph{Limitations:}
 \begin{itemize}
     \item Motion estimates can be noisy or ambiguous \cite{booij2010efficient}.
     \item Visual motion does not always correspond directly to robot actions \cite{booij2010efficient}.
@@ -681,25 +707,26 @@ These approaches define actions using visual motion cues extracted from video se
 % ToDo: Quellen neu anordnen + überprüfen wo welche gebraucht wird.
 % ToDo: Quelle 203 evtl. hinzufügen
 \paragraph{(Human)-Embodiment Information:}
-These approaches explicit models human body structure and kinematics \cite{McCarthy_2025, Bharadhwaj2023TowardsGZ, Shaw2022VideoDexLD, Bahl2023AffordancesFH, Qin2022FromOH, Qin2021DexMVIL}. 
+
+These approaches explicitly model human body structure and kinematics \cite{McCarthy_2025, Bharadhwaj2023TowardsGZ, Shaw2022VideoDexLD, Bahl2023AffordancesFH, Qin2022FromOH, Qin2021DexMVIL}. 
 In contrast to generic motion-based methods, which focus on pixel or object movement, these approaches aim to represent the \emph{agent performing the action} using structured human pose information. 
 Embodiment-specific information such as hand poses, affordances, or trajectories can provide useful cues about the intended actions and interactions in the video, which can be transferred to robotic embodiments \cite{rong2020frankmocap, Shan2020UnderstandingHH}.
 For example, an alternative action representation can be defined as:
 \begin{equation}
-\hat{a}_t = \text{hand pose at next time-step } t+1,
+    \hat{a}_t = \text{hand pose at next time-step } t+1,
 \end{equation}
-which encodes the intended end-effector movement and can be associated with actions such as reaching, grasping, or manipulating objects. Animal embodiment could also be usefull \cite{peng2020learning}.
+which encodes the intended end-effector movement and can be associated with actions such as reaching, grasping, or manipulating objects. Animal embodiment data could also be useful \cite{peng2020learning}.
 % which can be used to infer actions such as reaching, grasping, or manipulating objects.
 
-\textbf{Methods:}
+\paragraph{Methods:}
 \begin{itemize}
-    \item Human pose estimation (full-body kinematics) \cite{Bharadhwaj2023TowardsGZ}
-    \item Hand pose estimation and hand trajectory tracking \cite{rong2020frankmocap, Shan2020UnderstandingHH}
-    \item Affordance prediction (e.g., graspable regions, interaction points, grasp trajectories) \cite{Bahl2023AffordancesFH, Bharadhwaj2023TowardsGZ}
-    \item Object- and hand-mask conditioned representations, which focus on the regions of the video that are relevant for action understanding and ignore irrelevant background information \cite{Bharadhwaj2023TowardsGZ}
+    \item \textbf{Human Pose Estimation:} Estimating full-body kinematics \cite{Bharadhwaj2023TowardsGZ}.
+    \item \textbf{Hand Pose Estimation and Trajectory Tracking:} Estimating hand pose and tracking hand trajectories \cite{rong2020frankmocap, Shan2020UnderstandingHH}.
+    \item \textbf{Affordance Prediction:} Predicting for example graspable regions, interaction points, and grasp trajectories \cite{Bahl2023AffordancesFH, Bharadhwaj2023TowardsGZ}.
+    \item \textbf{Object- and Hand-Mask Conditioned Representations:} Focusing on regions of the video relevant for action understanding while ignoring irrelevant background information\cite{Bharadhwaj2023TowardsGZ}.
 \end{itemize}
 
-\textbf{Limitations:}
+\paragraph{Limitations:}
 \begin{itemize}
     \item Human embodiment is structurally different from robotic embodiments, limiting direct transferability.
     \item Accurate pose and hand tracking or estimation can be unreliable in cluttered or occluded scenes.
@@ -709,16 +736,17 @@ which encodes the intended end-effector movement and can be associated with acti
 
 
 
-\paragraph{Inverse Dynamics Model (IDM) pseudo-action Labels:}
+\paragraph{Inverse Dynamics Model (IDM) for Pseudo-Action Labels:}
+It's not an alternative action representation in the strict sense, but it is a method to recover missing action labels from video data.
 These methods train an inverse dynamics model on robot data and use it to infer pseudo-action labels for action-free (human) videos \cite{Baker2022VideoP, Torabi2018BehavioralCF, Schmeckpeper2020ReinforcementLW}, which can then be used for learning policies \cite{McCarthy_2025}:
 \begin{equation}
 p^{-1}(a_t \mid o_t, o_{t+1}).
 \end{equation}
 
-\textbf{Limitations:}
+\paragraph{Limitations:}
 \begin{itemize}
     \item Require action-labeled robot data for model training \cite{Baker2022VideoP, Torabi2018BehavioralCF, Schmeckpeper2020ReinforcementLW}.
-    \item Small domain shift between demonstration videos and robot execution \cite{Baker2022VideoP, Schmeckpeper2020ReinforcementLW, Kim2023GivingRA}.
+    \item Domain shift between demonstration videos and robot execution \cite{Baker2022VideoP, Schmeckpeper2020ReinforcementLW, Kim2023GivingRA}.
 \end{itemize}
 
 
