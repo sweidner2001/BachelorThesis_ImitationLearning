@@ -99,3 +99,220 @@ The agent proceeds in its environment according to the trial-and-error principle
 
 
 \section{Foundation Model vs. Multi-Model Model}
+
+
+
+
+
+
+\section{Reinforcement Learning} \label{sec:ReinforcementLearning}
+\ac{RL} is both a fundamental discipline of \ac{ML} and a distinct approach within Robot Learning.
+The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score, and this score is then used to gradually optimize the policy. See also figure \ref{fig:RLConzept} for a general graphical overview. Below are the key terms in \ac{RL} explained in relation to robotics: 
+\begin{itemize}
+	\item \textbf{Agent:} The agent is the entity that learns to perform a specific behavior through interaction with its environment. In the context of this work, the agent corresponds to the robot, which has to execute a given action or task. 
+	\item \textbf{Environment:} The environment is the setting in which the agent/the robot operates. In other words, the environment is the robot's workplace, where it is deployed. In addition to the robot itself, it includes all relevant objects with which the robot interacts. The environment can be either the real world or a simulated environment in which the robot interacts during training or inference.
+	\item \textbf{Robot Actions:} The Robot actions are simply the control commands the robot can send to its actuators, e.g. open or close the gripper, move the arm to position $X,Y,Z$, or the joint angles of the individual robot axes, etc.
+	\item \textbf{Reward:} The reward is a numerical value that indicates how well the robot is performing in relation to the task objective. For example, if the robot successfully picks up an object, it might receive a positive reward, while if it fails or drops the object, it might receive a negative reward. The goal of Reinforcement Learning is to learn a policy that maximizes the cumulative reward over time.
+	\item \textbf{Robot State:} The State is a complete description of the situation in the environment at a particular point in time. The robot state represents the current situation of the robot and its environment. It can include various types of information, such as the robot's position, orientation, joint angles, sensor readings, and even visual input from cameras \cite{walkerastroActionSpaceState2024}. The state is crucial for the robot to make informed decisions about which actions to take.
+	\item \textbf{Observation:} An observation is the information that the robot receives from its sensors at a given time step. It may not provide a complete picture of the environment, and thus may not fully represent the true robot state. In our case, the observation is mostly equivalent to the state \cite{walkerastroActionSpaceState2024}.
+	\item \textbf{Policy:}
+	The policy can be interpreted as the brain of the agent. The policy determines which action should be taken next when the agent is in a particular state in order to achieve the task objective. The Policy controls the robot's motion and actions. 
+	
+	Formally, a policy can be represented as  
+	\begin{align}
+		\pi_\theta(a \mid s)  
+	\end{align}
+	which defines a probability distribution over actions $a$, conditioned on the current state $s$. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment. In the classical meaning, the action $a$ corresponds for example to a robot command, such as moving the gripper to a target position $(x, y, z)$ or setting a joint angle to a specific value with a defined velocity. The state $s$ represents the agent's observation, which may include, for example, a sequence of recent camera images (e.g., the last four frames) as well as additional sensor inputs such as proprioceptive signals.
+
+\end{itemize}
+
+\paragraph{Mathematical description of the \ac{RL} problem:}
+The \ac{RL} modularities are represented as follows:
+\begin{itemize}
+	\item Action: $a$
+	\item Reward: $r$
+	\item State: $s$
+	\item Observation: $o$
+	\item Policy: $\pi$
+	\item Time step: $t$, e.g. $a_t$ is the action taken at time step $t$, $a_{t+1}$ is the action taken at the next time step, etc.
+	\item $s'$: The next state after taking action $a$ in state $s$, i.e. $s' = s_{t+1}$, $s = s_t$.
+\end{itemize}
+
+
+
+
+\paragraph{Markov Decision Process}
+
+\ac{RL} is based on the \ac{MDP}. A \ac{MDP} is a stochastic decision-making process that formally models the transition probabilities from a state $s$ to a subsequent state $s'$ provided that action $a$ is performed, expressed mathematically as $P(s'|s,a)$ \cite{sutton2018reinforcement, millerMarkovDecisionProcesses}. 
+
+The objective is to learn a policy $\pi(a|s)$ that maximizes the expected long-term cumulative reward, defined as $\mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^t r_t\right]$. The discount factor $\gamma \in [0,1]$ determines the importance of future rewards compared to immediate rewards. A value of $\gamma$ close to 0 makes the agent focus more on immediate rewards, while a value close to 1 encourages the agent to consider long-term rewards more heavily \cite{sutton2018reinforcement, jagtapUnderstandingMarkovDecision}.
+
+A \ac{MDP} also defines this reward function that specifies the reward $r$ an agent receives when taking action $a$ in state $s$ and transitioning to a subsequent state $s'$. This is commonly expressed as $R_a(s,s')$ \cite{sutton2018reinforcement, millerMarkovDecisionProcesses}.
+
+The \textbf{Markov property} says that all information from the past is contained in the current state, mathematically expressed as $P(s_{t+1}|s_{t}) = P(s_{t+1}|s_{1},s_{2}, ... s_{t})$. In other words, the transition probabilities depend only on the current state and not on the history of previous states \cite{jagtapUnderstandingMarkovDecision}.
+
+In practice, the Markov property is often not strictly satisfied. For example, a single image captured by a camera does not provide sufficient information to infer the dynamics of the environment. From one image alone, it is not possible to determine whether a car is moving forward at 100 km/h or 10 km/h, reversing, or remaining stationary. However, such information is crucial for making correct decisions in applications like autonomous driving \cite{staffWhatMarkovDecision2025}.
+Therefore, in practice, only sufficiently informative state representations are often used because the ideal Markov property is not strictly fulfilled.
+This is often achieved by incorporating a history of observations, such as a sequence of the last five camera frames, to better capture the underlying dynamics of the environment \cite{millerMarkovDecisionProcesses}.
+
+
+\paragraph{Training process:}
+At the beginning of the training process, the policy is typically initialized randomly, meaning that the robot initially performs random movements. Through interaction with the environment, the agent explores different actions and attempts to identify those that yield high rewards. Actions associated with higher rewards are subsequently assigned a higher probability by the policy, making the robot more likely to select them in similar situations in the future.
+
+A successful learning process requires a suitable balance between exploration and exploitation. Exploration refers to the evaluation of previously untried or infrequently selected actions in a given state, whereas exploitation denotes the repeated selection of actions that have already been identified as beneficial. During the early stages of training, greater emphasis is placed on exploration, as the agent must first acquire knowledge about the environment and determine which actions are most effective for accomplishing the task. As training progresses and the agent gains a better understanding of the environment and its reward structure, exploitation becomes increasingly important. This allows the agent to more frequently select actions that have proven successful, thereby improving overall task performance.
+
+Numerous methods and algorithms have been proposed to effectively balance exploration and exploitation. Common examples include the $\epsilon$-greedy strategy, Upper Confidence Bound (UCB), and Thompson Sampling. However, a detailed discussion of these methods is beyond the scope of this thesis.
+
+Due to the exploration phase, the success of the chosen \ac{RL} approach only becomes visible at a late stage, unlike in classical deep learning, see Figure \ref{fig:trainingprogressdlandrl}. 
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{./chapter3/media/TrainingProgressDLandRL.png}
+	\caption[Training Progress in Deep Learning and Reinforcement Learning]{Training Progress in Deep Learning and Reinforcement Learning}
+	\label{fig:trainingprogressdlandrl}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\paragraph{Knowledge Modality from Video}
+An \ac{RL} \ac{KM} is some function learned from data that represents specific types of \ac{RL}-related knowledge.
+\ac{KM}s can be learned through trial-and-error principles or from various data sources, like video datasets, and can capture different aspects of the \ac{RL} problem \cite{Wulfmeier2023FoundationsFT}. 
+
+\ac{KM} from Video:
+\begin{itemize}
+	\item \textit{Policy:} A Policy $\pi(a_t|s_t)$ is a mapping from states to actions and defines the behavior of the agent that is in a particular state \cite{sutton2018reinforcement}. $\pi(a_t|s_t)$ is the probability of taking action $a_t$ given that the agent is in state $s_t$. $t$ denotes the time step. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment.
+	It can be learned from video data by observing the actions taken in different states and learning to predict those actions based on the visual input \cite{Wulfmeier2023FoundationsFT}. 
+	
+	\item \textit{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state or state-action pair \cite{sutton2018reinforcement}. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input \cite{Wulfmeier2023FoundationsFT}.
+
+	\begin{itemize}
+		% V-Function
+		\item \textit{State-value function (V-function):} 
+		A V-function $V_\pi(s_t)$ is a mapping from states to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}.
+
+		\textbf{Intuition:} ''How good is it to be a certain state, if I follow my policy $\pi$?''
+
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.55\linewidth]{./chapter3/media/V_Function.png}
+			\caption[State-Value Function]{State-Value Function}
+			\label{fig:statevaluefunction}
+		\end{figure}
+
+		% Q-Function
+		\item \textit{State-action value function (Q-function):} 		
+		A Q-function $Q_\pi(s_t,a_t)$ is a mapping from state-action pairs to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}. 
+		
+		\textbf{Intuition:} ''How good is this specific action here, if I continue behaving like my policy $\pi$?''
+
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.55\linewidth]{./chapter3/media/Q_Function.png}
+			\caption[State-Action Value Function]{State-Action Value Function}
+			\label{fig:stateactionvaluefunction}
+		\end{figure}
+
+		\item \textit{V-function vs. Q-function:}
+		The value function $V_\pi(s)$ estimates the expected return of being in a particular state $s$ while following the policy $\pi$ \cite{sutton2018reinforcement}. However, it does not provide information about the quality of individual actions available in that state $s$. In contrast, the State-action value function $Q_\pi(s,a)$ evaluates the expected return of taking a specific action $a$ in state $s$ and subsequently following the policy $\pi$ \cite{sutton2018reinforcement}. Therefore, the Q-function offers a more detailed assessment by considering both the state and the chosen action. Figures \ref{fig:statevaluefunction} and \ref{fig:stateactionvaluefunction} illustrate the concepts of the state-value function and the action-value function, respectively.
+
+		% Bei der V-function weiß ich nur, wie gut es ist, in einem bestimmten Zustand zu sein, wenn ich nach meiner Policy $\pi$ agiere, aber nicht, wie gut eine konkrete Aktion in diesem Zustand ist. Bei der Q-function hingegen weiß ich bereits, wie gut die konkrete Aktion $a_t$ im Zustand $s_t$ ist, wenn ich weiterhin nach meiner Policy $\pi$ agiere. Siehe dazu die Abbildung \ref{fig:statevaluefunction} und \ref{fig:stateactionvaluefunction}.
+
+	\end{itemize}
+
+	% Dynamics model:
+	\item \textit{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. Video prediction models can be used as robot dynamics models \cite{Eze2024LearningBW}. By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment. This allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states.
+	% Reward model:
+	\item \textit{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$ \cite{sutton2018reinforcement}. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
+\end{itemize}
+
+
+
+
+
+\section{Imitation Learning} \label{sec:ImitationLearning}
+\ac{IL} or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations \cite{Chrysomallis2025ImitationLI}.
+
+\ac{IL} makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models \cite{McCarthy_2025}.
+
+The demonstration videos can show a robot, a human, or even a loose sequence of actions, both in the real world or in a simulation environment, performing a specific task. However, videos without a clearly defined objective or with unknown activity can also be used \cite{McCarthy_2025}.
+
+This allows models to be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This, in turn, is a key prerequisite for the development of a generalist policy.
+\ac{IL} can be divided into Behavior Cloning and Learning from Videos/Observation.
+
+
+\subsection{Behavior Cloning}
+\ac{BC} is a fundamental approach within \ac{IL}, where a policy is learned directly from \textbf{annotated expert demonstrations} \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$, and the problem is formulated as a standard supervised learning task.  
+
+
+Conceptually, \ac{BC} can be understood as a form of direct imitation (``direct copying'') of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
+
+% BC is used to train Vision Language Action models and for pre-training models used in \ac{RL}, see Section \textbf{XXX}
+
+\paragraph{Purpose: Policy Learning} 
+
+\ac{BC} learns a policy by supervised learning on expert demonstrations:
+\begin{align}
+	\pi_\theta(a_t \mid s_t)
+\end{align}
+where:
+\begin{itemize}
+	\item $s_t$: State / Observation (images, proprioception, etc.) at time $t$
+	\item $a_t$: Expert action at time $t$
+\end{itemize}
+
+The Policy $\pi_\theta(a \mid s)$ is optimized by minimizing the prediction error between the actions generated by the model and the corresponding expert actions.
+\begin{align}
+\min_{\theta} \mathbb{E}_{(s,a) \sim \mathcal{D}} \left[ \mathcal{L}(\pi_{\theta}(s), a) \right]
+\end{align}
+where:
+\begin{itemize}
+\item $\pi_{\theta}(s)$: The action your robot's policy predicts given state $s$.
+\item $a$: The actual action the expert took in that same state.
+\item $\mathcal{L}$: Usually Mean Squared Error (MSE) for continuous control or Cross-Entropy for discrete actions.
+\item  $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\cdot]$: Take all the state-action pairs $(s, a)$ inside the expert dataset $\mathcal{D}$, and calculate the average value of the expression inside the brackets.
+\end{itemize}
+ 
+
+
+
+
+
+
+
+  
+\subsection{Learning from Videos / Observation}
+\ac{LfV}, also referred to as \ac{LfO}, is an \ac{IL} approach that relies solely on \textbf{video demonstrations without explicit action annotations} \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to \ac{BC}, where state-action pairs are directly available, \ac{LfV} aims to infer the underlying actions or high-level intent purely from perceptual data, i.e. mapping observations to actions $(s \rightarrow a)$. It often uses \textbf{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics by transforming and reducing input in a fully data-driven and automatic manner.	
+
+A central challenge in \ac{LfV} is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
+
+Due to this property, \ac{LfV} can be seen as a \textbf{weakly supervised or self-supervised Imitation Learning} approach. 
+Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data, including internet videos or human demonstrations, without the need for costly data annotation \cite{McCarthy_2025}. Furthermore, additional actions can be derived from annotated video data too \cite{McCarthy_2025}.
+
+
+In robotics, \ac{LfV} is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic, and dynamical aspects of the environment, which can later be refined using methods such as \ac{BC} with annotated data or in \ac{RL} \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
+
+%BC is used to pre-train models for Behavior Cloning and Reinforcement Learning, see Section \textbf{XXX} for more information.
+
+\paragraph{Purpose: Inferring Actions}
+
+\ac{LfV} learns to infer actions from observations in a weakly supervised or self-supervised manner. 
+\begin{align}
+	\hat{a}_t = f(s_t, s_{t+1})
+\end{align}
+where:
+\begin{itemize}
+	\item $\hat{a}_t$: The "latent" or predicted action.
+	\item $s_t$: The current state/video frame.
+	\item $s_{t+1}$: The next state/video frame.
+	\item $f$: The inverse dynamics function (often a neural network) that maps state transitions to actions.
+\end{itemize}
+
