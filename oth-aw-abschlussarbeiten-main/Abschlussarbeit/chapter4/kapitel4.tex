@@ -10,7 +10,7 @@ The robot derives its task solely from the environment and the objects present i
 
 \subsection{One Policy, Multiple Tasks:}
 In this setting, a single policy is typically specialized on a finite set of task instances, as they must be explicitly trained for those tasks. Tasks that are not represented or underrepresented in the training dataset, can therefore often not be executed reliably \cite{_BoostingRoboticManipulation_, mandi_CACTIFrameworkScalable_2023}. For example, if the policy has been trained on multiple manipulation tasks and one of them involves pouring liquid from a teapot into a cup, the policy will execute this behavior when a matching scene is observed during inference \cite{jang_BCZZeroShotTask_2022}.
-However, generalization to other objects or situations is often limited. Using different teapots or cups may not be problematic as long as the relevant visual features are recognized. In contrast, performance typically decreases under substantial domain shift (significantly different objects or scenes) \cite{jang_BCZZeroShotTask_2022}. If a corresponding pouring behavior from a pot was not included during training, the policy may fail to transfer the action to that new object category \cite{_BoostingRoboticManipulation_, jang_BCZZeroShotTask_2022}.
+However, generalization to other objects or situations is often limited. Using different teapots or cups may not be problematic as long as the relevant visual features are recognized. In contrast, performance typically decreases under substantial domain shift (significantly different objects or scenes) \cite{jang_BCZZeroShotTask_2022}. If a corresponding pouring behavior from a cooking pot was not included during training, the policy may fail to transfer the action to that new object category \cite{_BoostingRoboticManipulation_, jang_BCZZeroShotTask_2022}.
 A major limitation of this approach is task ambiguity caused by overlapping object context across different behaviors. If the same object types, such as a teapot and a cup, appear in both a pick-and-place task and a pouring task, the policy may not be able to disambiguate the correct action target based on scene context alone \cite{tamar_IMITATIONLEARNINGVISUAL_2018}.
 
 
@@ -79,16 +79,15 @@ In this setting, the task is typically formulated as an \ac{IL} problem, where t
 Ideally, the robot model should be able to understand it's task from in-the-wild demonstration videos of both robots and humans \cite{Chen2025VidBotLG}. In-the-wild videos refer to video data collected in unconstrained, real-world environments, without controlled settings, standardized viewpoints, or curated conditions. Such data exhibits large variability in lighting, backgrounds, and camera motion, making it significantly more challenging for perception and learning compared to controlled laboratory data.
 
 
-Commonly, these videos are human demonstrations, or robot demonstrations,
-which differ in their characteristics and challenges for learning. In addition, a third category ``teleoperation'' is being introduced, which is often used for fine-tuning. There a human directly controls the robot to generate demonstrations.
+Commonly, these demonstration videos comming from humans or robots, which differ in their characteristics and challenges for learning. In addition, a third category ``teleoperation'' is being introduced, which is often used for fine-tuning the robot. There a human directly controls the robot to generate demonstrations.
 The following sections discuss the specific advantages and challenges of each type of demonstration video.
 
 \subsection{Human Video Demonstrations}
 Characteristics of Human Video Demonstrations:
 \begin{itemize}
-	\item \textbf{Data abundance:} In this paradigm, the robot learns from videos of humans performing a task. This is particularly appealing, as large amounts of human demonstration data are readily available, e.g. online videos \cite{McCarthy_2025, Eze2024LearningBW}. 
-	\item \textbf{Embodiment gap:} A core challenge is the mismatch between human and robot bodies. Human motions and kinematics differ significantly from those of robots. Therefore, the robot must learn to map observed human actions to its own action space \cite{McCarthy_2025}.
-	\item \textbf{Suboptimal demonstrations:} Another key challenge of human video demonstrations is that they do not necessarily represent optimal task executions. Demonstrations often reflect individual preferences, inefficiencies, or context-specific behaviors, resulting in suboptimal trajectories. In many cases, a video captures only a single possible way of solving the task, without providing information about alternative or more efficient strategies. However, the objective for the robot is typically to perform tasks efficiently and robustly. Therefore, the learned policy must be able to generalize beyond the demonstrated behavior and, if necessary, improve upon it, rather than directly imitating potentially suboptimal actions \cite{McCarthy_2025}.
+	\item \textbf{Data Abundance:} In this paradigm, the robot learns from videos of humans performing a task. This is particularly appealing, as large amounts of human demonstration data are readily available, e.g. online videos \cite{McCarthy_2025, Eze2024LearningBW}. 
+	\item \textbf{Embodiment Gap:} A core challenge is the mismatch between human and robot bodies. Human motions and kinematics differ significantly from those of robots. Therefore, the robot must learn to map observed human actions to its own action space \cite{McCarthy_2025}.
+	\item \textbf{Suboptimal Demonstrations:} Another key challenge of human video demonstrations is that they do not necessarily represent optimal task executions. Demonstrations often reflect individual preferences, inefficiencies, or context-specific behaviors, resulting in suboptimal trajectories. In many cases, a video captures only a single possible way of solving the task without providing information about alternative or more efficient strategies. However, the objective for the robot is typically to perform tasks efficiently and robustly. Therefore, the learned policy must be able to generalize beyond the demonstrated behavior and, if necessary, improve upon it, rather than directly imitating potentially suboptimal actions \cite{McCarthy_2025}.
 \end{itemize}
 
 
@@ -99,17 +98,17 @@ Characteristics of Human Video Demonstrations:
 \subsection{Robot Video Demonstrations}
 Characteristics of Robot Video Demonstrations:
 \begin{itemize}
-	\item \textbf{No embodiment gap:} The demonstrations are performed by the robot itself or by another robot with similar embodiment. This avoids the human-robot embodiment gap and provides more directly transferable data \cite{McCarthy_2025}. 
-	\item \textbf{Cost and effort:} However, collecting such demonstrations is often expensive and time-consuming, as it requires access to robotic systems and typically controlled environments. In addition, purely visual robot demonstrations may still lack explicit action labels. This means that the robot must still infer the underlying actions and intentions from the visual data \cite{McCarthy_2025}. 
-	\item \textbf{Value of robot demos:} Despite these challenges, robot video demonstrations can provide valuable data for learning, as they are more closely aligned with the robot's own capabilities and constraints compared to human demonstrations \cite{McCarthy_2025}.
+	\item \textbf{No Embodiment Gap:} The demonstrations are performed by the robot itself or by another robot with similar embodiment. This avoids the human-robot embodiment gap and provides more directly transferable data \cite{McCarthy_2025}. 
+	\item \textbf{Cost and Effort:} However, collecting such demonstrations is often expensive and time-consuming, as it requires access to robotic systems and typically controlled environments. In addition, purely visual robot demonstrations may still lack explicit action labels. This means that the robot must still infer the underlying actions and intentions from the visual data \cite{McCarthy_2025}. 
+	\item \textbf{Value of Robot Demos:} Despite these challenges, robot video demonstrations can provide valuable data for learning, as they are more closely aligned with the robot's own capabilities and constraints compared to human demonstrations \cite{McCarthy_2025}.
 \end{itemize}
 
 
 
 \subsection{Teleoperation}
 \begin{itemize}
-	\item \textbf{Direct data collection:} A common method to generate high-quality robot demonstrations is teleoperation, where a human operator directly controls the robot, e.g., via a joystick or a dedicated control interface \cite{McCarthy_2025}.
-	\item \textbf{Precision and safety:} In contrast to passive video demonstrations, teleoperation provides access to both the visual observations and the corresponding action and trajectory data. As a result, the demonstrated actions are already expressed in the robot's action space, which significantly simplifies reproducing the expected behavior. Such demonstrations are particularly important for fine-grained manipulation tasks that require precise control and accurate timing  \cite{McCarthy_2025}. 
-	\item \textbf{Scalability issues:} However, teleoperation may require specialized hardware (controllers, sometimes motion-capture or VR setups) and does not scale as easily as collecting passive video data. Thus, collecting large teleoperation datasets can be time-consuming and is typically done in lab settings only \cite{McCarthy_2025}.
+	\item \textbf{Direct Data Collection:} A common method to generate high-quality robot demonstrations is teleoperation, where a human operator directly controls the robot, e.g. via a joystick or a dedicated control interface \cite{McCarthy_2025}.
+	\item \textbf{Precision and Safety:} In contrast to passive video demonstrations, teleoperation provides access to both the visual observations and the corresponding action and trajectory data. As a result, the demonstrated actions are already expressed in the robot's action space, which significantly simplifies reproducing the expected behavior. Such demonstrations are particularly important for fine-grained manipulation tasks that require precise control and accurate timing  \cite{McCarthy_2025}. 
+	\item \textbf{Scalability Issues:} However, teleoperation may require specialized hardware (controllers, sometimes motion-capture or VR setups) and does not scale as easily as collecting passive video data. Thus, collecting large teleoperation datasets can be time-consuming and is typically done in lab settings only \cite{McCarthy_2025}.
 \end{itemize}
 
