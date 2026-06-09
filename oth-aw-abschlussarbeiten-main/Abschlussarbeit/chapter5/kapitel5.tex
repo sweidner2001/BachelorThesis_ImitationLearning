@@ -277,7 +277,7 @@ Their usefulness in robotics can be summarized in the following aspects:
     \item \textbf{Rewards and Feedback:}
     Video-to-text models can be used to provide reward signals or value estimates for \ac{RL} and \ac{IL} systems \cite{McCarthy_2025}. By framing reward learning as a visual-question answering problem, the model can evaluate a robot's behavior directly from video observations \cite{Du2023VisionLanguageMA} For example, the model may answer questions such as ``Did the robot successfully grasp the object?'' or ``Did the trajectory achieve the desired goal?''. This formulation is typically goal-oriented and explicitly tied to predefined task semantics. The predicted responses can then be transformed into reward signals that guide policy optimization.
 
-    In addition, video-to-text models can be integrated into \ac{RL} from AI feedback (RLAIF) frameworks, where the model evaluates the quality of predicted or executed behaviors relative to task objectives or expert demonstrations \cite{Klissarov2023MotifIM}. The model compares different behaviors—either whole trajectories or segments of trajectories—and provides judgments such as which behavior is more successful, safe, or aligned with the desired objective. These ranking-based signals are then distilled into a reward model or value function. 
+    In addition, video-to-text models can be integrated into \ac{RL-AI-F} frameworks, where the model evaluates the quality of predicted or executed behaviors relative to task objectives or expert demonstrations \cite{Klissarov2023MotifIM}. The model compares different behaviors—either whole trajectories or segments of trajectories—and provides judgments such as which behavior is more successful, safe, or aligned with the desired objective. These ranking-based signals are then distilled into a reward model or value function. 
 
     % In addition, video-to-text models can be integrated into \ac{RL} from AI feedback (RLAIF) frameworks. The model assesses predicted or executed behaviors with respect to task objectives or expert demonstrations and provides preference judgments over alternative behaviors, for example in terms of success, safety, or goal alignment. These model outputs can then be aggregated into a reward or value function that is optimized by the RL agent. %ranking-based signals
 
@@ -330,8 +330,8 @@ Existing approaches can be broadly categorized into compositional pipelines, \ac
 
 
 
-% ToDo: Paper Towards Generarlist Robot Learning
 \subsection{Multi-Modal Models}
+\label{sec:MulitModalModelsExtractingFoundationalKnowledgeFromVideos}
 Multi-modal models jointly learn from multiple data modalities, which can include text, images, videos, robot observations, and robot actions \cite{Reed2022AGA}. Unlike specialized vision-language models, these approaches aim to learn a unified sequence model that can process heterogeneous modalities within a shared architecture, that can connect visual perception, language understanding, and robot control \cite{Yin2023ASO, Kawaharazuka2025VisionLanguageActionMF}.
 
 % \paragraph{Methods.}
@@ -505,6 +505,7 @@ which further encourages consistent and transferable action abstractions.
 % Goal: Recovering the missing action representations from video
 
 \subsection{Categories of Alternative Action Representations}
+\label{sec:CategoriesOfAlternativeActionRepresentations}
 
 
 \begin{figure}[h]
