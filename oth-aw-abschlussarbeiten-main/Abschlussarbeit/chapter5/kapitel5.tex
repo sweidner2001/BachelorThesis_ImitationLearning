@@ -18,16 +18,16 @@ We first review different approaches for extracting foundational knowledge from 
 
 % The Answer to the first question of how to extract relevant knowledge from internet video is may be using techniques and datasets inspired by video foundation Models (FMs).
 
-Recent progress in \textbf{Video \ac{FMs}} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video \ac{FMs} are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications \cite{Madan2024FoundationMF}.
+Recent progress in \textbf{Video \acp{FM}} provides a promising direction for addressing the first answer: How to extract robotic relevant knowledge from internet video. Video \acp{FM} are large-scale deep learning models trained on massive internet video datasets. Through large-scale training, these models learn general visual and temporal representations that capture semantics, motion dynamics, physical interactions and behavioral patterns. As a result, they can extract foundational knowledge that is transferable across a wide range of downstream tasks, including robotics applications \cite{Madan2024FoundationMF}.
 
 \begin{samepage}
-McCarthy et al. \cite{McCarthy_2025} says, Video \ac{FMs} can be highly applicable for the following \ac{LfV} use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
+McCarthy et al. \cite{McCarthy_2025} says, Video \acp{FM} can be highly applicable for the following \ac{LfV} use-cases, see Figure \ref{fig:VideoFoundationModellingForLfV}:
 \begin{itemize}
-    \item \texttt{Finetune Pretrained Video \ac{FMs}:} 
-    One important application of Video \ac{FMs} is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video \ac{FMs} \cite{Yang2023LearningIR, rt22023arxiv, Ahn2022DoAI, Kim2024OpenVLAAO}. 
+    \item \texttt{Finetune Pretrained Video \acp{FM}:} 
+    One important application of Video \acp{FM} is the transfer of pretrained models to robotics tasks. For example, a video prediction model trained on internet video data may be adapted or fine-tuned into a robot dynamics model, allowing the robot to leverage the broad gathered knowledge about object motion and environmental dynamics from the pretrained Video \acp{FM} \cite{Yang2023LearningIR, rt22023arxiv, Ahn2022DoAI, Kim2024OpenVLAAO}. 
     
-    \item \texttt{Leveraging Techniques and Datasets Inspired by Video \ac{FMs}:}
-    In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot \ac{FM} can be directly trained by combining robot data with large-scale video inspired by video \ac{FMs} techniques \cite{Team2024OctoAO, rt12022arxiv}.
+    \item \texttt{Leveraging Techniques and Datasets Inspired by Video \acp{FM}:}
+    In addition, techniques developed for video foundation models can be integrated into robot learning pipelines and can lead to better extraction of representations and knowledge. This, in turn, can lead to improved generalization and task understanding. For instance, a Robot \ac{FM} can be directly trained by combining robot data with large-scale video inspired by video \acp{FM} techniques \cite{Team2024OctoAO, rt12022arxiv}.
 \end{itemize}
 \end{samepage}
 
@@ -256,7 +256,7 @@ Their usefulness in robotics can be summarized in the following aspects:
 
     \item \textbf{Grounded Reasoning and Planning:}
     % what is with VL-Models?
-    \ac{LLMs} have demonstrated strong capabilities as high-level planners in robotics \cite{Ahn2022DoAI}. However, their lack of direct grounding in physical perception limits their reliability in real-world environments.
+    \acp{LLM} have demonstrated strong capabilities as high-level planners in robotics \cite{Ahn2022DoAI}. However, their lack of direct grounding in physical perception limits their reliability in real-world environments.
 
     Video-to-text models address this limitation by conditioning reasoning directly on rich visual-temporal input \cite{Wake2023GPT4VisionFR, Huang2026RoboStreamWS, Nguyen2019V2CNetAD,McCarthy_2025}. This enables:
     \begin{itemize}
@@ -299,7 +299,7 @@ Existing approaches can be broadly categorized into compositional pipelines, \ac
     For example, an image-language model is first used to process individual video frames by answering frame-level questions. The resulting intermediate descriptions are then aggregated using a \ac{LLM}, which generates a global video summary \cite{Chen2023VideoCT}. While effective in practice, these approaches do not involve end-to-end video training, and therefore may fail to learn rich temporal video representations \cite{McCarthy_2025}.
 
     \item \textbf{Leveraging Pretrained LLMs via Adaptors and Finetuning:}
-    A common strategy is to combine a pretrained video encoder with a pretrained \ac{LLM} \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Papalampidi2023ASR, Zhang2023VideoLLaMAAI}. Since \ac{LLMs} operate on token sequences, an adaptor module is introduced to project video features into the \ac{LLM} input space. With the adaptor, the video encoder and \ac{LLM} can be trained end-to-end on video-text data, allowing the model to learn to extract video representations that are aligned with language generation.
+    A common strategy is to combine a pretrained video encoder with a pretrained \ac{LLM} \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Papalampidi2023ASR, Zhang2023VideoLLaMAAI}. Since \acp{LLM} operate on token sequences, an adaptor module is introduced to project video features into the \ac{LLM} input space. With the adaptor, the video encoder and \ac{LLM} can be trained end-to-end on video-text data, allowing the model to learn to extract video representations that are aligned with language generation.
 
     % Training typically follows a two-stage procedure: (i) large-scale next-token prediction pretraining on video-text data converted into token sequences, and (ii) supervised instruction tuning on smaller, high-quality datasets. Following trends in LLMs, future work could investigate a third RLHF finetuning stage [128] 
 
@@ -575,7 +575,7 @@ For example these ``skill embeddings'' can capture structures such as ``reach th
 
 \paragraph{Methods:}
 \begin{itemize}
-    \item \textbf{Variational Sequence Models:} These methods use \ac{VAEs} to encode motion trajectories or sequences of observations into a latent variable $z$ that captures the underlying behavior. The VAE is trained to reconstruct the original trajectory from the latent representation \cite{Wang2023MimicPlayLI}.    
+    \item \textbf{Variational Sequence Models:} These methods use \acp{VAE} to encode motion trajectories or sequences of observations into a latent variable $z$ that captures the underlying behavior. The VAE is trained to reconstruct the original trajectory from the latent representation \cite{Wang2023MimicPlayLI}.    
     % Variational auto-encoding of motion or trajectory representations 
     \item \textbf{Video-Language Contrastive Learning:} Aligns video segments with natural language descriptions of behaviors \cite{fan2022minedojo, Lifshitz2023STEVE1AG, Sontakke2023RoboCLIPOD}.
     \item \textbf{Supervised Contrastive Learning:} Pulls on a action-labeled dataset, videos with the same or similar action labels together in latent space, while pushing videos with different action labels apart \cite{ChaneSane2023LearningVP, Chen2021LearningGR}.
@@ -650,13 +650,13 @@ Natural language descriptions can be used as high-level action representations f
 \begin{equation}
 \hat{a}_t = \texttt{"pick up the cube"}.
 \end{equation}
-Language-based actions provide semantic supervision and enable integration with \ac{LLMs} \cite{Du2023VideoLP}, which can facilitate more complex reasoning and planning.
+Language-based actions provide semantic supervision and enable integration with \acp{LLM} \cite{Du2023VideoLP}, which can facilitate more complex reasoning and planning.
 
 \paragraph{Methods:}
 \begin{itemize}
     % ToDo: Quellen für diese beide Stichpunkte
     \item Video-to-Text Models \cite{McCarthy_2025}
-    \item \ac{VLMs} and variants of them \cite{McCarthy_2025}
+    \item \acp{VLM} and variants of them \cite{McCarthy_2025}
 \end{itemize}
 
 \paragraph{Methods for Missing Language Captions:}
@@ -664,8 +664,7 @@ Video datasets may not always contain usable language captions. To address this,
 \begin{itemize}
     % ToDo: Hier evtl. nochmal die Quellen nachprüfen
     % \item Language-captioned video datasets \cite{Grauman2021Ego4DAT}
-    \item Process and enhance standard captions to generate more detailed action descriptions, for example by using \ac{LLMs} or \ac{VLMs} \cite{Mu2023EmbodiedGPTVP}.
-    \item \textbf{}
+    \item Process and enhance standard captions to generate more detailed action descriptions, for example by using \acp{LLM} or \acp{VLM} \cite{Mu2023EmbodiedGPTVP}.
     \item Usage of automated or semi-automated video captioning methods \cite{Mu2023EmbodiedGPTVP}
 \end{itemize}
 

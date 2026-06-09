@@ -125,7 +125,7 @@
 
 
 
-\usepackage[printonlyused]{acronym}
+
 %
 % Persoenliche Angaben
 %
@@ -181,6 +181,12 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 }
 
 
+% \usepackage[printonlyused]{acronym}
+% \usepackage{acro}
+\usepackage{acro}
+\acsetup{make-links = true}
+\input{acronym}
+
 %
 % Beginn des Textteils
 %
@@ -229,9 +235,14 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
   \include{formblatt_summary}			% 4. Seite: Formblatt Zusammenfassung
   \tableofcontents
   \cleardoublepage
-  \chapter*{Acronyms}
-  \addcontentsline{toc}{chapter}{Acronyms}
-  \input{acronym}
+
+  \printacronyms[heading=chapter*]
+  % \printacronyms[include-classes={acro}, heading=chapter*, addtotoc]
+  % \printacronyms[heading=chapter*, addtotoc]
+  % \chapter*{Acronyms}
+  % \addcontentsline{toc}{chapter}{Acronyms}
+
+
   \newpage
   \chapter*{Symbole, Formelzeichen und Einheiten}
   \newpage
