@@ -496,6 +496,7 @@ Other methods \cite{Qin2021DexMVIL, Mandikal2022DexVIPLD} apply pose retargeting
 % This formulation provides smooth and dense optimization signals, which can significantly improve the stability and efficiency of downstream \ac{RL}.
 
 \underline{Tracking Objects and Interactions}
+
 Some approaches \cite{Chang2020SemanticVN} leverage object labels together with off-the-shelf object detectors to infer task progress and goal states from observations. In manipulation tasks, object detectors can identify relevant objects, locations or the robot gripper in each frame. By tracking these objects over time, the system can estimate task progress and automatically derive reward signals. For example, decreasing distance between the gripper and an object may indicate approach behavior, while object movement together with gripper interaction can signal successful grasping or task completion. This enables the generation of goal and reward annotations without requiring manually labeled demonstrations.
 
 \underline{Potential-based Shaping with Value Functions}

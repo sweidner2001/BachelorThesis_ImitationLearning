@@ -4,7 +4,7 @@ In this chapter, we will explore some Imitation Learning approaches, that were a
 % ToDo: End-to-End trained
 \section{Paper - Vid2Robot: End-to-end Video-conditioned Policy Learning with Cross-Attention Transformers}
 
-Vid2Robot \cite{Jain2024Vid2RobotEV}, a end-to-end video-based learning framework for robots. Given a human or robot video demonstration of a manipulation task and the robot's current visual observations, Vid2Robot directly produces corresponding robot actions in it's own environment. The Demonstration Video can be taken in a different environment or from a different viewpoint. Additionally, Vid2Robot exhibits emergent capabilities, such as successfully transferring observed motions from one object to another (see Figure~\ref{fig:Vid2RobotGeneralization}), and long-horizon composition, thus showcasing its potential for real-world applications.
+Vid2Robot \cite{Jain2024Vid2RobotEV}, is a end-to-end video-based learning framework for robots. Given a human or robot video demonstration of a manipulation task and the robot's current visual observations, Vid2Robot directly produces corresponding robot actions in it's own environment. The demonstration video can be taken in a different environment or from a different viewpoint. Additionally, Vid2Robot exhibits emergent capabilities, such as successfully transferring observed motions from one object to another (see Figure~\ref{fig:Vid2RobotGeneralization}), and long-horizon composition, thus showcasing its potential for real-world applications.
 
 \begin{figure}[!ht]
 	\centering
@@ -47,17 +47,17 @@ modules:
             Encode the robot's current visual observation about objects and the environment into meaningful representations.
             \item \textbf{Input:} The robot's observation, which includes the current and last $k$ robot camera frames.
             \item \textbf{Processing:} 
-            The Processing pipeline is the same as in the Prompt Video Encoder, where each frame is first passed through a \texttt{Per-Frame Image Encoder} and then aggregated over time using a \texttt{Perceiver State Resampler}. The weights of the \texttt{Per-Frame Image Encoder} between the Prompt Encoder and State Encoder are shared.
+            The Processing pipeline is the same as in the Prompt Video Encoder, where each frame is first passed through a \texttt{Per-Frame Image Encoder} and then aggregated over time using a \texttt{Perceiver State Resampler}. The weights of the \texttt{Per-Frame Image Encoder} are shared between the Prompt Encoder and State Encoder.
             % , which encourages the model to learn a shared visual representation space for both human and robot videos, thus facilitating better generalization and transfer of learned skills from human demonstrations to robot actions.
             \item \textbf{Output:} 
             Produces \texttt{State Tokens} describing a compact representation of the robot's current visual scene and the objects within it. 
             \item \textbf{Purpose:} 
-            Temporal encoding of the robot state, which allows understanding of object motion and robot context
+            Temporal encoding of the robot state, which allows understanding of object motion and robot context,
         \end{itemize}
     \item \textbf{State-Prompt Encoder} 
         \begin{itemize}
             \item \textbf{Task:} 
-            Align the robot's current view with the demonstrated goal
+            Align the robot's current view with the demonstrated goal.
             % \item fuses the information from the prompt and observation encoders to produce a combined representation.
             \item \textbf{Input:} State tokons from the Robot State Encoder and Prompt tokens from the Prompt Video Encoder. 
             \item \textbf{Processing:} 
@@ -70,8 +70,8 @@ modules:
     \item \textbf{Action Decoder}: decodes the combined representation into robot actions.
         \begin{itemize}
             \item \textbf{Task:} 
-            Predict next robot action
-            \item \textbf{Input:} Action position embeddings and prompt-aware state tokens from the State-Prompt Encoder. The action position embeddings are fixed learnable parameters that represent the temporal positions of the future actions to be predicted.
+            Predict the next robot actions.
+            \item \textbf{Input:} Action position embeddings and prompt-aware state tokens from the State-Prompt Encoder. The action position embeddings are fixed learnable parameters that represent the temporal positions of the future actions to be predicted. This allows the policy to predict several time steps ahead.
             \item \textbf{Processing:} 
             Implemented using a transformer decoder architecture \cite{Zhao2023LearningFB}, with fixed action position embeddings as queries, and the prompt-aware state tokens as keys and values. Each output token embedding is projected to 256 dimensions and the action bin with the highest probability is selected.
             \item \textbf{Output:} 
