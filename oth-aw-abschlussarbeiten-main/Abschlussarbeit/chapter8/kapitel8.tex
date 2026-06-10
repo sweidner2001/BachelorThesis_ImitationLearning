@@ -9,7 +9,7 @@ Vid2Robot \cite{Jain2024Vid2RobotEV}, is a end-to-end video-based learning frame
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Generalization.png}
-	\caption[Vid2Robot can transfer observed motions from one object to another]{Vid2Robot can transfer observed motions from one object to another \cite{Jain2024Vid2RobotEV}.}
+	\caption[Vid2Robot: Motion transfer to other objects]{Vid2Robot can transfer observed motions from one object to another. Image source: \cite{Jain2024Vid2RobotEV}.}
 	\label{fig:Vid2RobotGeneralization}
 \end{figure}
 
@@ -19,7 +19,7 @@ Vid2Robot \cite{Jain2024Vid2RobotEV}, is a end-to-end video-based learning frame
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Architecture.png}
-	\caption[Vid2Robot Architecture]{Vid2Robot Architecture \cite{Jain2024Vid2RobotEV}.}
+	\caption[Vid2Robot: Architecture]{Vid2Robot architecture. Image source: \cite{Jain2024Vid2RobotEV}.}
 	\label{fig:Vid2RobotArchitecture}
 \end{figure}
 
@@ -83,7 +83,7 @@ modules:
 Cross-Attention Transformer layers are used in Perceiver Prompt Resampler, Perceiver State Resampler, State-Prompt Encoder and Action Decoder
 
 
-\subsection{Training}
+\subsection{Training \& Loss Functions}
 To handle the varying lengths of demonstration videos, Vid2Robot samples randomly $N = 16$ frames. The first and last frames are always included to capture the initial and final states of the task, while the other sampled frames are selected randomly and sorted by their temporal order. The frames of the video prompt and robot observation are normalized between 0 to 1, rezized to 224x224 pixels and photometric augmentations like cropping, brightness, contrast, hue and saturation are applied during training.
 
 % To further improve policy performance, we propose auxiliary
@@ -94,7 +94,7 @@ To handle the varying lengths of demonstration videos, Vid2Robot samples randoml
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Loss.png}
-	\caption[Vid2Robot Loss]{Vid2Robot Loss \cite{Jain2024Vid2RobotEV}.}
+	\caption[Vid2Robot: Loss Functions]{Vid2Robot loss functions. Image source: \cite{Jain2024Vid2RobotEV}.}
 	\label{fig:Vid2RobotLoss}
 \end{figure}
 
@@ -130,7 +130,7 @@ L_{\text{total}} = \tfrac{1}{4}\big( L_{\text{action}} + L_{\text{video alignmen
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Datasets.png}
-	\caption[Datasets used to train Vid2Robot]{Datasets used to train Vid2Robot \cite{Jain2024Vid2RobotEV}.}
+	\caption[Vid2Robot: Datasets]{Datasets used to train Vid2Robot. Image source: \cite{Jain2024Vid2RobotEV}.}
 	\label{fig:Vid2RobotDatasets}
 \end{figure}
 Vid2Robot requires paired prompt videos and robot trajectories performing the same task and is trained with three different dataset categories, see Figure~\ref{fig:Vid2RobotDatasets}.
@@ -168,7 +168,7 @@ ORION consists of two main stages: manipulation plan generation from video and p
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/ORION_Achitecture}
-	\caption[ORION: Overview of plan generation]{ORION: Overview of plan generation \cite{Zhu2024VisionbasedMF}.}
+	\caption[ORION: Overview of plan generation]{ORION: Overview of plan generation. Image source: \cite{Zhu2024VisionbasedMF}.}
 	\label{fig:ORIONArchitecture}
 \end{figure}
 
@@ -215,7 +215,7 @@ The second stage of ORION is the policy rollout, where the manipulation plan gen
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/ORION_PolicyRollout}
-	\caption[ORION: Policy Rollout]{Overview of the ORION policy rollout \cite{Zhu2024VisionbasedMF}.}
+	\caption[ORION: Policy Rollout]{Overview of the ORION policy rollout. Image source: \cite{Zhu2024VisionbasedMF}.}
 	\label{fig:ORIONPolicyRollout}
 \end{figure}
 Given a manipulation plan, ORION constructs a policy that synthesizes actions in four steps, see Figure~\ref{fig:ORIONPolicyRollout}.
@@ -248,7 +248,7 @@ Training the VPDD framework consists three main stages: video tokenization, vide
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/LearningAnActionableDDPolicy_Architecture}
-	\caption[VPDD: Overview of the Training stages]{VPDD: Overview of the Training stages \cite{He2024LearningAA}.}
+	\caption[VPDD: Overview of the Training stages]{VPDD: Overview of the Training stages. Image source: \cite{He2024LearningAA}.}
 	\label{fig:LearningAnActionableDDPolicy_Architecture}
 \end{figure}
 
@@ -325,7 +325,7 @@ The core idea is to use embeddings extracted from human demonstration videos as 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/ViP_Architecture}
-	\caption[ViP: Overview how it works]{ViP: Overview how it works \cite{ChaneSane2023LearningVP}.}
+	\caption[ViP: Overview how it works]{ViP: Overview how it works. Image source: \cite{ChaneSane2023LearningVP}.}
 	\label{fig:ViP_Architecture}
 \end{figure}
 
