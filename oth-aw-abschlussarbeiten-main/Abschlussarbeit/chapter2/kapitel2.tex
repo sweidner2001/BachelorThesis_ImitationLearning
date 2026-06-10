@@ -94,9 +94,140 @@ The agent proceeds in its environment according to the trial-and-error principle
 
 \subsection{Convolutional Neural Networks}
 \subsection{Transformer}
+% for sequence-to-sequence tasks
+A Transformer is a deep neural network architecture designed to process sequential data, especially text. It's the foundation for most
+modern LLMs, enabling them to process and understand language
+effectively.
+Unlike earlier architectures, which process tokens one after another, Transformers compare all tokens in a sequence in parallel and learn which parts of the input are relevant to each other. This is done through the attention mechanism and was the core innovation of the Transformer architecture. The main idea is simple: when the model reads one token, it does not treat all other tokens equally. It assigns higher importance to the tokens that are more relevant in the current context. This makes Transformers especially powerful for language tasks, because meaning often depends on long-range dependencies in the sentence.
+
+\paragraph{Architecture}
+The original Transformer architecture was introduced by Vaswani et al. (2017) and consists of two parts: the encoder and the decoder. See \autoref{fig:TransformerArchitecture} for an overview.
+\begin{enumerate}
+	\item \textbf{Encoder:} The encoder reads the full input sequence and converts it into a contextual latent representation. Each token is transformed not only based on its own identity, but also based on the other tokens in the sequence. In this way, the encoder builds a rich internal representation of the input.
+	
+	\item \textbf{Decoder:} The decoder generates the output sequence autoregressively, meaning one token at a time. To produce the next token in the output sequence, it uses at each prediction step: (1) The contextual representation from the encoder; (2) The previously generated output tokens from the decoder. This allows the decoder to produce the next token while taking the source sequence into account.
+\end{enumerate}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter2/media/TransformerArchitectur3}
+	\caption[Transformer Architecture]{Transformer Architecture. Image based on \cite{Vaswani2017AttentionIA}.}
+	\label{fig:TransformerArchitecture}
+\end{figure}
+
+While the examples in this section are based on text processing to facilitate understanding of the Transformer architecture, the underlying principles generalize to other modalities, such as images or videos. 
+
+
+
+\paragraph{1. Input Embeddings}
+Before a Transformer can process data, the data must be converted into a numerical representation. This is the role of the input embedding layer. Given an input text such as “Data visualization empowers users to”, the model first tokenizes the text, then maps each token to a vector representation, and finally adds positional information. The resulting embedding combines semantic meaning with information about token order. 
+\begin{enumerate}
+	\item \textbf{Tokenization:} The input text is split into smaller units called tokens. These tokens can be a word, a subword or a single character. For example, the sentence might be tokenized into ["Data", "visualization", "empowers", "users", "to"]. Each token is assigned a unique token ID.
+	\item \textbf{Embedding:} Each token is then mapped one-to-one to a high-dimensional vector representation. This embedding captures the semantic meaning of the token. For example, the token "Data" might be represented as a 768-dimensional vector in the embedding space.
+	\item \textbf{Positional Encoding:} Since the Transformer does not process tokens sequentially, it needs an explicit way to represent token order. Positional encodings provide this information. Depending on the model, these encodings may be fixed or learned. They are added to the token embeddings so that the model can distinguish between, for example, ``dog bites man'' and ``man bites dog''.
+	\item \textbf{Final Embedding:} The final input representation is obtained by combining token embeddings and positional information, typically through element-wise addition. This representation is then passed into the Transformer layers.
+\end{enumerate}
+
+
+\paragraph{2. Attention Mechanism}
+The Attention mechanism is responsible for capturing contextual relationships between tokens by directly computing their relevance to one another. This allows the model to understand long-range dependencies and contextual relationships of the tokens, leading to more coherent and relevant output. 
+In \autoref{fig:TransformerAttentionWeights} the attention weights of the word ``it'' in the sentence ``The animal didn't cross the street because it was too tired'' are visualized, after the input is processed through the Encoder attention mechanism. The attention weights allows the model to decide which other tokens in the sequence are most relevant. 
+% The attention mechanism allows the model to determine that ``it'' refers to ``The animal'' and not to ``the street'' and simultaneously it refers to the context ``too tired'', which is crucial for understanding the meaning of the sentence. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter2/media/AttentionWords2}
+	\caption[Transformer: Attention Weights Example]{Attention Weights of the word ``it'' in a sentence. Image source}
+	% https://colab.research.google.com/github/tensorflow/tensor2tensor/blob/master/tensor2tensor/notebooks/hello_t2t.ipynb#scrollTo=OJKU36QAfqOC.
+	\label{fig:TransformerAttentionWeights}
+\end{figure}
+
+\textit{Compute Attention Weights.} In the self-attention mechanism, each token embedding vector $x^{(i)}$ is transformed into three different representations: query $q^{(i)}$, key $k^{(i)}$ and value $v^{(i)}$. These representations are obtained through learnable linear transformations with parameters ($W_q$, $W_k$, $W_v$) that are optimized during training.
+\begin{itemize}
+	\item \textbf{Query $q^{(i)}=x^{(i)}W_q$:} The query vector represents the token for which we want to compute attention. It is used to determine how much attention this token should pay to other tokens in the sequence.
+	\item \textbf{Key $k^{(i)}=x^{(i)}W_k$:} The key vector represents the token against which the query is compared. It is used to compute the relevance score between the query and the token.
+	\item \textbf{Value $v^{(i)}=x^{(i)}W_v$:} The value vector contains the actual information of the token. It is weighted by the attention scores to produce the final output of the self-attention mechanism.
+\end{itemize}
+
+\textit{Self-Attention.} The query vectors are then compared with the key vectors of all tokens in the sequence using the dot product (scalar product), producing relevance scores that indicate how strongly tokens are related to one another. To stabilize training, these scores are scaled by the square root of the key dimension $d_k$ and normalized using a softmax function, resulting in attention weights. Finally, the attention weights are applied to the corresponding value vectors, and the weighted values are aggregated to produce the new context vector $z^{(i)}$ and the output of the self-attention layer, see \autoref{fig:TransformerAttentionKeyQueryValueSimply}. 
+\begin{equation}
+	z^{(i)} = \text{softmax}\left(\frac{q^{(i)} \cdot k^{(i)T}}{\sqrt{d_k}}\right)v^{(i)}
+\end{equation}
+In this way, each token can incorporate information from the most relevant tokens in the sequence, enabling the model to capture contextual dependencies.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter2/media/TransformerAttentionKeyQueryValueSimply}
+	\caption[Transformer: Self-attention computation]{Self-attention: Compute the new context vector of each input embedding vector by combining the (attention)-weighted value vectors. Image source \cite{xxx}.}
+	\label{fig:TransformerAttentionKeyQueryValueSimply}
+\end{figure}
+
+Instead of computing attention separately for each token, the Transformer performs the computation for the entire sequence using matrix operations, see \autoref{fig:TransformerSingleHeadAttention}. The matrix product $QK^T$ computes the pairwise similarity scores between all tokens in the sequence in parallel, resulting in the attention score matrix.
+\begin{equation}
+	\text Z = {Attention}(Q,K,V)=\text{softmax}\left( \frac{QK^T}{\sqrt{d_k}} \right)V
+\end{equation}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter2/media/TransformerSingleHeadAttention}
+	\caption[Transformer: Self-attention computation]{Single self-attention Block. Image source \cite{xxx}.}
+	\label{fig:TransformerSingleHeadAttention}
+\end{figure}
+
+
+\textit{Multi-Head Attention.} While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel. Each head learns its own query, key, and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter2/media/TransformerMultiHeadAttention}
+	\caption[Transformer: Multi-Head Attention Block]{Multi-Head Attention Block. Image source \cite{xxx}.}
+	\label{fig:TransformerMultiHeadAttention}
+\end{figure}
+
+Transformer archtecture:
+
+% - consist of **encoder & decoder**
+%     - **encoder module** processes the input text and encodes it into a series of numerical representations or vectors that capture the contextual information of the input.
+%     - Then, the **decoder module** takes these encoded vectors and generates the output text.
+
+
+% 	Bei einem Transformer handelt es sich um eine Encoder-Decoder-Architektur. Sie besteht,
+% wie die Sequence-to-Sequence-Modelle, die wir in Kapitel 10 kennengelernt haben, aus
+% zwei getrennten Komponenten: Die erste, der Encoder, produziert eine Repräsentation einer
+% Eingabesequenz. Der Decoder nimmt diese Repräsentation zusammen mit einer weiteren
+% Eingabesequenz, die der Decoder im Umlauf zuvor generiert hat, auf und produziert daraus
+% eine Ausgabe. Diese Ausgabe wird im nächsten Schritt dem Decoder wieder zugeführt, sodass
+% er die nächste Ausgabeeinheit produziert. Die Verfahrensweise kennen wir.
+% Im Unterschied zu den Sequence-to-Sequence-Modellen aus dem vorherigen Kapitel verwendet der Transformer allerdings weder eine rekurrente noch eine konvolutionale Schicht
+% zur Produktion des Kontextvektors oder der finalen Ausgabe. Stattdessen setzt er auf ein
+% Verfahren, das sich Self-Attention nennt.
+
+
+% Nehmen wir als Beispiel den Satz „Das Kaninchen frisst das Futter, weil es hungrig ist.“ (vgl.
+% Bild 11.1). Das Wort „es“ könnte, wenn wir uns einmal dumm stellen, zweierlei bedeuten:
+% Es könnte entweder auf „Kaninchen“ oder auf „Futter“ verweisen. Mithilfe des Self-AttentionMechanismus wird nun für jedes Wort bestimmt, in welcher Verbindung es zu den anderen
+% Wörtern innerhalb des Satzes steht. Das Prinzip ist das gleiche wie beim Attention-Mechanismus, der die Bedeutung der Wörter des Eingabesatzes mit den Wörtern des Ausgabesatzes in
+% Beziehung setzt. Natürlich werden im Falle der Self-Attention die meisten Wörter hauptsächlich auf sich selbst verweisen. „Kaninchen“ und „Futter“ erklären sich mehr oder weniger aus
+% sich selbst. Ein Pronomen wie „es“ referenziert allerdings vor allem auf ein anderes Substantiv,
+% in unserem Fall auf „Kaninchen“ – vorausgesetzt natürlich, die Gewichte der Self-AttentionLayer werden richtig angelernt. Um das Wort im Kontext richtig zu interpretieren, wird es
+% dann einfach mit den Embedding-Gewichten des Wortes „Kaninchen“ assoziiert.
+
+
+
+% - GPT models utilize self-supervised learning, where the model learns from
+% the data itself without requiring explicit labels. In the case of GPT, the
+% next word in a sentence serves as the label for the model to predict,
+% allowing for training on massive unlabeled text datasets.
+% - The transformer architecture utilizes an attention mechanism that allows
+% the LLM to selectively access the entire input sequence when generating
+% output, word by word
+
+
+
 \subsection{Vision Transformer}
-
-
+For example, in computer vision, the Vision Transformer (ViT) applies the same attention mechanism to image patches instead of words, allowing it to capture spatial relationships in images effectively.
+In a similar way, in computer vision, the attention mechanism can help a model focus on relevant parts of an image, such as identifying objects or understanding spatial relationships between different regions of the image.
 
 
 \section{Foundation Model vs. Multi-Model Model}
