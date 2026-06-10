@@ -95,9 +95,7 @@ The agent proceeds in its environment according to the trial-and-error principle
 \subsection{Convolutional Neural Networks}
 \subsection{Transformer}
 % for sequence-to-sequence tasks
-A Transformer is a deep neural network architecture designed to process sequential data, especially text. It's the foundation for most
-modern LLMs, enabling them to process and understand language
-effectively.
+A Transformer is a deep neural network architecture designed to process sequential data, especially text. It's the foundation for most modern LLMs, enabling them to process and understand language effectively.
 Unlike earlier architectures, which process tokens one after another, Transformers compare all tokens in a sequence in parallel and learn which parts of the input are relevant to each other. This is done through the attention mechanism and was the core innovation of the Transformer architecture. The main idea is simple: when the model reads one token, it does not treat all other tokens equally. It assigns higher importance to the tokens that are more relevant in the current context. This makes Transformers especially powerful for language tasks, because meaning often depends on long-range dependencies in the sentence.
 
 \paragraph{Architecture}
@@ -176,7 +174,8 @@ Instead of computing attention separately for each token, the Transformer perfor
 \end{figure}
 
 
-\textit{Multi-Head Attention.} While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel. Each head learns its own query, key, and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
+\textit{Multi-Head Attention.} While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel. Each head learns its own query, key, and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected through a linear layer to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
+The number of heads is chosen such that the input embedding dimension is split across the heads. For example, if the input embedding dimension is 768 and there are 12 heads, each head would operate on a subspace of 64 dimensions. Otherwise, the output dimensions will not match the input dimensions.
 
 \begin{figure}
 	\centering
@@ -185,7 +184,30 @@ Instead of computing attention separately for each token, the Transformer perfor
 	\label{fig:TransformerMultiHeadAttention}
 \end{figure}
 
-Transformer archtecture:
+\paragraph{3) Encoder Block:}
+After the self-attention computation, the resulting representations are passed through a layer normalization step, followed by a feed-forward network (MLP). A second layer normalization is applied after this transformation. This sequence of operations forms a single Transformer block, which can be stacked multiple times to increase model capacity.
+
+The MLP (Multi-Layer Perceptron) operates independently on each token representation. In contrast to the attention mechanism, which is responsible for exchanging information between tokens, the MLP refines and transforms each token embedding individually. It typically consists of two linear transformations with a non-linear activation function in between, allowing the model to learn more complex feature transformations.
+
+A key component of the Transformer architecture is the use of residual connections, which are applied around both the attention block and the feed forward network. These are shortcut connections that add the input of a sub-layer directly to its output. This mechanism improves gradient flow during backpropagation and mitigates the vanishing gradient problem, which is especially important in deep networks composed of many stacked Transformer blocks. 
+
+The output of the final encoder layer is a sequence of contextualized vectors, where each vector corresponds to one input token enriched with information from the entire sequence. This representation can then be used for downstream tasks such as classification, regression, or sequence generation.
+
+
+\paragraph{4) Decoder Block:}
+The decoder receives an input sequence that is first transformed using the same embedding procedure as the encoder (token embeddings + positional information). During generation, this input typically consists of previously generated output tokens. The embedded sequence is then processed through two distinct attention mechanisms: masked multi-head self-attention and cross-attention.
+
+\textit{Masked Multi-Head Attention.} Masked multi-head self-attention operates on the decoder's own input sequence, but with a causal mask that prevents each position from attending to any future positions. The causal mask ensures that future tokens receive an attention weight of zero, making them invisible to the current position and ensures that the prediction for the next token depends only on previously generated tokens. 
+% , preserving the autoregressive property. 
+% The decoder then uses these vectors, along with the previously generated output tokens, to produce the next token in the output sequence. This process continues until the entire output sequence is generated.
+
+\textit{Cross-Attention.} In cross-attention, the decoder's hidden states from the masked attention layer serve as queries $Q$, while the encoder's output serve as keys $K$ and values $V$, allowing the decoder to condition its predictions on the encoded source sequence.
+
+After these attention layers, the resulting representations are passed through a linear projection followed by a softmax function, producing a probability distribution over the set of possible output elements. The element with the highest probability is selected and appended to the generated sequence. This process repeats autoregressively until a special end-of-sequence symbol is produced. In our text example, the vocabulary token with the highest probability is selected and appended to the generated sequence.
+
+
+
+
 
 % - consist of **encoder & decoder**
 %     - **encoder module** processes the input text and encodes it into a series of numerical representations or vectors that capture the contextual information of the input.
@@ -198,10 +220,7 @@ Transformer archtecture:
 % Eingabesequenz. Der Decoder nimmt diese Repräsentation zusammen mit einer weiteren
 % Eingabesequenz, die der Decoder im Umlauf zuvor generiert hat, auf und produziert daraus
 % eine Ausgabe. Diese Ausgabe wird im nächsten Schritt dem Decoder wieder zugeführt, sodass
-% er die nächste Ausgabeeinheit produziert. Die Verfahrensweise kennen wir.
-% Im Unterschied zu den Sequence-to-Sequence-Modellen aus dem vorherigen Kapitel verwendet der Transformer allerdings weder eine rekurrente noch eine konvolutionale Schicht
-% zur Produktion des Kontextvektors oder der finalen Ausgabe. Stattdessen setzt er auf ein
-% Verfahren, das sich Self-Attention nennt.
+% er die nächste Ausgabeeinheit produziert
 
 
 % Nehmen wir als Beispiel den Satz „Das Kaninchen frisst das Futter, weil es hungrig ist.“ (vgl.
@@ -214,14 +233,6 @@ Transformer archtecture:
 % dann einfach mit den Embedding-Gewichten des Wortes „Kaninchen“ assoziiert.
 
 
-
-% - GPT models utilize self-supervised learning, where the model learns from
-% the data itself without requiring explicit labels. In the case of GPT, the
-% next word in a sentence serves as the label for the model to predict,
-% allowing for training on massive unlabeled text datasets.
-% - The transformer architecture utilizes an attention mechanism that allows
-% the LLM to selectively access the entire input sequence when generating
-% output, word by word
 
 
 
