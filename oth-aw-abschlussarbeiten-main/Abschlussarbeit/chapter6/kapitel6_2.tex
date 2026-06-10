@@ -109,7 +109,15 @@ Image and context translation provide complementary approaches to bridging domai
 
 \ac{RL} enables robots to acquire manipulation skills through trial-and-error interaction guided by reward signals. By continuously interacting with the environment, RL can optimize policies for complex and long-horizon tasks that are difficult to solve with purely supervised approaches. 
 
-In the context of \ac{LfV}, RL approaches often combine exploratory learning with structured information extracted from human demonstrations \cite{Eze2024LearningBW}. Rather than forming strictly separated categories, the following approaches represent complementary strategies that can be integrated within broader RL frameworks.
+In the context of \ac{LfV}, RL approaches often combine exploratory learning with structured information extracted from human demonstrations \cite{Eze2024LearningBW}. Rather than forming strictly separated categories, the following approaches represent complementary strategies that can be integrated within broader RL frameworks, see \autoref{fig:RLApproaches}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./chapter6/media/RLApproaches}
+	\caption[General overview of Reinforcement Learning Approaches]{Reinforcement learning paradigms in video-based robot learning. Image source \cite{Eze2024LearningBW}.}
+	\label{fig:RLApproaches}
+\end{figure}
+
 
 % ToDo: Use examples on my PowerPoint in the RL section
 \begin{itemize}
@@ -274,7 +282,7 @@ Several large-scale studies have demonstrated the effectiveness of transferring 
 
 
 \paragraph{b) Multi-Modal Models}
-Multi-modal models can be trained on a combination of videos, images, texts and robot specific data to learn shared representations that can predict robot actions, see \autoref{fig:LearningPoliciesFromVideo}, illustration (b). By jointly optimizing on diverse data sources, these models can leverage the rich contextual information from the different modalities while grounding their outputs in robot-compatible action spaces $A$ or $\hat{A}$ \cite{McCarthy_2025}. For more infos see \autoref{sec:MulitModalModelsExtractingFoundationalKnowledgeFromVideos} or \autoref{MultiModalApproachesVLAModels}.
+Multi-modal models can be trained on a combination of videos, images, texts and robot specific data to learn shared representations that can predict robot actions, see \autoref{fig:LearningPoliciesFromVideo}, illustration (b). By jointly optimizing on diverse data sources, these models can leverage the rich contextual information from the different modalities while grounding their outputs in robot-compatible action spaces $A$ or $\hat{A}$ \cite{McCarthy_2025}. For more infos see \autoref{sec:MulitModalModelsExtractingFoundationalKnowledgeFromVideos} or \autoref{sec:MultiModalApproachesVLAModels}.
 
 \paragraph{c) Alternative Action Policy $\pi_{\hat{A}}(\hat{a}_t|o_t)$ and Decoder $\pi(a_t|\hat{a}_t, o_t)$}
 % \paragraph{d) Alternative-action Decoders $\pi(a_t|\hat{a}_t, o_t)$}
@@ -330,7 +338,7 @@ Examples of manually defined decoders include:
 
 \underline{Example Workflow: Policy-as-Video}
 
-In this workflow, generated videos serve directly as the policy output. The alternative action Space $\hat{A}$ refers to the paradigm \textit{observation-as-action}, see \autoref{sec:CategoriesOfAlternativeActionRepresentations}, illustration d). The procedure consists of two steps \cite{Du2023LearningUP, McCarthy_2025} accouring to Figure~\ref{fig:LearningPoliciesFromVideo} illustration d):
+In this workflow, generated videos serve directly as the policy output. The alternative action Space $\hat{A}$ refers to the paradigm \textit{observation-as-action}, see \autoref{sec:CategoriesOfAlternativeActionRepresentations} illustration (d). The procedure consists of two steps \cite{Du2023LearningUP, McCarthy_2025} accouring to Figure~\ref{fig:LearningPoliciesFromVideo} illustration (d):
 \begin{enumerate}
     \item A \textbf{language-conditioned video predictor} $p(\tau \mid o_{t-k:t}, c)$, generates a future video sequence that imagines successful task completion given the current observation and a language instruction as context. $\tau$ represents a generated video trajectory and $c$ the conditional informations.
     

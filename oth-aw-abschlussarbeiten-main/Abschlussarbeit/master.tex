@@ -21,7 +21,19 @@
 \usepackage[utf8x]{inputenc}
 % \usepackage[ngerman]{babel}
 \usepackage[english]{babel}
-\usepackage[style=numeric]{biblatex}
+% \usepackage[style=numeric]{biblatex}
+\usepackage[
+   backend=biber        			% für unicode
+  ,style=ieee %iso-numeric		% numerische Referenzen
+  ,autolang=other       			% mehrere Sprachen im Literaturverzeichnis
+  ,sortlocale=auto   				  % locale zum Sortieren in Englisch (Deutsch geht nicht...)
+  ,sorting=none						    % Sortierreihenfolge nach Referenz im Text
+  ,alldates=short %iso				% use all dates in ISO format
+  ,seconds=true						    % im neuen Format notwendig
+  ,dashed=false               % Autorenname wird immer ausgeschrieben
+  ,citestyle=numeric-comp
+]{biblatex}
+
 % \addbibresource{General.bib}
 \addbibresource{BA.bib}
 % \addbibresource{Zotero.bib}
@@ -248,14 +260,14 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
   \chapter*{Symbole, Formelzeichen und Einheiten}
   \newpage
   \pagenumbering{arabic}
-  \include{chapter1/kapitel1}
-  \include{chapter2/kapitel2}
-  \include{chapter3/kapitel3}
-  \include{chapter4/kapitel4}
-  \include{chapter5/kapitel5}
+  % \include{chapter1/kapitel1}
+  % \include{chapter2/kapitel2}
+  % \include{chapter3/kapitel3}
+  % \include{chapter4/kapitel4}
+  % \include{chapter5/kapitel5}
   \include{chapter6/kapitel6}
   \include{chapter6/kapitel6_2}
-  \include{chapter7/kapitel7}
+  % \include{chapter7/kapitel7}
   \include{chapter8/kapitel8}
   % \include{chapter9/kapitel9}
   
