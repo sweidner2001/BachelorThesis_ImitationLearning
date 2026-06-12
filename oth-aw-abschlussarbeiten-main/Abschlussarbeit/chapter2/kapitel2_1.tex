@@ -12,10 +12,28 @@
 
 A Convolutional Neural Network (CNN) is a deep neural network architecture designed to process grid-like data, especially images. CNNs are particularly effective for visual tasks because they exploit the spatial structure of an image and learn local patterns such as edges, corners, and textures. Unlike fully connected networks, CNNs do not treat every pixel independently. Instead, they use small learnable filters that are applied across the image to detect relevant structures at different positions.
 
-\subsubsection{Convolution}
+\paragraph{Convolution}
 
-The main idea of a CNN is the convolution operation. In the case of a grayscale image, a small kernel is moved across the image and combined with the underlying pixel values. This produces a new image, called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every spatial location, CNNs are able to detect the same feature independent of its position in the image.
+The main idea of a CNN is the convolution operation, where a filter, also known as kernel, is applied to the image to extract features. 
+A Filter or kernel, defined as a small matrix of weights, is moved across the image and element-wise multiplied with the underlying pixel values. This is possible, because an image is technically a matrix of pixel values too. The resulting values are stored in a new matrix called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every pixel location, CNNs are able to detect the same feature independent of its position in the image.
+For example, the Prewitt kernels, also known as edge detection filters, can be used to detect horizontal and vertical edges in an image:
+\begin{equation}
+	K_{\text{horizontal}} =
+	\begin{bmatrix}
+		-1 & 0 & 1\\
+		-1 & 0 & 1\\
+		-1 & 0 & 1
+	\end{bmatrix}
+	\qquad
+	K_{\text{vertical}} =
+	\begin{bmatrix}
+		-1 & -1 & -1\\
+		0 & 0 & 0\\
+		1 & 1 & 1
+	\end{bmatrix}
+\end{equation}
 
+\autoref{fig:CNNCatPrewitt} shows the result, after applying the Prewitt kernels to a grey-scale image. There exists a wide variety of predefined filters to extract various of visual structures from the image. A CNN consist of multiple kernels, which are applied in parallel and in multiple layers to the image and the resulting feature maps. However in a CNN, the kernels are not predefined, instead they are learned during training, allowing the network to find the optimal filters for the task success.
 
 \begin{figure}[h]
     \centering
@@ -53,25 +71,8 @@ The main idea of a CNN is the convolution operation. In the case of a grayscale 
 \end{figure}
 
 
-For example, the Prewitt operator can be used to detect horizontal and vertical edges. The two $3 \times 3$ kernels are given by
 
-\[
-K_{\text{horizontal}} =
-\begin{bmatrix}
--1 & 0 & 1\\
--1 & 0 & 1\\
--1 & 0 & 1
-\end{bmatrix}
-\qquad
-K_{\text{vertical}} =
-\begin{bmatrix}
--1 & -1 & -1\\
-0 & 0 & 0\\
-1 & 1 & 1
-\end{bmatrix}
-\]
 
-By applying these kernels to the input image, two different feature maps are obtained: one emphasizing horizontal edges and one emphasizing vertical edges. More generally, different kernels extract different visual structures from the same image.
 
 \begin{figure}
 	\centering
@@ -80,13 +81,26 @@ By applying these kernels to the input image, two different feature maps are obt
 	\label{fig:CNNConvolutionIntro}
 \end{figure}
 
-Mathematically, the convolution at position $(i,j)$ can be written as
+During convolution, the kernel 
 
-\[
-Y(i,j) = \sum_{u=-1}^{1}\sum_{v=-1}^{1} X(i+u,j+v)\cdot K(u+1,v+1),
-\]
 
-where $X$ is the input image, $K$ is the kernel, and $Y$ is the resulting feature map. In practice, the kernel is slid across the image step by step, and at each location the element-wise products are summed to obtain one output value.
+is moved across the image and multiplied with the underlying pixel values. 
+A kernel slides across the image. At each location, the product between
+each element of the kernel and the input element it overlaps is computed and
+the results are summed up to obtain the output in the current location. 
+The result is stored in a new matrix, called feature map. 
+
+This produces a new image, called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every spatial location, CNNs are able to detect the same feature independent of its position in the image.
+
+
+
+
+
+
+
+
+
+In practice, the kernel is slid across the image step by step, and at each location the element-wise products are summed to obtain one output value.
 
 To preserve the spatial resolution of the input image, padding is often added around the border before applying the convolution. With zero-padding, the image size can remain unchanged after the convolution, which is useful when multiple convolution layers are stacked. Importantly, the kernels are not fixed manually in a CNN. Instead, they are learned during training, allowing the network to adapt its filters to the task at hand.
 
