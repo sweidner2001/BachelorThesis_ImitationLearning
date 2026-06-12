@@ -93,6 +93,10 @@ The agent proceeds in its environment according to the trial-and-error principle
 
 
 \subsection{Convolutional Neural Networks}
+
+
+
+
 \subsection{Transformer}
 % for sequence-to-sequence tasks
 A Transformer is a deep neural network architecture designed to process sequential data, especially text. It's the foundation for most modern LLMs, enabling them to process and understand language effectively.
@@ -156,6 +160,7 @@ In this way, each token can incorporate information from the most relevant token
 But What does this mean technically? The value vector $\mathbf{v}^{(i)}$ represent the token's informatation in an semantic learned high-dimensional embedding space. Through the attention machanism changes the vector it's direction and magnitude in this embedding space and point to another place, resulting in a other semantic meaning.
 In \autoref{fig:TransformerEmbeddingSpace_BlueFluffyCreature4} is shown how the vector of the word ``creature'' is shifted in the embedding space based on the context ``a fluffy blue creature''. This illustrates how the attention mechanism allows the model to dynamically adjust the meaning of tokens based on their relationships with other tokens in the sequence.
 % In one context, it may point to a specific type of creature, while in another context, it may point to a different type of creature.
+% According to the relevant semantic meaning, the word “creature” is affected within the vectorial embedding space by the words (embeddings) “fluffy” and “blue”
 \begin{figure}
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter2/media/TransformerEmbeddingSpace_BlueFluffyCreature4}
@@ -213,7 +218,7 @@ The decoder receives an input sequence that is first transformed using the same 
 
 \textit{Cross-Attention.} In cross-attention, the decoder's hidden states from the masked attention layer serve as queries $Q$, while the encoder's output serve as keys $K$ and values $V$, allowing the decoder to condition its predictions on the encoded source sequence.
 
-After these attention layers, the resulting representations are passed through a linear projection followed by a softmax function, producing a probability distribution over the set of possible output elements. The element with the highest probability is selected and appended to the generated sequence. This process repeats autoregressively until a special end-of-sequence symbol is produced. In our text example, the vocabulary token with the highest probability is selected and appended to the generated sequence.
+After these attention layers, the resulting representations are passed through a linear projection head followed by a softmax function, producing a probability distribution over the set of possible output elements. The element with the highest probability is selected and appended to the generated sequence. This process repeats autoregressively until a special end-of-sequence symbol is produced. In our text example, the vocabulary token with the highest probability is selected and appended to the generated sequence.
 
 
 
@@ -247,8 +252,31 @@ After these attention layers, the resulting representations are passed through a
 
 
 \subsection{Vision Transformer}
-For example, in computer vision, the Vision Transformer (ViT) applies the same attention mechanism to image patches instead of words, allowing it to capture spatial relationships in images effectively.
-In a similar way, in computer vision, the attention mechanism can help a model focus on relevant parts of an image, such as identifying objects or understanding spatial relationships between different regions of the image.
+The Vision Transformer (ViT) \cite{Dosovitskiy2020AnII} extends the Transformer architecture, originally developed for natural language processing, to computer vision tasks by applying the self-attention mechanism to image patches instead of words. In computer vision, attention enables a model to focus on relevant regions of an image and to capture and understanding relationships between different areas of an image. This allows the model to identify important objects and effectively model spatial dependencies across the entire image.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/VisionTransformerOverview}
+	\caption[Vision Transformer Overview]{Vision Transformer: Overview of the architecture. Image source \cite{Din2025VisionLA}.}
+	\label{fig:VisionTransformerOverview}
+\end{figure}
+
+To process an image, ViT first divides the input image into a sequence of fixed-size, non-overlapping patches, see \autoref{fig:VisionTransformerOverview}. Each patch is flattened and linearly projected into a fixed-dimensional embedding vector, analogous to token embeddings in natural language processing.
+
+Since the Transformer architecture does not inherently encode spatial information between the image patches, learnable positional embeddings are added to the patch embeddings. In addition, a learnable classification token (CLS token), denoted by an asterisk (*) in \autoref{fig:VisionTransformerOverview}, is prepended to the sequence and serves as a global representation of the whole image. During the attention computation, the CLS token interacts with all patch embeddings and gradually aggregates information from the entire image.
+
+The resulting sequence is processed by a standard Transformer encoder consisting of multi-head self-attention and feed-forward layers. Through self-attention, the model learns global relationships between image patches and can capture long-range spatial dependencies that are difficult to model with traditional convolutional approaches. 
+
+After the final encoder layer, the output representation of the CLS token serves as a global representation of the image and is passed through a multi-layer perceptron (MLP) head to generate the final prediction, such as class probabilities for image classification tasks.
+% After the final encoder layer, the output representation of the CLS token contains information aggregated from all image patches and is passed to a multi-layer perceptron (MLP) head to produce the final prediction
+
+Vision Transformers have demonstrated competitive performance on large-scale image classification benchmarks such as ImageNet \cite{Deng2009ImageNetAL}, highlighting the effectiveness of attention-based architectures for visual representation learning \cite{Dosovitskiy2020AnII}.
+In imitation learning, Vision Transformers can be used as visual encoders that extract global scene representations from camera observations, which are subsequently used by the policy network to predict actions.
+
+
+
+
+
 
 
 \section{Foundation Model vs. Multi-Model Model}
