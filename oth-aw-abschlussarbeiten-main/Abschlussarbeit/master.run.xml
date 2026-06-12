@@ -60,6 +60,7 @@
       <file>numeric-comp.cbx</file>
       <file>biblatex.cfg</file>
       <file>english.lbx</file>
+      <file>american.lbx</file>
       <file>german.lbx</file>
       <file>ngerman.lbx</file>
     </requires>
