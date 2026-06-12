@@ -14,9 +14,7 @@ A Convolutional Neural Network (CNN) is a deep neural network architecture desig
 
 \paragraph{Convolution}
 
-The main idea of a CNN is the convolution operation, where a filter, also known as kernel, is applied to the image to extract features. 
-A Filter or kernel, defined as a small matrix of weights, is moved across the image and element-wise multiplied with the underlying pixel values. This is possible, because an image is technically a matrix of pixel values too. The resulting values are stored in a new matrix called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every pixel location, CNNs are able to detect the same feature independent of its position in the image.
-For example, the Prewitt kernels, also known as edge detection filters, can be used to detect horizontal and vertical edges in an image:
+The main idea of a CNN is the convolution operation, where a filter, also known as kernel, is applied to the image to extract features. For example, the Prewitt kernels, also known as edge detection filters, can be used to detect horizontal and vertical edges in an image:
 \begin{equation}
 	K_{\text{horizontal}} =
 	\begin{bmatrix}
@@ -33,8 +31,7 @@ For example, the Prewitt kernels, also known as edge detection filters, can be u
 	\end{bmatrix}
 \end{equation}
 
-\autoref{fig:CNNCatPrewitt} shows the result, after applying the Prewitt kernels to a grey-scale image. There exists a wide variety of predefined filters to extract various of visual structures from the image. A CNN consist of multiple kernels, which are applied in parallel and in multiple layers to the image and the resulting feature maps. However in a CNN, the kernels are not predefined, instead they are learned during training, allowing the network to find the optimal filters for the task success.
-
+\autoref{fig:CNNCatPrewitt} shows the result, after applying the Prewitt kernels to a grey-scale image. There exists a wide variety of predefined filters to extract various of visual structures from the image. 
 \begin{figure}[h]
     \centering
     \subfigure[Original Image: No convolution is applied]{
@@ -73,60 +70,52 @@ For example, the Prewitt kernels, also known as edge detection filters, can be u
 
 
 
-
-\begin{figure}
+A Filter or kernel is defined as a small matrix of weights, is moved across the image and element-wise multiplied with the underlying pixel values. This is possible, because an image is technically a matrix of pixel values too. The resulting values are stored in a new matrix called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every pixel location, CNNs are able to detect the same feature independent of its position in the image.
+Figure \autoref{fig:CNNConvolutionIntro} illustrates the mathematical convolution operation, where a $3 \times 3$ kernel is applied to a $6 \times 6$ image. The results are stored in a $3 \times 3$ matrix. 
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro.png}
 	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{xxx}.}
 	\label{fig:CNNConvolutionIntro}
 \end{figure}
 
-During convolution, the kernel 
-
-
-is moved across the image and multiplied with the underlying pixel values. 
-A kernel slides across the image. At each location, the product between
-each element of the kernel and the input element it overlaps is computed and
-the results are summed up to obtain the output in the current location. 
-The result is stored in a new matrix, called feature map. 
-
-This produces a new image, called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every spatial location, CNNs are able to detect the same feature independent of its position in the image.
 
 
 
+Figure \autoref{fig:CNNConvolution_1} shows how the kernel (dark blue) is slided across the image (light blue) step by step. At each location the element-wise products are summed up to obtain one output value, which is stored in a feature map (olive green). 
 
-
-
-
-
-
-In practice, the kernel is slid across the image step by step, and at each location the element-wise products are summed to obtain one output value.
-
-To preserve the spatial resolution of the input image, padding is often added around the border before applying the convolution. With zero-padding, the image size can remain unchanged after the convolution, which is useful when multiple convolution layers are stacked. Importantly, the kernels are not fixed manually in a CNN. Instead, they are learned during training, allowing the network to adapt its filters to the task at hand.
-
-\begin{figure}
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro_View2}
+	\includegraphics[width=0.9\linewidth]{./chapter2/media/CNNConvolution_1.png}
+	\caption[CNN Convolution Step-by-Step]{CNN Convolution Step-by-Step. Image based on \cite{xxx}.}
+	\label{fig:CNNConvolution_1}
+\end{figure}
+
+
+
+Figures \autoref{fig:CNNConvolutionIntro_View2} shows an alternative view of the convolution process.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro_View2.png}
 	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{xxx}.}
 	\label{fig:CNNConvolutionIntro_View2}
 \end{figure}
 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.9\linewidth]{./chapter2/media/CNNConvolution_1}
-	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{xxx}.}
-	\label{fig:CNNConvolutionIntro_View2}
-\end{figure}
-
-\begin{figure}
+\paragraph{Padding}
+As seen in the Figures \ref{fig:CNNConvolutionIntro}, \ref{fig:CNNConvolution_1} and \ref{fig:CNNConvolutionIntro_View2}, the feature map is smaller than the original image, because of the convolution operation. 
+To preserve the spatial resolution of the input image, padding is often added around the border before applying the convolution, see \autoref{fig:CNNConvolution_1_withPadding}. With zero-padding, the image size can remain unchanged after the convolution, which is useful when multiple convolution layers are stacked. 
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{./chapter2/media/CNNConvolution_1_withPadding}
-	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{xxx}.}
-	\label{fig:CNNConvolutionIntro_View2}
+	\caption[CNN Convolution with Padding]{CNN Convolution with Padding. Image based on \cite{xxx}.}
+	\label{fig:CNNConvolution_1_withPadding}
 \end{figure}
 
 
+
+A CNN consist of multiple kernels, which are applied in parallel and in multiple layers to the image and the resulting feature maps. Importantly, in a CNN the kernels are not fixed manually, instead they are learned during training, allowing the network to find the optimal filters for the task success.
+% Importantly, the kernels are not fixed manually in a CNN. Instead, they are learned during training, allowing the network to adapt its filters to the task at hand.
 
 
 % \begin{figure}
@@ -145,9 +134,27 @@ To preserve the spatial resolution of the input image, padding is often added ar
 % \end{figure}
 
 
-\subsubsection{Pooling}
+\paragraph{Activation Functions}
+After the convolution operation, a non-linear activation function is applied to the resulting feature map. Activation functions introduce non-linearity into the network, allowing CNNs to learn complex visual patterns that cannot be represented by linear transformations alone.
 
-\begin{figure}
+The most commonly used activation function is the Rectified Linear Unit (ReLU):
+which replaces all negative values with zero while leaving positive values unchanged:
+\begin{equation}
+	f(x)=\max(0,x),
+\end{equation}
+By applying ReLU after each convolution, the network can learn increasingly complex feature representations across multiple layers.
+
+
+\paragraph{Pooling}
+Another central component of CNNs is the pooling layer. Pooling reduces the spatial size of the feature maps while retaining the most important information. This lowers the computational cost and increases robustness to small shifts in the input image.
+
+A common choice is a $2\times2$ pooling window with a stride of 2. In this case, the feature map is divided into non-overlapping $2\times2$ regions, and each region is summarized by a single value. As a result, the width and height of the feature map are reduced by a factor of two.
+
+Two common pooling methods are max pooling and average pooling, as illustrated in \autoref{fig:CNNPooling}. In max pooling, the largest value within each pooling region is selected and propagated to the output feature map. In average pooling, the mean value of all elements within the region is computed. Both methods reduce the spatial resolution while preserving the most relevant information contained in the feature map.
+
+Pooling layers are typically applied after convolution layers and allow the network to build increasingly compact feature representations. While early convolution layers extract local patterns such as edges and textures, pooling helps summarize these features and enables deeper layers to focus on higher-level visual structures.
+
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.45\linewidth]{./chapter2/media/CNNPooling}
 	\caption[CNN Pooling]{CNN Pooling. Image based on \cite{xxx}.}
@@ -155,22 +162,22 @@ To preserve the spatial resolution of the input image, padding is often added ar
 \end{figure}
 
 
-Another central component of CNNs is the pooling layer. Pooling reduces the spatial size of the feature maps while retaining the most important information. This lowers the computational cost and increases robustness to small shifts in the input image.
 
-In max pooling, the maximum value within a local region is selected. In average pooling, the mean value of the region is computed. Both methods summarize local neighborhoods, but max pooling is more commonly used in practice because it preserves the strongest activation. Pooling is typically applied after convolution layers and helps the network build increasingly compact and informative representations.
+\paragraph{CNN Pipeline}
 
-\subsubsection{CNN Pipeline}
-
-A CNN usually consists of several repeated blocks of convolution and pooling layers. Early layers detect simple features such as edges and corners, while deeper layers combine these basic features into more complex structures. After several convolution and pooling stages, the feature maps are flattened and passed through fully connected layers or a classification head to produce the final output.
-
-In this thesis, the convolution operation is first explained for a grayscale image to illustrate the basic principle. The same idea can then be extended to RGB images, where the kernels operate across all color channels.
+The common CNN processing sequence is: (1) convolution, (2) activation, and (3) pooling, while the activation function is often not mentioned explicitly.
+A CNN usually consists of several repeated blocks of convolution and pooling layers. Early layers detect simple features such as edges and corners, while deeper layers combine these basic features into more complex structures. 
+After several convolution and pooling stages, the feature maps are flattened into one big vector and passed through a MLP or a classification head in a classification task to produce the final predictions, see \autoref{fig:CNNPipeline}. Through backprobagating the prediction error, the networks parameter are adjusted during training.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1.0\linewidth]{./chapter2/media/CNNPipeline}
+	\includegraphics[width=1.0\linewidth]{./chapter2/media/CNNPipeline.png}
 	\caption[CNN Pipeline]{CNN Pipeline. Image based on \cite{xxx}.}
 	\label{fig:CNNPipeline}
 \end{figure}
 
 
-
+\paragraph{RGB Images}
+The same principle can be extended to RGB images. While a grayscale image contains only a single channel, an RGB image consists of three color channels representing red, green, and blue values. Consequently, a convolution kernel must span all input channels. For a kernel size of $3\times3$, a common way is to use an $3\times3\times3$ kernel for an RGB image. This kernel is applied across all three color channels simultaneously, and the resulting values are summed up to produce a single output value in the feature map. By learning appropriate kernels during training, CNNs can effectively capture complex visual patterns across all color channels in RGB images.
+% The resulting values are summed to produce a single output value in the feature map.
+%  The same idea can be extended to RGB images, where the kernels operate across all color channels.
