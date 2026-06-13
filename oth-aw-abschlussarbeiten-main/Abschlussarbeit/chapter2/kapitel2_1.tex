@@ -4,180 +4,145 @@
 \subsection{Neurons}
 
 \subsection{Neural Networks}
-\subsubsection{Activation Functions}
-\subsubsection{Training Neural Networks}
+\subsection{Neural Networks}
+Artificial Neural Networks (ANNs) are computational models inspired by the structure and functionality of biological brain. They are designed to learn complex relationships from data and have become a fundamental component of modern machine learning. ANNs are capable of approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting, and control systems.
 
 
-\subsection{Convolutional Neural Networks}
+\paragraph{Neuron}
+The basic element of an artificial neural network is the artificial neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons through dendrites, processes the received information, and transmits an output signal through its axon. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
 
-A Convolutional Neural Network (CNN) is a deep neural network architecture designed to process grid-like data, especially images. CNNs are particularly effective for visual tasks because they exploit the spatial structure of an image and learn local patterns such as edges, corners, and textures. Unlike fully connected networks, CNNs do not treat every pixel independently. Instead, they use small learnable filters that are applied across the image to detect relevant structures at different positions.
+\textit{History.}
+The first mathematical model of an artificial neuron was proposed by McCulloch and Pitts in 1943 \cite{McCulloch1943ALN}. Their model consisted of a binary threshold unit that produced an output only when the weighted sum of its inputs exceeded a predefined threshold. Although this model did not include a learning mechanism, it established the foundation for later neural network research.
 
-\paragraph{Convolution}
+A major extension of this idea was introduced by Rosenblatt in 1958 with the perceptron \cite{Rosenblatt1958ThePerceptron}. In contrast to the McCulloch--Pitts neuron, the perceptron introduced trainable weights and a learning rule, making it possible to adapt the model parameters directly from data. However, the perceptron still relied on a threshold-based activation and was therefore limited to linearly separable classification problems \cite{Minsky1969Perceptrons}.
 
-The main idea of a CNN is the convolution operation, where a filter, also known as kernel, is applied to the image to extract features. For example, the Prewitt kernels, also known as edge detection filters, can be used to detect horizontal and vertical edges in an image:
+This limitation was highlighted by Minsky and Papert, who showed that a single perceptron cannot represent functions such as XOR \cite{Minsky1969Perceptrons}. The development of multilayer neural networks together with differentiable activation functions later overcame this restriction. These advances made it possible to train networks with multiple layers and enabled the modern neural network architectures that are used in deep learning today.
+
+\textit{Mathematical Formulation.}
+A neuron receives an input vector $\mathbf{x}=[x_1,x_2,\ldots,x_n]^T$, where each vector element $x_i$ is associated with a trainable weight $w_i$ from the corresponding weight vector $\mathbf{w} = [w_1, w_2, \ldots, w_n]^T$. The neuron first computes a weighted sum of its inputs and adds a bias term $b$. The resulting pre-activation value is given by: 
+% The weighted inputs are summed together with an optional bias term $(b)$, see \autoref{eq:perceptron}. 
 \begin{equation}
-	K_{\text{horizontal}} =
+    z = \sum_{i=1}^{n} w_i x_i + b
+    \label{eq:neuron_scalar}
+\end{equation}
+
+The value $z$ represents a linear combination of the input features. To enable the modeling of non-linear relationships, an activation function $\phi(\cdot)$ is subsequently applied, yielding the neuron's output:
+
+\begin{equation}
+    y = \phi(z) = \phi\left(\sum_{i=1}^{n} w_i x_i + b\right)
+    \label{eq:neuron_activation}
+\end{equation}
+
+Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include the sigmoid function, the hyperbolic tangent (tanh), and the Rectified Linear Unit (ReLU).
+
+The weighted sum in \autoref{eq:neuron_scalar} can be expressed more compactly using vector notation and ending in the form of:
+\begin{equation}
+    y = \phi\!\left(\mathbf{w}^T \mathbf{x} + b\right)
+	= \phi\!\left(
+        \begin{bmatrix}
+            w_1 & w_2 & \cdots & w_n
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_1 \\
+            x_2 \\
+            \vdots \\
+            x_n
+        \end{bmatrix}
+        + b
+    \right) 
+    \label{eq:single_neuron}
+\end{equation}
+
+This vector formulation serves as the basis for the matrix representation of an entire neural network layer, where multiple neurons are evaluated simultaneously.
+
+\paragraph{Neural Networks}
+A neural network is a collection of interconnected neurons organized into layers. The most common form of such architectures is the \textit{Multilayer Perceptron} (MLP), also referred to as a feedforward neural network, where information flows in one direction from the input layer through one or more hidden layers to the output layer (without forming cycles).  
+The parameters of the network, including the weights and biases, are learned from data using optimization algorithms such as gradient descent. The ability of neural networks to learn complex functions from data has made them a powerful tool for a wide range of applications in machine learning and artificial intelligence.
+% Each layer consists of multiple neurons, and the output of one layer serves as the input to the next layer.
+
+A neural network consists of multiple interconnected neurons organized into layers
+% , and the output of one layer serves as the input to the next layer. 
+The input layer receives the feature vector, while the output layer produces the final prediction. The hidden layers perform intermediate computations that allow the network to learn increasingly abstract representations of the input data.
+
+In a \textit{Multilayer Perceptron Network}, each neuron in a layer receives the outputs of the neurons in the preceding layer as inputs. In a fully connected layer, every neuron is connected to every neuron in the subsequent layer. The output of a layer therefore serves as the input to the next layer.
+
+The computation of an entire layer can be expressed compactly using matrix notation. Let $\mathbf{x}^{(l-1)}$ denote the output vector of the previous layer, $\mathbf{W}^{(l)}$ the weight matrix, and $\mathbf{b}^{(l)}$ the bias vector of layer $l$. The pre-activation vector is given by
+
+\begin{equation}
+\mathbf{z}^{(l)} = \mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)},
+\end{equation}
+
+which can be written explicitly as
+
+
+\begin{equation}
 	\begin{bmatrix}
-		-1 & 0 & 1\\
-		-1 & 0 & 1\\
-		-1 & 0 & 1
-	\end{bmatrix}
-	\qquad
-	K_{\text{vertical}} =
+		w_{11} & \cdots & w_{1N} \\
+		w_{21} & \cdots & w_{2N} \\
+		\vdots & \ddots & \vdots \\
+		w_{M1} & \cdots & w_{MN}
+	\end{bmatrix}^{(l)}
 	\begin{bmatrix}
-		-1 & -1 & -1\\
-		0 & 0 & 0\\
-		1 & 1 & 1
+		x_1 \\
+		x_2 \\
+		\vdots \\
+		x_N
+	\end{bmatrix}^{(l-1)}
+	+
+	\begin{bmatrix}
+		b_1 \\
+		b_2 \\
+		\vdots \\
+		b_M
+	\end{bmatrix}^{(l)}
+	=
+	\begin{bmatrix}
+		w_{11}x_1 + \cdots + w_{1N}x_N + b_1 \\
+		w_{21}x_1 + \cdots + w_{2N}x_N + b_2 \\
+		\vdots \\
+		w_{M1}x_1 + \cdots + w_{MN}x_N + b_M
 	\end{bmatrix}
 \end{equation}
 
-\autoref{fig:CNNCatPrewitt} shows the result, after applying the Prewitt kernels to a grey-scale image. There exists a wide variety of predefined filters to extract various of visual structures from the image. 
-\begin{figure}[h]
-    \centering
-    \subfigure[Original Image: No convolution is applied]{
-        \parbox{4.6cm}{
-            \centering
-            {\small\textbf{Original}}\par
-            \vspace{0.3em}
-            \includegraphics[width=4.5cm]{./chapter2/media/CNNCatPrewittOriginal_3}
-        }
-        \label{fig:CNNCatPrewittOriginal}
-    }
-    \hspace{0.3cm}
-    \subfigure[Convolved Image, after the horizontal Prewitt kernel is applied to the original image]{
-        \parbox{4.7cm}{
-            \centering
-            {\small\textbf{Horizontal Prewitt}}\par
-            \vspace{0.3em}
-            \includegraphics[width=4.5cm]{./chapter2/media/CNNCatPrewittHorizontal_3}
-        }
-        \label{fig:CNNCatPrewittHorizontal}
-    }
-    \hspace{0.3cm}
-    \subfigure[Convolved Image, after the vertical Prewitt kernel is applied to the original image]{
-        \parbox{4.6cm}{
-            \centering
-            {\small\textbf{Vertical Prewitt}}\par
-            \vspace{0.3em}
-            \includegraphics[width=4.5cm]{./chapter2/media/CNNCatPrewittVertical_3}
-        }
-        \label{fig:CNNCatPrewittVertical}
-    }
-    \caption[Image-based instructions for task execution.]{Image-based instructions for task execution. Image source: \cite{xxx}.}
-    \label{fig:CNNCatPrewitt}
-\end{figure}
 
+In other words, each neuron in layer $l$ computes its own weighted sum over all outputs of the previous layer and then adds its corresponding bias term.
 
+Equivalently, the bias can be absorbed into the matrix multiplication by augmenting the input vector with a constant entry $1$ and extending the weight matrix by one additional column:
 
-
-A Filter or kernel is defined as a small matrix of weights, is moved across the image and element-wise multiplied with the underlying pixel values. This is possible, because an image is technically a matrix of pixel values too. The resulting values are stored in a new matrix called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every pixel location, CNNs are able to detect the same feature independent of its position in the image.
-Figure \autoref{fig:CNNConvolutionIntro} illustrates the mathematical convolution operation, where a $3 \times 3$ kernel is applied to a $6 \times 6$ image. The results are stored in a $3 \times 3$ matrix. 
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro.png}
-	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{xxx}.}
-	\label{fig:CNNConvolutionIntro}
-\end{figure}
-
-
-
-
-Figure \autoref{fig:CNNConvolution_1} shows how the kernel (dark blue) is slided across the image (light blue) step by step. At each location the element-wise products are summed up to obtain one output value, which is stored in a feature map (olive green). 
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{./chapter2/media/CNNConvolution_1.png}
-	\caption[CNN Convolution Step-by-Step]{CNN Convolution Step-by-Step. Image based on \cite{xxx}.}
-	\label{fig:CNNConvolution_1}
-\end{figure}
-
-
-
-Figures \autoref{fig:CNNConvolutionIntro_View2} shows an alternative view of the convolution process.
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro_View2.png}
-	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{xxx}.}
-	\label{fig:CNNConvolutionIntro_View2}
-\end{figure}
-
-
-\paragraph{Padding}
-As seen in the Figures \ref{fig:CNNConvolutionIntro}, \ref{fig:CNNConvolution_1} and \ref{fig:CNNConvolutionIntro_View2}, the feature map is smaller than the original image, because of the convolution operation. 
-To preserve the spatial resolution of the input image, padding is often added around the border before applying the convolution, see \autoref{fig:CNNConvolution_1_withPadding}. With zero-padding, the image size can remain unchanged after the convolution, which is useful when multiple convolution layers are stacked. 
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{./chapter2/media/CNNConvolution_1_withPadding}
-	\caption[CNN Convolution with Padding]{CNN Convolution with Padding. Image based on \cite{xxx}.}
-	\label{fig:CNNConvolution_1_withPadding}
-\end{figure}
-
-
-
-A CNN consist of multiple kernels, which are applied in parallel and in multiple layers to the image and the resulting feature maps. Importantly, in a CNN the kernels are not fixed manually, instead they are learned during training, allowing the network to find the optimal filters for the task success.
-% Importantly, the kernels are not fixed manually in a CNN. Instead, they are learned during training, allowing the network to adapt its filters to the task at hand.
-
-
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolution_1_withStride2}
-% 	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{Vaswani2017AttentionIA}.}
-% 	\label{fig:CNNConvolutionIntro_View2}
-% \end{figure}
-
-
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolution_1_withDilation}
-% 	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on \cite{Vaswani2017AttentionIA}.}
-% 	\label{fig:CNNConvolutionIntro_View2}
-% \end{figure}
-
-
-\paragraph{Activation Functions}
-After the convolution operation, a non-linear activation function is applied to the resulting feature map. Activation functions introduce non-linearity into the network, allowing CNNs to learn complex visual patterns that cannot be represented by linear transformations alone.
-
-The most commonly used activation function is the Rectified Linear Unit (ReLU):
-which replaces all negative values with zero while leaving positive values unchanged:
 \begin{equation}
-	f(x)=\max(0,x),
+	\begin{bmatrix}
+		z_1^{(l)} \\
+		z_2^{(l)} \\
+		\vdots \\
+		z_M^{(l)}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		w_{11}^{(l)} & \cdots & w_{1N}^{(l)} & b_1^{(l)} \\
+		w_{21}^{(l)} & \cdots & w_{2N}^{(l)} & b_2^{(l)} \\
+		\vdots & \ddots & \vdots & \vdots \\
+		w_{M1}^{(l)} & \cdots & w_{MN}^{(l)} & b_M^{(l)}
+		\end{bmatrix}
+		\begin{bmatrix}
+		x_1^{(l-1)} \\
+		x_2^{(l-1)} \\
+		\vdots \\
+		x_N^{(l-1)} \\
+		1
+	\end{bmatrix}
 \end{equation}
-By applying ReLU after each convolution, the network can learn increasingly complex feature representations across multiple layers.
-
-
-\paragraph{Pooling}
-Another central component of CNNs is the pooling layer. Pooling reduces the spatial size of the feature maps while retaining the most important information. This lowers the computational cost and increases robustness to small shifts in the input image.
-
-A common choice is a $2\times2$ pooling window with a stride of 2. In this case, the feature map is divided into non-overlapping $2\times2$ regions, and each region is summarized by a single value. As a result, the width and height of the feature map are reduced by a factor of two.
-
-Two common pooling methods are max pooling and average pooling, as illustrated in \autoref{fig:CNNPooling}. In max pooling, the largest value within each pooling region is selected and propagated to the output feature map. In average pooling, the mean value of all elements within the region is computed. Both methods reduce the spatial resolution while preserving the most relevant information contained in the feature map.
-
-Pooling layers are typically applied after convolution layers and allow the network to build increasingly compact feature representations. While early convolution layers extract local patterns such as edges and textures, pooling helps summarize these features and enables deeper layers to focus on higher-level visual structures.
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.45\linewidth]{./chapter2/media/CNNPooling}
-	\caption[CNN Pooling]{CNN Pooling. Image based on \cite{xxx}.}
-	\label{fig:CNNPooling}
-\end{figure}
 
 
 
-\paragraph{CNN Pipeline}
 
-The common CNN processing sequence is: (1) convolution, (2) activation, and (3) pooling, while the activation function is often not mentioned explicitly.
-A CNN usually consists of several repeated blocks of convolution and pooling layers. Early layers detect simple features such as edges and corners, while deeper layers combine these basic features into more complex structures. 
-After several convolution and pooling stages, the feature maps are flattened into one big vector and passed through a MLP or a classification head in a classification task to produce the final predictions, see \autoref{fig:CNNPipeline}. Through backprobagating the prediction error, the networks parameter are adjusted during training.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=1.0\linewidth]{./chapter2/media/CNNPipeline.png}
-	\caption[CNN Pipeline]{CNN Pipeline. Image based on \cite{xxx}.}
-	\label{fig:CNNPipeline}
-\end{figure}
+\paragraph{Non-Linear Activation Functions in Neural Networks}
+The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data. In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy.
 
 
-\paragraph{RGB Images}
-The same principle can be extended to RGB images. While a grayscale image contains only a single channel, an RGB image consists of three color channels representing red, green, and blue values. Consequently, a convolution kernel must span all input channels. For a kernel size of $3\times3$, a common way is to use an $3\times3\times3$ kernel for an RGB image. This kernel is applied across all three color channels simultaneously, and the resulting values are summed up to produce a single output value in the feature map. By learning appropriate kernels during training, CNNs can effectively capture complex visual patterns across all color channels in RGB images.
-% The resulting values are summed to produce a single output value in the feature map.
-%  The same idea can be extended to RGB images, where the kernels operate across all color channels.
+\paragraph{Training Neural Networks}
+The parameters of a neural network, namely the weights and biases, are learned from data during training. This is typically achieved by minimizing a loss function using gradient-based optimization methods such as gradient descent and its variants. The gradients required for optimization are efficiently computed using the backpropagation algorithm, which propagates the prediction error from the output layer back through the network. This learning process enables neural networks to adapt their internal representations and achieve strong performance across a wide range of machine learning tasks.
+
+---
+
+
+% A neural network consists of multiple interconnected neurons organized into layers. Typically, the network is composed of an input layer, one or more hidden layers, and an output layer. The input layer receives the feature vector, while the output layer produces the final prediction. The hidden layers perform intermediate computations that allow the network to learn increasingly abstract representations of the input data.

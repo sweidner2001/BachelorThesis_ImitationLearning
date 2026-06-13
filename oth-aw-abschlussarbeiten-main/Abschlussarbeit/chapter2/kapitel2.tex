@@ -85,9 +85,105 @@ The agent proceeds in its environment according to the trial-and-error principle
 
 
 \section{Deep Learning}
-\subsection{Neurons}
+An Artificial Neural Network (ANN) is a machine learning model inspired by the structure of the biological brain. It consists of interconnected computational units called neurons, which process information and learn complex relationships from data \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}. 
+
+The fundamental building block of a neural network is the artificial neuron. A neuron receives one or more input values, computes a weighted sum of these inputs, adds a bias term, and applies a nonlinear activation function to produce an output. By combining many neurons into layers and connecting these layers together, neural networks can learn increasingly complex representations of the input data \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}.
+
+
+An Artificial Neural Network (ANN) is a machine learning model inspired by the structure of the biological brain and designed to learn complex relationships from data \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}. Neural networks consist of interconnected computational units called neurons, which are organized into layers and trained to perform tasks such as classification, regression, and control.
+
+Unlike traditional algorithms that rely on manually fixed designed rules or features, neural networks automatically learn relevant patterns directly from data. Each neuron receives input values, computes a weighted sum, adds a bias term, and applies a nonlinear activation function to produce an output. By combining many neurons across multiple layers, neural networks can learn hierarchical representations and approximate highly complex functions \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}.
 
 \subsection{Neural Networks}
+Artificial Neural Networks (ANNs) are computational models inspired by the structure and functionality of biological brain. They are designed to learn complex relationships from data and have become a fundamental component of modern machine learning. ANNs are capable of approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting, and control systems.
+
+
+\paragraph{Neuron}
+The basic element of an artificial neural network is the artificial neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons through dendrites, processes the received information, and transmits an output signal through its axon. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
+
+\textit{History.}
+The first mathematical model of an artificial neuron was proposed by McCulloch and Pitts in 1943 \cite{McCulloch1943ALN}. Their model consisted of a binary threshold unit that produced an output only when the weighted sum of its inputs exceeded a predefined threshold. Although this model did not include a learning mechanism, it established the foundation for later neural network research.
+
+A major extension of this idea was introduced by Rosenblatt in 1958 with the perceptron \cite{Rosenblatt1958ThePerceptron}. In contrast to the McCulloch--Pitts neuron, the perceptron introduced trainable weights and a learning rule, making it possible to adapt the model parameters directly from data. However, the perceptron still relied on a threshold-based activation and was therefore limited to linearly separable classification problems \cite{Minsky1969Perceptrons}.
+
+This limitation was highlighted by Minsky and Papert, who showed that a single perceptron cannot represent functions such as XOR \cite{Minsky1969Perceptrons}. The development of multilayer neural networks together with differentiable activation functions later overcame this restriction. These advances made it possible to train networks with multiple layers and enabled the modern neural network architectures that are used in deep learning today.
+
+\textit{Mathematical Formulation.}
+A neuron receives an input vector $\mathbf{x}=[x_1,x_2,\ldots,x_n]^T$, where each vector element $x_i$ is associated with a trainable weight $w_i$ from the corresponding weight vector $\mathbf{w} = [w_1, w_2, \ldots, w_n]^T$. The neuron first computes a weighted sum of its inputs and adds a bias term $b$. The resulting pre-activation value is given by: 
+% The weighted inputs are summed together with an optional bias term $(b)$, see \autoref{eq:perceptron}. 
+\begin{equation}
+    z = \sum_{i=1}^{n} w_i x_i + b.
+    \label{eq:neuron_scalar}
+\end{equation}
+
+The value $z$ represents a linear combination of the input features. To enable the modeling of non-linear relationships, an activation function $\phi(\cdot)$ is subsequently applied, yielding the neuron's output
+
+\begin{equation}
+    a = \phi(z) = \phi\left(\sum_{i=1}^{n} w_i x_i + b\right).
+    \label{eq:neuron_activation}
+\end{equation}
+
+Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include the sigmoid function, the hyperbolic tangent (tanh), and the Rectified Linear Unit (ReLU).
+
+The weighted sum in \autoref{eq:neuron_scalar} can be expressed more compactly using vector notation and ending in the form of:
+\begin{equation}
+    a = \phi\!\left(\mathbf{w}^T \mathbf{x} + b\right).
+    \label{eq:single_neuron}
+\end{equation}
+
+This vector formulation serves as the basis for the matrix representation of an entire neural network layer, where multiple neurons are evaluated simultaneously.
+
+
+
+
+
+
+---
+\begin{equation}
+	z = f\left(\sum_{i=1}^{n} w_i x_i + b\right)
+	\label{eq:perceptron}
+\end{equation}
+
+% \begin{equation}
+% z = \sum_{i=1}^{n} w_i x_i + b
+% \label{eq:perceptron}
+% \end{equation}
+
+
+The output 
+z
+z is a linear combination of the inputs. To enable learning of non-linear patterns, a non-linear activation function
+f(⋅) is applied, giving the final output a=f(z). Without such a non-linearity, stacking multiple neurons would still only yield a linear model. Common activation functions today include ReLU, sigmoid, and tanh.
+
+or, equivalently, in vector notation,
+
+\begin{equation}
+z = \mathbf{w}^T \mathbf{x} + b.
+\end{equation}
+
+The resulting value is then transformed by a nonlinear activation function $f(\cdot)$
+
+\begin{equation}
+y = f(z) = f(\mathbf{w}^T \mathbf{x} + b),
+\label{eq}
+\end{equation}
+
+where $y$ denotes the output of the neuron.
+
+The activation function introduces nonlinearity into the model, enabling neural networks to learn complex relationships between inputs and outputs. Common activation functions include the sigmoid function, the hyperbolic tangent (tanh), and the Rectified Linear Unit (ReLU). Without a nonlinear activation function, a network consisting of multiple layers would collapse into a single linear transformation and would therefore be unable to represent nonlinear functions.
+
+
+
+
+\textit{Mathematical Formulation.}
+A perceptron receives multiple inputs $(x_1, x_2, \ldots, x_n)$, each associated with a trainable weight $(w_1, w_2, \ldots, w_n)$. The weighted inputs are summed together with an optional bias term $(b)$, see \autoref{eq:perceptron}. 
+\begin{equation}
+	y = f\left(\sum_{i=1}^{n} w_i x_i + b\right)
+	\label{eq:perceptron}
+\end{equation}
+
+
+
 \subsubsection{Activation Functions}
 \subsubsection{Training Neural Networks}
 
