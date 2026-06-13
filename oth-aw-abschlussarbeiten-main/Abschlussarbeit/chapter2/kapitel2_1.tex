@@ -149,15 +149,118 @@ Then the activation function is applied element-wise to the resulting pre-activa
 	\mathbf{x}^{(l)} = \phi(\mathbf{z}^{(l)}) = \phi\!\left(\mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)}\right).
 \end{equation}
 
+The
+
 \paragraph{Non-Linear Activation Functions in Neural Networks}
 The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data. In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy. 
 Common activation functions used in modern neural networks include the functions GELU (Gaussian Error Linear Unit), Rectified Linear Unit (ReLU), Leaky ReLU, the tanh (hyperbolic tangent) and the Swish function. But there exist many more. Each of these functions has its own characteristics and can result in different learning dynamics and performance. 
 
 % ToDo: Figure to activation functions
-
+\paragraph{Prediction}
+The output layer is responsible for producing the network's final prediction. Its activation function is chosen based on the task: 
+\begin{itemize}
+	\item \textbf{Regression:} For regression problems, a linear activation directly outputs a continuous value.
+	\item \textbf{Binary Classification:} For binary classification (true/false), a single neuron with a sigmoid function outputs a probability between 0 and 1.
+	\item \textbf{Multi-Class Classification:} For multi-class classification, a softmax layer produces a probability distribution over the classes, where each output neuron corresponds to a specific class and the softmax function ensures that the outputs sum to 1, representing the predicted probabilities for each class.
+\end{itemize}
+The choice of activation function in the output layer is crucial, as it directly affects the interpretation of the network's predictions and the appropriate loss function to use during training.
 
 \paragraph{Training Neural Networks}
 The parameters of a neural network, namely the weights and biases, are learned from data during training. This is typically achieved by minimizing a loss function using gradient-based optimization methods such as gradient descent and its variants. The gradients required for optimization are efficiently computed using the backpropagation algorithm, which propagates the prediction error from the output layer back through the network. This learning process enables neural networks to adapt their internal representations and achieve strong performance across a wide range of machine learning tasks.
+
+\textit{What is a Gradient?} 
+The gradient is a fundamental concept in optimization and machine learning. It describes how a function changes with respect to its input variables and points in the direction of the steepest increase of the function. In the special case of a function with only one variable, the gradient reduces to the first derivative, which corresponds to the slope of the function at a given point.
+In simple terms, the gradient indicates how the function value changes when making a small step to the right or left away from a specific point.
+
+
+
+% In Figure~\ref{fig:NNGradientIntro}, the gradient is represented by the slope of the curve at a particular point. It indicates how the function value changes when moving slightly away from that point.
+% The gradient is represented by the slope of the curve at a particular point. 
+
+To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. We want to determine the slope of the blue curve at the point $x=1$. To do this, we calculate the gradient at that point. First, we compute the derivative $f'(x)=2x$ of the function $f(x)=x^2-3$ and evaluate it at $x=1$. The first derivative $f'(x)$ provides the slope at any point on the function $f(x)$. In this example, the slope at $x=1$ is $f'(1)=2$. To verify this result, the slope triangle is shown in \autoref{fig}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.85\linewidth]{./chapter2/media/NNGradientIntro.pdf}
+	\caption[Neural Network Architecture]{Neural Network Architecture.}
+	\label{fig:NNGradientIntro}
+\end{figure}
+
+In general, the gradient indicates whether a function is increasing or decreasing at a specific point and how steeply it changes. A positive gradient means that the function is increasing, while a negative gradient indicates that the function is decreasing. The magnitude of the gradient describes how steeply the function changes. Larger magnitudes correspond to steeper slopes, while values close to zero indicate relatively flat regions.
+
+% Gradient is a vector that points in the direction of the greatest slope of a function. In Figure~\ref{fig:gradient_descent}, the gradient is represented by the slope of the curve at a specific point and indicates how a function changes if we make a small step left or right from that point away. 
+% The gradient is a fundamental concept in optimization, as it provides information about the direction and magnitude of the steepest ascent or descent of a function. In the context of training neural networks, the gradient of the loss function with respect to the network's parameters indicates how the loss changes as we adjust those parameters.
+% To better understand the concept of Gradients, see \autoref{fig:NNGradientIntro}. We want to find out the slope of the point $x=1$ on the blue curve. To do this, we can calculate the gradient at that point. This means we calculate the first derivative $f'(x) = 2x$ of the function $f(x) = x^2 - 3$ and evaluate it at $x=1$. The first derivate $f'(x)$ of the function gives as the slope of any point on that function $f(x)$. 
+% In our case the slope in the point $x=1$ is $f'(1) = 2$. To verify the correctness of the slope, the slope triangle is drawn in \autoref{fig:NNGradientIntro}, which gives as the visual representation of the slope, which matches with the previous result and is $m=2$. 
+
+
+
+
+
+%  For example, if want to find out the slope of the point $x=1$ 
+% The gradient indicates how the loss function changes with respect to changes in the network's parameters. By following the negative of the gradient, we can iteratively update the parameters to minimize the loss function, which is the core idea behind gradient descent.
+
+
+
+\textit{Gradient Descent.} 
+The basic principle of gradient descent can be understood by considering a simplified setting with a single parameter---a network weight---as illustrated in the left part of Figure~\ref{fig:gradient_descent}. The horizontal axis represents the value of the weight, and the vertical axis shows the resulting cast or known as loss, which comes from the difference between the predicted and true  values in the training data. The resulting curve is the loss landscape for that one parameter. At any point on this curve, the derivative (or gradient) indicates the slope at that specific point on the curve. The current network weight, shown by the black dot must be updated in a way, to reduce the loss. Gradient descent consists of two main steps:
+\begin{enumerate}
+	\item \textbf{Calculate the gradient:} The first step is to compute the gradient of the loss function with respect to the weight. This gradient indicates how the loss changes as the weight is adjusted.
+	\item \textbf{Update the weight:} The weight is then updated by moving in the opposite direction of the gradient. This is because the gradient points in the direction of steepest ascent, so moving in the opposite direction will lead to a decrease in the loss. 
+	The update can be expressed mathematically as:
+	\begin{equation}	
+		W_{\text{t+1}} = W_{\text{t}} - \alpha \cdot \nabla L(W_{\text{t}}) 
+	\end{equation}
+	where $\alpha$ is the learning rate, a hyperparameter that controls the step size of the update, and $\nabla L(W_{\text{t}})$ is the gradient of the loss function with respect to the weight at its current value.	
+\end{enumerate}
+
+In our example, the gradient is positive, which means that increasing the weight would increase the loss. Therefore, we need to move the weight in the opposite direction (to the left) to reduce the loss. This process is repeated iteratively, with the weight being updated in each iteration until convergence is achieved, meaning that the loss is minimized and the network's predictions are sufficiently accurate, see the black arrows in Figure~\ref{fig:gradient_descent}.
+
+
+
+
+First the gradient is calculated. 
+If the derivative is positive (the tangent slopes upward to the right), increasing the weight would increase the cost; conversely, moving the weight in the opposite direction (to the left) reduces the cost. 
+
+Gradient descent formalizes this intuition by always updating the parameter in the direction opposite to the gradient – that is, downhill along the loss surface.
+
+
+The training of a neural network involves adjusting its parameters (weights and biases) to minimize a loss function. The loss function $\mathcal{L}$ is a measure of how well the network is able to predict the target
+value and quantifies the difference between the network's predictions and the true labels in the training data. This is typically done using optimization algorithms such as gradient descent, which is the most common optimization algorithm in practice. 
+
+
+
+
+
+To better understand the gradient descent algorithm, consider a 
+Gradient descent iteratively updates the parameters in the direction that reduces the loss.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNGradientDescent_2}
+	\caption[Neural Network Architecture]{Neural Network Architecture. Image source: \cite{xxx}.}
+	\label{fig:NNNetwork}
+\end{figure}
+
+
+Gradient descent is the most common optimization algorithm used in practice. The gradients needed for these updates are computed using the backpropagation algorithm, which efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. Through this process, neural networks can learn complex patterns and achieve high performance on a variety of tasks.
+
+. If the predicted output is close to the target, the value of the loss function will be
+small. If the predicted output is far from the target, the value of the loss function will
+be large. The goal of the training process is to minimize the loss function by adjusting
+the weights of the network. The loss function can be any differentiable function, but
+common choices are Mean Squared Error (MSE) for regression tasks and cross-entropy
+for classification tasks. The MSE loss function is defined as:
+Where yi is the target value for the i-th sample, yi
+is the predicted value for the i-th sample, and N is the number of samples. The cross-entropy loss function is defined as:
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNGradientDescent}
+	\caption[Neural Network Architecture]{Neural Network Architecture. Image source: \cite{xxx}.}
+	\label{fig:NNNetwork}
+\end{figure}
+
 
 ---
 
