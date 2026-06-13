@@ -35,6 +35,14 @@ The value $z$ represents a linear combination of the input features. To enable t
 
 Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include the sigmoid function, the hyperbolic tangent (tanh), and the Rectified Linear Unit (ReLU).
 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNNeuron2}
+	\caption[Artificial Neuron]{Artificial Neuron. Image source: \cite{xxx}.}
+	\label{fig:NNNeuron}
+\end{figure}
+
 The weighted sum in \autoref{eq:neuron_scalar} can be expressed more compactly using vector notation and ending in the form of:
 \begin{equation}
     y = \phi\!\left(\mathbf{w}^T \mathbf{x} + b\right)
@@ -66,15 +74,19 @@ The input layer receives the feature vector, while the output layer produces the
 
 In a \textit{Multilayer Perceptron Network}, each neuron in a layer receives the outputs of the neurons in the preceding layer as inputs. In a fully connected layer, every neuron is connected to every neuron in the subsequent layer. The output of a layer therefore serves as the input to the next layer.
 
-The computation of an entire layer can be expressed compactly using matrix notation. Let $\mathbf{x}^{(l-1)}$ denote the output vector of the previous layer, $\mathbf{W}^{(l)}$ the weight matrix, and $\mathbf{b}^{(l)}$ the bias vector of layer $l$. The pre-activation vector is given by
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNNetwork}
+	\caption[Neural Network Architecture]{Neural Network Architecture. Image source: \cite{xxx}.}
+	\label{fig:NNNetwork}
+\end{figure}
 
+
+The computation of an entire layer can be expressed compactly using matrix notation. Let $\mathbf{x}^{(l-1)}$ denote the output vector of the previous layer, $\mathbf{W}^{(l)}$ the weight matrix, and $\mathbf{b}^{(l)}$ the bias vector of layer $l$. $M$ are the number of neurons in layer $l$ and $N$ the number of neurons in the previous layer $l-1$. The pre-activation vector is given by:
 \begin{equation}
-\mathbf{z}^{(l)} = \mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)},
+	\mathbf{z}^{(l)} = \mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)},
 \end{equation}
-
-which can be written explicitly as
-
-
+which can be written explicitly as:
 \begin{equation}
 	\begin{bmatrix}
 		w_{11} & \cdots & w_{1N} \\
@@ -104,8 +116,7 @@ which can be written explicitly as
 	\end{bmatrix}
 \end{equation}
 
-
-In other words, each neuron in layer $l$ computes its own weighted sum over all outputs of the previous layer and then adds its corresponding bias term.
+In other words, each neuron in layer $l$ computes its own weighted sum over all outputs of the previous layer and then adds its corresponding bias term. 
 
 Equivalently, the bias can be absorbed into the matrix multiplication by augmenting the input vector with a constant entry $1$ and extending the weight matrix by one additional column:
 
@@ -133,10 +144,16 @@ Equivalently, the bias can be absorbed into the matrix multiplication by augment
 \end{equation}
 
 
-
+Then the activation function is applied element-wise to the resulting pre-activation vector $\mathbf{z}^{(l)}$ to produce the output of layer $l$:
+\begin{equation}
+	\mathbf{x}^{(l)} = \phi(\mathbf{z}^{(l)}) = \phi\!\left(\mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)}\right).
+\end{equation}
 
 \paragraph{Non-Linear Activation Functions in Neural Networks}
-The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data. In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy.
+The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data. In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy. 
+Common activation functions used in modern neural networks include the functions GELU (Gaussian Error Linear Unit), Rectified Linear Unit (ReLU), Leaky ReLU, the tanh (hyperbolic tangent) and the Swish function. But there exist many more. Each of these functions has its own characteristics and can result in different learning dynamics and performance. 
+
+% ToDo: Figure to activation functions
 
 
 \paragraph{Training Neural Networks}
