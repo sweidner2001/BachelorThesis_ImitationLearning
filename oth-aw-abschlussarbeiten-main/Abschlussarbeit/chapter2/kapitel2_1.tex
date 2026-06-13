@@ -202,57 +202,48 @@ In general, the gradient indicates whether a function is increasing or decreasin
 
 
 
-\textit{Gradient Descent.} 
-The basic principle of gradient descent can be understood by considering a simplified setting with a single parameter---a network weight---as illustrated in the left part of Figure~\ref{fig:gradient_descent}. The horizontal axis represents the value of the weight, and the vertical axis shows the resulting cast or known as loss, which comes from the difference between the predicted and true  values in the training data. The resulting curve is the loss landscape for that one parameter. At any point on this curve, the derivative (or gradient) indicates the slope at that specific point on the curve. The current network weight, shown by the black dot must be updated in a way, to reduce the loss. Gradient descent consists of two main steps:
-\begin{enumerate}
-	\item \textbf{Calculate the gradient:} The first step is to compute the gradient of the loss function with respect to the weight. This gradient indicates how the loss changes as the weight is adjusted.
-	\item \textbf{Update the weight:} The weight is then updated by moving in the opposite direction of the gradient. This is because the gradient points in the direction of steepest ascent, so moving in the opposite direction will lead to a decrease in the loss. 
-	The update can be expressed mathematically as:
-	\begin{equation}	
-		W_{\text{t+1}} = W_{\text{t}} - \alpha \cdot \nabla L(W_{\text{t}}) 
-	\end{equation}
-	where $\alpha$ is the learning rate, a hyperparameter that controls the step size of the update, and $\nabla L(W_{\text{t}})$ is the gradient of the loss function with respect to the weight at its current value.	
-\end{enumerate}
-
-In our example, the gradient is positive, which means that increasing the weight would increase the loss. Therefore, we need to move the weight in the opposite direction (to the left) to reduce the loss. This process is repeated iteratively, with the weight being updated in each iteration until convergence is achieved, meaning that the loss is minimized and the network's predictions are sufficiently accurate, see the black arrows in Figure~\ref{fig:gradient_descent}.
-
-
-
-
-First the gradient is calculated. 
-If the derivative is positive (the tangent slopes upward to the right), increasing the weight would increase the cost; conversely, moving the weight in the opposite direction (to the left) reduces the cost. 
-
-Gradient descent formalizes this intuition by always updating the parameter in the direction opposite to the gradient – that is, downhill along the loss surface.
-
-
-The training of a neural network involves adjusting its parameters (weights and biases) to minimize a loss function. The loss function $\mathcal{L}$ is a measure of how well the network is able to predict the target
-value and quantifies the difference between the network's predictions and the true labels in the training data. This is typically done using optimization algorithms such as gradient descent, which is the most common optimization algorithm in practice. 
-
-
-
-
-
-To better understand the gradient descent algorithm, consider a 
-Gradient descent iteratively updates the parameters in the direction that reduces the loss.
+\textit{Gradient Descent and Parameter Update.} 
+Gradient descent is an iterative optimization algorithm that is used to minimize a loss function.
+The basic principle of gradient descent can be understood by considering a simplified setting with a single parameter---a network weight---as illustrated in the left part of Figure~\ref{fig:gradient_descent}. 
+The horizontal axis represents the value of the weight, while the vertical axis represents the corresponding loss, which quantifies the discrepancy between the predicted and true values of the training data.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNGradientDescent_2}
 	\caption[Neural Network Architecture]{Neural Network Architecture. Image source: \cite{xxx}.}
-	\label{fig:NNNetwork}
+	\label{fig:NNGradientDescent_2}
 \end{figure}
 
+The resulting curve is the loss landscape for that one parameter. At any point on the loss curve, the derivative (or gradient) indicates the local slope of the function.
+% The current network weight, shown by the black dot must be updated in a way, to reduce the loss.
+The current value of the weight, represented by the black dot, must be adjusted such that the loss decreases. Gradient descent achieves this through the following two steps:
+\begin{enumerate}
+	\item \textbf{Calculate the gradient:} 
+	Compute the gradient of the loss function with respect to the weight. 
+	% The gradient of the loss function with respect to the weight is calculated.
+	% The first step is to compute the gradient of the loss function with respect to the weight. 
+	The gradient indicates how the loss changes as the weight is adjusted.
+	% The gradient of the loss function with respect to the parameter is calculated.
+	\item \textbf{Update the weight:} The weight is then updated by moving in the opposite direction of the gradient. 
+	Since the gradient points towards the direction of steepest increase, moving against it results in a reduction of the loss.
+	% This is because the gradient points in the direction of steepest ascent, so moving in the opposite direction will lead to a decrease in the loss. 
+	The basic parameter update is defined as:
+	\begin{equation}	
+		W_{\text{t+1}} = W_{\text{t}} - \alpha \cdot \nabla L(W_{\text{t}}) 
+	\end{equation}
+	where $\alpha$ denotes the learning rate, which controls the step size of the update, and $\nabla L(W_t)$ is the gradient of the loss function with respect to the parameter at iteration $t$.
+	% where $\alpha$ is the learning rate, a hyperparameter that controls the step size of the update, and $\nabla L(W_{\text{t}})$ is the gradient of the loss function with respect to the weight at its current value.	
+\end{enumerate}
 
-Gradient descent is the most common optimization algorithm used in practice. The gradients needed for these updates are computed using the backpropagation algorithm, which efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. Through this process, neural networks can learn complex patterns and achieve high performance on a variety of tasks.
 
-. If the predicted output is close to the target, the value of the loss function will be
-small. If the predicted output is far from the target, the value of the loss function will
-be large. The goal of the training process is to minimize the loss function by adjusting
-the weights of the network. The loss function can be any differentiable function, but
-common choices are Mean Squared Error (MSE) for regression tasks and cross-entropy
-for classification tasks. The MSE loss function is defined as:
-Where yi is the target value for the i-th sample, yi
-is the predicted value for the i-th sample, and N is the number of samples. The cross-entropy loss function is defined as:
+
+In the example shown in Figure~\ref{fig}, the gradient is positive. Consequently, increasing the weight would increase the loss.
+To reduce the loss, the weight must therefore be moved in the opposite direction (to the left). This procedure is repeated iteratively until the algorithm reaches a minimum of the loss function or another stopping criterion is satisfied. The successive parameter updates are illustrated by the black arrows in Figure~\ref{fig}. At the minimum, the gradient and the slope are zero and the parameter update becomes zero as well. The algorithm has converged. 
+
+The goal is to find the optimal set of parameters that minimizes the loss function, which corresponds to the best fit of the model to the training data, meaning the network's predictions are sufficiently accurate. 
+
+But not every minimum is a good solution. The loss landscape of neural networks is highly non-convex and can contain many local minima, saddle points, and flat regions, where the gradient is zero but the loss is not minimized.  \autoref{fig:NNGradientDescent_2} shows a loss landscape with two parameters. The black dot represents the inital parameter values and the line shows the trajectory of the parameter updates during training. As seen it depends on the initial parameter values, whether the algorithm converges to the global minima, local minama or to the saddle point in the middle of the 2 hills.  
+
 
 \begin{figure}[!h]
 	\centering
@@ -260,6 +251,55 @@ is the predicted value for the i-th sample, and N is the number of samples. The 
 	\caption[Neural Network Architecture]{Neural Network Architecture. Image source: \cite{xxx}.}
 	\label{fig:NNNetwork}
 \end{figure}
+
+In this examples, the loss landscape was known, but in practice, the loss landscape of neural networks is typically unknown and can be highly complex.  Neural networks often consists of millions of parameters and therefore they have a high-dimensional loss landscape. The Algorithm works in such high-dimensional spaces in the same way.
+The optimization process works in such high-dimensional spaces in the same way and navigates through this loss landscape to find a set of parameters that minimizes the loss function. Therefore, training neural networks can be challenging and may require careful tuning of hyperparameters such as the learning rate, as well as the use of techniques like momentum, adaptive learning rates, or regularization to improve convergence and generalization performance. For this many variants of the basic gradient descent algorithm have been developed, which is not the scope of this work.
+
+
+
+
+
+
+
+% This process is repeated iteratively, with the weight being updated in each iteration until convergence is achieved, meaning that the loss is minimized and the network's predictions are sufficiently accurate, see the black arrows in Figure~\ref{fig:gradient_descent}.
+
+
+
+
+
+% , meaning that the loss is minimized and the network's predictions are sufficiently accurate
+
+% First the gradient is calculated. 
+% If the derivative is positive (the tangent slopes upward to the right), increasing the weight would increase the cost; conversely, moving the weight in the opposite direction (to the left) reduces the cost. 
+
+% Gradient descent formalizes this intuition by always updating the parameter in the direction opposite to the gradient – that is, downhill along the loss surface.
+
+
+% The training of a neural network involves adjusting its parameters (weights and biases) to minimize a loss function. The loss function $\mathcal{L}$ is a measure of how well the network is able to predict the target
+% value and quantifies the difference between the network's predictions and the true labels in the training data. This is typically done using optimization algorithms such as gradient descent, which is the most common optimization algorithm in practice. 
+
+
+
+
+
+% To better understand the gradient descent algorithm, consider a 
+% Gradient descent iteratively updates the parameters in the direction that reduces the loss.
+
+
+
+
+% Gradient descent is the most common optimization algorithm used in practice. The gradients needed for these updates are computed using the backpropagation algorithm, which efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. Through this process, neural networks can learn complex patterns and achieve high performance on a variety of tasks.
+
+% . If the predicted output is close to the target, the value of the loss function will be
+% small. If the predicted output is far from the target, the value of the loss function will
+% be large. The goal of the training process is to minimize the loss function by adjusting
+% the weights of the network. The loss function can be any differentiable function, but
+% common choices are Mean Squared Error (MSE) for regression tasks and cross-entropy
+% for classification tasks. The MSE loss function is defined as:
+% Where yi is the target value for the i-th sample, yi
+% is the predicted value for the i-th sample, and N is the number of samples. The cross-entropy loss function is defined as:
+
+
 
 
 ---

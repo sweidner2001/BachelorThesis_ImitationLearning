@@ -2377,8 +2377,6 @@
     <bcf:citekey order="10" intorder="1">xxx</bcf:citekey>
     <bcf:citekey order="11" intorder="1">xxx</bcf:citekey>
     <bcf:citekey order="12" intorder="1">xxx</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">xxx</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">xxx</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
