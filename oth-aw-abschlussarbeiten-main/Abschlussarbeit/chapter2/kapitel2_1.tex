@@ -149,7 +149,7 @@ Then the activation function is applied element-wise to the resulting pre-activa
 	\mathbf{x}^{(l)} = \phi(\mathbf{z}^{(l)}) = \phi\!\left(\mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)}\right).
 \end{equation}
 
-The
+
 
 \paragraph{Non-Linear Activation Functions in Neural Networks}
 The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data. In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy. 
@@ -164,6 +164,42 @@ The output layer is responsible for producing the network's final prediction. It
 	\item \textbf{Multi-Class Classification:} For multi-class classification, a softmax layer produces a probability distribution over the classes, where each output neuron corresponds to a specific class and the softmax function ensures that the outputs sum to 1, representing the predicted probabilities for each class.
 \end{itemize}
 The choice of activation function in the output layer is crucial, as it directly affects the interpretation of the network's predictions and the appropriate loss function to use during training.
+
+
+
+
+\paragraph{Loss Function}
+The loss function $\mathcal{L}$ is a measure of how well the network is able to predict the target value and quantifies the difference between the network's predictions and the true labels in the training data. The goal of the training process is to minimize the loss function by adjusting the weights of the network. The loss function can be any differentiable function, but common choices are Mean Squared Error (MSE) for regression tasks and cross-entropy for classification tasks.
+\begin{itemize}
+	\item \textbf{MSE Loss Function:} Commonly used for regression tasks, where the goal is to predict continuous values. The MSE loss function is defined as:
+	\begin{equation}
+		\mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
+	\end{equation}
+	where $y_i$ is the target value for the $i$-th sample, $\hat{y}_i$ is the predicted value for the $i$-th sample, and $N$ is the number of samples.
+	
+	The cross-entropy loss is a commonly used loss function for classification tasks, where the goal is to predict discrete class labels. It measures the discrepancy between the true label distribution and the predicted probability distribution.
+
+	\item \textbf{Cross-Entropy Loss Function:} Commonly used for classification tasks, where the goal is to predict discrete class labels. 
+	For binary classification problems, the network typically uses a single output neuron with a sigmoid activation. The output $\hat{y}_i \in [0,1]$ represents the predicted probability of the positive class. The binary cross-entropy loss is then defined as:
+	\begin{equation}
+		\mathcal{L} =
+		-\frac{1}{N}\sum_{i=1}^{N}
+		\left[
+		y_i \log(\hat{y}_i) + (1 - y_i)\log(1 - \hat{y}_i)
+		\right],
+	\end{equation}
+	where $y_i \in \{0,1\}$ denotes the true label of the $i$-th sample, $\hat{y}_i$ is the predicted probability of the positive class, and $N$ is the number of samples.
+
+	For multi-class classification problems with $C$ classes, the network output is typically normalized using a softmax function to obtain a probability distribution over all classes (which sums up to 1 over the classes). The corresponding cross-entropy loss is defined as:
+	\begin{equation}
+		\mathcal{L} =
+		-\frac{1}{N}\sum_{n=1}^{N}\sum_{i=1}^{C}
+		y_{n,i}\log(\hat{y}_{n,i}),
+	\end{equation}
+	where $y_{n,i}$ represents the one-hot encoded ground-truth label and $\hat{y}_{n,i}$ is the predicted probability for class $i$ of sample $n$.
+\end{itemize}
+
+
 
 \paragraph{Training Neural Networks}
 The parameters of a neural network, namely the weights and biases, are learned from data during training. This is typically achieved by minimizing a loss function using gradient-based optimization methods such as gradient descent and its variants. The gradients required for optimization are efficiently computed using the backpropagation algorithm, which propagates the prediction error from the output layer back through the network. This learning process enables neural networks to adapt their internal representations and achieve strong performance across a wide range of machine learning tasks.
@@ -256,8 +292,47 @@ In this examples, the loss landscape was known, but in practice, the loss landsc
 The optimization process works in such high-dimensional spaces in the same way and navigates through this loss landscape to find a set of parameters that minimizes the loss function. Therefore, training neural networks can be challenging and may require careful tuning of hyperparameters such as the learning rate, as well as the use of techniques like momentum, adaptive learning rates, or regularization to improve convergence and generalization performance. For this many variants of the basic gradient descent algorithm have been developed, which is not the scope of this work.
 
 
+% \textit{Backpropagation.}
+% The gradients needed for the parameter updates in gradient descent are computed using the backpropagation algorithm. Backpropagation efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. 
+
+\textit{Backpropagation.}
+The gradients required for updating the network parameters in gradient descent are computed using the backpropagation algorithm. Backpropagation efficiently propagates the prediction error from the output layer back through the network and computes the gradients of the loss function with respect to all weights in the model. Based on these gradients, each parameter is adjusted proportionally to its contribution to the overall error.
+
+More precisely, backpropagation computes the partial derivatives of the loss function with respect to all trainable parameters in the network. These gradients quantify how sensitive the loss is to small changes in each parameter and therefore indicate how each parameter should be adjusted to reduce the overall error. Parameters that contribute more strongly to the error receive larger updates, while less influential parameters are adjusted more mildly.
 
 
+The training process for a neural network can therefore be summarized by the following update rule:
+\begin{equation}
+W_{t+1} = W_t - \alpha \cdot \nabla_{W_t} \left( \frac{1}{N} \sum_{i=1}^{N} L\bigl(y_i, f_{W_t}(x_i)\bigr) \right)
+\end{equation}
+where $f_W$ denotes the neural network with parameters $W$, $L$ is the loss function measuring the difference between the predicted output $f_W(x_i)$ and the target value $y_i$, $\alpha$ is the learning rate, $N$ is the number of training samples, and $\nabla_{W_t}$ represents the gradient of the loss function with respect to the weights at iteration $t$.
+
+By iteratively applying this update rule, the network parameters are gradually adjusted in a direction that reduces the loss function. This iterative optimization process is what allows the neural network to learn meaningful representations from training data and improve its predictions over time.
+
+
+Besides the standard gradient descent algorithm, which computes the gradient over the entire dataset, several more efficient variants are commonly used in practice. In stochastic gradient descent (SGD), the exact gradient is not evaluated on the full dataset. Instead, it is approximated using only a single randomly selected training sample at each iteration. 
+A further extension is mini-batch gradient descent, where the gradient is computed on a small subset of the training data (a mini-batch) rather than on a single sample or the full dataset. This approach reduces the computational cost per update while still providing a more stable gradient estimate compared to pure stochastic gradient descent.
+
+
+\paragraph{Evaluation}
+
+\textit{Evaluation Metrics.}
+To measure the performance of a machine learning model, various evaluation metrics can be used depending on the specific task and problem setting. These metrics provide quantitative measures of how well a model performs and allow comparisons between different models or configurations. While common examples include accuracy, precision, recall, and the F1-score for classification tasks, as well as mean squared error for regression tasks. However, a detailed discussion of these metrics is beyond the scope of this work.
+
+\textit{Evaluation.}
+The performance of a machine learning model is typically evaluated using data that has not been seen during training, referred to as test data. This allows an unbiased assessment of the model's ability to generalize to new, unseen samples. There exist in gernell three main scenarios regarding the model's performance on training and test data:
+\begin{itemize}
+	\item \textbf{Underfitting:} A model that underfits performs poorly on both training and test data. It fails to capture the underlying patterns in the training data, resulting in high error on both datasets.
+	\item \textbf{Overfitting:} An overfitted model achieves high performance on the training data but fails to generalize well to the test data. It has essentially memorized the training samples, including noise and outliers, which leads to poor performance on new data.
+	\item \textbf{Well-Balanced Model:} A well-balanced model achieves consistently good performance on both training and test datasets. It captures the underlying patterns in the training data without overfitting, allowing it to generalize effectively to unseen samples. 
+\end{itemize}
+
+
+
+
+
+---
+This is typically done using optimization algorithms such as gradient descent, which is the most common optimization algorithm in practice. The gradients needed for these updates are computed using the backpropagation algorithm, which efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. Through this process, neural networks can learn complex patterns and achieve high performance on a variety of tasks.
 
 
 
@@ -298,7 +373,6 @@ The optimization process works in such high-dimensional spaces in the same way a
 % for classification tasks. The MSE loss function is defined as:
 % Where yi is the target value for the i-th sample, yi
 % is the predicted value for the i-th sample, and N is the number of samples. The cross-entropy loss function is defined as:
-
 
 
 
