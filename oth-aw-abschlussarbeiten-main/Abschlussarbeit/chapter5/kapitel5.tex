@@ -1,9 +1,10 @@
 % What is model based control?
 % Video to text vs. Video language models?
 \chapter{Learning from Videos - Data Modality and Challenges}
+\label{chap:LearningFromVideosDataModalityAndChallenges}
 \minitoc
 
-Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This section addresses the two key questions for \ac{LfV} research:
+Videos are a challenging data modality, as you have seen in Section~\ref{sec:ChallengesOfVideoData}. This chapter addresses the two key questions for \ac{LfV} research:
 \begin{enumerate}
     \item How to extract relevant knowledge from internet video?
     % \item How to apply video-extracted knowledge to robotics?
@@ -405,8 +406,8 @@ Further directions include \ac{RL}-based finetuning to reduce hallucinations \ci
 
 The main challenges for transferring video-extracted knowledge to robotics are: 
 \begin{enumerate}
-    \item \textbf{Missing action labels}: Most video datasets do not contain explicit robot action annotations, which are required for learning robot control policies \cite{McCarthy_2025}.
-    \item \textbf{Distribution shift}: There exists a significant domain gap between human/internet demonstrationvideos and robot execution. This includes differences in visual appearance, embodiment, dynamics, and behavior patterns, which can severely degrade the generalization of models trained on video data when applied to robotic tasks \cite{McCarthy_2025}.
+    \item \textbf{Missing Action Labels}: Most video datasets do not contain explicit robot action annotations, which are required for learning robot control policies \cite{McCarthy_2025}.
+    \item \textbf{Distribution Shift}: There exists a significant domain gap between human/internet demonstrationvideos and robot execution. This includes differences in visual appearance, embodiment, dynamics, and behavior patterns, which can severely degrade the generalization of models trained on video data when applied to robotic tasks \cite{McCarthy_2025}.
 \end{enumerate}
 
 % ToDo: real world datasets with no robot labels

@@ -11,8 +11,81 @@ RTDE connection
 
 \chapter{Conclusion \& Outlook}
 \section{Summary}
+
+This thesis examined imitation learning as a promising approach for enabling robots to acquire complex skills from demonstrations and move toward the long-term goal of general-purpose robotic intelligence.
+\acp{LLM} have demonstrated that training powerful architectures on vast and diverse datasets can lead to remarkable generalization capabilities, enabling systems to solve tasks for which they were never explicitly trained. A central goal of imitation learning is to bring similar capabilities to robotic systems by leveraging the enormous amount of video data available on the internet.
+% Imitation learning represents one of the most promising approaches for transferring the success of large-scale machine learning to robotics. 
+
+\autoref{chap:Foundations} introduced the fundamental concepts of imitation learning and distinguished between two major paradigms: Behavior Cloning and Learning from Videos (LfV). While Behavior Cloning relies on demonstrations containing explicit action labels, Learning from Videos seeks to exploit the vast amount of action-free video data available online, offering a scalable alternative for robot learning.
+
+\autoref{chap:GeneralistRobotsAndTheDataBottleneck} discussed the overarching objective of robotics research: the development of generalist robots capable of performing a wide range of tasks in unstructured and previously unseen real-world environments. A major obstacle to this vision is the robotics data bottleneck, which arises from the limited availability of large, diverse, and high-quality robotic datasets. Internet videos represent a potential solution due to their abundance and diversity; however, their use introduces additional challenges related to the transfer of visual knowledge to robotic systems.
+
+A prerequisite for effective human-robot interaction is the ability to communicate goals and intentions to robotic agents. Therefore, \autoref{chap:WaysToInstructRobots} examined how robots can be instructed and guided to perform desired tasks. 
+% the thesis examined different approaches for task specification and human-robot interaction, highlighting how robots can be instructed through demonstrations, language, and other forms of guidance.
+% Various forms of task specification and human-robot interaction were presented.
+
+\autoref{chap:LearningFromVideosDataModalityAndChallenges} focused on the central research questions of Learning from Videos: how relevant knowledge can be extracted from internet videos and how this knowledge can subsequently be transferred to robotic systems for policy learning and control. Video Foundation Models were introduced as a powerful tool for extracting semantic and behavioral information from large-scale video data. Two major challenges were identified in the transfer process: the absence of action labels and the distribution shift between human videos and robotic observations. To address these challenges, alternative action representations are employed to relabel action-free video data, enabling robots to learn from demonstrations that do not contain explicit control signals.
+
+\autoref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} explored the role of robust video understanding in \ac{IL}. Learning manipulation skills from video requires more than simple action recognition: (1) It demands meaningful representations of the environment, (2) an understanding of object affordances and human-object interactions, (3) recognition of human activities, and (4) accurate modeling of fine-grained hand movements.
+These capabilities form the basis for a general-purpose robot that can interpret human demonstrations.
+% These capabilities form the basis of a general-purpose robot capable of understanding human demonstrations.
+% These capabilities form the foundation for a general-purpose robot designed to interpret human demonstrations.
+
+
+
+
+\autoref{chap:RobotLearningApproaches} focused on approaches for learning coherent robot models from video data. 
+(1) The chapter first introduced foundational perception and representation learning methods and techniques. 
+(2) It then discussed both RL-based and imitation learning approaches, highlighting their respective strengths and limitations. 
+(3) Hybrid methods, which combine the structured guidance and sample efficiency of imitation learning with the exploration and optimization capabilities of reinforcement learning. Special attention was given to the intersection of \acf{LfV} and \acf{RL}, demonstrating how knowledge extracted from videos can be used to improve policy learning and enhance the sample efficiency of RL algorithms.
+(4) Last but not least, the chapter presented multi-modal learning approaches and \acf{VLA} models and the three Architecturial paradigms, including sensorimotor, world-model-based, and affordance-based architectures. \ac{VLA} models represent currently the state of the art in video-based robot learning.
+
+\autoref{chap:ChallengesAndFutureDirections} examined the major challenges and future research directions in \ac{IL} and video-based robotic learning. Despite significant advances in recent years, the development of robust and generalizable robotic systems remains constrained by several fundamental limitations, including data availability, computational scalability, domain transfer, and efficient policy learning. These challenges highlight the gap between current research systems and the long-term goal of general-purpose robotic intelligence. 
+At the same time, emerging approaches such as diffusion-based policies, world models, and causally-aware learning systems offer promising opportunities for overcoming these limitations and improving the adaptability, reasoning capabilities, and generalization performance of future robotic agents.
+
+
+Finally in \autoref{chap:SelectedApproaches}, selected \ac{IL} approaches deployed on real robotic systems were examined to provide practical insight into the theoretical concepts discussed throughout the thesis. These examples illustrated how \ac{IL} can enable robots to acquire complex manipulation and control skills directly from video demonstrations.
+
+
+
+% manipulation tasks and are essential for enabling robots to operate successfully in dynamic and complex environments.
+
+% Chapter~\autoref{sec:GeneralistRobotsAndTheDataBottleneck} discusses the overarching goal of robotics, namely the development of generalist robots that can perform a wide range of tasks in unstructured and previously unseen real-world environments. It further introduces the data bottleneck in robotics, which results from the limited availability of large, diverse, and high-quality datasets, and outlines large-scale internet video as a promising source of additional supervision while also highlighting the challenges associated with its use.
+
+
+
+% \autoref{chap:datasources} introduces the main data sources for robot learning, including real-world robot data, simulation data, and large-scale internet video. It further explains how Learning from Videos aims to combine these sources to improve generalization, data efficiency, and the transfer of knowledge to robotic policies.
+
+% Large Language Models (LLMs) have demonstrated that training powerful architectures on vast and diverse datasets can lead to remarkable generalization capabilities, enabling systems to solve tasks for which they were never explicitly trained. A central goal of imitation learning is to bring similar capabilities to robotic systems by leveraging the enormous amount of video data available on the internet.
+
+% By learning from human demonstrations, robots can acquire complex skills and develop a richer understanding of their environment without requiring manually engineered task specifications. This paradigm enables the learning of behaviors that are difficult to describe through explicit rules or reward functions, such as cooking, object manipulation, or playing video games. Furthermore, imitation learning offers a pathway toward more adaptable robotic systems that can transfer knowledge across tasks and environments.
+
+% Throughout this thesis, a wide range of imitation learning approaches has been examined, highlighting the diversity of methods currently being explored. Behavioral cloning, reinforcement learning from demonstrations, latent action learning, Vision-Language-Action (VLA) models, world models, and hybrid approaches each address different challenges associated with learning from demonstrations. The comparison of these approaches illustrates that there is no single solution to the problem of general-purpose robotic intelligence; rather, progress is driven by the combination of complementary ideas from multiple research directions.
+
+
+
+% Among the approaches discussed, Vision-Language-Action models currently represent the state of the art in robot learning. By combining large-scale visual, linguistic, and action data, these models have demonstrated impressive generalization capabilities across a broad range of tasks. However, important challenges remain, including data efficiency, robustness in real-world environments, long-horizon planning, and the transfer of learned skills to previously unseen situations.
+
+% Several emerging research directions appear particularly promising for overcoming these limitations. The integration of causal reasoning could enable robots to better understand the consequences of their actions and reason about novel situations. Similarly, world models offer a framework for learning predictive representations of the environment, allowing agents to plan and evaluate actions before executing them. Hybrid approaches that combine imitation learning with reinforcement learning, foundation models, or explicit planning mechanisms may further improve adaptability and generalization.
+
+% Overall, this thesis should provide a beginner-friendly introduction to the field of imitation learning and an overview of its most important methodologies, applications, and challenges. 
+
+% The presented approaches demonstrate that imitation learning is a powerful framework for improving the generalization capabilities of robotic systems and enabling them to acquire increasingly complex behaviors. While significant challenges remain, the rapid progress of recent years suggests that imitation learning will play a central role in the development of more capable, flexible, and general-purpose robotic agents.
+
+
+
+
+
+% Mit Imitation learning wird versucht das erfolgskonzept von Sprachmodellen auf die Robotik zu übertragen. LLMs haben eindrucksvoll bewiesen, dass sie durch umfangreiche Architekturen und dem training mit rieseigen Datenmengen erstaunliche Generalisierende Fähigkeiten erlangen können, für diese sie nicht trainiert wurden.
+% Imitation Learning versucht diese Erfolge auf die Robotik zu übertragen, indem es Robotern die Möglichkeit bietet, die vielfalt der im internet verfügbaren Videodaten nutzbar macht. Robotern soll ermöglicht werden, die Welt wie Menschen zu verstehen und komplexe Aufgaben zu erlernen, indem sie aus Videos lernen. Imitation Learning ermöglicht die Entwicklung von Robotern, die komplexe Aufgaben ausführen können, die schwer zu spezifizieren sind, wie z.B. das Kochen oder das Spielen von Videospielen. Es ermöglicht auch die Entwicklung von Robotern, die in der Lage sind, sich an neue Situationen anzupassen und zu lernen, ohne dass sie explizit dafür neu trainiert werden müssen.
+
+% Dabei gibt es viele verschiedene Möglichkeiten, wie Robotermodelle von Imitation Learning profitieren können, wie insbesondere auch im Abschnitt Hybrid-Ansätze verdeutlicht wird. Im Laufe der Arbeit sind viele vielversprechende Ansätze vorgestellt worden, die jede menge verschiedene Forschungsrichtungen aufzeigen.
+% VLA-Modelle stellen den derzeitigen Leistungshöhepunkt von Robotermodellen dar, und wurden auf unmengen von Daten auf Leistungsstarken architecturen trainiert. Die erforschung undd integration von Causal Reasoning in Robotermodelle und der Einsatz von World Models könnte der nächste große Schritt zu einen Generalisierenden Roboter sein. Aber auch 
+% Vielversprechend sind Hybridansätze
+
+% Diese Arbeit soll eine Einstiegs Einführung in die Welt des Imitation Learning geben und einen Überblick über die verschiedenen Ansätze und Herausforderungen bieten. Es soll gezeigt werden, dass Imitation Learning ein vielversprechender Ansatz ist, um die Generalisierungsfähigkeiten von Robotern zu verbessern und ihnen zu ermöglichen, komplexe Aufgaben zu erlernen. Es soll auch gezeigt werden, dass es viele verschiedene Möglichkeiten gibt, wie Netzwerkarchitecturen kombiniert und Robotermodelle trainiert werden können mit besonderen Augenmerk auf Imitation Learning. und dass es viele vielversprechende Ansätze gibt, die in Zukunft weiter erforscht werden sollten.
+
 \section{Outlook}
-\subsection{Experiments on a Real Robot}
 
 
 
