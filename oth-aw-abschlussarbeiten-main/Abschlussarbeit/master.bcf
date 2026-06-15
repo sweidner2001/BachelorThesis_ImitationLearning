@@ -2365,11 +2365,11 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">BA.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">McCulloch1943ALN</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">Rosenblatt1958ThePerceptron</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">Minsky1969Perceptrons</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">Minsky1969Perceptrons</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">xxx</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">Lin2017ArtificialNN</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">McCulloch1990ALC</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">Rosenblatt1958ThePA</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">Minsky1969AnIT</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">Minsky1969AnIT</bcf:citekey>
     <bcf:citekey order="6" intorder="1">xxx</bcf:citekey>
     <bcf:citekey order="7" intorder="1">xxx</bcf:citekey>
     <bcf:citekey order="8" intorder="1">xxx</bcf:citekey>
@@ -2377,6 +2377,7 @@
     <bcf:citekey order="10" intorder="1">xxx</bcf:citekey>
     <bcf:citekey order="11" intorder="1">xxx</bcf:citekey>
     <bcf:citekey order="12" intorder="1">xxx</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">xxx</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
