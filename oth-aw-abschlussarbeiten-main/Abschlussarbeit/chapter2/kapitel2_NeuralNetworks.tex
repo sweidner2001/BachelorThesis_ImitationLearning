@@ -1,5 +1,3 @@
-\chapter{Foundations}
-
 
 
 \section{Neural Networks}
@@ -247,18 +245,6 @@ To better understand the concept of gradients, consider \autoref{fig:NNGradientI
 
 In general, the gradient indicates whether a function is increasing or decreasing at a specific point and how steeply it changes. A positive gradient means that the function is increasing, while a negative gradient indicates that the function is decreasing. The magnitude of the gradient describes how steeply the function changes. Larger magnitudes correspond to steeper slopes, while values close to zero indicate relatively flat regions.
 
-% Gradient is a vector that points in the direction of the greatest slope of a function. In Figure~\ref{fig:gradient_descent}, the gradient is represented by the slope of the curve at a specific point and indicates how a function changes if we make a small step left or right from that point away. 
-% The gradient is a fundamental concept in optimization, as it provides information about the direction and magnitude of the steepest ascent or descent of a function. In the context of training neural networks, the gradient of the loss function with respect to the network's parameters indicates how the loss changes as we adjust those parameters.
-% To better understand the concept of Gradients, see \autoref{fig:NNGradientIntro}. We want to find out the slope of the point $x=1$ on the blue curve. To do this, we can calculate the gradient at that point. This means we calculate the first derivative $f'(x) = 2x$ of the function $f(x) = x^2 - 3$ and evaluate it at $x=1$. The first derivate $f'(x)$ of the function gives as the slope of any point on that function $f(x)$. 
-% In our case the slope in the point $x=1$ is $f'(1) = 2$. To verify the correctness of the slope, the slope triangle is drawn in \autoref{fig:NNGradientIntro}, which gives as the visual representation of the slope, which matches with the previous result and is $m=2$. 
-
-
-
-
-
-%  For example, if want to find out the slope of the point $x=1$ 
-% The gradient indicates how the loss function changes with respect to changes in the network's parameters. By following the negative of the gradient, we can iteratively update the parameters to minimize the loss function, which is the core idea behind gradient descent.
-
 
 
 \paragraph{Gradient Descent and Parameter Update} 
@@ -300,6 +286,11 @@ In the example shown in Figure~\ref{fig:NNGradientDescent_2}, the gradient is po
 To reduce the loss, the weight must therefore be moved in the opposite direction (to the left). This procedure is repeated iteratively until the algorithm reaches a minimum of the loss function or another stopping criterion is satisfied. The successive parameter updates are illustrated by the black arrows in Figure~\ref{fig:NNGradientDescent_2}. At the minimum, the gradient and the slope are zero and the parameter update becomes zero as well. The algorithm has converged. 
 
 \textit{Goal of Training Neural Networks:} The goal is to find the optimal set of parameters that minimizes the loss function, which corresponds to the best fit of the model to the data, meaning the network's predictions are sufficiently accurate \cite{Bottou2016OptimizationMF}. 
+
+
+
+
+
 
 \paragraph{Optimization Problems}
 But not every minimum found is a good solution. The loss landscape of neural networks is highly non-convex and can contain many local minima, saddle points, and flat regions, where the gradient is zero but the loss is not minimized. If the gradient gets zero, the optimization process get stuck \cite{Bottou2016OptimizationMF}. \autoref{fig:NNGradientDescent_2} shows a loss landscape with two parameters. The black dot represents the inital parameter values and the line shows the trajectory of the parameter updates during training. As seen it depends on the initial parameter values, whether the algorithm converges to the global minima, local minama or to the saddle point in the middle of the two hills.  
@@ -352,9 +343,6 @@ The performance of a machine learning model is typically evaluated using data th
 	\item \textbf{Overfitting:} An overfitted model achieves high performance on the training data but fails to generalize well to the test data. It has essentially memorized the training samples, including noise and outliers, which leads to poor performance on new data.
 	\item \textbf{Well-Balanced Model:} A well-balanced model achieves consistently good performance on both training and test datasets. It captures the underlying patterns in the training data without overfitting, allowing it to generalize effectively to unseen samples. 
 \end{itemize}
-
-
-
 
 % This is typically done using optimization algorithms such as gradient descent, which is the most common optimization algorithm in practice. The gradients needed for these updates are computed using the backpropagation algorithm, which efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. Through this process, neural networks can learn complex patterns and achieve high performance on a variety of tasks.
 

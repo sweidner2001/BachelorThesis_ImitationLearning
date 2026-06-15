@@ -3,15 +3,6 @@
 This chapter provides an overview of the key concepts and theories that form the foundation of the following chapters. 
 
 
-\section{Introduction and Mathematical Notation of Formulas}
-
-\textbf{Capital Letters} are used for random variables, e.g. $S$ represents the set of all states in which the robot can be and $A$ represents the set of all possible actions it can perform. 
-
-\textbf{Lowercase Letters} are used for specific values of these random variables, e.g. $s$ stands for a specific robot state and $a$ for a specific action that the robot performs. A lowercase letter is usually followed by a time index $_t$, representing the specific action taken by the robot at time step $t$. In some cases the time index is omitted for simplicity, e.g. $a$ instead of $a_t$ and the next state or action is then denoted as $s'$ or $a'$ instead of $s_{t+1}$ or $a_{t+1}$.
-
-\textbf{Capital Letters in Bold} represents Matrices, e.g. the matrix $\mathbf{X}$.
-
-\textbf{Lowercase Letters in Bold} are used for specific values of (random) variables that are vectors, e.g. $\mathbf{x}$ represents a specific vector.
 
 
 
@@ -51,8 +42,7 @@ Self-Supervised Learning is a \ac{ML} approach where the model learns to predict
 
 
 
-\section{Machine Learning}
-\subsection{Core Machine Learning Categories}
+\section{Machine Learning: Core Categories}
 There are various approaches to training an AI model for a robot. These involve methods from the four core \ac{ML} categories, which can also be combined.
 
 \paragraph{Supervised Learning:}
@@ -84,110 +74,365 @@ The agent proceeds in its environment according to the trial-and-error principle
 
 
 
-\section{Deep Learning}
-An Artificial Neural Network (ANN) is a machine learning model inspired by the structure of the biological brain. It consists of interconnected computational units called neurons, which process information and learn complex relationships from data \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}. 
-
-The fundamental building block of a neural network is the artificial neuron. A neuron receives one or more input values, computes a weighted sum of these inputs, adds a bias term, and applies a nonlinear activation function to produce an output. By combining many neurons into layers and connecting these layers together, neural networks can learn increasingly complex representations of the input data \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}.
 
 
-An Artificial Neural Network (ANN) is a machine learning model inspired by the structure of the biological brain and designed to learn complex relationships from data \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}. Neural networks consist of interconnected computational units called neurons, which are organized into layers and trained to perform tasks such as classification, regression, and control.
-
-Unlike traditional algorithms that rely on manually fixed designed rules or features, neural networks automatically learn relevant patterns directly from data. Each neuron receives input values, computes a weighted sum, adds a bias term, and applies a nonlinear activation function to produce an output. By combining many neurons across multiple layers, neural networks can learn hierarchical representations and approximate highly complex functions \cite{Goodfellow2016DeepLearning, Bishop2006PatternRecognitionML}.
-
-\subsection{Neural Networks}
-Artificial Neural Networks (ANNs) are computational models inspired by the structure and functionality of biological brain. They are designed to learn complex relationships from data and have become a fundamental component of modern machine learning. ANNs are capable of approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting, and control systems.
 
 
-\paragraph{Neuron}
-The basic element of an artificial neural network is the artificial neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons through dendrites, processes the received information, and transmits an output signal through its axon. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
 
-\textit{History.}
-The first mathematical model of an artificial neuron was proposed by McCulloch and Pitts in 1943 \cite{McCulloch1943ALN}. Their model consisted of a binary threshold unit that produced an output only when the weighted sum of its inputs exceeded a predefined threshold. Although this model did not include a learning mechanism, it established the foundation for later neural network research.
 
-A major extension of this idea was introduced by Rosenblatt in 1958 with the perceptron \cite{Rosenblatt1958ThePerceptron}. In contrast to the McCulloch--Pitts neuron, the perceptron introduced trainable weights and a learning rule, making it possible to adapt the model parameters directly from data. However, the perceptron still relied on a threshold-based activation and was therefore limited to linearly separable classification problems \cite{Minsky1969Perceptrons}.
 
-This limitation was highlighted by Minsky and Papert, who showed that a single perceptron cannot represent functions such as XOR \cite{Minsky1969Perceptrons}. The development of multilayer neural networks together with differentiable activation functions later overcame this restriction. These advances made it possible to train networks with multiple layers and enabled the modern neural network architectures that are used in deep learning today.
+% Neuronale Netze
 
-\textit{Mathematical Formulation.}
-A neuron receives an input vector $\mathbf{x}=[x_1,x_2,\ldots,x_n]^T$, where each vector element $x_i$ is associated with a trainable weight $w_i$ from the corresponding weight vector $\mathbf{w} = [w_1, w_2, \ldots, w_n]^T$. The neuron first computes a weighted sum of its inputs and adds a bias term $b$. The resulting pre-activation value is given by: 
+\section{Neural Networks}
+Artificial Neural Networks are computational models inspired by the structure and functionality of biological brain. They are designed to learn complex relationships from data and have become a fundamental component of modern machine learning. Neural Networks are capable of approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting, and control systems. There exist various types of neural network architectures, including \acfp{CNN}, \acfp{RNN}, or Transformer models, each tailored to specific types of data and tasks. The following sections provide an overview of the basic building blocks of neural networks, their mathematical formulation, and the training process.
+
+
+\subsection{Neuron}
+The basic element of an artificial neural network is the artificial neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons through dendrites, processes the received information, and transmits an output signal through its axon \cite{Lin2017ArtificialNN}. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
+
+\paragraph{History}
+The first mathematical model of an artificial neuron was proposed by McCulloch and Pitts in 1943 \cite{McCulloch1990ALC}. Their model consisted of a binary threshold unit that produced an output only when the weighted sum of its inputs exceeded a predefined threshold. Although this model did not include a learning mechanism, it established the foundation for later neural network research.
+
+A major extension of this idea was introduced by Rosenblatt in 1958 with the perceptron \cite{Rosenblatt1958ThePA}. In contrast to the McCulloch--Pitts neuron, the perceptron introduced trainable weights and a learning rule, making it possible to adapt the model parameters directly from data. However, the perceptron still relied on a simple threshold-based activation, which produces a linear decision boundary and was therefore limited to linearly separable classification problems \cite{Minsky1969AnIT}.
+
+This limitation was highlighted by Minsky and Papert, who showed that a single perceptron cannot represent functions such as XOR \cite{Minsky1969AnIT}. The development of multilayer neural networks together with differentiable activation functions later overcame this restriction. These advances made it possible to train networks with multiple layers and enabled the modern neural network architectures that are used in deep learning today.
+
+\paragraph{Mathematical Formulation}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNNeuron2}
+	\caption[Perceptron of an Artificial Neural Network]{Perceptron of an Artificial Neural Network. Image source: \cite{yseYourGuidePerceptrons2024}.}
+	\label{fig:NNIntroModernNeuron}
+\end{figure}
+A neuron receives an input vector $\mathbf{x}=[x_1,x_2,\ldots,x_n]^T$, where each vector element $x_i$ is associated with a trainable weight $w_i$ from the corresponding weight vector $\mathbf{w} = [w_1, w_2, \ldots, w_n]^T$. The neuron first computes a weighted sum of its inputs and adds a bias term $b$, see \autoref{fig:NNIntroModernNeuron}. The resulting pre-activation value is given by: 
 % The weighted inputs are summed together with an optional bias term $(b)$, see \autoref{eq:perceptron}. 
 \begin{equation}
-    z = \sum_{i=1}^{n} w_i x_i + b.
+    z = \sum_{i=1}^{n} w_i x_i + b
     \label{eq:neuron_scalar}
 \end{equation}
 
-The value $z$ represents a linear combination of the input features. To enable the modeling of non-linear relationships, an activation function $\phi(\cdot)$ is subsequently applied, yielding the neuron's output
+The value $z$ represents a linear combination of the input features. To enable the modeling of non-linear relationships, an activation function $\phi(\cdot)$ is subsequently applied, yielding the neuron's output:
 
 \begin{equation}
-    a = \phi(z) = \phi\left(\sum_{i=1}^{n} w_i x_i + b\right).
+    y = \phi(z) = \phi\left(\sum_{i=1}^{n} w_i x_i + b\right)
     \label{eq:neuron_activation}
 \end{equation}
 
-Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include the sigmoid function, the hyperbolic tangent (tanh), and the Rectified Linear Unit (ReLU).
+Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include for example the GeLU, tanh (hyperbolic tangent), and ReLU.
+
+
+
 
 The weighted sum in \autoref{eq:neuron_scalar} can be expressed more compactly using vector notation and ending in the form of:
 \begin{equation}
-    a = \phi\!\left(\mathbf{w}^T \mathbf{x} + b\right).
+    y = \phi\!\left(\mathbf{w}^T \mathbf{x} + b\right)
+	= \phi\!\left(
+        \begin{bmatrix}
+            w_1 & w_2 & \cdots & w_n
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_1 \\
+            x_2 \\
+            \vdots \\
+            x_n
+        \end{bmatrix}
+        + b
+    \right) 
     \label{eq:single_neuron}
 \end{equation}
 
 This vector formulation serves as the basis for the matrix representation of an entire neural network layer, where multiple neurons are evaluated simultaneously.
 
+\subsection{Neural Networks}
+A neural network is a collection of interconnected neurons organized into layers. 
+The input layer receives the feature vector, while the output layer produces the final prediction. The hidden layers between the input and output layers perform intermediate computations that allow the network to learn increasingly abstract representations of the input data \cite{Goodfellow-et-al-2016}.
+The parameters of the network, including the weights and biases, are learned from data using optimization algorithms such as gradient descent \cite{Rumelhart1986LearningRB}. The ability of neural networks to learn complex functions from data has made them a powerful tool for a wide range of applications in machine learning and artificial intelligence.
+
+To understand the terminology: Artificial neural network is the broadest term, encompassing all brain-inspired, connectionist models. A feedforward neural network is a subcategory where information flows strictly in one direction (from input to output) without forming cycles, but its layers need not be fully connected \cite{Goodfellow-et-al-2016}. The multilayer perceptron is a feedforward network with one or more fully connected (also called dense) hidden layers, where every neuron in one layer connects to every neuron in the next \cite{Goodfellow-et-al-2016}.
+% Each layer consists of multiple neurons, and the output of one layer serves as the input to the next layer.
+
+% In general, a neural network consists of multiple interconnected neurons organized into layers
+% , and the output of one layer serves as the input to the next layer. 
+
+\paragraph{Multilayer Perceptron Network}
+The most common form of such architectures is the \textit{\acf{MLP}}, also referred to as a feedforward neural network \cite{Goodfellow-et-al-2016}. In an \ac{MLP}, where information flows in one direction from the input layer through one or more fully connected hidden layers to the output layer.  
+In an \ac{MLP}, each neuron in a layer receives the outputs of the neurons in the preceding layer as inputs. In a fully connected layer, every neuron is connected to every neuron in the subsequent layer \cite{Goodfellow-et-al-2016}. The output of a layer therefore serves as the input to the next layer.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNNetwork}
+	\caption[Neural Networks: Architecture]{Neural Networks Architecture: Architecture of an Multilayer Perceptron Network. Circles represent perceptrons. Image source: \cite{NeuralNetworksTikZnet2024}.}
+	\label{fig:NNNetwork}
+\end{figure}
 
 
-
-
-
----
+The computation of an entire layer can be expressed compactly using matrix notation. Let $\mathbf{x}^{(l-1)}$ denote the output vector of the previous layer, $\mathbf{W}^{(l)}$ the weight matrix, and $\mathbf{b}^{(l)}$ the bias vector of layer $l$. $M$ are the number of neurons in layer $l$ and $N$ the number of neurons in the previous layer $l-1$. The pre-activation vector is given by:
 \begin{equation}
-	z = f\left(\sum_{i=1}^{n} w_i x_i + b\right)
-	\label{eq:perceptron}
+	\mathbf{z}^{(l)} = \mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)},
+\end{equation}
+which can be written explicitly as:
+\begin{equation}
+	\begin{bmatrix}
+		w_{11} & \cdots & w_{1N} \\
+		w_{21} & \cdots & w_{2N} \\
+		\vdots & \ddots & \vdots \\
+		w_{M1} & \cdots & w_{MN}
+	\end{bmatrix}^{(l)}
+	\begin{bmatrix}
+		x_1 \\
+		x_2 \\
+		\vdots \\
+		x_N
+	\end{bmatrix}^{(l-1)}
+	+
+	\begin{bmatrix}
+		b_1 \\
+		b_2 \\
+		\vdots \\
+		b_M
+	\end{bmatrix}^{(l)}
+	=
+	\begin{bmatrix}
+		w_{11}x_1 + \cdots + w_{1N}x_N + b_1 \\
+		w_{21}x_1 + \cdots + w_{2N}x_N + b_2 \\
+		\vdots \\
+		w_{M1}x_1 + \cdots + w_{MN}x_N + b_M
+	\end{bmatrix}
 \end{equation}
 
-% \begin{equation}
-% z = \sum_{i=1}^{n} w_i x_i + b
-% \label{eq:perceptron}
-% \end{equation}
+In other words, each neuron in layer $l$ computes its own weighted sum over all outputs of the previous layer and then adds its corresponding bias term. 
 
-
-The output 
-z
-z is a linear combination of the inputs. To enable learning of non-linear patterns, a non-linear activation function
-f(⋅) is applied, giving the final output a=f(z). Without such a non-linearity, stacking multiple neurons would still only yield a linear model. Common activation functions today include ReLU, sigmoid, and tanh.
-
-or, equivalently, in vector notation,
+Equivalently, the bias can be absorbed into the matrix multiplication by augmenting the input vector with a constant entry $1$ and extending the weight matrix by one additional column:
 
 \begin{equation}
-z = \mathbf{w}^T \mathbf{x} + b.
+	\begin{bmatrix}
+		z_1^{(l)} \\
+		z_2^{(l)} \\
+		\vdots \\
+		z_M^{(l)}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		w_{11}^{(l)} & \cdots & w_{1N}^{(l)} & b_1^{(l)} \\
+		w_{21}^{(l)} & \cdots & w_{2N}^{(l)} & b_2^{(l)} \\
+		\vdots & \ddots & \vdots & \vdots \\
+		w_{M1}^{(l)} & \cdots & w_{MN}^{(l)} & b_M^{(l)}
+		\end{bmatrix}
+		\begin{bmatrix}
+		x_1^{(l-1)} \\
+		x_2^{(l-1)} \\
+		\vdots \\
+		x_N^{(l-1)} \\
+		1
+	\end{bmatrix}
 \end{equation}
 
-The resulting value is then transformed by a nonlinear activation function $f(\cdot)$
 
+Then the activation function is applied element-wise to the resulting pre-activation vector $\mathbf{z}^{(l)}$ to produce the output of layer $l$:
 \begin{equation}
-y = f(z) = f(\mathbf{w}^T \mathbf{x} + b),
-\label{eq}
-\end{equation}
-
-where $y$ denotes the output of the neuron.
-
-The activation function introduces nonlinearity into the model, enabling neural networks to learn complex relationships between inputs and outputs. Common activation functions include the sigmoid function, the hyperbolic tangent (tanh), and the Rectified Linear Unit (ReLU). Without a nonlinear activation function, a network consisting of multiple layers would collapse into a single linear transformation and would therefore be unable to represent nonlinear functions.
-
-
-
-
-\textit{Mathematical Formulation.}
-A perceptron receives multiple inputs $(x_1, x_2, \ldots, x_n)$, each associated with a trainable weight $(w_1, w_2, \ldots, w_n)$. The weighted inputs are summed together with an optional bias term $(b)$, see \autoref{eq:perceptron}. 
-\begin{equation}
-	y = f\left(\sum_{i=1}^{n} w_i x_i + b\right)
-	\label{eq:perceptron}
+	\mathbf{x}^{(l)} = \phi(\mathbf{z}^{(l)}) = \phi\!\left(\mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)}\right).
 \end{equation}
 
 
 
-\subsubsection{Activation Functions}
-\subsubsection{Training Neural Networks}
+\paragraph{Non-Linear Activation Functions in Neural Networks}
+The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model \cite{Goodfellow-et-al-2016}. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data \cite{Hornik1991ApproximationCO}. In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy. 
+Common activation functions used in modern neural networks include the functions GELU (Gaussian Error Linear Unit) \cite{Hendrycks2016GaussianEL}, ReLU (Rectified Linear Unit) \cite{Nair2010RectifiedLU}, Leaky ReLU \cite{Maas2013RectifierNI}, the tanh (hyperbolic tangent) \cite{Ryck2021OnTA} and the Swish function \cite{Ramachandran2017SwishAS}. But there exist many more. Each of these functions has its own characteristics and can result in different learning dynamics and performance. 
 
-\subsection{Convolutional Neural Networks}
+% ToDo: Figure to activation functions
+
+
+
+
+\paragraph{Prediction}
+The output layer is responsible for producing the network's final prediction. Its activation function is chosen based on the task: 
+\begin{itemize}
+	\item \textbf{Regression:} For regression problems, a linear activation directly outputs a continuous value.
+	\item \textbf{Binary Classification:} For binary classification (true/false), a single neuron with a sigmoid function outputs a probability between 0 and 1.
+	\item \textbf{Multi-Class Classification:} For multi-class classification, a softmax layer produces a probability distribution over the classes, where each output neuron corresponds to a specific class and the softmax function ensures that the outputs sum to 1, representing the predicted probabilities for each class.
+\end{itemize}
+The choice of activation function in the output layer is crucial, as it directly affects the interpretation of the network's predictions and the appropriate loss function to use during training.
+
+
+
+
+\paragraph{Loss Function}
+The loss function $\mathcal{L}$ is a measure of how well the network is able to predict the target value and quantifies the difference between the network's predictions and the true labels in the training data. The goal of the training process is to minimize the loss function by adjusting the weights of the network. The loss function can be any differentiable function, but common choices are \acf{MSE} for regression tasks and cross-entropy for classification tasks.
+\begin{itemize}
+	\item \textbf{\acf{MSE} Loss Function:} Commonly used for regression tasks, where the goal is to predict continuous values. The \acf{MSE} loss function is defined as:
+	\begin{equation}
+		\mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
+	\end{equation}
+	where $y_i$ is the target value for the $i$-th sample, $\hat{y}_i$ is the predicted value for the $i$-th sample, and $N$ is the number of samples.
+	
+
+	\item \textbf{Cross-Entropy Loss Function:} Commonly used for classification tasks, where the goal is to predict discrete class labels. 
+	\begin{itemize}
+		\item \textit{Binary Classification:} For binary classification problems, the network typically uses a single output neuron with a sigmoid activation. The output $\hat{y}_i \in [0,1]$ represents the predicted probability of the positive class. The binary cross-entropy loss is then defined as:
+		\begin{equation}
+			\mathcal{L} =
+			-\frac{1}{N}\sum_{i=1}^{N}
+			\left(
+			y_i \log(\hat{y}_i) + (1 - y_i)\log(1 - \hat{y}_i)
+			\right)
+		\end{equation}
+		where $y_i \in \{0,1\}$ denotes the true label of the $i$-th sample, $\hat{y}_i$ is the predicted probability of the positive class, and $N$ is the number of samples.
+
+		\item \textit{Multi-Class Classification:} For multi-class classification problems with $C$ classes, the network output is typically normalized using a softmax function to obtain a probability distribution over all classes (which sums up to 1 over the classes). The corresponding cross-entropy loss is defined as:
+		\begin{equation}
+			\mathcal{L} =
+			-\frac{1}{N}\sum_{n=1}^{N}\sum_{i=1}^{C}
+			y_{n,i}\log(\hat{y}_{n,i})
+		\end{equation}
+		where $y_{n,i}$ represents the one-hot encoded ground-truth label and $\hat{y}_{n,i}$ is the predicted probability for class $i$ of sample $n$.
+	\end{itemize}
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Training Neural Networks}
+% gradient based optimization
+The parameters of a neural network, namely the weights and biases, are learned from data during training. This is typically achieved by minimizing a loss function $\mathcal{L}$ using optimization methods such as \textit{gradient descent} and its variants. The gradients required for optimization are efficiently computed using the \textit{backpropagation} algorithm, which propagates the prediction error from the output layer back through the network \cite{Rumelhart1986LearningRB}. This learning process enables neural networks to adapt their internal representations and achieve strong performance across a wide range of machine learning tasks.
+
+\paragraph{What is a Gradient?} 
+The gradient is a fundamental concept in optimization and machine learning \cite{Rumelhart1986LearningRB, Bottou2016OptimizationMF}. It describes how a function changes with respect to its input variables and points in the direction of the steepest increase of the function. In the special case of a function with only one variable, the gradient reduces to the first derivative, which corresponds to the slope of the function at a given point.
+In simple terms, the gradient indicates how the function value changes when making a small step to the right or left away from a specific point.
+
+
+
+% In Figure~\ref{fig:NNGradientIntro}, the gradient is represented by the slope of the curve at a particular point. It indicates how the function value changes when moving slightly away from that point.
+% The gradient is represented by the slope of the curve at a particular point. 
+
+To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. We want to determine the slope of the blue curve at the point $x=1$. To do this, we calculate the gradient at that point. First, we compute the derivative $f'(x)=2x$ of the function $f(x)=x^2-3$ and evaluate it at $x=1$. The first derivative $f'(x)$ provides the slope at any point on the function $f(x)$. In this example, the slope at $x=1$ is $f'(1)=2$. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.85\linewidth]{./chapter2/media/NNGradientIntro.pdf}
+	\caption[Understanding Gradients]{Understanding Gradients: The gradient of a 1D function $f(x)$ at point $x=1$ is calculated with the derivative $f'(x)$. It represents the slope of the tangent line at that point.}
+	\label{fig:NNGradientIntro}
+\end{figure}
+
+In general, the gradient indicates whether a function is increasing or decreasing at a specific point and how steeply it changes. A positive gradient means that the function is increasing, while a negative gradient indicates that the function is decreasing. The magnitude of the gradient describes how steeply the function changes. Larger magnitudes correspond to steeper slopes, while values close to zero indicate relatively flat regions.
+
+
+
+\paragraph{Gradient Descent and Parameter Update} 
+Gradient descent is an iterative optimization algorithm that is used to minimize a loss function \cite{Bottou2016OptimizationMF}.
+The basic principle of gradient descent can be understood by considering a simplified setting with a single parameter---a network weight---as illustrated in the Figure~\ref{fig:NNGradientDescent_2}. 
+The horizontal axis represents the value of the weight, while the vertical axis represents the corresponding loss, which quantifies the discrepancy between the predicted and true values of the training data.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNGradientDescent_2}
+	\caption[Neural Network: Simplified Gradient Descent]{Neural Network: Simplified gradient descent based on one network weight. Image source: \cite{lanhamLearnARCoreFundamentals}.}
+	\label{fig:NNGradientDescent_2}
+\end{figure}
+
+The resulting curve is the loss landscape for that one parameter. At any point on the loss curve, the derivative (or gradient) indicates the local slope of the function.
+% The current network weight, shown by the black dot must be updated in a way, to reduce the loss.
+The current value of the weight, represented by the black dot, must be adjusted such that the loss decreases. Gradient descent achieves this through the following two steps:
+\begin{enumerate}
+	\item \textbf{Calculate the gradient:} 
+	Compute the gradient of the loss function with respect to the weight. 
+	% The gradient of the loss function with respect to the weight is calculated.
+	% The first step is to compute the gradient of the loss function with respect to the weight. 
+	The gradient indicates how the loss changes as the weight is adjusted.
+	% The gradient of the loss function with respect to the parameter is calculated.
+	\item \textbf{Update the weight:} The weight is then updated by moving in the opposite direction of the gradient. 
+	Since the gradient points towards the direction of steepest increase, moving against it results in a reduction of the loss.
+	% This is because the gradient points in the direction of steepest ascent, so moving in the opposite direction will lead to a decrease in the loss. 
+	The basic parameter update is defined as:
+	\begin{equation}	
+		\mathbf{W}_{\text{t+1}} = \mathbf{W}_{\text{t}} - \alpha \cdot \nabla \mathcal{L}(\mathbf{W}_{\text{t}})
+	\end{equation}
+	where $\alpha$ denotes the learning rate, which controls the step size of the update, and $\nabla \mathcal{L}(\mathbf{W}_{\text{t}})$ is the gradient of the loss function with respect to the parameter at iteration $t$.
+	% where $\alpha$ is the learning rate, a hyperparameter that controls the step size of the update, and $\nabla L(W_{\text{t}})$ is the gradient of the loss function with respect to the weight at its current value.	
+\end{enumerate}
+
+
+
+In the example shown in Figure~\ref{fig:NNGradientDescent_2}, the gradient is positive. Consequently, increasing the weight would increase the loss.
+To reduce the loss, the weight must therefore be moved in the opposite direction (to the left). This procedure is repeated iteratively until the algorithm reaches a minimum of the loss function or another stopping criterion is satisfied. The successive parameter updates are illustrated by the black arrows in Figure~\ref{fig:NNGradientDescent_2}. At the minimum, the gradient and the slope are zero and the parameter update becomes zero as well. The algorithm has converged. 
+
+\textit{Goal of Training Neural Networks:} The goal is to find the optimal set of parameters that minimizes the loss function, which corresponds to the best fit of the model to the data, meaning the network's predictions are sufficiently accurate \cite{Bottou2016OptimizationMF}. 
+
+
+
+
+
+
+\paragraph{Optimization Problems}
+But not every minimum found is a good solution. The loss landscape of neural networks is highly non-convex and can contain many local minima, saddle points, and flat regions, where the gradient is zero but the loss is not minimized. If the gradient gets zero, the optimization process get stuck \cite{Bottou2016OptimizationMF}. \autoref{fig:NNNetwork_OptimizationProblems} shows a loss landscape with two parameters. The black dot represents the inital parameter values and the line shows the trajectory of the parameter updates during training. As seen it depends on the initial parameter values, whether the algorithm converges to the global minima, local minama or to the saddle point in the middle of the two hills.  
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNGradientDescent}
+	\caption[Neural Networks: Optimization Problems]{Neural Networks and their optimization Problems: The figure shows a loss landscape of two parameters, which has a local minima and a saddle point, where the training precess could get stuck. Image source: \cite{ananthaswamyResearchersBuildAI2022}.}
+	\label{fig:NNNetwork_OptimizationProblems}
+\end{figure}
+
+In the shown examples, the loss landscape was known, but in practice, the loss landscape of neural networks is typically unknown and can be highly complex.  Neural networks often consists of millions of parameters and therefore they have a high-dimensional loss landscape. The Algorithm works in such high-dimensional spaces in the same way.
+% The optimization process works in such high-dimensional spaces in the same way and navigates through this loss landscape to find a set of parameters that minimizes the loss function. 
+Therefore, training neural networks can be challenging and may require careful tuning of hyperparameters such as the learning rate, as well as the use of techniques like momentum, adaptive learning rates or regularization to improve convergence and generalization performance \cite{Bottou2016OptimizationMF}. For this many variants of the basic gradient descent algorithm have been developed, which is not the scope of this work.
+
+
+% \textit{Backpropagation.}
+% The gradients needed for the parameter updates in gradient descent are computed using the backpropagation algorithm. Backpropagation efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. 
+
+\paragraph{Backpropagation}
+The gradients required for updating the network parameters in gradient descent are computed using the \textit{backpropagation algorithm} \cite{Rumelhart1986LearningRB}. Backpropagation efficiently propagates the prediction error from the output layer back through the network and computes the gradients of the loss function $\mathcal{L}$ with respect to all weights $\mathbf{W}$ in the model. Based on these gradients, each parameter $w_{ij}^l$ is adjusted proportionally to its contribution to the overall error.
+
+More precisely, backpropagation computes the partial derivatives of the loss function with respect to all trainable parameters in the network. These gradients quantify how sensitive the loss is to small changes in each parameter and therefore indicate how each parameter should be adjusted to reduce the overall error. Parameters that contribute more strongly to the error receive larger updates, while less influential parameters are adjusted more mildly.
+The training process for a neural network can therefore be summarized by the following update rule:
+\begin{equation}
+\mathbf{W}_{t+1} = \mathbf{W}_t - \alpha \cdot \nabla_{\mathbf{W}_t} \left( \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}\bigl(\mathbf{y}_i, f_{\mathbf{W}_t}(\mathbf{x}_i)\bigr) \right)
+\end{equation}
+where $f_{\mathbf{W}}$ denotes the neural network with parameters $\mathbf{W}$, $\mathcal{L}$ is the loss function measuring the difference between the predicted output $f_{\mathbf{W}}(\mathbf{x}_i)$ and the target value $\mathbf{y}_i$, $\alpha$ is the learning rate, $N$ is the number of training samples, and $\nabla_{\mathbf{W}_t}$ represents the gradient of the loss function with respect to the weights at iteration $t$.
+
+By iteratively applying this update rule, the network parameters are gradually adjusted in a direction that reduces the loss function. This iterative optimization process is what allows the neural network to learn meaningful representations from training data and improve its predictions over time.
+
+
+Besides the standard gradient descent algorithm, which computes the gradient over the entire dataset, several more efficient variants are commonly used in practice. In stochastic gradient descent (SGD), the exact gradient is not evaluated on the full dataset \cite{Bottou2010LargeScaleML, Robbins1951ASA}. Instead, it is approximated using only a single randomly selected training sample at each iteration. A further extension is mini-batch gradient descent, where the gradient is computed on a small subset of the training data (a mini-batch) rather than on a single sample or the full dataset \cite{Bottou2016OptimizationMF, Goodfellow-et-al-2016}. This approach reduces the computational cost per update while still providing a more stable gradient estimate compared to pure stochastic gradient descent.
+
+
+
+
+
+
+\subsection{Evaluation}
+
+\paragraph{Evaluation Metrics}
+To measure the performance of a machine learning model, various evaluation metrics can be used depending on the specific task and problem setting. These metrics provide quantitative measures of how well a model performs and allow comparisons between different models or configurations. While common examples include accuracy, precision, recall, and the F1-score for classification tasks, as well as mean squared error for regression tasks. However, a detailed discussion of these metrics is beyond the scope of this work.
+
+\paragraph{Evaluation}
+The performance of a machine learning model is typically evaluated using data that has not been seen during training, referred to as test data. This allows an unbiased assessment of the model's ability to generalize to new, unseen samples. There exist in general three main scenarios regarding the model's performance on training and test data:
+\begin{itemize}
+	\item \textbf{Underfitting:} A model that underfits performs poorly on both training and test data. It fails to capture the underlying patterns in the training data, resulting in high error on both datasets.
+	\item \textbf{Overfitting:} An overfitted model achieves high performance on the training data but fails to generalize well to the test data. It has essentially memorized the training samples, including noise and outliers, which leads to poor performance on new data.
+	\item \textbf{Well-Balanced Model:} A well-balanced model achieves consistently good performance on both training and test datasets. It captures the underlying patterns in the training data without overfitting, allowing it to generalize effectively to unseen samples. 
+\end{itemize}
+
+
+
+
+
+
+\section{Convolutional Neural Networks}
 
 A Convolutional Neural Network (CNN) is a deep neural network architecture designed to process grid-like data, especially images \cite{LeCun1998GradientbasedLA, Krizhevsky2012ImageNetCW}. CNNs are particularly effective for visual tasks because they exploit the spatial structure of an image and learn local patterns such as edges, corners, and textures. Unlike fully connected networks, CNNs do not treat every pixel independently. Instead, they use small learnable filters that are applied across the image to detect relevant structures at different positions \cite{Khan2025ACS, Younesi2024ACS, Long2022}.
 
@@ -312,7 +557,7 @@ A CNN consist of multiple kernels, which are applied in parallel and in multiple
 % 	\label{fig:CNNConvolutionIntro_View2}
 % \end{figure}
 
-\paragraph{Activation Functions}
+\paragraph{Activation Function}
 After the convolution operation, a non-linear activation function is applied to the resulting feature map \cite{Khan2025ACS, Younesi2024ACS, Long2022}. Activation functions introduce non-linearity into the network, allowing CNNs to learn complex visual patterns that cannot be represented by linear transformations alone \cite{Hanin2017ApproximatingCF}.
 
 The most commonly used activation function is the Rectified Linear Unit (ReLU) \cite{Khan2025ACS, Hanin2017ApproximatingCF, Long2022}:
@@ -323,7 +568,7 @@ which replaces all negative values with zero while leaving positive values uncha
 By applying the ReLU function after each convolution, the network can learn increasingly complex feature representations across multiple layers.
 
 
-\paragraph{Pooling}
+\paragraph{Pooling Layer}
 Another central component of CNNs is the pooling layer \cite{Khan2025ACS, Long2022}. Pooling reduces the spatial size of the feature maps while retaining the most important information. This lowers the computational cost and increases robustness to small shifts in the input image.
 
 A common choice is a $2\times2$ pooling window with a stride of 2. In this case, the feature map is divided into non-overlapping $2\times2$ regions, and each region is summarized by a single value \cite{Younesi2024ACS, Khan2025ACS}. As a result, the width and height of the feature map are reduced by a factor of two.
@@ -360,6 +605,7 @@ After several convolution and pooling stages, the feature maps are flattened int
 \end{figure}
 
 
+
 \paragraph{RGB Images}
 The same principle can be extended to RGB images \cite{Khan2025ACS, Long2022, Krizhevsky2012ImageNetCW}. While a grayscale image contains only a single channel, an RGB image consists of three color channels representing red, green, and blue values. Consequently, a convolution kernel must span all input channels. For a kernel size of $3\times3$, a common way is to use an $3\times3\times3$ kernel for an RGB image \cite{Khan2025ACS, Long2022, Krizhevsky2012ImageNetCW}. This kernel is applied across all three color channels simultaneously, and the resulting values are summed up to produce a single output value in the feature map. By learning appropriate kernels during training, CNNs can effectively capture complex visual patterns across all color channels in RGB images.
 % The resulting values are summed to produce a single output value in the feature map.
@@ -373,12 +619,12 @@ The same principle can be extended to RGB images \cite{Khan2025ACS, Long2022, Kr
 
 
 
-\subsection{Transformer}
+\section{Transformer}
 % for sequence-to-sequence tasks
 A Transformer is a deep neural network architecture designed to process sequential data, especially text \cite{Vaswani2017AttentionIA}. It's the foundation for most modern LLMs, enabling them to process and understand language effectively.
 Unlike earlier architectures, which process tokens one after another, Transformers compare all tokens in a sequence in parallel and learn which parts of the input are relevant to each other. This is done through the attention mechanism and was the core innovation of the Transformer architecture \cite{Vaswani2017AttentionIA, AttentionTransformersStepbystep, TransformerExplainerLLM, Raschka2024BuildLLM}. The main idea is simple: when the model reads one token, it does not treat all other tokens equally. It assigns higher importance to the tokens that are more relevant in the current context. This makes Transformers especially powerful for language tasks, because meaning often depends on long-range dependencies in the sentence.
 
-\paragraph{Architecture}
+\paragraph{Architecture Overview}
 The original Transformer architecture was introduced by \textcite{Vaswani2017AttentionIA} and consists of two parts: the encoder and the decoder. See \autoref{fig:TransformerArchitecture} for an overview.
 \begin{enumerate}
 	\item \textbf{Encoder:} The encoder reads the full input sequence and converts it into a contextual latent representation. Each token is transformed not only based on its own identity, but also based on the other tokens in the sequence. In this way, the encoder builds a rich internal representation of the input.
@@ -398,7 +644,7 @@ While the examples in this section are based on text processing to facilitate un
 
 
 
-\paragraph{1. Input Embeddings}
+\subsection{Input Embeddings}
 Before a Transformer can process data, the data must be converted into a numerical representation. This is the role of the input embedding layer \cite{Raschka2024BuildLLM}. Given an input text such as ``Data visualization empowers users to'', the model first tokenizes the text, then maps each token to a vector representation, and finally adds positional information \cite{Raschka2024BuildLLM, TransformerExplainerLLM}. The resulting embedding combines semantic meaning with information about token order. 
 \begin{enumerate}
 	\item \textbf{Tokenization:} The input text is split into smaller units called tokens. These tokens can be a word, a subword or a single character. For example, the sentence might be tokenized into ["Data", "visualization", "empowers", "users", "to"]. Each token is assigned a unique token ID.
@@ -408,7 +654,7 @@ Before a Transformer can process data, the data must be converted into a numeric
 \end{enumerate}
 
 
-\paragraph{2. Attention Mechanism}
+\subsection{Attention Mechanism}
 The Attention mechanism is responsible for capturing contextual relationships between tokens by directly computing their relevance to one another. This allows the model to understand long-range dependencies and contextual relationships of the tokens, leading to more coherent and relevant output \cite{Raschka2024BuildLLM, TransformerExplainerLLM, AttentionTransformersStepbystep}. 
 In \autoref{fig:TransformerAttentionWeights} the attention weights of the word ``it'' in the sentence ``The animal didn't cross the street because it was too tired'' are visualized, after the input is processed through the Encoder attention mechanism. The attention weights allows the model to decide which other tokens in the sequence are most relevant. 
 % The attention mechanism allows the model to determine that ``it'' refers to ``The animal'' and not to ``the street'' and simultaneously it refers to the context ``too tired'', which is crucial for understanding the meaning of the sentence. 
@@ -428,13 +674,16 @@ In \autoref{fig:TransformerAttentionWeights} the attention weights of the word `
 	\item \textbf{Value $\mathbf{v}^{(i)}=\mathbf{x}^{(i)}\mathbf{W}_v$:} The value vector contains the actual information of the token. It is weighted by the attention scores to produce the final output of the self-attention mechanism.
 \end{itemize}
 
-\textit{Self-Attention.} The query vectors are then compared with the key vectors of all tokens in the sequence using the dot product (scalar product), producing relevance scores that indicate how strongly tokens are related to one another. To stabilize training, these scores are scaled by the square root of the key dimension $d_k$ and normalized using a softmax function, resulting in attention weights. Finally, the attention weights are applied to the corresponding value vectors $\mathbf{v}^{(i)}$ and these weighted values are aggregated to produce the new context vector $\mathbf{z}^{(i)}$ and the output of the self-attention layer \cite{Raschka2024BuildLLM, TransformerExplainerLLM, AttentionTransformersStepbystep}, see \autoref{fig:TransformerAttentionKeyQueryValueSimply}. 
+
+\paragraph{Single-Head Self-Attention}
+% \textit{Self-Attention.} 
+The query vectors are then compared with the key vectors of all tokens in the sequence using the dot product (scalar product), producing relevance scores that indicate how strongly tokens are related to one another. To stabilize training, these scores are scaled by the square root of the key dimension $d_k$ and normalized using a softmax function, resulting in attention weights. Finally, the attention weights are applied to the corresponding value vectors $\mathbf{v}^{(i)}$ and these weighted values are aggregated to produce the new context vector $\mathbf{z}^{(i)}$ and the output of the self-attention layer \cite{Raschka2024BuildLLM, TransformerExplainerLLM, AttentionTransformersStepbystep}, see \autoref{fig:TransformerAttentionKeyQueryValueSimply}. 
 \begin{equation}
 	\mathbf{z}^{(i)} = \text{softmax}\left(\frac{\mathbf{q}^{(i)} \cdot \mathbf{k}^{(i)T}}{\sqrt{d_k}}\right) \cdot \mathbf{v}^{(i)}
 \end{equation}
 In this way, each token can incorporate information from the most relevant tokens in the sequence, enabling the model to capture contextual dependencies. 
-But What does this mean technically? The value vector $\mathbf{v}^{(i)}$ represent the token's informatation in an semantic learned high-dimensional embedding space. Through the attention machanism changes the vector it's direction and magnitude in this embedding space and point to another place, resulting in a other semantic meaning.
-In \autoref{fig:TransformerEmbeddingSpace_BlueFluffyCreature4} is shown how the vector of the word ``creature'' is shifted in the embedding space based on the context ``a fluffy blue creature''. This illustrates how the attention mechanism allows the model to dynamically adjust the meaning of tokens based on their relationships with other tokens in the sequence \cite{AttentionTransformersStepbystep}.
+But what does this mean technically? The value vector $\mathbf{v}^{(i)}$ represents the token's information in a semantically learned high-dimensional embedding space. Through the attention mechanism, the vector's direction and magnitude in this embedding space are adjusted, resulting in a different semantic meaning.
+In \autoref{fig:TransformerEmbeddingSpace_BlueFluffyCreature4}, it is shown how the vector of the word ``creature'' is shifted in the embedding space based on the context ``a fluffy blue creature''. This illustrates how the attention mechanism allows the model to dynamically adjust the meaning of tokens based on their relationships with other tokens in the sequence \cite{AttentionTransformersStepbystep}.
 % In one context, it may point to a specific type of creature, while in another context, it may point to a different type of creature.
 % According to the relevant semantic meaning, the word “creature” is affected within the vectorial embedding space by the words (embeddings) “fluffy” and “blue”
 \begin{figure}
@@ -464,8 +713,9 @@ Instead of computing attention separately for each token, the Transformer perfor
 	\label{fig:TransformerSingleHeadAttention}
 \end{figure}
 
-
-\textit{Multi-Head Attention.} While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel \cite{Raschka2024BuildLLM, Vaswani2017AttentionIA}. Each head learns its own query, key, and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected through a linear layer to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
+\paragraph{Multi-Head Self-Attention}
+% \textit{Multi-Head Attention.} 
+While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel \cite{Raschka2024BuildLLM, Vaswani2017AttentionIA}. Each head learns its own query, key, and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected through a linear layer to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
 The number of heads is chosen such that the input embedding dimension is split across the heads. For example, if the input embedding dimension is 768 and there are 12 heads, each head would operate on a subspace of 64 dimensions. Otherwise, the output dimensions will not match the input dimensions. Technically the Query, Key and Value matrices of each head are combined computed within a larger matrix multiplication and then splitted up into the individual parts for each head, that every head can produce its own attention matrix.
 
 \begin{figure}
@@ -475,24 +725,28 @@ The number of heads is chosen such that the input embedding dimension is split a
 	\label{fig:TransformerMultiHeadAttention}
 \end{figure}
 
-\paragraph{3) Encoder Block:}
-After the self-attention computation, the resulting representations are passed through a layer normalization step, followed by a feed-forward network (MLP). A second layer normalization is applied after this transformation. This sequence of operations forms a single Transformer block, which can be stacked multiple times to increase model capacity \cite{Vaswani2017AttentionIA}.
+\subsection{Encoder Block}
+After the self-attention computation, the resulting representations are passed through a layer normalization step, followed by a \ac{MLP} Network. A second layer normalization is applied after this transformation. This sequence of operations forms a single Transformer block, which can be stacked multiple times to increase model capacity \cite{Vaswani2017AttentionIA}.
 
-The MLP (Multi-Layer Perceptron) operates independently on each token representation. In contrast to the attention mechanism, which is responsible for exchanging information between tokens, the MLP refines and transforms each token embedding individually. It typically consists of two linear transformations with a non-linear activation function in between, allowing the model to learn more complex feature transformations.
+The \ac{MLP} operates independently on each token representation. In contrast to the attention mechanism, which is responsible for exchanging information between tokens, the \ac{MLP} refines and transforms each token embedding individually. It typically consists of two linear transformations with a non-linear activation function in between, allowing the model to learn more complex feature transformations.
 
 A key component of the Transformer architecture is the use of residual connections, which are applied around both the attention block and the feed forward network \cite{Vaswani2017AttentionIA}. These are shortcut connections that add the input of a sub-layer directly to its output. This mechanism improves gradient flow during backpropagation and mitigates the vanishing gradient problem, which is especially important in deep networks composed of many stacked Transformer blocks. 
 
 The output of the final encoder layer is a sequence of contextualized vectors, where each vector corresponds to one input token enriched with information from the entire sequence. This representation can then be used for downstream tasks such as classification, regression, or sequence generation.
 
 
-\paragraph{4) Decoder Block:}
+\subsection{Decoder Block}
 The decoder receives an input sequence that is first transformed using the same embedding procedure as the encoder (token embeddings + positional information) \cite{Vaswani2017AttentionIA}. During generation, this input typically consists of previously generated output tokens. The embedded sequence is then processed through two distinct attention mechanisms: masked multi-head self-attention and cross-attention.
 
-\textit{Masked Multi-Head Attention.} Masked multi-head self-attention operates on the decoder's own input sequence, but with a causal mask that prevents each position from attending to any future positions \cite{Raschka2024BuildLLM}. The causal mask ensures that future tokens receive an attention weight of zero, making them invisible to the current position and ensures that the prediction for the next token depends only on previously generated tokens. 
+\paragraph{Masked Multi-Head Attention}
+% \textit{Masked Multi-Head Attention.} 
+Masked multi-head self-attention operates on the decoder's own input sequence, but with a causal mask that prevents each position from attending to any future positions \cite{Raschka2024BuildLLM}. The causal mask ensures that future tokens receive an attention weight of zero, making them invisible to the current position and ensures that the prediction for the next token depends only on previously generated tokens. 
 % , preserving the autoregressive property. 
 % The decoder then uses these vectors, along with the previously generated output tokens, to produce the next token in the output sequence. This process continues until the entire output sequence is generated.
 
-\textit{Cross-Attention.} In cross-attention, the decoder's hidden states from the masked attention layer serve as queries $Q$, while the encoder's output serve as keys $K$ and values $V$, allowing the decoder to condition its predictions on the encoded source sequence \cite{Vaswani2017AttentionIA}.
+\paragraph{Cross-Attention}
+% \textit{Cross-Attention.} 
+In cross-attention, the decoder's hidden states from the masked attention layer serve as queries $Q$, while the encoder's output serve as keys $K$ and values $V$, allowing the decoder to condition its predictions on the encoded source sequence \cite{Vaswani2017AttentionIA}.
 
 After these attention layers, the resulting representations are passed through a linear projection head followed by a softmax function, producing a probability distribution over the set of possible output elements \cite{Vaswani2017AttentionIA, Raschka2024BuildLLM, TransformerExplainerLLM}. The element with the highest probability is selected and appended to the generated sequence. This process repeats autoregressively until a special end-of-sequence symbol is produced. In our text example, the vocabulary token with the highest probability is selected and appended to the generated sequence.
 
@@ -526,8 +780,7 @@ After these attention layers, the resulting representations are passed through a
 
 
 
-
-\subsection{Vision Transformer}
+\section{Vision Transformer}
 The Vision Transformer (ViT) \cite{Dosovitskiy2020AnII} extends the Transformer architecture, originally developed for natural language processing, to computer vision tasks by applying the self-attention mechanism to image patches instead of words. In computer vision, attention enables a model to focus on relevant regions of an image and to capture and understanding relationships between different areas of an image. This allows the model to identify important objects and effectively model spatial dependencies across the entire image.
 
 \begin{figure}[!h]
@@ -560,7 +813,7 @@ In imitation learning, Vision Transformers can be used as visual encoders that e
 The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern AI systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images, and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.7\linewidth]{./chapter2/media/FoundationModel_vs_MultiModalModel.png}
+	\includegraphics[width=0.55\linewidth]{./chapter2/media/FoundationModel_vs_MultiModalModel.png}
 	\caption[Foundation Model vs. Multi-Model Model]{Foundation Model vs. Multi-Model Model. Image source: \cite{FoundationModelsFoundation}}
 	\label{fig:foundationmodel_vs_multimodel}
 \end{figure}

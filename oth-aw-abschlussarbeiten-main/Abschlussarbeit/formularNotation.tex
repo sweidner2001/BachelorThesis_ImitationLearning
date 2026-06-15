@@ -1,0 +1,41 @@
+\chapter*{Mathematical Notation in Formulas}
+  % \section{Introduction and Mathematical Notation of Formulas}
+
+\paragraph{Capital Letters} 
+Capital Letters represent \textit{random variables}. \\
+Examples:
+\begin{itemize}
+  \item $S$: Represents the set of all states in which the robot can be.
+  \item $A$: Represents the set of all possible actions the robot can perform.
+\end{itemize}
+
+\paragraph{Lowercase Letters} 
+Lowercase letters represent \textit{specific values} of \textit{random variables}. \\
+Examples: 
+\begin{itemize}
+  \item $s \in S$: Stands for a specific robot state.
+  \item $a \in A$: Stands for a specific action that the robot performs.
+\end{itemize}
+
+\textit{Timestep $t$.} A lowercase letter is usually followed by a time index $t$, representing the specific action taken by the robot at time step $t$. 
+Examples:
+\begin{itemize}
+    \item $s_t \in S$: Stands for a specific robot state at time step $t$.
+    \item $a_t \in A$: Stands for a specific action that the robot performs at time step $t$.
+    \item In some cases the time index is omitted for simplicity, e.g. $a$ instead of $a_t$.
+    \item In the literature, the next state or action is sometimes denoted as $s'$ or $a'$ instead of $s_{t+1}$ or $a_{t+1}$.
+\end{itemize}
+
+\paragraph{Capital Letters in Bold} 
+Capital letters in bold represent matrices. \\
+For example:
+\begin{equation}
+    \mathbf{W} = \begin{bmatrix} w_{11} & w_{12} & \dots & w_{1n} \\ w_{21} & w_{22} & \dots & w_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ w_{m1} & w_{m2} & \dots & w_{mn} \end{bmatrix}
+\end{equation}
+
+\paragraph{Lowercase Letters in Bold} 
+Lowercase letters in bold represent vectors. \\
+For example:
+\begin{equation}
+    \mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}
+\end{equation}
