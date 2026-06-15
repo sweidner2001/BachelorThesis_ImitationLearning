@@ -555,7 +555,39 @@ In imitation learning, Vision Transformers can be used as visual encoders that e
 
 
 
-\section{Foundation Model vs. Multi-Model Model}
+\section{Foundation Model \& Multi-Model Model}
+
+The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern AI systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images, and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{./chapter2/media/FoundationModel_vs_MultiModalModel.png}
+	\caption[Foundation Model vs. Multi-Model Model]{Foundation Model vs. Multi-Model Model. Image source: \cite{FoundationModelsFoundation}}
+	\label{fig:foundationmodel_vs_multimodel}
+\end{figure}
+
+\subsection{Foundation Model}
+Recent advances in artificial intelligence have been largely driven by the development of foundation models. A foundation model is a large-scale model that is pre-trained on vast amounts of data and can subsequently be adapted to a wide range of downstream tasks \cite{Bommasani2021OnTO}. Instead of being designed for a single application, foundation models learn general patterns, concepts, and representations that can be reused across different domains and tasks.
+
+A key characteristic of foundation models is their ability to generalize to problems that were not explicitly specified during training. This broad knowledge enables them to serve as a common basis for many specialized applications. 
+Unimodal foundation models (e.g., GPT-3 for text \cite{Brown2020LanguageMA}, Stable Diffusion for images \cite{Rombach2021HighResolutionIS}) learn patterns within a single data type, whereas Multi-modal foundation models (e.g., CLIP \cite{Radford2021LearningTV}, GPT-4V \cite{Achiam2023GPT4TR}, Gemini \cite{Reid2024Gemini1U, team2023gemini}) learn joint representations across modalities such as text, images, and audio.
+Due to their versatility and strong generalization capabilities, foundation models have become the foundation of many modern AI systems.
+
+\subsection{Multi-Modal Model}
+A multimodal model is capable of processing and relating information from two or more data modalities, such as text, images, audio, or sensor measurements \cite{Baltruaitis2017MultimodalML}. Unlike unimodal models, which operate on only a single type of data, multimodal models learn a shared representation that enables information from different modalities to be interpreted jointly.
+The integration of multiple modalities allows a model to leverage complementary information, handle missing data from one source by relying on another, provide more comprehensive insights, and improves model generalization \cite{Liang2022FoundationsT}.
+
+For example, a multimodal model can analyze an image together with a textual instruction and use information from both inputs to answer a question or perform a task. This capability allows the model to connect visual observations with linguistic concepts and reason across different sources of information. Models such as CLIP align images and text within a common representation space \cite{Radford2021LearningTV}, while more recent models such as Gemini can process as well as generate information across multiple modalities \cite{Reid2024Gemini1U, team2023gemini}.
+
+Although many multimodal models can generate outputs in different modalities, such as images from text prompts, the defining characteristic of a multimodal model is its ability to understand and relate multiple forms of data rather than the specific modality of its output \cite{Achiam2023GPT4TR, Reid2024Gemini1U, team2023gemini}.
+
+\textit{Multimodal Learning} is a own learning paradigm in the field of deep learning and refers to the use of various data modalities, such as text, audio, sensor signals, and images/videos within a single learning concept at the same time \cite{Ngiam2011MultimodalDL, Baltruaitis2017MultimodalML}.
+
+
+\paragraph{Vision-Language-Action Models}
+Vision-Language-Action (VLA) models extend multimodal models by incorporating robot actions as an additional output modality and can be ordered in the \textit{Domain specific} section in \autoref{fig:foundationmodel_vs_multimodel}. While conventional multimodal models typically generate textual or visual outputs, VLA models directly generate robot actions that can be executed by a robotic. They combine visual observations from cameras with natural language instructions and translate this information into control commands for the robot. They often uses pretrainied foundation models for vision and language, that serves as backbones to provide world understanding. By jointly reasoning over vision, language, and actions, VLA models provide an end-to-end framework that enables robots to understand their environment, interpret user instructions, and autonomously perform complex manipulation tasks.
+
+
+
 
 
 
