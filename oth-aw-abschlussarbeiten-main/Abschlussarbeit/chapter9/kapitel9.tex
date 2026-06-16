@@ -1,15 +1,16 @@
 % \chapter{Experiments on the Real Robot}
 \chapter{Experiments on a Real Robot}
+% ToDo: Image
 
 The second part of this work will focus on the practical implementation of an open-source \ac{IL} approache on a real robotic system. The goal is to gain hands-on experience with the challenges and opportunities how to run a robot model on a real robot. This includes finding out how to connect a robot with the PC, how to control the robot from the PC and what additional code is needed to adapt a robot model to run on our specific robot. The idea was to implement a easy-to use basic pipeline to communicate with the robot, with an framework where only the robot model must be replaced. This includes also a camera setup with camera calibration to capture the robot's environment to provide the necessary visual input for the robot model. The whole pipeline should be designed to be modular and extensible, allowing for easy integration of different robot models with different software dependencies. % in the future. 
 
 Overview of the steps to setup and run a robot model on a robot:
 \begin{enumerate}
     \item Setup Connection between PC and Robot. 
-    \item Setup the control protocols, for controlling the Robot via PC (for example within a Python script). There exists two different control protocols: 
+    \item Setup the control protocols, for controlling the Robot via PC (for example within a Python script \cite{WelcomePythonorg2026}). There exists two different control protocols: 
     \begin{itemize}
-        \item RTDE: Direct control Interface provided by Universal Robots.
-        \item ROS2: A popular high-level open-source framework for controlling different robots with the same Interface.
+        \item RTDE: Direct control Interface provided by Universal Robots \cite{RealTimeDataExchange}.
+        \item ROS 2: A popular high-level open-source framework for controlling different robots with the same Interface \cite{ROS2Documentation}.
     \end{itemize}
     \item Camera Setup and Calibration.
     \item Implementing the robot model on the PC and adapt it to the UR5e.
@@ -17,7 +18,7 @@ Overview of the steps to setup and run a robot model on a robot:
 \end{enumerate}
 
 \paragraph{Robot Hardware}
-For experiments, the UR5e Robot Arm from Universal Robots will be used. It is a collaborative robot (cobot) designed for safe human-robot interaction. The UR5e provides a versatile and user-friendly 12 inch touchscreen interface for controlling and static programming the robot. In \autoref{tab:UR5eSpecifications} some specifications of the Robot are listed.
+For experiments, the UR5e Robot Arm \cite{UserManualUR5e} from Universal Robots will be used. It is a collaborative robot (cobot) designed for safe human-robot interaction. The UR5e provides a versatile and user-friendly 12 inch touchscreen interface for controlling and static programming the robot. The Robotiq Gripper 2F-140 was used as the gripper and mounted on the UR5e with a payload of 2.5 kg and a stroke of 10 to 125 Newton \cite{AdaptiveGrippersRobotiq}. In \autoref{tab:UR5eSpecifications} some specifications of the Robot are listed. 
 \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.3}
@@ -40,7 +41,7 @@ For experiments, the UR5e Robot Arm from Universal Robots will be used. It is a 
         Materials & Powder coated steel \\
         \hline
     \end{tabular}
-    \caption{Specifications of the UR5e Robot Arm}
+    \caption{Specifications of the UR5e Robot Arm. Source: \cite{UR5e_2}}
     \label{tab:UR5eSpecifications}
 \end{table}
 
@@ -48,7 +49,7 @@ For experiments, the UR5e Robot Arm from Universal Robots will be used. It is a 
 
 
 \section{Setup Connection from PC to Robot}
-Many modern robot learning models require substantial computational resources for image processing, perception, and action generation. In particular, many open-source Vision-Language-Action (VLA) models rely on high-performance GPUs, such as an NVIDIA RTX 4090, to achieve real-time or near real-time inference. 
+Many modern robot learning models require substantial computational resources for image processing, perception, and action generation. In particular, many open-source \ac{VLA} models rely on high-performance GPUs, such as an NVIDIA RTX 4090, to achieve real-time or near real-time inference. 
 
 Due to these computational requirements, the robot model must be deployed on an external workstation, rather than directly on the UR5e robot, whose onboard hardware is not designed for executing large-scale deep learning models. In addition, some extra software is needed for running a robot model and communicating with the robot control interface, which can be easily installed on a PC. Consequently, a communication connection between the workstation and the robot had to be established, which enables the external computer to execute the robot model, send motion commands to the robot or receive sensor and state information from the robot required for closed-loop control.
 
@@ -63,8 +64,8 @@ Due to these computational requirements, the robot model must be deployed on an 
 \section{Setup Control Protocols}
 
 
-\subsection{Robot Control Protocol: ROS2}
-ROS 2 (Robot Operating System 2) is an open-source robotics middleware framework used for building modular and distributed robotic systems. It organizes software into independent components called nodes, where each node performs a specific function such as perception, control, or planning. These nodes communicate with each other using standardized interfaces, including topics, services, and actions. ROS 2 provides the communication infrastructure that enables reliable data exchange between different parts of a robotic system. In this way, it acts as the “plumbing” layer that connects sensing, computation, and actuation in robotics applications. A key advantage of ROS 2 is that it provides a standardized interface, allowing the same software components to be reused across different robotic platforms without requiring changes to the core code, as long as the robots support the same ROS 2 communication interfaces.
+\subsection{Robot Control Protocol: ROS 2}
+ROS 2 (Robot Operating System 2) \cite{ROS2Documentation} is an open-source robotics middleware framework used for building modular and distributed robotic systems. It organizes software into independent components called nodes, where each node performs a specific function such as perception, control, or planning. These nodes communicate with each other using standardized interfaces, including topics, services, and actions. ROS 2 provides the communication infrastructure that enables reliable data exchange between different parts of a robotic system. In this way, it acts as the “plumbing” layer that connects sensing, computation, and actuation in robotics applications. A key advantage of ROS 2 is that it provides a standardized interface, allowing the same software components to be reused across different robotic platforms without requiring changes to the core code, as long as the robots support the same ROS 2 communication interfaces.
 
 
 The complete ROS 2 implementation developed during this work is publicly available in the following repository:
@@ -76,17 +77,17 @@ The complete ROS 2 implementation developed during this work is publicly availab
 The repository contains scripts and configuration files required to establish communication with the UR5e robot and to launch the corresponding ROS 2 nodes. These scripts automate the initialization process and provide a easy-to-use setup for robot control, visualization, and simulation.
 The ROS 2 environment integrates several commonly used robotics tools:
 \begin{itemize}
-    \item \textbf{RViz:} RViz is a 3D real-time visualization tool for ROS, see \autoref{fig:RViz}. It provides a view of the robot model, sensors, and other information in a 3D space. It can be used to display sensor data from robots, such as point clouds, camera images, robot models and robot trajectories. While RViz can be used in conjunction with Gazebo, it is not a simulation environment of itself.
+    \item \textbf{RViz:} RViz \cite{RvizMainPage} is a 3D real-time visualization tool for ROS, see \autoref{fig:RViz}. It provides a view of the robot model, sensors, and other information in a 3D space. It can be used to display sensor data from robots, such as point clouds, camera images, robot models and robot trajectories. While RViz can be used in conjunction with Gazebo, it is not a simulation environment of itself.
 
-    \item \textbf{MoveIt:} MoveIt is a motion planning framework for robotic manipulators that computes collision-free trajectory generation and collision checking between start and target poses, see \autoref{fig:MoveIt}. It can be used for both simulated and real robotic systems.
+    \item \textbf{MoveIt:} MoveIt \cite{MoveIt2Documentationa} is a motion planning framework for robotic manipulators that computes collision-free trajectory generation and collision checking between start and target poses, see \autoref{fig:MoveIt}. It can be used for both simulated and real robotic systems.
     
-    \item \textbf{Gazebo:} Gazebo is a physics-based simulation environment commonly used in conjunction with ROS 2 and RViz. It enables realistic simulation of robot dynamics (mass, inertia, gravity), sensors (cameras, lidar, force sensors) and the environment (collisions, friction). Gazebo provided a virtual testing environment for validating robot configurations and control algorithms before deployment on the physical UR5e robot.
+    \item \textbf{Gazebo:} Gazebo \cite{Gazebo} is a physics-based simulation environment commonly used in conjunction with ROS 2 and RViz. It enables realistic simulation of robot dynamics (mass, inertia, gravity), sensors (cameras, lidar, force sensors) and the environment (collisions, friction). Gazebo provided a virtual testing environment for validating robot configurations and control algorithms before deployment on the physical UR5e robot.
 \end{itemize}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{./chapter9/media/Rviz}
-    \caption[RViz: Visualization Tool]{RViz is a 3D real-time visualization tool used in ROS2.}
+    \caption[RViz: Visualization Tool]{RViz is a 3D real-time visualization tool used in ROS 2.}
     \label{fig:RViz}
 \end{figure}
 \begin{figure}
@@ -96,11 +97,11 @@ The ROS 2 environment integrates several commonly used robotics tools:
     \label{fig:MoveIt}
 \end{figure}
 
-In addition to the software implementation, comprehensive documentation was created to support the deployment of a robot model via ROS2. The documentation describes the procedures required to establish communication with the robot via ROS2, set the UR5e robot in External Control mode, ROS2 commands to control the robot and basic ROS2 commands for troubleshooting. Furthermore, it explains the usage of the provided scripts and workflows for controlling the robot within both simulated and real-world environments.
+In addition to the software implementation, comprehensive documentation was created to support the deployment of a robot model via ROS 2. The documentation describes the procedures required to establish communication with the robot via ROS 2, set the UR5e robot in External Control mode, ROS 2 commands to control the robot and basic ROS 2 commands for troubleshooting. Furthermore, it explains the usage of the provided scripts and workflows for controlling the robot within both simulated and real-world environments.
 
 
 \paragraph{Setup}
-To simplify the development and deployment process, the ROS2 project was implemented using a Dev Container environment. This approach provides an isolated and reproducible software environment, eliminating the need to install ROS 2, robot drivers, and additional dependencies directly on the host system. As a result, all developers can work within a consistent environment while avoiding dependency conflicts and configuration issues.
+To simplify the development and deployment process, the ROS 2 project was implemented using a Dev Container environment. This approach provides an isolated and reproducible software environment, eliminating the need to install ROS 2, robot drivers, and additional dependencies directly on the host system. As a result, all developers can work within a consistent environment while avoiding dependency conflicts and configuration issues.
 The Dev Container provides a fully configured ROS 2 Humble workspace tailored for Universal Robots development. It includes the required communication interfaces for the UR5e robot, as well as commonly used robotics tools such as Gazebo for simulation, MoveIt for motion planning, and RViz for visualization.
 
 The Dev Container setup follows a layered workflow consisting of four main components:
@@ -123,7 +124,7 @@ The Dev Container setup follows a layered workflow consisting of four main compo
         \rowcolor{gray!20}
         \textbf{Script Name} & \textbf{Description} \\
         \hline
-        \texttt{launch\_std.sh} & Launches the UR robot driver to connect to a real UR robot. This allows for direct control of the robot through ROS2 topics and services. If the command is successful, RViz should start and shows the robot in its current pose. If the robot is not visible, there is a connection error. \\
+        \texttt{launch\_std.sh} & Launches the UR robot driver to connect to a real UR robot. This allows for direct control of the robot through ROS 2 topics and services. If the command is successful, RViz should start and shows the robot in its current pose. If the robot is not visible, there is a connection error. \\
         \hline
         \texttt{launch\_RViz\_MoveIt.sh} & Launches the UR robot driver together with MoveIt and RViz. This allows controlling the real robot via the MoveIt planning interface in RViz. \\
         \hline
@@ -145,11 +146,11 @@ The Dev Container setup follows a layered workflow consisting of four main compo
 % \textbf{sim_launch_RViz_MoveIt_Gazebo.sh:} Launches the UR5e simulation in Gazebo with MoveIt and RViz (ur_sim_moveit.launch.py). In addition to the simulation, MoveIt is loaded, enabling motion planning within the simulation.
 
 \paragraph{Gripper Control}
-To control the gripper, additional ROS2 packages and interfaces are required, as the gripper is not directly controlled through the main robot driver. Due to missing instructions, how to control the gripper directly with a ROS2 Node, the gripper wasn't finished implemented and is not functional yet. Some additional specific urdf.xacro files are needed, to connect the gripper to the robot model in Rviz. However, the ROS2 setup provides the necessary infrastructure to integrate gripper control in the future.
+To control the gripper, additional ROS 2 packages and interfaces are required, as the gripper is not directly controlled through the main robot driver. Due to missing instructions, how to control the gripper directly with a ROS 2 Node, the gripper wasn't finished implemented and is not functional yet. Some additional specific urdf.xacro files are needed, to connect the gripper to the robot model in Rviz. However, the ROS 2 setup provides the necessary infrastructure to integrate gripper control in the future.
 
 
 \paragraph{Summary}
-In summary, the ROS2 implementation provides a comprehensive framework for controlling the UR5e robot arm from an external workstation, but there was some difficultness with the gripper control, which is not yet implemented. Aufgrund dessen wurde die Implementierung der bereitgestellten RTDE Schnittstelle von Universal Robots vorgezogen, da dafür schon fertige Python packete vorhanden waren. Um möglichst schnell einen ersten funktionierenden Robotermodell zu implementieren.
+In summary, the ROS 2 implementation provides a comprehensive framework for controlling the UR5e robot arm from an external workstation, but there was some difficultness with the gripper control, which is not yet implemented. For this reason, the decision was made to prioritise the implementation of the RTDE interface provided by Universal Robots, as ready-made Python packages \cite{WelcomePythonorg2026} were already available for this purpose. The aim was to implement an initial working robot model as quickly as possible.
 
 
 
@@ -157,7 +158,7 @@ In summary, the ROS2 implementation provides a comprehensive framework for contr
 
 
 \subsection{Robot Control Protocol: RTDE}
-RTDE (Real-Time Data Exchange) is a direct communication interface provided by Universal Robots for exchanging data between an external computer and the robot controller. It enables fast, low-latency transmission of sensor data and control commands. Compared to ROS 2, RTDE operates closer to the hardware and therefore provides higher update rates. This makes it suitable for real-time robot applications in the Universal Robots universe, where fast and reliable data exchange is required. The advantage is that RTDE is easy to set up. However, the disadvantage is that the interface must be adapted when switching to a different robot.
+RTDE (Real-Time Data Exchange) \cite{RealTimeDataExchange} is a direct communication interface provided by Universal Robots for exchanging data between an external computer and the robot controller. It enables fast, low-latency transmission of sensor data and control commands. Compared to ROS 2, RTDE operates closer to the hardware and therefore provides higher update rates. This makes it suitable for real-time robot applications in the Universal Robots universe, where fast and reliable data exchange is required. The advantage is that RTDE is easy to set up. However, the disadvantage is that the interface must be adapted when switching to a different robot.
 
 The complete RTDE implementation developed during this work is publicly available in the following repository:
 \begin{center}
@@ -174,7 +175,7 @@ Some test scripts are provided, for example a static pick-and-place demo with th
 
 
 \paragraph{Setup}
-To simplify development and deployment, the RTDE project was implemented in a dedicated Python virtual \texttt{venv}-environment. This approach provides an isolated and reproducible setup that can be executed on any system with Python installed, while avoiding dependency conflicts with globally installed packages.
+To simplify development and deployment, the RTDE project was implemented in a dedicated Python virtual \texttt{venv}-environment \cite{VenvCreationVirtual}. This approach provides an isolated and reproducible setup that can be executed on any system with Python installed, while avoiding dependency conflicts with globally installed packages.
 
 The environment can be easily set up by executing the \texttt{setup.sh} script, which automatically creates the virtual environment and installs all required dependencies for working with the RTDE interface. In addition, the script configures the project structure such that Python modules can be imported using absolute paths relative to the project root. All project scripts on every location in the project structure can be conveniently executed from within Visual Studio Code using the ``run button'' functionality, with all imports resolving correctly once the environment is activated.
 
@@ -273,7 +274,7 @@ Finally in Chapter \ref{chap:SelectedApproaches}, selected \ac{IL} approaches de
 
 \section{Outlook}
 
-Implementing and testing a open-source Robot model on our UR5e Robot will be the next step. This will provide practical insights into the challenges of deploying \ac{IL} approaches on real robotic systems and allow for the evaluation of different methods in a real-world setting. Implementing the communication to the robot with RTDE will be the first step, then it can be done with ROS2.
+Implementing and testing a open-source Robot model on our UR5e Robot will be the next step. This will provide practical insights into the challenges of deploying \ac{IL} approaches on real robotic systems and allow for the evaluation of different methods in a real-world setting. Implementing the communication to the robot with RTDE will be the first step, then it can be done with ROS 2.
 
 
 There exists many different Architectures which could be used: Timesformer, Q-Former, Use of Spike Neural Networks, Graph Neural Networks and Causal Reasoning. There exist many different Architectures of VLA and Multi-Modal Learning / Models. Action Chunking Transformer which is maybe better than BC: ACT is preferred when you want a robust, smooth, long-horizon policy distilled from demonstrations, whereas standard BC may fail if the task requires multi-step reasoning.
