@@ -196,7 +196,10 @@ In addition, an overview of ten promising open-source robot learning models was 
 
 
 
-\chapter{Summary, Conclusion \& Outlook}
+
+
+
+\chapter{Summary \& Outlook}
 \section{Summary}
 
 This thesis examined imitation learning as a promising approach for enabling robots to acquire complex skills from demonstrations and move toward the long-term goal of general-purpose robotic intelligence.
@@ -274,86 +277,158 @@ Finally in Chapter \ref{chap:SelectedApproaches}, selected \ac{IL} approaches de
 
 \section{Outlook}
 
-Implementing and testing a open-source Robot model on our UR5e Robot will be the next step. This will provide practical insights into the challenges of deploying \ac{IL} approaches on real robotic systems and allow for the evaluation of different methods in a real-world setting. Implementing the communication to the robot with RTDE will be the first step, then it can be done with ROS 2.
+This thesis provided an overview of imitation learning and video-based robot learning, as well as the practical foundations required for deploying learning-based approaches on a real UR5e robot.
+
+The most immediate next step is the deployment and evaluation of a robot learning model on the real UR5e robot, to gain practical insights into real-world deployment and the challenges that arise in this context.
+Future work should therefore focus on adapting and deploying one of the identified open-source robot models to the UR5e robot.
+% , which includes writing a control script for the robot with the RTDE interface and integrating a camera system for perception of the robot. If this works, the ROS 2 implementation can be further developed and tested, to provide a more flexible and modular framework for robot control.
+This process includes the implementation of a robust control pipeline using the RTDE interface, the integration of a camera system for visual perception, and the development of data-processing pipelines for model inference. Once a complete perception-to-action pipeline is operational, the existing ROS 2 implementation can be further developed and tested to provide a more modular and extensible framework for robot control, simulation, and experimentation.
+
+\paragraph{Techniques \& Architectures}
+Beyond the practical implementation, several research directions in robot learning remain promising. Recent architectures such as TimeSformers, Q-Formers, Action Chunking Transformers, Conditional Behavior Transformers (C-BeT), and Conditional Variational Autoencoders (C-VAE) could be investigated for their applicability to robotic policy learning. 
+Additional research could investigate meta-learning approaches that allow robots to rapidly adapt to new tasks with minimal additional training. The combination of world models, causal reasoning, and multimodal foundation models may represent a crucial step toward the development of more general-purpose robotic agents. The advantages and disadvantages of monolithic and compositional models can be worked out too.
+
+Furthermore, combining traditional physics-based simulation with video prediction models represents an interesting avenue for future work. Such hybrid simulators could improve planning capabilities while maintaining physical consistency.
+
+Another promising direction is the application of Video Question Answering (VQA) techniques to robotics. Robot systems could query video understanding models with questions such as ``Was the task completed successfully?'' to automatically generate supervision signals and evaluate task execution. While VQA has been widely used with images, but not with videos as input.
 
 
-There exists many different Architectures which could be used: Timesformer, Q-Former, Use of Spike Neural Networks, Graph Neural Networks and Causal Reasoning. There exist many different Architectures of VLA and Multi-Modal Learning / Models. Action Chunking Transformer which is maybe better than BC: ACT is preferred when you want a robust, smooth, long-horizon policy distilled from demonstrations, whereas standard BC may fail if the task requires multi-step reasoning.
-- Conditional Behavior Transformers (C-BeT)
-- Forschungsrichtung: Affordance grounding for robot interaction
-- conditional variational autoencoder (C-VAE)
 
-Other Research directions for next works are:
-The field of Robotics provides a large field of research. Further work could examine the available Datasets and categories. Examine more implemented successful Architectures to become a better understanding, what is possible. There is a lot of Research of VLA Models to robotics. Meta-Learning Approaches could be examined. The integration of Causal Reasoning and World Models could be further explored. 
+\paragraph{Learning from Videos}
+An underexplored area is the use of \ac{LfV} rewards to augment offline reinforcement learning datasets. For example, an LfV policy could be refined through online reinforcement learning while using video-derived rewards to guide optimization.
 
-RL techniques and how they can combined with IL approaches, for example through finetuning to increase task success. 
-
-
-There is no work comprehensively comparing the utility of different action representations for LfV. 
-
-LfV Policy Methods:
-- **Future Directions:**
-    - Jointly pretraining **multi-modal foundation models** (on both video and robot data) remains underexplored.
-    - Use **spatio-temporal encoders** and large internet datasets.
-    - representations from video foundation models
-Methods that leverage representations $\hat{A}$ will be limited by the scalability of their $\hat{A}$ (discussed in Section 4.2.1). An open question is whether $\hat{A}$’s are best utilised explicitly in a hierarchical setup, or if they are most useful for representation transfer. In hierarchical setups, where the policy is defined as $\pi(a_t| \pi_{alt}(\hat{a}_t|o_t), o_t)$, we should explore the extent to which either $\pi_{alt}$ or $\pi$ is the performance bottleneck.
-
-
-Dynamics Models:
-scalable alternative-action techniques will be useful for conditioning foundational video predictors. 
-- Exploring **hierarchical world/dynamics models** (higher levels learned from video, lower levels from robot data) is a promising avenue
-- An underexplored direction is to combine standard analytic simulation with video prediction simulation
-
-- **Category: Visual Question Answering (VQA):**
-    - Ask video-to-text models questions like “Did the robot complete the task?”
-    —> reward =  task completion or score progress (Dense Reward)
-    - VQA only used with images as input, but not with video-based VQA
-Following synthetic data trends in other fields, future work may seek to use foundational video predictors to generate synthetic video rollouts, or augmentand improve the coverage of existing data via video editing
-
-
-Reward Functions:
-Underexplored direction: is to use LfV rewards to augment reward labels in offline RL data.
-
-- **Safety:** LfV reward may useful for detecting **safety-related metrics**
-- **RL-AI-F:** Extracting shaped reward functions from video-to-text models via **RL from AI feedback (RL-AI-F) methods** is an avenue for future work.
-
-- **Pretrained Foundation Models:** The most promising approaches
-    - including **video-language models** and **video predictors** as reward functions
-- **Integration:** LfV reward functions could be combined with other LfV KMs, 
-
-Value Functions
-for example, by finetuning an LfV policy through online RL using LfV rewards.
-TD-learning of value functions from large-scale human video is seen as a promising direction for real-world robotics
-
-Scarce research: few works on value learning from video
-
-
-Monolithic vs Compositional Models
-—> compare Approaches
-- video generation model to hierarchically condition an action-prediction —> example compositional LfV approach
-- Any-to-any sequence modelling —> example monolithic LfV approach
-- compositional approaches are more computationally efficient, more data-efficient, and can obtain improved generalization
-- monolithic models may benefit from positive transfer between the different data modalities and tasks they handle, and can be optimized end-to-end.
-
-
-Recovering action information from video
-
-1. Explicitly compare the pros and cons of different action representations, and measure the extent to which each can help obtain the benefits of LfV (see Section 3.3). 
-2. Develop improved, novel action representations. Perhaps by combining the benefits of existing options [310].
-
-Benchmark
-- Improved benchmarks that quantitatively measure LfV benefits (Section 5.2.2) will facilitate these efforts
-
-
-We need metrics that capture not only task success but also generalization, robustness, and sim-to-real performance.
+As \ac{LfV} continues to gain importance, several open research questions remain. One challenge is the recovery of action information from action-free video demonstrations. Future work could systematically compare existing action representations $\hat{a} \in \hat{A}$ and evaluate their effectiveness for transferring knowledge from videos to robotic policies. Additionally, novel action representations could be developed that combine the strengths of existing approaches while reducing ambiguity during policy learning.
 
 
 
 
-- We consider task goals to be described by contact states.
-- Dadurch werden auf natürliche Weise Mehrdeutigkeiten vermieden, die bei der Betrachtung räumlicher Beziehungen auftreten
-- **Das Erschließen menschlicher Absichten bei gleichzeitiger Beseitigung der inhärenten Mehrdeutigkeiten in Videos ist eine zukünftige Richtung, die es zu erforschen gilt.**
-- We have also assumed that demonstration videos must be captured with a stationary camera. In reality, most videos in everyday scenarios contain a moving camera.
-- Daher besteht eine vielversprechende zukünftige Richtung darin, zu untersuchen, wie sich ein Modell erstellen lässt, das dynamische Szenen aus einer bewegten Kamera rekonstruieren kann, wobei das gewünschte Modell die Geometrie sowohl statischer als auch bewegter Objekte in den Szenen schätzen kann und gleichzeitig sicherstellt, dass der Maßstab der rekonstruierten Szenen und Objekte der realen Welt entspricht.
+\paragraph{Datasets, Benchmarks, and Evaluation}
+Future work could also focus on the systematic analysis of existing robotics datasets and their coverage of tasks, environments, and manipulation skills. Video editing and synthetic data generation techniques may provide opportunities to augment existing datasets and improve their diversity.
+
+Finally, progress in Learning from Videos requires improved benchmark suites and evaluation metrics. Current benchmarks often focus primarily on task success rates, while future evaluations should also measure generalization, robustness, data efficiency, sim-to-real transfer performance and causal understanding. The development of such benchmarks will be crucial for the quantitative assessment of the performance of robot models and will set the future direction for research.
+
+
+\paragraph{Summary}
+Overall, the rapid progress in robot learning and the complementary fields of \acp{LLM} and vision models suggests that robot learning will remain a highly active research area in the coming years. Continued advances in these fields may ultimately contribute to the development of robotic systems capable of learning, adapting, and generalizing across a wide range of real-world tasks.
+
+
+% the benefits of video-based learning and comparing competing approaches in a meaningful way.
+
+% Steps of further work include the implementation and testing of a robot model on the UR5e robot, to gain practical insights into real-world deployment and the challenges that arise in this context. This includes writing a control script for the robot with the RTDE interface and adapting an existing robot learning model to the UR5e robot. Furthermore, the integration of a camera system for perception of the robot must be done too. If this works, the ROS 2 implementation can be further developed and tested, to provide a more flexible and modular framework for robot control.
+
+
+
+
+
+
+
+
+
+
+% In robot learning, there exist many further topics to explore. For example what are and how useful are Timesformer, Q-Former, Spike Neural Networks, Graph Neural Networks, Action Chunking Transformer, Conditional Behavior Transformers and Conditional Variational Autoencoders (C-VAE) for robot learning?
+% How can we integrate Causal Reasoning into robot models?
+
+% Furthermore, the field of Imitation Learning, VLA and Multi-Modal Learning could be emerging directions too for further research. The field is rapidly evolving, and there are many promising approaches that could be implemented and tested on real robotic systems. For example, Conditional Behavior Transformers (C-BeT) and conditional variational autoencoders (C-VAE) represent promising directions for future research.
+
+% Other Research directions for next works are:
+% The field of Robotics provides a large field of research. Further work could examine the available Datasets and categories. augmentand improve the coverage of existing data via video editing Examine more implemented successful Architectures to become a better understanding, what is possible. There is a lot of Research of VLA Models to robotics. Meta-Learning Approaches could be examined. The integration of Causal Reasoning and World Models could be further explored. 
+
+
+
+% RL techniques and how they can combined with IL approaches, for example through finetuning to increase task success. 
+% Underexplored direction: is to use LfV rewards to augment reward labels in offline RL data.
+%  by finetuning an LfV policy through online RL using LfV rewards.
+
+% An underexplored direction is to combine standard analytic simulation with video prediction simulation
+
+% Visual Question Answering (VQA):**
+%     - Ask video-to-text models questions like “Did the robot complete the task?” VQA only used with images as input, but not with video-based VQA
+
+% Recovering action information from video
+% There is no work comprehensively comparing the utility of different action representations for LfV. 
+% 1. Explicitly compare the pros and cons of different action representations, and measure the extent to which each can help obtain the benefits of LfV (see Section 3.3). 
+% 2. Develop improved, novel action representations. Perhaps by combining the benefits of existing options [310].
+
+
+
+% Benchmark
+% - Improved benchmarks that quantitatively measure LfV benefits (Section 5.2.2) will facilitate these efforts
+% We need metrics that capture not only task success but also generalization, robustness, and sim-to-real performance.
+
+
+    
+% There exists many different Architectures which could be used: Timesformer, Q-Former, Use of Spike Neural Networks, Graph Neural Networks and Causal Reasoning. There exist many different Architectures of VLA and Multi-Modal Learning / Models. Action Chunking Transformer which is maybe better than BC: ACT is preferred when you want a robust, smooth, long-horizon policy distilled from demonstrations, whereas standard BC may fail if the task requires multi-step reasoning.
+% - Conditional Behavior Transformers (C-BeT)
+% - Forschungsrichtung: Affordance grounding for robot interaction
+% - conditional variational autoencoder (C-VAE)
+
+
+
+
+% LfV Policy Methods:
+% - **Future Directions:**
+%     - Jointly pretraining **multi-modal foundation models** (on both video and robot data) remains underexplored.
+%     - Use **spatio-temporal encoders** and large internet datasets.
+%     - representations from video foundation models
+% Methods that leverage representations $\hat{A}$ will be limited by the scalability of their $\hat{A}$ (discussed in Section 4.2.1). An open question is whether $\hat{A}$’s are best utilised explicitly in a hierarchical setup, or if they are most useful for representation transfer. In hierarchical setups, where the policy is defined as $\pi(a_t| \pi_{alt}(\hat{a}_t|o_t), o_t)$, we should explore the extent to which either $\pi_{alt}$ or $\pi$ is the performance bottleneck.
+
+
+% Dynamics Models:
+% scalable alternative-action techniques will be useful for conditioning foundational video predictors. 
+% - Exploring **hierarchical world/dynamics models** (higher levels learned from video, lower levels from robot data) is a promising avenue
+% - An underexplored direction is to combine standard analytic simulation with video prediction simulation
+
+% - **Category: Visual Question Answering (VQA):**
+%     - Ask video-to-text models questions like “Did the robot complete the task?”
+%     —> reward =  task completion or score progress (Dense Reward)
+%     - VQA only used with images as input, but not with video-based VQA
+% Following synthetic data trends in other fields, future work may seek to use foundational video predictors to generate synthetic video rollouts, or augmentand improve the coverage of existing data via video editing
+
+
+% Reward Functions:
+% Underexplored direction: is to use LfV rewards to augment reward labels in offline RL data.
+
+% - **Safety:** LfV reward may useful for detecting **safety-related metrics**
+% - **RL-AI-F:** Extracting shaped reward functions from video-to-text models via **RL from AI feedback (RL-AI-F) methods** is an avenue for future work.
+
+% - **Pretrained Foundation Models:** The most promising approaches
+%     - including **video-language models** and **video predictors** as reward functions
+% - **Integration:** LfV reward functions could be combined with other LfV KMs, 
+
+% Value Functions
+% for example, by finetuning an LfV policy through online RL using LfV rewards.
+% TD-learning of value functions from large-scale human video is seen as a promising direction for real-world robotics
+
+% Scarce research: few works on value learning from video
+
+
+% Monolithic vs Compositional Models
+% —> compare Approaches
+% - video generation model to hierarchically condition an action-prediction —> example compositional LfV approach
+% - Any-to-any sequence modelling —> example monolithic LfV approach
+% - compositional approaches are more computationally efficient, more data-efficient, and can obtain improved generalization
+% - monolithic models may benefit from positive transfer between the different data modalities and tasks they handle, and can be optimized end-to-end.
+
+
+% Recovering action information from video
+
+% 1. Explicitly compare the pros and cons of different action representations, and measure the extent to which each can help obtain the benefits of LfV (see Section 3.3). 
+% 2. Develop improved, novel action representations. Perhaps by combining the benefits of existing options [310].
+
+% Benchmark
+% - Improved benchmarks that quantitatively measure LfV benefits (Section 5.2.2) will facilitate these efforts
+
+
+% We need metrics that capture not only task success but also generalization, robustness, and sim-to-real performance.
+
+
+
+
+% - We consider task goals to be described by contact states.
+% - Dadurch werden auf natürliche Weise Mehrdeutigkeiten vermieden, die bei der Betrachtung räumlicher Beziehungen auftreten
+% - **Das Erschließen menschlicher Absichten bei gleichzeitiger Beseitigung der inhärenten Mehrdeutigkeiten in Videos ist eine zukünftige Richtung, die es zu erforschen gilt.**
+% - We have also assumed that demonstration videos must be captured with a stationary camera. In reality, most videos in everyday scenarios contain a moving camera.
+% - Daher besteht eine vielversprechende zukünftige Richtung darin, zu untersuchen, wie sich ein Modell erstellen lässt, das dynamische Szenen aus einer bewegten Kamera rekonstruieren kann, wobei das gewünschte Modell die Geometrie sowohl statischer als auch bewegter Objekte in den Szenen schätzen kann und gleichzeitig sicherstellt, dass der Maßstab der rekonstruierten Szenen und Objekte der realen Welt entspricht.
 
 
 
@@ -461,8 +536,6 @@ We need metrics that capture not only task success but also generalization, robu
 % The policy learns only from the dataset D.
 
 
-
-Multi-Modal und Foundation Models
 
 
 % Advantages of imitation learning:
