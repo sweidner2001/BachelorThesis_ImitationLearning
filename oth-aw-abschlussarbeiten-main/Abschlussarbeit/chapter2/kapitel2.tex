@@ -1,4 +1,4 @@
-\chapter{Foundations}
+\chapter{Fundamentals}
 \label{chap:Foundations}
 \minitoc
 This chapter provides an overview of the key concepts and theories that form the foundation of the following chapters. 
@@ -7,7 +7,7 @@ This chapter provides an overview of the key concepts and theories that form the
 
 
 
-\section{Glossary}
+% \section{Glossary}
 % \paragraph{Agent:}
 % An agent is an entity that learns to perform a specific behavior through interaction with its environment. In the context of this work, the agent corresponds to the robot, which has to execute a given action or task. 
 
@@ -22,25 +22,16 @@ This chapter provides an overview of the key concepts and theories that form the
 
 % In the classical meaning, the action $a$ corresponds for example to a robot command, such as moving the gripper to a target position $(x, y, z)$ or setting a joint angle to a specific value with a defined velocity. The state $s$ represents the agent's observation, which may include, for example, a sequence of recent camera images (e.g., the last four frames) as well as additional sensor inputs such as proprioceptive signals.
 
-\paragraph{Robot Trajectory:}
+% \paragraph{Robot Trajectory:}
 
-A robot trajectory describes how the robot moves from a starting state to a target state, including position, orientation and, if applicable, speeds, accelerations, and forces acting on the robot. A robot trajectory is a temporal sequence of actions and the resulting robot states.
+% A robot trajectory describes how the robot moves from a starting state to a target state, including position, orientation and, if applicable, speeds, accelerations, and forces acting on the robot. A robot trajectory is a temporal sequence of actions and the resulting robot states.
 
-\paragraph{Inference:}
-Inference refers to the process of using a trained model to make predictions or decisions based on new, unseen data. In the context of robotics, inference involves the robot applying its learned policy in real world or simulation to execute a given task.
+% \paragraph{Inference:}
+% Inference refers to the process of using a trained model to make predictions or decisions based on new, unseen data. In the context of robotics, inference involves the robot applying its learned policy in real world or simulation to execute a given task.
 
-\paragraph{Annotation:}
+% \paragraph{Annotation:}
 
-Annotating refers to the process of labeling data, in which data is enriched with additional information. For example, this may include assigning class labels, marking target objects in images, or labeling states and actions within robot trajectories. Annotated, or labeled, data forms the foundation for supervised learning approaches.
-
-\paragraph{Weakly Supervised Learning:}
-Weakly supervised learning is a \ac{ML} approach that utilizes limited or incomplete labeled data for training. In this context, the model learns from a combination of labeled and unlabeled data, or from data with noisy or imprecise labels. This approach is particularly relevant in robotics, where obtaining fully annotated data can be costly and time-consuming. Weakly supervised learning allows models to leverage large amounts of unlabeled data while still benefiting from the guidance provided by the available labeled data.
-
-
-\paragraph{Self-Supervised Learning:}
-Self-Supervised Learning is a \ac{ML} approach where the model learns to predict parts of the input data from other parts of the same data. This method does not require external labels, as the model generates its own supervisory signal from the data itself. For example, Large Language Models (LLMs) learn to predict the next word or masked words in a sentence based on the surrounding context, where the correct target words are already contained within the training data. Similarly, in computer vision, a model may learn to reconstruct masked regions of an image, with the original image providing the target information.
-% In robotics, self-supervised learning can be used to learn representations of the environment or to predict future states based on current observations, enabling the robot to learn useful features and dynamics without the need for explicit annotations.
-
+% Annotating refers to the process of labeling data, in which data is enriched with additional information. For example, this may include assigning class labels, marking target objects in images, or labeling states and actions within robot trajectories. Annotated, or labeled, data forms the foundation for supervised learning approaches.
 
 
 \section{Machine Learning: Core Categories}
@@ -49,6 +40,15 @@ There are various approaches to training an AI model for a robot. These involve 
 \paragraph{Supervised Learning:}
 
 In supervised learning, a model is trained using labeled training data. This means that, for the input data, the output data to be predicted are known. The goal is to train a model that correctly predicts the output data and makes reliable predictions on unseen data. 
+
+
+\textit{Weakly supervised learning} is a \ac{ML} approach that utilizes limited or incomplete labeled data for training. In this context, the model learns from a combination of labeled and unlabeled data, or from data with noisy or imprecise labels. This approach is particularly relevant in robotics, where obtaining fully annotated data can be costly and time-consuming. Weakly supervised learning allows models to leverage large amounts of unlabeled data while still benefiting from the guidance provided by the available labeled data.
+
+
+\textit{Self-Supervised Learning} is a \ac{ML} approach where the model learns to predict parts of the input data from other parts of the same data. This method does not require external labels, as the model generates its own supervisory signal from the data itself. For example, Large Language Models (LLMs) learn to predict the next word or masked words in a sentence based on the surrounding context, where the correct target words are already contained within the training data. Similarly, in computer vision, a model may learn to reconstruct masked regions of an image, with the original image providing the target information.
+% In robotics, self-supervised learning can be used to learn representations of the environment or to predict future states based on current observations, enabling the robot to learn useful features and dynamics without the need for explicit annotations.
+
+
 
 
 \paragraph{Unsupervised Learning:}
@@ -268,8 +268,7 @@ The loss function $\mathcal{L}$ is a measure of how well the network is able to 
 	
 
 	\item \textbf{Cross-Entropy Loss Function:} Commonly used for classification tasks, where the goal is to predict discrete class labels. 
-	\begin{itemize}
-		\item \textit{Binary Classification:} For binary classification problems, the network typically uses a single output neuron with a sigmoid activation. The output $\hat{y}_i \in [0,1]$ represents the predicted probability of the positive class. The binary cross-entropy loss is then defined as:
+	For binary classification problems, the network typically uses a single output neuron with a sigmoid activation. The output $\hat{y}_i \in [0,1]$ represents the predicted probability of the positive class. The binary cross-entropy loss is then defined as:
 		\begin{equation}
 			\mathcal{L} =
 			-\frac{1}{N}\sum_{i=1}^{N}
@@ -279,14 +278,13 @@ The loss function $\mathcal{L}$ is a measure of how well the network is able to 
 		\end{equation}
 		where $y_i \in \{0,1\}$ denotes the true label of the $i$-th sample, $\hat{y}_i$ is the predicted probability of the positive class, and $N$ is the number of samples.
 
-		\item \textit{Multi-Class Classification:} For multi-class classification problems with $C$ classes, the network output is typically normalized using a softmax function to obtain a probability distribution over all classes (which sums up to 1 over the classes). The corresponding cross-entropy loss is defined as:
+		For multi-class classification problems with $C$ classes, the network output is typically normalized using a softmax function to obtain a probability distribution over all classes (which sums up to 1 over the classes). The corresponding cross-entropy loss is defined as:
 		\begin{equation}
 			\mathcal{L} =
 			-\frac{1}{N}\sum_{n=1}^{N}\sum_{i=1}^{C}
 			y_{n,i}\log(\hat{y}_{n,i})
 		\end{equation}
 		where $y_{n,i}$ represents the one-hot encoded ground-truth label and $\hat{y}_{n,i}$ is the predicted probability for class $i$ of sample $n$.
-	\end{itemize}
 
 \end{itemize}
 
@@ -415,12 +413,9 @@ Besides the standard gradient descent algorithm, which computes the gradient ove
 
 
 
-\subsection{Evaluation}
-
-\paragraph{Evaluation Metrics}
+\paragraph{Evaluation}
 To measure the performance of a machine learning model, various evaluation metrics can be used depending on the specific task and problem setting. These metrics provide quantitative measures of how well a model performs and allow comparisons between different models or configurations. While common examples include accuracy, precision, recall, and the F1-score for classification tasks, as well as mean squared error for regression tasks. However, a detailed discussion of these metrics is beyond the scope of this work.
 
-\paragraph{Evaluation}
 The performance of a machine learning model is typically evaluated using data that has not been seen during training, referred to as test data. This allows an unbiased assessment of the model's ability to generalize to new, unseen samples. There exist in general three main scenarios regarding the model's performance on training and test data:
 \begin{itemize}
 	\item \textbf{Underfitting:} A model that underfits performs poorly on both training and test data. It fails to capture the underlying patterns in the training data, resulting in high error on both datasets.
@@ -517,14 +512,14 @@ Figure \autoref{fig:CNNConvolution_1} shows how the kernel (dark blue) is slided
 \end{figure}
 
 
-
-Figures \autoref{fig:CNNConvolutionIntro_View2} shows an alternative view of the convolution process.
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro_View2.png}
-	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image adapted from: \cite{WhatConvolutionalNeural}.}
-	\label{fig:CNNConvolutionIntro_View2}
-\end{figure}
+% ToDo: Great Alternative Grafic
+% Figures \autoref{fig:CNNConvolutionIntro_View2} shows an alternative view of the convolution process.
+% \begin{figure}[!h]
+% 	\centering
+% 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro_View2.png}
+% 	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image adapted from: \cite{WhatConvolutionalNeural}.}
+% 	\label{fig:CNNConvolutionIntro_View2}
+% \end{figure}
 
 
 \paragraph{Padding}
@@ -580,16 +575,16 @@ Pooling layers are typically applied after convolution layers and allow the netw
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.45\linewidth]{./chapter2/media/CNNPooling}
+	\includegraphics[width=0.4\linewidth]{./chapter2/media/CNNPooling}
 	\caption[CNN Pooling]{CNN Pooling. Image source: \cite{jiangEightlayerConvolutionalNeural2020}.}
 	\label{fig:CNNPooling}
 \end{figure}
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.45\linewidth]{./chapter2/media/CNNPooling_2.png}
-	\caption[CNN Pooling]{CNN Pooling. Image source: \cite{Khan2025ACS}.}
-	\label{fig:CNNPooling}
-\end{figure}
+% \begin{figure}[!h]
+% 	\centering
+% 	\includegraphics[width=0.45\linewidth]{./chapter2/media/CNNPooling_2.png}
+% 	\caption[CNN Pooling]{CNN Pooling. Image source: \cite{Khan2025ACS}.}
+% 	\label{fig:CNNPooling}
+% \end{figure}
 
 
 \paragraph{CNN Pipeline}
@@ -625,7 +620,7 @@ The same principle can be extended to RGB images \cite{Khan2025ACS, Long2022, Kr
 A Transformer is a deep neural network architecture designed to process sequential data, especially text \cite{Vaswani2017AttentionIA}. It's the foundation for most modern LLMs, enabling them to process and understand language effectively.
 Unlike earlier architectures, which process tokens one after another, Transformers compare all tokens in a sequence in parallel and learn which parts of the input are relevant to each other. This is done through the attention mechanism and was the core innovation of the Transformer architecture \cite{Vaswani2017AttentionIA, AttentionTransformersStepbystep, TransformerExplainerLLM, Raschka2024BuildLLM}. The main idea is simple: when the model reads one token, it does not treat all other tokens equally. It assigns higher importance to the tokens that are more relevant in the current context. This makes Transformers especially powerful for language tasks, because meaning often depends on long-range dependencies in the sentence.
 
-\paragraph{Architecture Overview}
+% \paragraph{Architecture Overview}
 The original Transformer architecture was introduced by \textcite{Vaswani2017AttentionIA} and consists of two parts: the encoder and the decoder. See \autoref{fig:TransformerArchitecture} for an overview.
 \begin{enumerate}
 	\item \textbf{Encoder:} The encoder reads the full input sequence and converts it into a contextual latent representation. Each token is transformed not only based on its own identity, but also based on the other tokens in the sequence. In this way, the encoder builds a rich internal representation of the input.
@@ -636,7 +631,7 @@ The original Transformer architecture was introduced by \textcite{Vaswani2017Att
 
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=0.7\linewidth]{./chapter2/media/TransformerArchitectur3}
+	\includegraphics[width=0.62\linewidth]{./chapter2/media/TransformerArchitectur3}
 	\caption[Transformer Architecture]{Transformer Architecture. Image based on: \cite{Vaswani2017AttentionIA}.}
 	\label{fig:TransformerArchitecture}
 \end{figure}
@@ -645,7 +640,7 @@ While the examples in this section are based on text processing to facilitate un
 
 
 
-\subsection{Input Embeddings}
+\paragraph{Input Embeddings}
 Before a Transformer can process data, the data must be converted into a numerical representation. This is the role of the input embedding layer \cite{Raschka2024BuildLLM}. Given an input text such as ``Data visualization empowers users to'', the model first tokenizes the text, then maps each token to a vector representation, and finally adds positional information \cite{Raschka2024BuildLLM, TransformerExplainerLLM}. The resulting embedding combines semantic meaning with information about token order. 
 \begin{enumerate}
 	\item \textbf{Tokenization:} The input text is split into smaller units called tokens. These tokens can be a word, a subword or a single character. For example, the sentence might be tokenized into ["Data", "visualization", "empowers", "users", "to"]. Each token is assigned a unique token ID.
@@ -655,14 +650,14 @@ Before a Transformer can process data, the data must be converted into a numeric
 \end{enumerate}
 
 
-\subsection{Attention Mechanism}
+\paragraph{Attention Mechanism}
 The Attention mechanism is responsible for capturing contextual relationships between tokens by directly computing their relevance to one another. This allows the model to understand long-range dependencies and contextual relationships of the tokens, leading to more coherent and relevant output \cite{Raschka2024BuildLLM, TransformerExplainerLLM, AttentionTransformersStepbystep}. 
 In \autoref{fig:TransformerAttentionWeights} the attention weights of the word ``it'' in the sentence ``The animal didn't cross the street because it was too tired'' are visualized, after the input is processed through the Encoder attention mechanism. The attention weights allows the model to decide which other tokens in the sequence are most relevant. 
 % The attention mechanism allows the model to determine that ``it'' refers to ``The animal'' and not to ``the street'' and simultaneously it refers to the context ``too tired'', which is crucial for understanding the meaning of the sentence. 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.5\linewidth]{./chapter2/media/AttentionWords2}
+	\includegraphics[width=0.42\linewidth]{./chapter2/media/AttentionWords2}
 	\caption[Transformer: Attention Weights Example]{Attention Weights of the word ``it'' in a sentence. Image source: \cite{GoogleColab}}
 	% https://colab.research.google.com/github/tensorflow/tensor2tensor/blob/master/tensor2tensor/notebooks/hello_t2t.ipynb#scrollTo=OJKU36QAfqOC.
 	\label{fig:TransformerAttentionWeights}
@@ -676,7 +671,7 @@ In \autoref{fig:TransformerAttentionWeights} the attention weights of the word `
 \end{itemize}
 
 
-\paragraph{Single-Head Self-Attention}
+\textit{Single-Head Self-Attention.}
 % \textit{Self-Attention.} 
 The query vectors are then compared with the key vectors of all tokens in the sequence using the dot product (scalar product), producing relevance scores that indicate how strongly tokens are related to one another. To stabilize training, these scores are scaled by the square root of the key dimension $d_k$ and normalized using a softmax function, resulting in attention weights. Finally, the attention weights are applied to the corresponding value vectors $\mathbf{v}^{(i)}$ and these weighted values are aggregated to produce the new context vector $\mathbf{z}^{(i)}$ and the output of the self-attention layer \cite{Raschka2024BuildLLM, TransformerExplainerLLM, AttentionTransformersStepbystep}, see \autoref{fig:TransformerAttentionKeyQueryValueSimply}. 
 \begin{equation}
@@ -709,24 +704,25 @@ Instead of computing attention separately for each token, the Transformer perfor
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1.0\linewidth]{./chapter2/media/TransformerSingleHeadAttention}
+	\includegraphics[width=0.8\linewidth]{./chapter2/media/TransformerSingleHeadAttention}
 	\caption[Transformer: Self-attention computation]{Single self-attention Block. Image source: \cite{Raschka2024BuildLLM}.}
 	\label{fig:TransformerSingleHeadAttention}
 \end{figure}
 
-\paragraph{Multi-Head Self-Attention}
-% \textit{Multi-Head Attention.} 
+% \paragraph{Multi-Head Self-Attention}
+\textit{Multi-Head Self-Attention.} 
 While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel \cite{Raschka2024BuildLLM, Vaswani2017AttentionIA}. Each head learns its own query, key, and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected through a linear layer to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
 The number of heads is chosen such that the input embedding dimension is split across the heads. For example, if the input embedding dimension is 768 and there are 12 heads, each head would operate on a subspace of 64 dimensions. Otherwise, the output dimensions will not match the input dimensions. Technically the Query, Key and Value matrices of each head are combined computed within a larger matrix multiplication and then splitted up into the individual parts for each head, that every head can produce its own attention matrix.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1.0\linewidth]{./chapter2/media/TransformerMultiHeadAttention}
+	\includegraphics[width=0.8\linewidth]{./chapter2/media/TransformerMultiHeadAttention}
 	\caption[Transformer: Multi-Head Attention Block]{Multi-Head Attention Block. Image source: \cite{Raschka2024BuildLLM}.}
 	\label{fig:TransformerMultiHeadAttention}
 \end{figure}
 
-\subsection{Encoder Block}
+
+\paragraph{Encoder Block}
 After the self-attention computation, the resulting representations are passed through a layer normalization step, followed by a \ac{MLP} Network. A second layer normalization is applied after this transformation. This sequence of operations forms a single Transformer block, which can be stacked multiple times to increase model capacity \cite{Vaswani2017AttentionIA}.
 
 The \ac{MLP} operates independently on each token representation. In contrast to the attention mechanism, which is responsible for exchanging information between tokens, the \ac{MLP} refines and transforms each token embedding individually. It typically consists of two linear transformations with a non-linear activation function in between, allowing the model to learn more complex feature transformations.
@@ -736,16 +732,16 @@ A key component of the Transformer architecture is the use of residual connectio
 The output of the final encoder layer is a sequence of contextualized vectors, where each vector corresponds to one input token enriched with information from the entire sequence. This representation can then be used for downstream tasks such as classification, regression, or sequence generation.
 
 
-\subsection{Decoder Block}
+\paragraph{Decoder Block}
 The decoder receives an input sequence that is first transformed using the same embedding procedure as the encoder (token embeddings + positional information) \cite{Vaswani2017AttentionIA}. During generation, this input typically consists of previously generated output tokens. The embedded sequence is then processed through two distinct attention mechanisms: masked multi-head self-attention and cross-attention.
 
-\paragraph{Masked Multi-Head Attention}
+% \paragraph{Masked Multi-Head Attention}
 % \textit{Masked Multi-Head Attention.} 
 Masked multi-head self-attention operates on the decoder's own input sequence, but with a causal mask that prevents each position from attending to any future positions \cite{Raschka2024BuildLLM}. The causal mask ensures that future tokens receive an attention weight of zero, making them invisible to the current position and ensures that the prediction for the next token depends only on previously generated tokens. 
 % , preserving the autoregressive property. 
 % The decoder then uses these vectors, along with the previously generated output tokens, to produce the next token in the output sequence. This process continues until the entire output sequence is generated.
 
-\paragraph{Cross-Attention}
+% \paragraph{Cross-Attention}
 % \textit{Cross-Attention.} 
 In cross-attention, the decoder's hidden states from the masked attention layer serve as queries $Q$, while the encoder's output serve as keys $K$ and values $V$, allowing the decoder to condition its predictions on the encoded source sequence \cite{Vaswani2017AttentionIA}.
 
@@ -809,24 +805,24 @@ In imitation learning, Vision Transformers can be used as visual encoders that e
 
 
 
-\section{Foundation Model \& Multi-Model Model}
+\section{Foundation Model}
+% The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern AI systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images, and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
 
-The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern AI systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images, and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.55\linewidth]{./chapter2/media/FoundationModel_vs_MultiModalModel.png}
-	\caption[Foundation Model vs. Multi-Model Model]{Foundation Model vs. Multi-Model Model. Image source: \cite{FoundationModelsFoundation}}
-	\label{fig:foundationmodel_vs_multimodel}
-\end{figure}
-
-\subsection{Foundation Model}
 Recent advances in artificial intelligence have been largely driven by the development of foundation models. A foundation model is a large-scale model that is pre-trained on vast amounts of data and can subsequently be adapted to a wide range of downstream tasks \cite{Bommasani2021OnTO}. Instead of being designed for a single application, foundation models learn general patterns, concepts, and representations that can be reused across different domains and tasks.
 
 A key characteristic of foundation models is their ability to generalize to problems that were not explicitly specified during training. This broad knowledge enables them to serve as a common basis for many specialized applications. 
 Unimodal foundation models (e.g., GPT-3 for text \cite{Brown2020LanguageMA}, Stable Diffusion for images \cite{Rombach2021HighResolutionIS}) learn patterns within a single data type, whereas Multi-modal foundation models (e.g., CLIP \cite{Radford2021LearningTV}, GPT-4V \cite{Achiam2023GPT4TR}, Gemini \cite{Reid2024Gemini1U, team2023gemini}) learn joint representations across modalities such as text, images, and audio.
 Due to their versatility and strong generalization capabilities, foundation models have become the foundation of many modern AI systems.
 
-\subsection{Multi-Modal Model}
+
+% \begin{figure}[!ht]
+% 	\centering
+% 	\includegraphics[width=0.55\linewidth]{./chapter2/media/FoundationModel_vs_MultiModalModel.png}
+% 	\caption[Foundation Model vs. Multi-Model Model]{Foundation Model vs. Multi-Model Model. Image source: \cite{FoundationModelsFoundation}}
+% 	\label{fig:foundationmodel_vs_multimodel}
+% \end{figure}
+
+\section{Multi-Modal Model}
 A multimodal model is capable of processing and relating information from two or more data modalities, such as text, images, audio, or sensor measurements \cite{Baltruaitis2017MultimodalML}. Unlike unimodal models, which operate on only a single type of data, multimodal models learn a shared representation that enables information from different modalities to be interpreted jointly.
 The integration of multiple modalities allows a model to leverage complementary information, handle missing data from one source by relying on another, provide more comprehensive insights, and improves model generalization \cite{Liang2022FoundationsT}.
 
@@ -837,8 +833,8 @@ Although many multimodal models can generate outputs in different modalities, su
 \textit{Multimodal Learning} is a own learning paradigm in the field of deep learning and refers to the use of various data modalities, such as text, audio, sensor signals, and images/videos within a single learning concept at the same time \cite{Ngiam2011MultimodalDL, Baltruaitis2017MultimodalML}.
 
 
-\paragraph{Vision-Language-Action Models}
-Vision-Language-Action (VLA) models extend multimodal models by incorporating robot actions as an additional output modality and can be ordered in the \textit{Domain specific} section in \autoref{fig:foundationmodel_vs_multimodel}. While conventional multimodal models typically generate textual or visual outputs, VLA models directly generate robot actions that can be executed by a robotic. They combine visual observations from cameras with natural language instructions and translate this information into control commands for the robot. They often uses pretrainied foundation models for vision and language, that serves as backbones to provide world understanding. By jointly reasoning over vision, language, and actions, VLA models provide an end-to-end framework that enables robots to understand their environment, interpret user instructions, and autonomously perform complex manipulation tasks.
+% \paragraph{Vision-Language-Action Models}
+% Vision-Language-Action (VLA) models extend multimodal models by incorporating robot actions as an additional output modality and can be ordered in the \textit{Domain specific} section in \autoref{fig:foundationmodel_vs_multimodel}. While conventional multimodal models typically generate textual or visual outputs, VLA models directly generate robot actions that can be executed by a robotic. They combine visual observations from cameras with natural language instructions and translate this information into control commands for the robot. They often uses pretrainied foundation models for vision and language, that serves as backbones to provide world understanding. By jointly reasoning over vision, language, and actions, VLA models provide an end-to-end framework that enables robots to understand their environment, interpret user instructions, and autonomously perform complex manipulation tasks.
 
 
 
