@@ -4,7 +4,7 @@
 In this chapter, we will explore some pure \ac{IL} approaches, that were applied to real robots to get a better practical understanding of the theoretical field. 
 
 % ToDo: End-to-End trained
-\section{Paper - Vid2Robot: End-to-end Video-conditioned Policy Learning with Cross-Attention Transformers}
+\section{Vid2Robot: End-to-end Video-conditioned Policy Learning with Cross-Attention Transformers}
 
 Vid2Robot \cite{Jain2024Vid2RobotEV}, is a end-to-end video-based learning framework for robots. Given a human or robot video demonstration of a manipulation task and the robot's current visual observations, Vid2Robot directly produces corresponding robot actions in it's own environment. The demonstration video can be taken in a different environment or from a different viewpoint. Additionally, Vid2Robot exhibits emergent capabilities, such as successfully transferring observed motions from one object to another (see Figure~\ref{fig:Vid2RobotGeneralization}) and long-horizon composition, thus showcasing its potential for real-world applications.
 
@@ -85,7 +85,7 @@ modules:
 Cross-Attention Transformer layers are used in Perceiver Prompt Resampler, Perceiver State Resampler, State-Prompt Encoder and Action Decoder
 
 
-\subsection{Training \& Loss Functions}
+\paragraph{Training \& Loss Functions}
 To handle the varying lengths of demonstration videos, Vid2Robot samples randomly $N = 16$ frames. The first and last frames are always included to capture the initial and final states of the task, while the other sampled frames are selected randomly and sorted by their temporal order. The frames of the video prompt and robot observation are normalized between 0 to 1, rezized to 224x224 pixels and photometric augmentations like cropping, brightness, contrast, hue and saturation are applied during training.
 
 % To further improve policy performance, we propose auxiliary
@@ -157,7 +157,7 @@ The experimental results demonstrate that Vid2Robot can successfully perform var
 
 
 
-\section{Paper - ORION: Vision-based Manipulation from Single Human Video with Open-World Object Graphs}
+\section{ORION: Vision-based Manipulation from Single Human Video with Open-World Object Graphs}
 ORION \cite{Zhu2024VisionbasedMF} (Open-woRld video ImitatiON) is a framework for learning robotic manipulation skills directly from human demonstration videos. The core idea is to extract an object-centric manipulation plan from a single RGB or RGB-D video and use it to derive a policy that can be executed by a robot. Instead of directly imitating human motions, ORION focuses on the motion of manipulated objects, learning policies that move objects along trajectories that match the directional and curvature patterns observed in the demonstration.  To achieve this, ORION designs a graph-based, object-centric representation, called \acfp{OOG}, to model the states of task-relevant objects and their relationships.
 
 A key advantage of ORION is its ability to learn from videos captured using everyday mobile devices, such as an iPad equipped with a TrueDepth camera. The only requirement for task recording is that the camera must be stationary. Furthermore, the framework is designed to generalize across variations in visual backgrounds, camera viewpoints, spatial arrangements and previously unseen object instances. This object-centric representation also enables effective scaling to long-horizon manipulation tasks.
@@ -240,7 +240,7 @@ ORION does not rely on pre-existing data, models or ground-truth annotations and
 ORION is a framework for learning robotic manipulation skills directly from human demonstration videos. It extracts object-centric manipulation plans from single RGB or RGB-D videos and synthesizes robot actions based on these plans. The core idea is to focus on the motion of manipulated objects rather than directly imitating human motions, enabling generalization across different viewpoints, camera setups and robot embodiments. Interestingly, the RGB pipeline performs better than the RGB-D pipeline, as measured by task performance. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
 % ORION represents tasks as sequences of Open-world Object Graphs (OOGs), which capture the spatial relationships and trajectories of objects in the scene. The framework demonstrates the ability to learn complex manipulation tasks from everyday video demonstrations, paving the way for more intuitive robot learning in real-world scenarios.
 
-\section{Paper - Learning an Actionable Discrete Diffusion Policy via Large-Scale Actionless Video Pre-Training}
+\section{Learning an Actionable Discrete Diffusion Policy via Large-Scale Actionless Video Pre-Training}
 This work introduces Video-based Policy Learning via Discrete Diffusion (VPDD) \cite{He2024LearningAA}, a framework that leverages large-scale actionless video data to learn robotic policies. The key idea is to first learn predictive representations from videos and subsequently use a discrete diffusion model to predict future video sequences and later the corresponding actions based on these predictions. 
 
 
@@ -299,7 +299,7 @@ Furthermore, the integration of language instructions allows the model to genera
 
 
 
-\section{Paper - Learning Video-Conditioned Policies for Unseen Manipulation Tasks}
+\section{Learning Video-Conditioned Policies for Unseen Manipulation Tasks}
 This work introduces the Video-conditioned Policy (ViP) learning framework \cite{ChaneSane2023LearningVP}, which maps human demonstration videos to robot actions. ViP trains a policy conditioned on video embeddings given by a video encoder, which is pretrained on a large dataset of annotated human videos.
 The core idea is to use embeddings extracted from human demonstration videos as conditioning signals for predicting robot actions, effectively enabling outcome-conditioned action regression \cite{Emmons2021RvSWI, Lynch2019LearningLP, Furuta2021GeneralizedDT}. Instead of relying on explicit action labels or predefined reward functions, the policy is conditioned on trajectory-level information. ViP enables zero-shot generalization to previously unseen, in-the-wild manipulation tasks and does not require paired human-robot demonstration data, thus avoiding the need for task-labeled robot datasets. However, task-labeled human videos are still required.
 

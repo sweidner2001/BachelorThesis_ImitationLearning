@@ -24,7 +24,7 @@ This chapter provides an overview of the key concepts and theories that form the
 
 % \paragraph{Robot Trajectory:}
 
-% A robot trajectory describes how the robot moves from a starting state to a target state, including position, orientation and, if applicable, speeds, accelerations, and forces acting on the robot. A robot trajectory is a temporal sequence of actions and the resulting robot states.
+% A robot trajectory describes how the robot moves from a starting state to a target state, including position, orientation and, if applicable, speeds, accelerations and forces acting on the robot. A robot trajectory is a temporal sequence of actions and the resulting robot states.
 
 % \paragraph{Inference:}
 % Inference refers to the process of using a trained model to make predictions or decisions based on new, unseen data. In the context of robotics, inference involves the robot applying its learned policy in real world or simulation to execute a given task.
@@ -42,22 +42,22 @@ There are various approaches to training an AI model for a robot. These involve 
 In supervised learning, a model is trained using labeled training data. This means that, for the input data, the output data to be predicted are known. The goal is to train a model that correctly predicts the output data and makes reliable predictions on unseen data. 
 
 
-\textit{Weakly supervised learning} is a \ac{ML} approach that utilizes limited or incomplete labeled data for training. In this context, the model learns from a combination of labeled and unlabeled data, or from data with noisy or imprecise labels. This approach is particularly relevant in robotics, where obtaining fully annotated data can be costly and time-consuming. Weakly supervised learning allows models to leverage large amounts of unlabeled data while still benefiting from the guidance provided by the available labeled data.
 
-
-\textit{Self-Supervised Learning} is a \ac{ML} approach where the model learns to predict parts of the input data from other parts of the same data. This method does not require external labels, as the model generates its own supervisory signal from the data itself. For example, Large Language Models (LLMs) learn to predict the next word or masked words in a sentence based on the surrounding context, where the correct target words are already contained within the training data. Similarly, in computer vision, a model may learn to reconstruct masked regions of an image, with the original image providing the target information.
-% In robotics, self-supervised learning can be used to learn representations of the environment or to predict future states based on current observations, enabling the robot to learn useful features and dynamics without the need for explicit annotations.
+\textit{Weakly supervised learning} is a \ac{ML} approach that learns a model from a combination of labeled and unlabeled data, or from data with noisy or imprecise labels. This allows models to leverage large amounts of unlabeled data while still benefiting from the guidance provided by the available labeled data. This approach is particularly relevant in robotics, where obtaining fully annotated data can be costly and time-consuming. 
 
 
 
 
 \paragraph{Unsupervised Learning:}
-
 In contrast to supervised learning, unsupervised learning uses unlabeled data for model training. The model tries to recognize structures, patterns or relationships in the data on its own. 
 
-\paragraph{Semi-Supervised Learning:}
+\textit{Self-Supervised Learning} is a \ac{ML} approach where the model learns to predict parts of the input data from other parts of the same data and therefore does not require external labels. The model generates its own supervisory signal from the data itself. For example, \acp{LLM} learn to predict the next word in a sentence based on the surrounding context, where the correct target words are already contained within the training data. Similarly, in computer vision, a model may learn to reconstruct masked regions of an image, with the original image providing the target information.
+% In robotics, self-supervised learning can be used to learn representations of the environment or to predict future states based on current observations, enabling the robot to learn useful features and dynamics without the need for explicit annotations.
 
+
+\paragraph{Semi-Supervised Learning:}
 Semi-supervised learning is a combination of supervised and unsupervised learning. In this approach, a model is trained using a small amount of labeled data and a large amount of unlabeled data. The goal is to leverage the advantages of both approaches, particularly when annotating data is time-consuming or cost intensive. This is relevant in robotics, as the data used in that field is often difficult to label.
+
 
 \paragraph{Reinforcement Learning:}
 
@@ -71,7 +71,7 @@ The objective is to learn a strategy (= policy) that maximizes the cumulative re
 	\label{fig:RLConzept}
 \end{figure}
 
-The agent proceeds in its environment according to the trial-and-error principle to learn this optimal policy. Safety is a critical concern during training, as the agent may execute unpredictable actions while exploring the state space. For this reason, simulation environments are a central component of training and are frequently used for pre-training the policy. The policy is then subsequently often fine-tuned in the real-world environment. Because the agent learns through trial and error, more efficient, unknown, and creative solutions can be found that a human might not have come up with. See section \ref{sec:ReinforcementLearning} for more details.
+The agent proceeds in its environment according to the trial-and-error principle to learn this optimal policy. Safety is a critical concern during training, as the agent may execute unpredictable actions while exploring the state space. For this reason, simulation environments are a central component of training and are frequently used for pre-training the policy. The policy is then subsequently often fine-tuned in the real-world environment. Through the trial and error, more efficient, unknown and creative solutions can be found that a human might not have come up with.
 
 
 
@@ -85,11 +85,11 @@ The agent proceeds in its environment according to the trial-and-error principle
 % Neuronale Netze
 
 \section{Neural Networks}
-Artificial Neural Networks are computational models inspired by the structure and functionality of biological brain. They are designed to learn complex relationships from data and have become a fundamental component of modern machine learning. Neural Networks are capable of approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting, and control systems. There exist various types of neural network architectures, including \acfp{CNN}, \acfp{RNN}, or Transformer models, each tailored to specific types of data and tasks. The following sections provide an overview of the basic building blocks of neural networks, their mathematical formulation, and the training process.
+Artificial Neural Networks are computational models inspired by the structure and functionality of biological brain. They are designed to learn complex relationships from data and have become a fundamental component of modern machine learning. Neural Networks are capable of approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting and control systems. There exist various types of neural network architectures, including \acfp{CNN}, \acfp{RNN}, or Transformer models, each tailored to specific types of data and tasks. The following sections provide an overview of the basic building blocks of neural networks, their mathematical formulation and the training process.
 
 
 \subsection{Neuron}
-The basic element of an artificial neural network is the artificial neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons through dendrites, processes the received information, and transmits an output signal through its axon \cite{Lin2017ArtificialNN}. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
+The basic element of an artificial neural network is the artificial neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons through dendrites, processes the received information and transmits an output signal through its axon \cite{Lin2017ArtificialNN}. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
 
 \paragraph{History}
 The first mathematical model of an artificial neuron was proposed by McCulloch and Pitts in 1943 \cite{McCulloch1990ALC}. Their model consisted of a binary threshold unit that produced an output only when the weighted sum of its inputs exceeded a predefined threshold. Although this model did not include a learning mechanism, it established the foundation for later neural network research.
@@ -119,7 +119,7 @@ The value $z$ represents a linear combination of the input features. To enable t
     \label{eq:neuron_activation}
 \end{equation}
 
-Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include for example the GeLU, tanh (hyperbolic tangent), and ReLU.
+Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include for example the GeLU, tanh (hyperbolic tangent) and ReLU.
 
 
 
@@ -150,10 +150,10 @@ The input layer receives the feature vector, while the output layer produces the
 The parameters of the network, including the weights and biases, are learned from data using optimization algorithms such as gradient descent \cite{Rumelhart1986LearningRB}. The ability of neural networks to learn complex functions from data has made them a powerful tool for a wide range of applications in machine learning and artificial intelligence.
 
 To understand the terminology: Artificial neural network is the broadest term, encompassing all brain-inspired, connectionist models. A feedforward neural network is a subcategory where information flows strictly in one direction (from input to output) without forming cycles, but its layers need not be fully connected \cite{Goodfellow-et-al-2016}. The multilayer perceptron is a feedforward network with one or more fully connected (also called dense) hidden layers, where every neuron in one layer connects to every neuron in the next \cite{Goodfellow-et-al-2016}.
-% Each layer consists of multiple neurons, and the output of one layer serves as the input to the next layer.
+% Each layer consists of multiple neurons and the output of one layer serves as the input to the next layer.
 
 % In general, a neural network consists of multiple interconnected neurons organized into layers
-% , and the output of one layer serves as the input to the next layer. 
+%  and the output of one layer serves as the input to the next layer. 
 
 \paragraph{Multilayer Perceptron Network}
 The most common form of such architectures is the \textit{\acf{MLP}}, also referred to as a feedforward neural network \cite{Goodfellow-et-al-2016}. In an \ac{MLP}, where information flows in one direction from the input layer through one or more fully connected hidden layers to the output layer.  
@@ -167,7 +167,7 @@ In an \ac{MLP}, each neuron in a layer receives the outputs of the neurons in th
 \end{figure}
 
 
-The computation of an entire layer can be expressed compactly using matrix notation. Let $\mathbf{x}^{(l-1)}$ denote the output vector of the previous layer, $\mathbf{W}^{(l)}$ the weight matrix, and $\mathbf{b}^{(l)}$ the bias vector of layer $l$. $M$ are the number of neurons in layer $l$ and $N$ the number of neurons in the previous layer $l-1$. The pre-activation vector is given by:
+The computation of an entire layer can be expressed compactly using matrix notation. Let $\mathbf{x}^{(l-1)}$ denote the output vector of the previous layer, $\mathbf{W}^{(l)}$ the weight matrix and $\mathbf{b}^{(l)}$ the bias vector of layer $l$. $M$ are the number of neurons in layer $l$ and $N$ the number of neurons in the previous layer $l-1$. The pre-activation vector is given by:
 \begin{equation}
 	\mathbf{z}^{(l)} = \mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)},
 \end{equation}
@@ -264,7 +264,7 @@ The loss function $\mathcal{L}$ is a measure of how well the network is able to 
 	\begin{equation}
 		\mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
 	\end{equation}
-	where $y_i$ is the target value for the $i$-th sample, $\hat{y}_i$ is the predicted value for the $i$-th sample, and $N$ is the number of samples.
+	where $y_i$ is the target value for the $i$-th sample, $\hat{y}_i$ is the predicted value for the $i$-th sample and $N$ is the number of samples.
 	
 
 	\item \textbf{Cross-Entropy Loss Function:} Commonly used for classification tasks, where the goal is to predict discrete class labels. 
@@ -276,7 +276,7 @@ The loss function $\mathcal{L}$ is a measure of how well the network is able to 
 			y_i \log(\hat{y}_i) + (1 - y_i)\log(1 - \hat{y}_i)
 			\right)
 		\end{equation}
-		where $y_i \in \{0,1\}$ denotes the true label of the $i$-th sample, $\hat{y}_i$ is the predicted probability of the positive class, and $N$ is the number of samples.
+		where $y_i \in \{0,1\}$ denotes the true label of the $i$-th sample, $\hat{y}_i$ is the predicted probability of the positive class and $N$ is the number of samples.
 
 		For multi-class classification problems with $C$ classes, the network output is typically normalized using a softmax function to obtain a probability distribution over all classes (which sums up to 1 over the classes). The corresponding cross-entropy loss is defined as:
 		\begin{equation}
@@ -358,8 +358,8 @@ The current value of the weight, represented by the black dot, must be adjusted 
 	\begin{equation}	
 		\mathbf{W}_{\text{t+1}} = \mathbf{W}_{\text{t}} - \alpha \cdot \nabla \mathcal{L}(\mathbf{W}_{\text{t}})
 	\end{equation}
-	where $\alpha$ denotes the learning rate, which controls the step size of the update, and $\nabla \mathcal{L}(\mathbf{W}_{\text{t}})$ is the gradient of the loss function with respect to the parameter at iteration $t$.
-	% where $\alpha$ is the learning rate, a hyperparameter that controls the step size of the update, and $\nabla L(W_{\text{t}})$ is the gradient of the loss function with respect to the weight at its current value.	
+	where $\alpha$ denotes the learning rate, which controls the step size of the update and $\nabla \mathcal{L}(\mathbf{W}_{\text{t}})$ is the gradient of the loss function with respect to the parameter at iteration $t$.
+	% where $\alpha$ is the learning rate, a hyperparameter that controls the step size of the update and $\nabla L(W_{\text{t}})$ is the gradient of the loss function with respect to the weight at its current value.	
 \end{enumerate}
 
 
@@ -375,12 +375,12 @@ To reduce the loss, the weight must therefore be moved in the opposite direction
 
 
 \paragraph{Optimization Problems}
-But not every minimum found is a good solution. The loss landscape of neural networks is highly non-convex and can contain many local minima, saddle points, and flat regions, where the gradient is zero but the loss is not minimized. If the gradient gets zero, the optimization process get stuck \cite{Bottou2016OptimizationMF}. \autoref{fig:NNNetwork_OptimizationProblems} shows a loss landscape with two parameters. The black dot represents the inital parameter values and the line shows the trajectory of the parameter updates during training. As seen it depends on the initial parameter values, whether the algorithm converges to the global minima, local minama or to the saddle point in the middle of the two hills.  
+But not every minimum found is a good solution. The loss landscape of neural networks is highly non-convex and can contain many local minima, saddle points and flat regions, where the gradient is zero but the loss is not minimized. If the gradient gets zero, the optimization process get stuck \cite{Bottou2016OptimizationMF}. \autoref{fig:NNNetwork_OptimizationProblems} shows a loss landscape with two parameters. The black dot represents the inital parameter values and the line shows the trajectory of the parameter updates during training. As seen it depends on the initial parameter values, whether the algorithm converges to the global minima, local minama or to the saddle point in the middle of the two hills.  
 
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNGradientDescent}
+	\includegraphics[width=0.5\linewidth]{./chapter2/media/NNGradientDescent}
 	\caption[Neural Networks: Optimization Problems]{Neural Networks and their optimization Problems: The figure shows a loss landscape of two parameters, which has a local minima and a saddle point, where the training precess could get stuck. Image source: \cite{ananthaswamyResearchersBuildAI2022}.}
 	\label{fig:NNNetwork_OptimizationProblems}
 \end{figure}
@@ -401,7 +401,7 @@ The training process for a neural network can therefore be summarized by the fol
 \begin{equation}
 \mathbf{W}_{t+1} = \mathbf{W}_t - \alpha \cdot \nabla_{\mathbf{W}_t} \left( \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}\bigl(\mathbf{y}_i, f_{\mathbf{W}_t}(\mathbf{x}_i)\bigr) \right)
 \end{equation}
-where $f_{\mathbf{W}}$ denotes the neural network with parameters $\mathbf{W}$, $\mathcal{L}$ is the loss function measuring the difference between the predicted output $f_{\mathbf{W}}(\mathbf{x}_i)$ and the target value $\mathbf{y}_i$, $\alpha$ is the learning rate, $N$ is the number of training samples, and $\nabla_{\mathbf{W}_t}$ represents the gradient of the loss function with respect to the weights at iteration $t$.
+where $f_{\mathbf{W}}$ denotes the neural network with parameters $\mathbf{W}$, $\mathcal{L}$ is the loss function measuring the difference between the predicted output $f_{\mathbf{W}}(\mathbf{x}_i)$ and the target value $\mathbf{y}_i$, $\alpha$ is the learning rate, $N$ is the number of training samples and $\nabla_{\mathbf{W}_t}$ represents the gradient of the loss function with respect to the weights at iteration $t$.
 
 By iteratively applying this update rule, the network parameters are gradually adjusted in a direction that reduces the loss function. This iterative optimization process is what allows the neural network to learn meaningful representations from training data and improve its predictions over time.
 
@@ -414,7 +414,7 @@ Besides the standard gradient descent algorithm, which computes the gradient ove
 
 
 \paragraph{Evaluation}
-To measure the performance of a machine learning model, various evaluation metrics can be used depending on the specific task and problem setting. These metrics provide quantitative measures of how well a model performs and allow comparisons between different models or configurations. While common examples include accuracy, precision, recall, and the F1-score for classification tasks, as well as mean squared error for regression tasks. However, a detailed discussion of these metrics is beyond the scope of this work.
+To measure the performance of a machine learning model, various evaluation metrics can be used depending on the specific task and problem setting. These metrics provide quantitative measures of how well a model performs and allow comparisons between different models or configurations. While common examples include accuracy, precision, recall and the F1-score for classification tasks, as well as mean squared error for regression tasks. However, a detailed discussion of these metrics is beyond the scope of this work.
 
 The performance of a machine learning model is typically evaluated using data that has not been seen during training, referred to as test data. This allows an unbiased assessment of the model's ability to generalize to new, unseen samples. There exist in general three main scenarios regarding the model's performance on training and test data:
 \begin{itemize}
@@ -430,7 +430,7 @@ The performance of a machine learning model is typically evaluated using data th
 
 \section{Convolutional Neural Networks}
 
-A Convolutional Neural Network (CNN) is a deep neural network architecture designed to process grid-like data, especially images \cite{LeCun1998GradientbasedLA, Krizhevsky2012ImageNetCW}. CNNs are particularly effective for visual tasks because they exploit the spatial structure of an image and learn local patterns such as edges, corners, and textures. Unlike fully connected networks, CNNs do not treat every pixel independently. Instead, they use small learnable filters that are applied across the image to detect relevant structures at different positions \cite{Khan2025ACS, Younesi2024ACS, Long2022}.
+A Convolutional Neural Network (CNN) is a deep neural network architecture designed to process grid-like data, especially images \cite{LeCun1998GradientbasedLA, Krizhevsky2012ImageNetCW}. CNNs are particularly effective for visual tasks because they exploit the spatial structure of an image and learn local patterns such as edges, corners and textures. Unlike fully connected networks, CNNs do not treat every pixel independently. Instead, they use small learnable filters that are applied across the image to detect relevant structures at different positions \cite{Khan2025ACS, Younesi2024ACS, Long2022}.
 
 \paragraph{Convolution}
 
@@ -506,7 +506,7 @@ Figure \autoref{fig:CNNConvolution_1} shows how the kernel (dark blue) is slided
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.9\linewidth]{./chapter2/media/CNNConvolution_1.png}
+	\includegraphics[width=0.75\linewidth]{./chapter2/media/CNNConvolution_1.png}
 	\caption[CNN Convolution Step-by-Step]{CNN Convolution Step-by-Step. Image source: \cite{Dumoulin2016AGT}.}
 	\label{fig:CNNConvolution_1}
 \end{figure}
@@ -527,7 +527,7 @@ As seen in the Figures \ref{fig:CNNConvolutionIntro}, \ref{fig:CNNConvolution_1}
 To preserve the spatial resolution of the input image, padding is often added around the border before applying the convolution, see \autoref{fig:CNNConvolution_1_withPadding} \cite{Dumoulin2016AGT, Khan2025ACS, Younesi2024ACS, Long2022}. With zero-padding, the image size can remain unchanged after the convolution, which is useful when multiple convolution layers are stacked. 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.9\linewidth]{./chapter2/media/CNNConvolution_1_withPadding}
+	\includegraphics[width=0.75\linewidth]{./chapter2/media/CNNConvolution_1_withPadding}
 	\caption[CNN Convolution with Padding]{CNN Convolution with Padding. Image source: \cite{Dumoulin2016AGT}.}
 	\label{fig:CNNConvolution_1_withPadding}
 \end{figure}
@@ -567,7 +567,7 @@ By applying the ReLU function after each convolution, the network can learn incr
 \paragraph{Pooling Layer}
 Another central component of CNNs is the pooling layer \cite{Khan2025ACS, Long2022}. Pooling reduces the spatial size of the feature maps while retaining the most important information. This lowers the computational cost and increases robustness to small shifts in the input image.
 
-A common choice is a $2\times2$ pooling window with a stride of 2. In this case, the feature map is divided into non-overlapping $2\times2$ regions, and each region is summarized by a single value \cite{Younesi2024ACS, Khan2025ACS}. As a result, the width and height of the feature map are reduced by a factor of two.
+A common choice is a $2\times2$ pooling window with a stride of 2. In this case, the feature map is divided into non-overlapping $2\times2$ regions and each region is summarized by a single value \cite{Younesi2024ACS, Khan2025ACS}. As a result, the width and height of the feature map are reduced by a factor of two.
 
 Two common pooling methods are max pooling and average pooling \cite{Younesi2024ACS, Khan2025ACS}, as illustrated in \autoref{fig:CNNPooling}. In max pooling, the largest value within each pooling region is selected and propagated to the output feature map. In average pooling, the mean value of all elements within the region is computed. Both methods reduce the spatial resolution while preserving the most relevant information contained in the feature map.
 
@@ -589,7 +589,7 @@ Pooling layers are typically applied after convolution layers and allow the netw
 
 \paragraph{CNN Pipeline}
 
-The common CNN processing sequence is: (1) convolution, (2) activation function, and (3) pooling, while the activation function is often not mentioned explicitly.
+The common CNN processing sequence is: (1) convolution, (2) activation function and (3) pooling, while the activation function is often not mentioned explicitly.
 A CNN usually consists of several repeated blocks of convolution and pooling layers. Early layers detect simple features such as edges and corners, while deeper layers combine these basic features into more complex structures. 
 After several convolution and pooling stages, the feature maps are flattened into one big vector and passed through a MLP or a classification head in a classification task to produce the final predictions, see \autoref{fig:CNNPipeline}. Through backprobagating the prediction error, the networks parameter are adjusted during training.
 
@@ -603,7 +603,7 @@ After several convolution and pooling stages, the feature maps are flattened int
 
 
 \paragraph{RGB Images}
-The same principle can be extended to RGB images \cite{Khan2025ACS, Long2022, Krizhevsky2012ImageNetCW}. While a grayscale image contains only a single channel, an RGB image consists of three color channels representing red, green, and blue values. Consequently, a convolution kernel must span all input channels. For a kernel size of $3\times3$, a common way is to use an $3\times3\times3$ kernel for an RGB image \cite{Khan2025ACS, Long2022, Krizhevsky2012ImageNetCW}. This kernel is applied across all three color channels simultaneously, and the resulting values are summed up to produce a single output value in the feature map. By learning appropriate kernels during training, CNNs can effectively capture complex visual patterns across all color channels in RGB images.
+The same principle can be extended to RGB images \cite{Khan2025ACS, Long2022, Krizhevsky2012ImageNetCW}. While a grayscale image contains only a single channel, an RGB image consists of three color channels representing red, green and blue values. Consequently, a convolution kernel must span all input channels. For a kernel size of $3\times3$, a common way is to use an $3\times3\times3$ kernel for an RGB image \cite{Khan2025ACS, Long2022, Krizhevsky2012ImageNetCW}. This kernel is applied across all three color channels simultaneously and the resulting values are summed up to produce a single output value in the feature map. By learning appropriate kernels during training, CNNs can effectively capture complex visual patterns across all color channels in RGB images.
 % The resulting values are summed to produce a single output value in the feature map.
 %  The same idea can be extended to RGB images, where the kernels operate across all color channels.
 
@@ -618,20 +618,22 @@ The same principle can be extended to RGB images \cite{Khan2025ACS, Long2022, Kr
 \section{Transformer}
 % for sequence-to-sequence tasks
 A Transformer is a deep neural network architecture designed to process sequential data, especially text \cite{Vaswani2017AttentionIA}. It's the foundation for most modern LLMs, enabling them to process and understand language effectively.
-Unlike earlier architectures, which process tokens one after another, Transformers compare all tokens in a sequence in parallel and learn which parts of the input are relevant to each other. This is done through the attention mechanism and was the core innovation of the Transformer architecture \cite{Vaswani2017AttentionIA, AttentionTransformersStepbystep, TransformerExplainerLLM, Raschka2024BuildLLM}. The main idea is simple: when the model reads one token, it does not treat all other tokens equally. It assigns higher importance to the tokens that are more relevant in the current context. This makes Transformers especially powerful for language tasks, because meaning often depends on long-range dependencies in the sentence.
+Unlike earlier architectures that process tokens sequentially, Transformers compare all tokens in a sequence in parallel and learn which parts of the input are most relevant to each other. This is archieved through the attention mechanism, the core innovation of the Transformer architecture \cite{Vaswani2017AttentionIA, AttentionTransformersStepbystep, TransformerExplainerLLM, Raschka2024BuildLLM}. 
+Rather than treating all tokens equally, the model assigns greater importance to contextually relevant tokens, allowing it to capture long-range dependencies in a sentence and are crucial for language understanding
+% The main idea is simple: when the model reads one token, it does not treat all other tokens equally. It assigns higher importance to the tokens that are more relevant in the current context. This makes Transformers especially powerful for language tasks, because meaning often depends on long-range dependencies in the sentence.
 
 % \paragraph{Architecture Overview}
 The original Transformer architecture was introduced by \textcite{Vaswani2017AttentionIA} and consists of two parts: the encoder and the decoder. See \autoref{fig:TransformerArchitecture} for an overview.
 \begin{enumerate}
 	\item \textbf{Encoder:} The encoder reads the full input sequence and converts it into a contextual latent representation. Each token is transformed not only based on its own identity, but also based on the other tokens in the sequence. In this way, the encoder builds a rich internal representation of the input.
 	
-	\item \textbf{Decoder:} The decoder generates the output sequence autoregressively, meaning one token at a time. To produce the next token in the output sequence, it uses at each prediction step: (1) The contextual representation from the encoder; (2) The previously generated output tokens from the decoder. This allows the decoder to produce the next token while taking the source sequence into account.
+	\item \textbf{Decoder:} The decoder generates the output sequence autoregressively, meaning one token at a time. To produce the next token in the output sequence, it uses at each prediction step: (1) The contextual representation from the encoder. (2) The previously generated output tokens from the decoder. This allows the decoder to produce the next token while taking the source sequence into account.
 \end{enumerate}
 
 
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=0.62\linewidth]{./chapter2/media/TransformerArchitectur3}
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/TransformerArchitectur3}
 	\caption[Transformer Architecture]{Transformer Architecture. Image based on: \cite{Vaswani2017AttentionIA}.}
 	\label{fig:TransformerArchitecture}
 \end{figure}
@@ -641,7 +643,7 @@ While the examples in this section are based on text processing to facilitate un
 
 
 \paragraph{Input Embeddings}
-Before a Transformer can process data, the data must be converted into a numerical representation. This is the role of the input embedding layer \cite{Raschka2024BuildLLM}. Given an input text such as ``Data visualization empowers users to'', the model first tokenizes the text, then maps each token to a vector representation, and finally adds positional information \cite{Raschka2024BuildLLM, TransformerExplainerLLM}. The resulting embedding combines semantic meaning with information about token order. 
+Before a Transformer can process data, the data must be converted into vectors, which is done by the input embedding layer \cite{Raschka2024BuildLLM}.  Given an input text such as ``Data visualization empowers users to'', the model first tokenizes the text, then maps each token to a vector representation and finally adds positional information \cite{Raschka2024BuildLLM, TransformerExplainerLLM}. The resulting embedding combines semantic meaning with information about token order. 
 \begin{enumerate}
 	\item \textbf{Tokenization:} The input text is split into smaller units called tokens. These tokens can be a word, a subword or a single character. For example, the sentence might be tokenized into ["Data", "visualization", "empowers", "users", "to"]. Each token is assigned a unique token ID.
 	\item \textbf{Embedding:} Each token is then mapped one-to-one to a high-dimensional vector representation. This embedding captures the semantic meaning of the token. For example, the token "Data" might be represented as a 768-dimensional vector in the embedding space.
@@ -657,7 +659,7 @@ In \autoref{fig:TransformerAttentionWeights} the attention weights of the word `
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.42\linewidth]{./chapter2/media/AttentionWords2}
+	\includegraphics[width=0.4\linewidth]{./chapter2/media/AttentionWords2}
 	\caption[Transformer: Attention Weights Example]{Attention Weights of the word ``it'' in a sentence. Image source: \cite{GoogleColab}}
 	% https://colab.research.google.com/github/tensorflow/tensor2tensor/blob/master/tensor2tensor/notebooks/hello_t2t.ipynb#scrollTo=OJKU36QAfqOC.
 	\label{fig:TransformerAttentionWeights}
@@ -682,9 +684,9 @@ But what does this mean technically? The value vector $\mathbf{v}^{(i)}$ represe
 In \autoref{fig:TransformerEmbeddingSpace_BlueFluffyCreature4}, it is shown how the vector of the word ``creature'' is shifted in the embedding space based on the context ``a fluffy blue creature''. This illustrates how the attention mechanism allows the model to dynamically adjust the meaning of tokens based on their relationships with other tokens in the sequence \cite{AttentionTransformersStepbystep}.
 % In one context, it may point to a specific type of creature, while in another context, it may point to a different type of creature.
 % According to the relevant semantic meaning, the word “creature” is affected within the vectorial embedding space by the words (embeddings) “fluffy” and “blue”
-\begin{figure}
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.65\linewidth]{./chapter2/media/TransformerEmbeddingSpace_BlueFluffyCreature4}
+	\includegraphics[width=0.6\linewidth]{./chapter2/media/TransformerEmbeddingSpace_BlueFluffyCreature4}
 	\caption[Transformer: Embedding Space]{Embedding Space of the Value Vectors: The Vector of ``creature'' is shifted in the Embedding space, based on the context. Image source: \cite{AttentionTransformersStepbystep}.}
 	\label{fig:TransformerEmbeddingSpace_BlueFluffyCreature4}
 \end{figure}
@@ -711,8 +713,8 @@ Instead of computing attention separately for each token, the Transformer perfor
 
 % \paragraph{Multi-Head Self-Attention}
 \textit{Multi-Head Self-Attention.} 
-While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel \cite{Raschka2024BuildLLM, Vaswani2017AttentionIA}. Each head learns its own query, key, and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected through a linear layer to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
-The number of heads is chosen such that the input embedding dimension is split across the heads. For example, if the input embedding dimension is 768 and there are 12 heads, each head would operate on a subspace of 64 dimensions. Otherwise, the output dimensions will not match the input dimensions. Technically the Query, Key and Value matrices of each head are combined computed within a larger matrix multiplication and then splitted up into the individual parts for each head, that every head can produce its own attention matrix.
+While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel \cite{Raschka2024BuildLLM, Vaswani2017AttentionIA}. Each head learns its own query, key and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected through a linear layer to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
+% The number of heads is chosen such that the input embedding dimension is split across the heads. For example, if the input embedding dimension is 768 and there are 12 heads, each head would operate on a subspace of 64 dimensions. Otherwise, the output dimensions will not match the input dimensions. Technically the Query, Key and Value matrices of each head are combined computed within a larger matrix multiplication and then splitted up into the individual parts for each head, that every head can produce its own attention matrix.
 
 \begin{figure}
 	\centering
@@ -724,28 +726,28 @@ The number of heads is chosen such that the input embedding dimension is split a
 
 \paragraph{Encoder Block}
 After the self-attention computation, the resulting representations are passed through a layer normalization step, followed by a \ac{MLP} Network. A second layer normalization is applied after this transformation. This sequence of operations forms a single Transformer block, which can be stacked multiple times to increase model capacity \cite{Vaswani2017AttentionIA}.
-
-The \ac{MLP} operates independently on each token representation. In contrast to the attention mechanism, which is responsible for exchanging information between tokens, the \ac{MLP} refines and transforms each token embedding individually. It typically consists of two linear transformations with a non-linear activation function in between, allowing the model to learn more complex feature transformations.
-
-A key component of the Transformer architecture is the use of residual connections, which are applied around both the attention block and the feed forward network \cite{Vaswani2017AttentionIA}. These are shortcut connections that add the input of a sub-layer directly to its output. This mechanism improves gradient flow during backpropagation and mitigates the vanishing gradient problem, which is especially important in deep networks composed of many stacked Transformer blocks. 
+The \ac{MLP} operates independently on each token representation. 
+% In contrast to the attention mechanism, which is responsible for exchanging information between tokens, the \ac{MLP} refines and transforms each token embedding individually. 
+It typically consists of two linear transformations with a non-linear activation function in between, allowing the model to learn more complex feature transformations.
+A key component of the Transformer architecture is the use of residual connections, which are applied around both the attention block and the feed forward network and add the input of a sub-layer directly to its output \cite{Vaswani2017AttentionIA}. This improves gradient flow during backpropagation and mitigates the vanishing gradient problem, which is especially important in deep networks composed of many stacked Transformer blocks. 
 
 The output of the final encoder layer is a sequence of contextualized vectors, where each vector corresponds to one input token enriched with information from the entire sequence. This representation can then be used for downstream tasks such as classification, regression, or sequence generation.
 
 
 \paragraph{Decoder Block}
 The decoder receives an input sequence that is first transformed using the same embedding procedure as the encoder (token embeddings + positional information) \cite{Vaswani2017AttentionIA}. During generation, this input typically consists of previously generated output tokens. The embedded sequence is then processed through two distinct attention mechanisms: masked multi-head self-attention and cross-attention.
-
 % \paragraph{Masked Multi-Head Attention}
 % \textit{Masked Multi-Head Attention.} 
-Masked multi-head self-attention operates on the decoder's own input sequence, but with a causal mask that prevents each position from attending to any future positions \cite{Raschka2024BuildLLM}. The causal mask ensures that future tokens receive an attention weight of zero, making them invisible to the current position and ensures that the prediction for the next token depends only on previously generated tokens. 
+Masked multi-head self-attention operates on the decoder's own input sequence, but with a causal mask that prevents each position from attending to any future positions \cite{Raschka2024BuildLLM}. This ensures that every generated token depends only on its previous tokens.
+% The causal mask ensures that future tokens receive an attention weight of zero, making them invisible to the current position and ensures that the prediction for the next token depends only on previously generated tokens. 
 % , preserving the autoregressive property. 
 % The decoder then uses these vectors, along with the previously generated output tokens, to produce the next token in the output sequence. This process continues until the entire output sequence is generated.
-
 % \paragraph{Cross-Attention}
 % \textit{Cross-Attention.} 
 In cross-attention, the decoder's hidden states from the masked attention layer serve as queries $Q$, while the encoder's output serve as keys $K$ and values $V$, allowing the decoder to condition its predictions on the encoded source sequence \cite{Vaswani2017AttentionIA}.
 
-After these attention layers, the resulting representations are passed through a linear projection head followed by a softmax function, producing a probability distribution over the set of possible output elements \cite{Vaswani2017AttentionIA, Raschka2024BuildLLM, TransformerExplainerLLM}. The element with the highest probability is selected and appended to the generated sequence. This process repeats autoregressively until a special end-of-sequence symbol is produced. In our text example, the vocabulary token with the highest probability is selected and appended to the generated sequence.
+After these attention layers, the resulting representations are passed through a linear projection head followed by a softmax function, producing a probability distribution over the set of possible output elements \cite{Vaswani2017AttentionIA, Raschka2024BuildLLM, TransformerExplainerLLM}. The element with the highest probability (in our case the vocabulary token) is selected and appended to the generated sequence. This process repeats autoregressively until a special end-of-sequence symbol is produced. 
+% In our text example, the vocabulary token with the highest probability is selected and appended to the generated sequence.
 
 
 
@@ -788,11 +790,9 @@ The Vision Transformer (ViT) \cite{Dosovitskiy2020AnII} extends the Transformer 
 \end{figure}
 
 To process an image, ViT first divides the input image into a sequence of fixed-size, non-overlapping patches, see \autoref{fig:VisionTransformerOverview}. Each patch is flattened and linearly projected into a fixed-dimensional embedding vector, analogous to token embeddings in natural language processing.
-
-Since the Transformer architecture does not inherently encode spatial information between the image patches, learnable positional embeddings are added to the patch embeddings. In addition, a learnable classification token (CLS token), denoted by an asterisk (*) in \autoref{fig:VisionTransformerOverview}, is prepended to the sequence and serves as a global representation of the whole image. During the attention computation, the CLS token interacts with all patch embeddings and gradually aggregates information from the entire image.
-
-The resulting sequence is processed by a standard Transformer encoder consisting of multi-head self-attention and feed-forward layers. Through self-attention, the model learns global relationships between image patches and can capture long-range spatial dependencies that are difficult to model with traditional CNN approaches. 
-
+Since the Transformer architecture does not inherently encode spatial information between the image patches, learnable positional embeddings are added to these patch embeddings. In addition, a learnable classification token (CLS token), denoted by an asterisk (*) in \autoref{fig:VisionTransformerOverview}, is prepended to the sequence and serves as a global representation of the whole image. During the attention computation, the CLS token interacts with all patch embeddings and gradually aggregates information from the entire image.
+The resulting sequence is processed by a standard Transformer encoder consisting of multi-head self-attention and feed-forward layers. 
+% Through self-attention, the model learns global relationships between image patches and can capture long-range spatial dependencies that are difficult to model with traditional CNN approaches. 
 After the final encoder layer, the output representation of the CLS token serves as a global representation of the image and is passed through a multi-layer perceptron (MLP) head to generate the final prediction, such as class probabilities for image classification tasks.
 % After the final encoder layer, the output representation of the CLS token contains information aggregated from all image patches and is passed to a multi-layer perceptron (MLP) head to produce the final prediction
 
@@ -806,12 +806,12 @@ In imitation learning, Vision Transformers can be used as visual encoders that e
 
 
 \section{Foundation Model}
-% The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern AI systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images, and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
+% The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern AI systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
 
-Recent advances in artificial intelligence have been largely driven by the development of foundation models. A foundation model is a large-scale model that is pre-trained on vast amounts of data and can subsequently be adapted to a wide range of downstream tasks \cite{Bommasani2021OnTO}. Instead of being designed for a single application, foundation models learn general patterns, concepts, and representations that can be reused across different domains and tasks.
-
+% Recent advances in artificial intelligence have been largely driven by the development of foundation models. 
+A foundation model is a large-scale model that is pre-trained on vast amounts of data and can subsequently be adapted to a wide range of downstream tasks \cite{Bommasani2021OnTO}. Instead of being designed for a single application, foundation models learn general patterns, concepts and representations that can be reused across different domains and tasks.
 A key characteristic of foundation models is their ability to generalize to problems that were not explicitly specified during training. This broad knowledge enables them to serve as a common basis for many specialized applications. 
-Unimodal foundation models (e.g., GPT-3 for text \cite{Brown2020LanguageMA}, Stable Diffusion for images \cite{Rombach2021HighResolutionIS}) learn patterns within a single data type, whereas Multi-modal foundation models (e.g., CLIP \cite{Radford2021LearningTV}, GPT-4V \cite{Achiam2023GPT4TR}, Gemini \cite{Reid2024Gemini1U, team2023gemini}) learn joint representations across modalities such as text, images, and audio.
+Unimodal foundation models (e.g., GPT-3 for text \cite{Brown2020LanguageMA}, Stable Diffusion for images \cite{Rombach2021HighResolutionIS}) learn patterns within a single data type, whereas Multi-modal foundation models (e.g., CLIP \cite{Radford2021LearningTV}, GPT-4V \cite{Achiam2023GPT4TR}, Gemini \cite{Reid2024Gemini1U, team2023gemini}) learn joint representations across modalities such as text, images and audio.
 Due to their versatility and strong generalization capabilities, foundation models have become the foundation of many modern AI systems.
 
 
@@ -824,17 +824,17 @@ Due to their versatility and strong generalization capabilities, foundation mode
 
 \section{Multi-Modal Model}
 A multimodal model is capable of processing and relating information from two or more data modalities, such as text, images, audio, or sensor measurements \cite{Baltruaitis2017MultimodalML}. Unlike unimodal models, which operate on only a single type of data, multimodal models learn a shared representation that enables information from different modalities to be interpreted jointly.
-The integration of multiple modalities allows a model to leverage complementary information, handle missing data from one source by relying on another, provide more comprehensive insights, and improves model generalization \cite{Liang2022FoundationsT}.
+The integration of multiple modalities allows a model to leverage complementary information, handle missing data from one source by relying on another, provide more comprehensive insights and improves model generalization \cite{Liang2022FoundationsT}.
+For example, a multimodal model can analyze an image together with a textual instruction and use information from both inputs to answer a question or perform a task. 
+% This capability allows the model to connect visual observations with linguistic concepts and reason across different sources of information. Models such as CLIP align images and text within a common representation space \cite{Radford2021LearningTV}, while more recent models such as Gemini can process as well as generate information across multiple modalities \cite{Reid2024Gemini1U, team2023gemini}.
 
-For example, a multimodal model can analyze an image together with a textual instruction and use information from both inputs to answer a question or perform a task. This capability allows the model to connect visual observations with linguistic concepts and reason across different sources of information. Models such as CLIP align images and text within a common representation space \cite{Radford2021LearningTV}, while more recent models such as Gemini can process as well as generate information across multiple modalities \cite{Reid2024Gemini1U, team2023gemini}.
+% Although many multimodal models can generate outputs in different modalities, such as images from text prompts, the defining characteristic of a multimodal model is its ability to understand and relate multiple forms of data rather than the specific modality of its output \cite{Achiam2023GPT4TR, Reid2024Gemini1U, team2023gemini}.
 
-Although many multimodal models can generate outputs in different modalities, such as images from text prompts, the defining characteristic of a multimodal model is its ability to understand and relate multiple forms of data rather than the specific modality of its output \cite{Achiam2023GPT4TR, Reid2024Gemini1U, team2023gemini}.
-
-\textit{Multimodal Learning} is a own learning paradigm in the field of deep learning and refers to the use of various data modalities, such as text, audio, sensor signals, and images/videos within a single learning concept at the same time \cite{Ngiam2011MultimodalDL, Baltruaitis2017MultimodalML}.
+\textit{Multimodal Learning} is a own learning paradigm and refers to the use of various data modalities within a single learning concept \cite{Ngiam2011MultimodalDL, Baltruaitis2017MultimodalML}.
 
 
 % \paragraph{Vision-Language-Action Models}
-% Vision-Language-Action (VLA) models extend multimodal models by incorporating robot actions as an additional output modality and can be ordered in the \textit{Domain specific} section in \autoref{fig:foundationmodel_vs_multimodel}. While conventional multimodal models typically generate textual or visual outputs, VLA models directly generate robot actions that can be executed by a robotic. They combine visual observations from cameras with natural language instructions and translate this information into control commands for the robot. They often uses pretrainied foundation models for vision and language, that serves as backbones to provide world understanding. By jointly reasoning over vision, language, and actions, VLA models provide an end-to-end framework that enables robots to understand their environment, interpret user instructions, and autonomously perform complex manipulation tasks.
+% Vision-Language-Action (VLA) models extend multimodal models by incorporating robot actions as an additional output modality and can be ordered in the \textit{Domain specific} section in \autoref{fig:foundationmodel_vs_multimodel}. While conventional multimodal models typically generate textual or visual outputs, VLA models directly generate robot actions that can be executed by a robotic. They combine visual observations from cameras with natural language instructions and translate this information into control commands for the robot. They often uses pretrainied foundation models for vision and language, that serves as backbones to provide world understanding. By jointly reasoning over vision, language and actions, VLA models provide an end-to-end framework that enables robots to understand their environment, interpret user instructions and autonomously perform complex manipulation tasks.
 
 
 
@@ -846,62 +846,66 @@ Although many multimodal models can generate outputs in different modalities, su
 
 \section{Reinforcement Learning} \label{sec:ReinforcementLearning}
 \ac{RL} is both a fundamental discipline of \ac{ML} and a distinct approach within Robot Learning.
-The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score, and this score is then used to gradually optimize the policy. See also figure \ref{fig:RLConzept} for a general graphical overview. Below are the key terms in \ac{RL} explained in relation to robotics: 
+The robot learns a policy through trial and error using rewards provided from the given task and the environment. The actions performed by the agent are evaluated with a reward score and this score is then used to gradually optimize the policy. See also figure \ref{fig:RLConzept} for a general graphical overview. Below are the key terms in \ac{RL} explained in relation to robotics: 
 \begin{itemize}
 	\item \textbf{Agent:} The agent is the entity that learns to perform a specific behavior through interaction with its environment. In the context of this work, the agent corresponds to the robot, which has to execute a given action or task. 
-	\item \textbf{Environment:} The environment is the setting in which the agent/the robot operates. In other words, the environment is the robot's workplace, where it is deployed. In addition to the robot itself, it includes all relevant objects with which the robot interacts. The environment can be either the real world or a simulated environment in which the robot interacts during training or inference.
-	\item \textbf{Robot Actions:} The Robot actions are simply the control commands the robot can send to its actuators, e.g. open or close the gripper, move the arm to position $X,Y,Z$, or the joint angles of the individual robot axes, etc.
-	\item \textbf{Reward:} The reward is a numerical value that indicates how well the robot is performing in relation to the task objective. For example, if the robot successfully picks up an object, it might receive a positive reward, while if it fails or drops the object, it might receive a negative reward. The goal of Reinforcement Learning is to learn a policy that maximizes the cumulative reward over time.
-	\item \textbf{Robot State:} The State is a complete description of the situation in the environment at a particular point in time. The robot state represents the current situation of the robot and its environment. It can include various types of information, such as the robot's position, orientation, joint angles, sensor readings, and even visual input from cameras \cite{walkerastroActionSpaceState2024}. The state is crucial for the robot to make informed decisions about which actions to take.
-	\item \textbf{Observation:} An observation is the information that the robot receives from its sensors at a given time step. It may not provide a complete picture of the environment, and thus may not fully represent the true robot state. In our case, the observation is mostly equivalent to the state \cite{walkerastroActionSpaceState2024}.
-	\item \textbf{Policy:}
-	The policy can be interpreted as the brain of the agent. The policy determines which action should be taken next when the agent is in a particular state in order to achieve the task objective. The Policy controls the robot's motion and actions. 
-	
+	\item \textbf{Environment:} The environment is the setting in which the agent operates and is the workplace of the robot. In addition to the robot itself, it includes all relevant objects with which the robot interacts. The environment can be a simulated environment too.
+	\item \textbf{Robot Actions $a$:} The Robot actions are simply the control commands the robot sends to its actuators, e.g. open or close the gripper, move to position $X,Y,Z$, joint angles, etc.
+	\item \textbf{Reward $r$:} The reward is a numerical value that indicates how well the robot is performing in relation to the task objective. If the robot successfully picks up an object, it might receive a positive reward, while if it fails or drops the object, it might receive a negative reward. The goal of Reinforcement Learning is to learn a policy that maximizes the cumulative reward over time.
+	\item \textbf{Robot State $s$:} The State is a complete description of the situation in the environment at a particular point in time. 
+	% The robot state represents the current situation of the robot and its environment. 
+	It can include various types of information, such as the robot's position, orientation, joint angles, sensor readings and even visual input from cameras \cite{walkerastroActionSpaceState2024}. The state is crucial for the robot to make informed decisions about which actions to take.
+	\item \textbf{Observation $o$:} An observation is the information that the robot receives from its sensors at a given time step. It may not provide a complete picture of the environment and thus may not fully represent the true robot state. In our case, the observation is mostly equivalent to the state \cite{walkerastroActionSpaceState2024}. The observation can for example include the last camera frames as well as additional sensor inputs such as proprioceptive signals from the robot.
+	\item \textbf{Policy $\pi$:}
+	The policy can be interpreted as the brain of the agent and controls the robot's motion. The policy determines which action should be taken next when the agent is in a particular state in order to achieve the task objective. 
+	% The Policy controls the robot's motion and actions. 
 	Formally, a policy can be represented as  
 	\begin{align}
 		\pi_\theta(a \mid s)  
 	\end{align}
-	which defines a probability distribution over actions $a$, conditioned on the current state $s$. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment. In the classical meaning, the action $a$ corresponds for example to a robot command, such as moving the gripper to a target position $(x, y, z)$ or setting a joint angle to a specific value with a defined velocity. The state $s$ represents the agent's observation, which may include, for example, a sequence of recent camera images (e.g., the last four frames) as well as additional sensor inputs such as proprioceptive signals.
+	which defines a probability distribution over actions $a$, conditioned on the current state $s$. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment. 
+	% The action $a$ corresponds for example to a robot command, such as moving the gripper to a target position $(x, y, z)$ or setting a joint angle to a specific value with a defined velocity. The state $s$ represents the agent's observation, which may include, for example, a sequence of recent camera images (e.g., the last four frames) as well as additional sensor inputs such as proprioceptive signals.
 
 \end{itemize}
 
-\paragraph{Mathematical description of the \ac{RL} problem:}
-The \ac{RL} modularities are represented as follows:
-\begin{itemize}
-	\item Action: $a$
-	\item Reward: $r$
-	\item State: $s$
-	\item Observation: $o$
-	\item Policy: $\pi$
-	\item Time step: $t$, e.g. $a_t$ is the action taken at time step $t$, $a_{t+1}$ is the action taken at the next time step, etc.
-	\item $s'$: The next state after taking action $a$ in state $s$, i.e. $s' = s_{t+1}$, $s = s_t$.
-\end{itemize}
+% \paragraph{Mathematical description of the \ac{RL} problem:}
+% The \ac{RL} modularities are represented as follows:
+% \begin{itemize}
+% 	\item Action: $a$
+% 	\item Reward: $r$
+% 	\item State: $s$
+% 	\item Observation: $o$
+% 	\item Policy: $\pi$
+% 	\item Time step: $t$, e.g. $a_t$ is the action taken at time step $t$, $a_{t+1}$ is the action taken at the next time step, etc.
+% 	\item $s'$: The next state after taking action $a$ in state $s$, i.e. $s' = s_{t+1}$, $s = s_t$.
+% \end{itemize}
 
 
 
 
-\subsection{Markov Decision Process}
+\paragraph{Markov Decision Process}
 
 \ac{RL} is based on the \ac{MDP}. A \ac{MDP} is a stochastic decision-making process that formally models the transition probabilities from a state $s$ to a subsequent state $s'$ provided that action $a$ is performed, expressed mathematically as $P(s'|s,a)$ \cite{sutton2018reinforcement, millerMarkovDecisionProcesses}. 
-
 The objective is to learn a policy $\pi(a|s)$ that maximizes the expected long-term cumulative reward, defined as $\mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^t r_t\right]$. The discount factor $\gamma \in [0,1]$ determines the importance of future rewards compared to immediate rewards. A value of $\gamma$ close to 0 makes the agent focus more on immediate rewards, while a value close to 1 encourages the agent to consider long-term rewards more heavily \cite{sutton2018reinforcement, jagtapUnderstandingMarkovDecision}.
-
-A \ac{MDP} also defines this reward function that specifies the reward $r$ an agent receives when taking action $a$ in state $s$ and transitioning to a subsequent state $s'$. This is commonly expressed as $R_a(s,s')$ \cite{sutton2018reinforcement, millerMarkovDecisionProcesses}.
+A \ac{MDP} also defines the reward function $R_a(s,s')$ that specifies the reward $r$ an agent receives when taking action $a$ in state $s$ and transitioning to a subsequent state $s'$ \cite{sutton2018reinforcement, millerMarkovDecisionProcesses}.
+%  This is commonly expressed as $R_a(s,s')$ \cite{sutton2018reinforcement, millerMarkovDecisionProcesses}.
 
 The \textbf{Markov property} says that all information from the past is contained in the current state, mathematically expressed as $P(s_{t+1}|s_{t}) = P(s_{t+1}|s_{1},s_{2}, ... s_{t})$. In other words, the transition probabilities depend only on the current state and not on the history of previous states \cite{jagtapUnderstandingMarkovDecision}.
-
 In practice, the Markov property is often not strictly satisfied. For example, a single image captured by a camera does not provide sufficient information to infer the dynamics of the environment. From one image alone, it is not possible to determine whether a car is moving forward at 100 km/h or 10 km/h, reversing, or remaining stationary. However, such information is crucial for making correct decisions in applications like autonomous driving \cite{staffWhatMarkovDecision2025}.
-Therefore, in practice, only sufficiently informative state representations are often used because the ideal Markov property is not strictly fulfilled.
-This is often achieved by incorporating a history of observations, such as a sequence of the last five camera frames, to better capture the underlying dynamics of the environment \cite{millerMarkovDecisionProcesses}.
+Therefore, in practice, only sufficiently informative state representations are often used because the ideal Markov property is not strictly fulfilled. In the example above, the sequence of the last camera frames can be used.
+%  to better capture the underlying dynamics of the environment \cite{millerMarkovDecisionProcesses}.
 
 
-\subsection{Training Process}
-At the beginning of the training process, the policy is typically initialized randomly, meaning that the robot initially performs random movements. Through interaction with the environment, the agent explores different actions and attempts to identify those that yield high rewards. Actions associated with higher rewards are subsequently assigned a higher probability by the policy, making the robot more likely to select them in similar situations in the future.
 
-A successful learning process requires a suitable balance between exploration and exploitation. Exploration refers to the evaluation of previously untried or infrequently selected actions in a given state, whereas exploitation denotes the repeated selection of actions that have already been identified as beneficial. During the early stages of training, greater emphasis is placed on exploration, as the agent must first acquire knowledge about the environment and determine which actions are most effective for accomplishing the task. As training progresses and the agent gains a better understanding of the environment and its reward structure, exploitation becomes increasingly important. This allows the agent to more frequently select actions that have proven successful, thereby improving overall task performance.
+\paragraph{Training Process}
+At the beginning of the training process, a randomly initialized policy leads the robot to perform random movements. Through this interaction with the environment, the agent explores different actions and attempts to identify those that yield high rewards. Actions associated with higher rewards are subsequently assigned a higher probability by the policy, making the robot more likely to select them in similar situations in the future.
 
-Numerous methods and algorithms have been proposed to effectively balance exploration and exploitation. Common examples include the $\epsilon$-greedy strategy, Upper Confidence Bound (UCB), and Thompson Sampling. However, a detailed discussion of these methods is beyond the scope of this thesis.
+A successful learning process requires a suitable balance between exploration and exploitation. 
+Exploration involves trying new or infrequently selected actions to gather information about the environment, while exploitation focuses on selecting actions that have previously yielded high rewards. Early in training, exploration is emphasized to discover effective behaviors, whereas later stages increasingly rely on exploitation to maximize task performance.
 
+% Exploration refers to the evaluation of previously untried or infrequently selected actions in a given state, whereas exploitation denotes the repeated selection of actions that have already been identified as beneficial. During the early stages of training, greater emphasis is placed on exploration, as the agent must first acquire knowledge about the environment and determine which actions are most effective for accomplishing the task. As training progresses and the agent gains a better understanding of the environment and its reward structure, exploitation becomes increasingly important. This allows the agent to more frequently select actions that have proven successful, thereby improving overall task performance.
+Numerous methods and algorithms have been proposed to effectively balance exploration and exploitation, $\epsilon$-greedy strategy, Upper Confidence Bound (UCB) and Thompson Sampling. 
+% However, a detailed discussion of these methods is beyond the scope of this thesis.
 Due to the exploration phase, the success of the chosen \ac{RL} approach only becomes visible at a late stage, unlike in classical deep learning, see Figure \ref{fig:trainingprogressdlandrl}. 
 
 
@@ -924,51 +928,76 @@ Due to the exploration phase, the success of the chosen \ac{RL} approach only be
 
 \subsection{Knowledge Modality from Video}
 An \ac{RL} \ac{KM} is some function learned from data that represents specific types of \ac{RL}-related knowledge.
-\ac{KM}s can be learned through trial-and-error principles or from various data sources, like video datasets, and can capture different aspects of the \ac{RL} problem \cite{Wulfmeier2023FoundationsFT}. 
+\ac{KM}s can be learned through trial-and-error principles or from video datasets \cite{Wulfmeier2023FoundationsFT}:
+%  can capture different aspects of the \ac{RL} problem \cite{Wulfmeier2023FoundationsFT}. 
 
-\ac{KM} from Video:
 \begin{itemize}
-	\item \textit{Policy:} A Policy $\pi(a_t|s_t)$ is a mapping from states to actions and defines the behavior of the agent that is in a particular state \cite{sutton2018reinforcement}. $\pi(a_t|s_t)$ is the probability of taking action $a_t$ given that the agent is in state $s_t$. $t$ denotes the time step. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment.
+	\item \textbf{Policy:} The policy specifies how likely the agent is to select a particular action given its current observation of the environment.
 	It can be learned from video data by observing the actions taken in different states and learning to predict those actions based on the visual input \cite{Wulfmeier2023FoundationsFT}. 
 	
-	\item \textit{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state or state-action pair \cite{sutton2018reinforcement}. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input \cite{Wulfmeier2023FoundationsFT}.
+	\item \textbf{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state \cite{sutton2018reinforcement}, see Figures \ref{fig:VFunctionVsQFunction}. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input \cite{Wulfmeier2023FoundationsFT}.
 
 	\begin{itemize}
 		% V-Function
 		\item \textit{State-value function (V-function):} 
-		A V-function $V_\pi(s_t)$ is a mapping from states to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}.
+		A V-function $V_\pi(s_t)$ is a mapping from states to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}. $V_\pi(s)$ does not provide information about the quality of individual actions available in that state $s$. 
+		Intuition: ''How good is it to be a certain state, if I follow my policy $\pi$?''
 
-		\textbf{Intuition:} ''How good is it to be a certain state, if I follow my policy $\pi$?''
-
-		\begin{figure}[!ht]
-			\centering
-			\includegraphics[width=0.55\linewidth]{./chapter3/media/V_Function.png}
-			\caption[State-Value Function]{State-Value Function}
-			\label{fig:statevaluefunction}
-		\end{figure}
+		% \begin{figure}[!ht]
+		% 	\centering
+		% 	\includegraphics[width=0.55\linewidth]{./chapter3/media/V_Function.png}
+		% 	\caption[State-Value Function]{State-Value Function}
+		% 	\label{fig:statevaluefunction}
+		% \end{figure}
 
 		% Q-Function
-		\item \textit{State-action value function (Q-function):} 		
-		A Q-function $Q_\pi(s_t,a_t)$ is a mapping from state-action pairs to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}. 
-		
-		\textbf{Intuition:} ''How good is this specific action here, if I continue behaving like my policy $\pi$?''
+		\item \textbf{State-action value function (Q-function):} 		
+		A Q-function $Q_\pi(s_t,a_t)$ is a mapping from state-action pairs to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}. $Q_\pi(s,a)$ evaluates the expected return of taking a specific action $a$ in state $s$ and subsequently following the policy $\pi$. It provides information about the quality of individual actions available in that state $s$.
+		Intuition: ''How good is this specific action in a certain state, if I continue behaving like my policy $\pi$?''
 
-		\begin{figure}[!ht]
-			\centering
-			\includegraphics[width=0.55\linewidth]{./chapter3/media/Q_Function.png}
-			\caption[State-Action Value Function]{State-Action Value Function}
-			\label{fig:stateactionvaluefunction}
-		\end{figure}
+		% \begin{figure}[!ht]
+		% 	\centering
+		% 	\includegraphics[width=0.55\linewidth]{./chapter3/media/Q_Function.png}
+		% 	\caption[State-Action Value Function]{State-Action Value Function}
+		% 	\label{fig:stateactionvaluefunction}
+		% \end{figure}
 
-		\item \textit{V-function vs. Q-function:}
-		The value function $V_\pi(s)$ estimates the expected return of being in a particular state $s$ while following the policy $\pi$ \cite{sutton2018reinforcement}. However, it does not provide information about the quality of individual actions available in that state $s$. In contrast, the State-action value function $Q_\pi(s,a)$ evaluates the expected return of taking a specific action $a$ in state $s$ and subsequently following the policy $\pi$ \cite{sutton2018reinforcement}. Therefore, the Q-function offers a more detailed assessment by considering both the state and the chosen action. Figures \ref{fig:statevaluefunction} and \ref{fig:stateactionvaluefunction} illustrate the concepts of the state-value function and the action-value function, respectively.
+		% \item \textit{V-function vs. Q-function:}
+		% The value function $V_\pi(s)$ estimates the expected return of being in a particular state $s$ while following the policy $\pi$ \cite{sutton2018reinforcement}. However, it does not provide information about the quality of individual actions available in that state $s$. In contrast, the State-action value function $Q_\pi(s,a)$ evaluates the expected return of taking a specific action $a$ in state $s$ and subsequently following the policy $\pi$ \cite{sutton2018reinforcement}. Therefore, the Q-function offers a more detailed assessment by considering both the state and the chosen action. Figures \ref{fig:statevaluefunction} and \ref{fig:stateactionvaluefunction} illustrate the concepts of the state-value function and the action-value function, respectively.
 
 		% Bei der V-function weiß ich nur, wie gut es ist, in einem bestimmten Zustand zu sein, wenn ich nach meiner Policy $\pi$ agiere, aber nicht, wie gut eine konkrete Aktion in diesem Zustand ist. Bei der Q-function hingegen weiß ich bereits, wie gut die konkrete Aktion $a_t$ im Zustand $s_t$ ist, wenn ich weiterhin nach meiner Policy $\pi$ agiere. Siehe dazu die Abbildung \ref{fig:statevaluefunction} und \ref{fig:stateactionvaluefunction}.
 
 	\end{itemize}
+	
+	\begin{figure}[h]
+		\centering
+		\subfigure[V-Function: Returns the expected future return for a given state.]{
+				\begin{minipage}{6.3cm} % subfigure box width
+				\centering
+				\includegraphics[width=4.6cm]{./chapter2/media/RL_VFunction.png}
+				\label{fig:RL_VFunction}
+			\end{minipage}%
+
+			% \includegraphics[width=5cm]{./chapter2/media/RL_VFunction.png}
+			% \label{fig:ImageInstruction_1}
+		}
+		\hspace{0.8cm}
+		\subfigure[Q-Function: Returns the expected future return for a given state-action pair.]{
+			\begin{minipage}{6.3cm} % subfigure box width
+				\centering
+				\includegraphics[width=4.6cm]{./chapter2/media/RL_QFunction.png}
+				\label{fig:RL_QFunction}
+			\end{minipage}%
+		}
+		% \caption[Comparison of V-Function and Q-Function.]{Comparison of V-Function and Q-Function}
+		% \label{fig:VFunctionVsQFunction}
+	\end{figure}
+
 
 	% Dynamics model:
-	\item \textit{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. Video prediction models can be used as robot dynamics models \cite{Eze2024LearningBW}. By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment. This allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states.
+	\item \textit{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. 
+	% Video prediction models can be used as robot dynamics models \cite{Eze2024LearningBW}. 
+	By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment and allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states \cite{Eze2024LearningBW}.
 	% Reward model:
 	\item \textit{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$ \cite{sutton2018reinforcement}. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
 \end{itemize}
@@ -978,47 +1007,42 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 
 
 \section{Imitation Learning} \label{sec:ImitationLearning}
-\ac{IL} or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations \cite{Chrysomallis2025ImitationLI}.
-
-\ac{IL} makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models \cite{McCarthy_2025}.
-
+\ac{IL} or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations or ``in the wild'' videos \cite{Chrysomallis2025ImitationLI}. ``In the wild'' videos refer to videos that are not specifically recorded for training purposes, but are instead sourced from real-world settings, such as those found in great variety on the internet, for example on platforms like YouTube.
+% \ac{IL} makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models \cite{McCarthy_2025}.
 The demonstration videos can show a robot, a human, or even a loose sequence of actions, both in the real world or in a simulation environment, performing a specific task. However, videos without a clearly defined objective or with unknown activity can also be used \cite{McCarthy_2025}.
-
-This allows models to be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This, in turn, is a key prerequisite for the development of a generalist policy.
+Models can through \ac{IL} be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This, in turn, is a key prerequisite for the development of a generalist policy.
 \ac{IL} can be divided into Behavior Cloning and Learning from Videos/Observation.
 
 
 \subsection{Behavior Cloning}
-\ac{BC} is a fundamental approach within \ac{IL}, where a policy is learned directly from \textbf{annotated expert demonstrations} \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$, and the problem is formulated as a standard supervised learning task.  
-
-
-Conceptually, \ac{BC} can be understood as a form of direct imitation (``direct copying'') of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
-
+\ac{BC} is a fundamental approach within \ac{IL}, where a policy is learned directly from \textbf{annotated expert demonstrations} \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$ and the problem is formulated as a standard supervised learning task.  
+Conceptually, \ac{BC} can be understood as a form of direct imitation or copying of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. 
+% Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
 % BC is used to train Vision Language Action models and for pre-training models used in \ac{RL}, see Section \textbf{XXX}
 
-\paragraph{Purpose: Policy Learning} 
-
-\ac{BC} learns a policy by supervised learning on expert demonstrations:
-\begin{align}
-	\pi_\theta(a_t \mid s_t)
-\end{align}
-where:
-\begin{itemize}
-	\item $s_t$: State / Observation (images, proprioception, etc.) at time $t$
-	\item $a_t$: Expert action at time $t$
-\end{itemize}
-
-The Policy $\pi_\theta(a \mid s)$ is optimized by minimizing the prediction error between the actions generated by the model and the corresponding expert actions.
-\begin{align}
-\min_{\theta} \mathbb{E}_{(s,a) \sim \mathcal{D}} \left[ \mathcal{L}(\pi_{\theta}(s), a) \right]
-\end{align}
-where:
-\begin{itemize}
-\item $\pi_{\theta}(s)$: The action your robot's policy predicts given state $s$.
-\item $a$: The actual action the expert took in that same state.
-\item $\mathcal{L}$: Usually Mean Squared Error (MSE) for continuous control or Cross-Entropy for discrete actions.
-\item  $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\cdot]$: Take all the state-action pairs $(s, a)$ inside the expert dataset $\mathcal{D}$, and calculate the average value of the expression inside the brackets.
-\end{itemize}
+% \paragraph{Purpose: Policy Learning} 
+Formally, \ac{BC} learns a policy $\pi_\theta(a_t \mid s_t)$ by supervised learning on expert demonstrations.
+% :
+% \begin{align}
+% 	\pi_\theta(a_t \mid s_t)
+% \end{align}
+% where:
+% \begin{itemize}
+% 	\item $s_t$: State / Observation (images, proprioception, etc.) at time $t$
+% 	\item $a_t$: Expert action at time $t$
+% \end{itemize}
+The Policy is optimized by minimizing the prediction error between the actions generated by the model and the corresponding expert actions;
+\begin{equation}
+	\min_{\theta} \mathbb{E}_{(s_t,a_t) \sim \mathcal{D}} \left[ \mathcal{L}(\pi_{\theta}(s_t), a_t) \right]
+\end{equation}
+where $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\cdot]$ means taking all state-action pairs $(s, a)$ inside the expert dataset $\mathcal{D}$ and calculating the average prediction loss.
+% where:
+% \begin{itemize}
+% \item $\pi_{\theta}(s)$: The action your robot's policy predicts given state $s$.
+% \item $a$: The actual action the expert took in that same state.
+% \item $\mathcal{L}$: Usually Mean Squared Error (MSE) for continuous control or Cross-Entropy for discrete actions.
+% \item  $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\cdot]$: Take all the state-action pairs $(s, a)$ inside the expert dataset $\mathcal{D}$ and calculate the average value of the expression inside the brackets.
+% \end{itemize}
  
 
 
@@ -1029,29 +1053,30 @@ where:
 
   
 \subsection{Learning from Videos / Observation}
-\ac{LfV}, also referred to as \ac{LfO}, is an \ac{IL} approach that relies solely on \textbf{video demonstrations without explicit action annotations} \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to \ac{BC}, where state-action pairs are directly available, \ac{LfV} aims to infer the underlying actions or high-level intent purely from perceptual data, i.e. mapping observations to actions $(s \rightarrow a)$. It often uses \textbf{Representation Learning}, to learn and discover the most important (unknown) underlying data characteristics by transforming and reducing input in a fully data-driven and automatic manner.	
+\ac{LfV}, also referred to as \ac{LfO}, relies solely on \textbf{video demonstrations without explicit action annotations} \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to \ac{BC}, where state-action pairs are directly available, \ac{LfV} aims to infer the underlying actions or high-level intent purely from perceptual data, i.e. mapping observations to actions $(s \rightarrow a)$. It often uses Representation Learning, to learn and discover the most important (unknown) underlying data characteristics.% by transforming and reducing input in a fully data-driven and automatic manner.	
 
-A central challenge in \ac{LfV} is the \textbf{inference problem}: determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See chapter \textbf{XXX} for more information.
-
+A central challenge in \ac{LfV} is determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See \autoref{chap:LearningFromVideosDataModalityAndChallenges} for more information.
 Due to this property, \ac{LfV} can be seen as a \textbf{weakly supervised or self-supervised Imitation Learning} approach. 
-Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data, including internet videos or human demonstrations, without the need for costly data annotation \cite{McCarthy_2025}. Furthermore, additional actions can be derived from annotated video data too \cite{McCarthy_2025}.
-
-
-In robotics, \ac{LfV} is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic, and dynamical aspects of the environment, which can later be refined using methods such as \ac{BC} with annotated data or in \ac{RL} \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
+Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data without the need for costly data annotation \cite{McCarthy_2025}. Furthermore, additional actions can be derived from annotated video data too \cite{McCarthy_2025}.
+In robotics, \ac{LfV} is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic and dynamical aspects of the environment, which can later be refined using methods such as \ac{BC} with annotated data or in \ac{RL} \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
 
 %BC is used to pre-train models for Behavior Cloning and Reinforcement Learning, see Section \textbf{XXX} for more information.
 
-\paragraph{Purpose: Inferring Actions}
-
-\ac{LfV} learns to infer actions from observations in a weakly supervised or self-supervised manner. 
+% \paragraph{Purpose: Inferring Actions}
+Formally, \ac{LfV} learns to infer actions from observations in a weakly supervised or self-supervised manner:
 \begin{align}
 	a_t = f(s_t, s_{t+1})
 \end{align}
-where:
-\begin{itemize}
-	\item $a_t$: The "latent" or predicted action.
-	\item $s_t$: The current state/video frame.
-	\item $s_{t+1}$: The next state/video frame.
-	\item $f$: The inverse dynamics function (often a neural network) that maps state transitions to actions.
-\end{itemize}
+where $a_t$ is the ``latent'' or predicted action and $f$ the inverse dynamics function (often a neural network) that maps state transitions to actions.
+% \ac{LfV} learns to infer actions from observations in a weakly supervised or self-supervised manner. 
+% \begin{align}
+% 	a_t = f(s_t, s_{t+1})
+% \end{align}
+% where:
+% \begin{itemize}
+% 	\item $a_t$: The "latent" or predicted action.
+% 	\item $s_t$: The current state/video frame.
+% 	\item $s_{t+1}$: The next state/video frame.
+% 	\item $f$: The inverse dynamics function (often a neural network) that maps state transitions to actions.
+% \end{itemize}
 
