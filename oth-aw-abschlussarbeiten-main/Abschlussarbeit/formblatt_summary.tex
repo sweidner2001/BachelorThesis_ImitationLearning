@@ -13,13 +13,30 @@
 \rule[1ex]{\textwidth}{0.5pt}
 \vspace*{0.5cm}
 \begin{tabular}{lp{6.5cm}}
-  \hspace*{-1ex}Studentin/Student (Name, Vorname): & \textbf{\IhrNachname, \IhrVorname}\\
+  \hspace*{-1ex}Student: & \textbf{\IhrNachname, \IhrVorname}\\
   \hspace*{-1ex}Studiengang: & \IhrStudiengang\\
-  \hspace*{-1ex}Aufgabensteller, Professor: & \IhrErstpruefer\\
-  \hspace*{-1ex}Durchgeführt in (Firma/Behörde/Hochschule): & \IhreFirma\\
-  \hspace*{-1ex}Betreuer in Firma/Behörde: & \IhrFirmenbetreuer\\
-  \multicolumn{2}{l}{\hspace*{-1ex}Ausgabedatum: \IhrBearbeitungszeitraumVON\qquad\qquad Abgabedatum: \IhrBearbeitungszeitraumBIS}
+  \hspace*{-1ex}Professor: & \IhrErstpruefer\\
+  \hspace*{-1ex}Durchgeführt in Hochschule: & \IhreFirma\\
+  \hspace*{-1ex}Betreuer in Hochschule: & \IhrFirmenbetreuer\\
+  \hspace*{-1ex}Ausgabedatum: & \IhrBearbeitungszeitraumVON\\
+  \hspace*{-1ex}Abgabedatum: & \IhrBearbeitungszeitraumBIS\\
+  % \multicolumn{2}{l}{\hspace*{-1ex}Ausgabedatum: \IhrBearbeitungszeitraumVON\qquad\qquad Abgabedatum: \IhrBearbeitungszeitraumBIS}
 \end{tabular}\par
+
+
+\rule[1ex]{\textwidth}{0.5pt}
+Title:
+\begin{center}
+  \textbf{\IhrTitelEN}
+\end{center}
+\vspace*{0.5cm}
+\rule[1ex]{\textwidth}{0.5pt}
+
+\subsection*{Abstract}
+\IhreZusammenfassungEn\\[0.5cm]
+\subsection*{Keywords} \IhreSchluesselwoerterEn
+
+
 \rule[1ex]{\textwidth}{0.5pt}
 Titel:
 \begin{center}
@@ -27,11 +44,11 @@ Titel:
 \end{center}
 \vspace*{0.5cm}
 \rule[1ex]{\textwidth}{0.5pt}
-Zusammenfassung:\\[0.5cm]
+\subsection*{Zusammenfassung}
 \IhreZusammenfassungDe\\[0.5cm]
-Schlüsselwörter: \IhreSchluesselwoerterDe\\[0.5cm]
+\subsection*{Schlüsselwörter} \IhreSchluesselwoerterDe
 
-Abstract:\\[0.5cm]
-\IhreZusammenfassungEn\\[0.5cm]
-Keywords: \IhreSchluesselwoerterEn
+
+
+
 \clearpage

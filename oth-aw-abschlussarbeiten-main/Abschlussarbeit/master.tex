@@ -151,7 +151,7 @@
 \newcommand*{\IhrTitelDE}{Imitation Learning unter Verwendung videokonditionierter Policies für visuell gesteuertes Roboterverhalten}
 \newcommand*{\IhrTitelEN}{Imitation Learning using Video-Conditioned Policies for Visually Guided Robotic Behavior}
 \newcommand*{\IhrBearbeitungszeitraumVON}{20. Januar 2026}
-\newcommand*{\IhrBearbeitungszeitraumBIS}{20. Juni 2026}
+\newcommand*{\IhrBearbeitungszeitraumBIS}{19. Juni 2026}
 \newcommand*{\IhrErstpruefer}{Prof. Dr.-Ing. Christian Bergler}
 \newcommand*{\IhrZweitpruefer}{Prof. Dr. phil. Tatyana Ivanovska}
 \newcommand*{\IhreFirma}{OTH Amberg-Weiden}
@@ -188,7 +188,7 @@ Diese Arbeit gibt eine Einführung in das Thema intelligente Robotik und untersu
 % von diesen Fortschritten zu profitieren, um die Entwicklung eines Allzweckroboters voranzutreiben. 
 % In Anbetracht der Fortschritte in der KI-Forschung, insbesondere im Bereich der multimodalen Modelle, strebt die Robotik zunehmend danach, von diesen Fortschritten zu profitieren, um die Entwicklung eines Allzweckroboters voranzutreiben. 
 
-\newcommand*{\IhreSchluesselwoerterDe}{\LaTeX, Textsatz, Formeln, Graphiken}
+\newcommand*{\IhreSchluesselwoerterDe}{Robotik, Imitation Learning, Reinforcement Learning, VLA Models}
 \newcommand*{\IhreZusammenfassungEn}{
 The overarching goal of robotics is to develop a general-purpose robot capable of performing a wide range of tasks in unfamiliar real-world environments. The recent success of large language models has demonstrated that training on large and diverse datasets can lead to substantial performance improvements. These models already exhibit remarkable capabilities and are able to solve tasks for which they were not explicitly trained.
 In light of these advances, the scientific community is increasingly striving to replicate these successes in robotics. However, achieving this goal requires large and diverse robot-specific datasets, which are currently available only to a limited extent.
@@ -200,7 +200,7 @@ This thesis provides an introduction to the field of intelligent robotics and ex
 % Particular attention is given to video understanding, representation learning, and the extraction of actionable knowledge from large-scale video data. Key challenges such as missing action labels and the distribution shift between human and robot observations are analyzed, together with approaches for overcoming these limitations.
 
 % Furthermore, the thesis reviews a range of robot learning approaches, including imitation learning, reinforcement learning, hybrid methods, and multimodal Vision-Language-Action (VLA) models. Current challenges, future research directions, and selected real-world applications are discussed to provide a comprehensive picture of the field. Overall, the thesis demonstrates that video-based imitation learning offers a promising pathway toward more capable, adaptable, and generalizable robotic systems, while highlighting the challenges that must be addressed to achieve this goal.
-\newcommand*{\IhreSchluesselwoerterEn}{\LaTeX, Textsatz, Formeln, Graphiken}
+\newcommand*{\IhreSchluesselwoerterEn}{Robotics, Imitation Learning, Reinforcement Learning, VLA Models}
 
 
 \usepackage[bookmarks, raiselinks, pageanchor, % PDF-Einstellungen
@@ -252,8 +252,8 @@ This thesis provides an introduction to the field of intelligent robotics and ex
       \textbf{\IhreArbeit}\\[1cm]
       von\\[1cm]
       \IhrVorname\ \Sperren{\textbf{\IhrNachname}}\\[1cm]
-      \textbf{\IhrTitelDE}\\[1cm]
-      \IhrTitelEN
+      \textbf{\IhrTitelEN}\\[1cm]
+      \IhrTitelDE
     \end{center}
   \end{titlepage}
   \clearpage
@@ -269,8 +269,8 @@ This thesis provides an introduction to the field of intelligent robotics and ex
     \textbf{\IhreArbeit}\\[1cm]
     von\\[1cm]
     \IhrVorname\ \Sperren{\textbf{\IhrNachname}}\\[1cm]
-    \textbf{\IhrTitelDE}\\[1cm]
-    \IhrTitelEN
+    \textbf{\IhrTitelEN}\\[1cm]
+    \IhrTitelDE
   \end{center}
   \vspace*{5cm}
   \begin{tabbing}
@@ -281,7 +281,14 @@ This thesis provides an introduction to the field of intelligent robotics and ex
   \underbar{1. Prüfer:}\qquad\IhrErstpruefer\par
   \underbar{2. Prüfer:}\qquad\IhrZweitpruefer
   \clearpage
+  \thispagestyle{empty}			% Leerseite (dazu muss ein Trick verwendet werden)
+  \mbox{}
+  \clearpage
   \include{formblatt_selbststaendigkeitserklaerung}		% 3. Seite: Formblatt Bestaetigung nach Paragraph 12 APO
+  \clearpage
+  \thispagestyle{empty}			% Leerseite (dazu muss ein Trick verwendet werden)
+  \mbox{}
+  \clearpage  
   \include{formblatt_summary}			% 4. Seite: Formblatt Zusammenfassung
   \tableofcontents
   \cleardoublepage
@@ -312,14 +319,14 @@ This thesis provides an introduction to the field of intelligent robotics and ex
   \pagenumbering{arabic}
   \include{chapter1/kapitel1}
   \include{chapter2/kapitel2}
-  \include{chapter3/kapitel3}
-  \include{chapter4/kapitel4}
-  \include{chapter5/kapitel5}
-  \include{chapter6/kapitel6}
-  \include{chapter6/kapitel6_2}
-  \include{chapter7/kapitel7}
-  \include{chapter8/kapitel8}
-  \include{chapter9/kapitel9}
+  % \include{chapter3/kapitel3}
+  % \include{chapter4/kapitel4}
+  % \include{chapter5/kapitel5}
+  % \include{chapter6/kapitel6}
+  % \include{chapter6/kapitel6_2}
+  % \include{chapter7/kapitel7}
+  % \include{chapter8/kapitel8}
+  % \include{chapter9/kapitel9}
   
   % ... weitere Kapitel
 
