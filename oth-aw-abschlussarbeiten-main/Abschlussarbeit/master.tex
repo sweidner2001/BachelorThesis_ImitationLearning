@@ -33,6 +33,7 @@
   ,dashed=false               % Autorenname wird immer ausgeschrieben
   ,citestyle=numeric-comp
 ]{biblatex}
+\renewcommand*{\bibfont}{\footnotesize}
 
 % \addbibresource{General.bib}
 \addbibresource{BA.bib}
@@ -62,31 +63,60 @@
 	    footskip=1.5cm,			% Abstand der Fusszeile
 	    includeheadfoot]{geometry}
 
-\usepackage{fancyhdr}						% Konfiguration von Kopf- und Fusszeilen
-\pagestyle{fancy}							% Seitenstil 'fancy'
-\fancyhf{}									% vorhandene Einstellungen loeschen
-\setlength{\headwidth}{\textwidth}			% Kopf- und Fusszeile so breit wie der Haupttext
-\fancyfoot[R]{\thepage} 					% Festlegung des Seitenstils: Seitenzahlen in der Fusszeile rechts
-\fancyfoot[L]{\leftmark}					% Kapitelnr. und -Bezeichnung in der Fusszeile links
-\fancyhead[R]{\IhreArbeitEN}					% "Bachelorarbeit" in der Kopfzeile rechts
-\fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
-\renewcommand{\chaptermark}[1]{			% Definition der Ausgabe des Kapitels
-  \markboth{Chapter \thechapter. #1}{}}
-\renewcommand{\headrulewidth}{0.5pt}		% Trennlinie zwischen Kopfzeile und Haupttext
-\renewcommand{\footrulewidth}{0.5pt}		% Trennlinie zwischen Haupttext und Fusszeile
-\fancypagestyle{plain}{					% Anpassung des Seitenstils 'plain' bei Beginn neuer Kapitel
-  \fancyhf{}								% Vorbelegung loeschen
-  % \fancyfoot[C]{\thepage}					% Seitenzeilen in der Fusszeile mittig
-  % \fancyhead[R]{\IhreArbeit}				% "Bachelorarbeit" in der Kopfzeile rechts
-  % \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
 
 
+% Seitenlayout + Footer:
+\usepackage{fancyhdr}						            % Konfiguration von Kopf- und Fusszeilen
+\pagestyle{fancy}							              % Seitenstil 'fancy'
+\fancyhf{}									                % vorhandene Einstellungen loeschen
+\setlength{\headwidth}{\textwidth}			    % Kopf- und Fusszeile so breit wie der Haupttext
+% \fancyfoot[R]{\thepage} 					          % Festlegung des Seitenstils: Seitenzahlen in der Fusszeile rechts
+% \fancyfoot[L]{\leftmark}					          % Kapitelnr. und -Bezeichnung in der Fusszeile links
+% TODO: if without even odd use oneside in documentclass
+\fancyfoot[LE,RO]{\thepage}                
+\fancyfoot[LO,RE]{\nouppercase\leftmark}
+\fancyhead[R]{\IhreArbeitEN}					        % "Bachelorarbeit" in der Kopfzeile rechts
+\fancyhead[L]{\IhrVorname\ \IhrNachname}	  % Vorname und Name in der Kopfzeile links
+\renewcommand{\chaptermark}[1]{			        % Definition der Ausgabe des Kapitels
+  \markboth{\thechapter. #1}{}}
+\renewcommand{\headrulewidth}{0.5pt}		    % Trennlinie zwischen Kopfzeile und Haupttext
+\renewcommand{\footrulewidth}{0.5pt}		    % Trennlinie zwischen Haupttext und Fusszeile
+\fancypagestyle{plain}{					            % Anpassung des Seitenstils 'plain' bei Beginn neuer Kapitel
+  \fancyhf{}								                % Vorbelegung loeschen
+  % \fancyfoot[C]{\thepage}					          % Seitenzeilen in der Fusszeile mittig
   \fancyfoot[LE,RO]{\thepage}                
   \fancyfoot[LO,RE]{\nouppercase\leftmark}
-  \fancyhead[R]{\IhreArbeitEN}					        % "Bachelorarbeit" in der Kopfzeile rechts
-  \fancyhead[L]{\IhrVorname\ \IhrNachname}	  % Vorname und Name in der Kopfzeile links
-
+  \fancyhead[R]{\IhreArbeitEN}				      % "Bachelorarbeit" in der Kopfzeile rechts
+  \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
 }
+
+
+
+% \usepackage{fancyhdr}						% Konfiguration von Kopf- und Fusszeilen
+% \pagestyle{fancy}							% Seitenstil 'fancy'
+% \fancyhf{}									% vorhandene Einstellungen loeschen
+% \setlength{\headwidth}{\textwidth}			% Kopf- und Fusszeile so breit wie der Haupttext
+% \fancyfoot[R]{\thepage} 					% Festlegung des Seitenstils: Seitenzahlen in der Fusszeile rechts
+% \fancyfoot[L]{\leftmark}					% Kapitelnr. und -Bezeichnung in der Fusszeile links
+% \fancyhead[R]{\IhreArbeitEN}					% "Bachelorarbeit" in der Kopfzeile rechts
+% \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
+% \renewcommand{\chaptermark}[1]{			% Definition der Ausgabe des Kapitels
+%   \markboth{Chapter \thechapter. #1}{}}
+% \renewcommand{\headrulewidth}{0.5pt}		% Trennlinie zwischen Kopfzeile und Haupttext
+% \renewcommand{\footrulewidth}{0.5pt}		% Trennlinie zwischen Haupttext und Fusszeile
+% \fancypagestyle{plain}{					% Anpassung des Seitenstils 'plain' bei Beginn neuer Kapitel
+%   \fancyhf{}								% Vorbelegung loeschen
+%   % \fancyfoot[C]{\thepage}					% Seitenzeilen in der Fusszeile mittig
+%   % \fancyhead[R]{\IhreArbeit}				% "Bachelorarbeit" in der Kopfzeile rechts
+%   % \fancyhead[L]{\IhrVorname\ \IhrNachname}	% Vorname und Name in der Kopfzeile links
+
+
+%   \fancyfoot[LE,RO]{\thepage}                
+%   \fancyfoot[LO,RE]{\nouppercase\leftmark}
+%   \fancyhead[R]{\IhreArbeitEN}					        % "Bachelorarbeit" in der Kopfzeile rechts
+%   \fancyhead[L]{\IhrVorname\ \IhrNachname}	  % Vorname und Name in der Kopfzeile links
+
+% }
 
 
 
@@ -293,15 +323,15 @@ This thesis provides an introduction to the field of intelligent robotics and ex
   \tableofcontents
   \cleardoublepage
 
-  \printacronyms[heading=chapter*]
+  % \printacronyms[heading=chapter*]
   % \printacronyms[include-classes={acro}, heading=chapter*, addtotoc]
   % \printacronyms[heading=chapter*, addtotoc]
   % \chapter*{Acronyms}
   % \addcontentsline{toc}{chapter}{Acronyms}
 
 
-  \newpage
-  \include{./formularNotation}
+  % \newpage
+  % \include{./formularNotation}
 %   \chapter*{Mathematical Notation in Formulas}
 %   % \section{Introduction and Mathematical Notation of Formulas}
 
@@ -330,12 +360,17 @@ This thesis provides an introduction to the field of intelligent robotics and ex
   
   % ... weitere Kapitel
 
+
+  \printacronyms[heading=chapter*]
+
   % Literaturverzeichnis
   % Der Name der Bibliographie Datei kann angepasst werden
   \phantomsection
   \addcontentsline{toc}{chapter}{Literaturverzeichnis}
 %\bibliography{testbib}
+\renewcommand*{\bibfont}{\footnotesize}
 \printbibliography
+% {\footnotesize \printbibliography}
 %\bibliographystyle{plain}
   \newpage
 
@@ -353,7 +388,3 @@ This thesis provides an introduction to the field of intelligent robotics and ex
   %\include{anhang}
 \end{document}
 
-
-% ToDo: unter jede Überschrift muss ein Text kommen, z.B. übersicht über das Kapitel oder die Section
-
-% ToDo: Acronym Package
