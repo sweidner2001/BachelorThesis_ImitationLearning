@@ -64,10 +64,10 @@ The guide covers the configuration of network settings and communication ports o
 
 
 
-\section{Control Protocols}
+\section{Robot Control Protocols}
 
 
-\subsection{Robot Control Protocol via ROS 2}
+\subsection{ROS 2 - Robot Operating System 2}
 ROS 2 (Robot Operating System 2)~\cite{ROS2Documentation} is an open-source robotics middleware framework used for building modular and distributed robotic systems. It organizes software into independent components called nodes, where each node performs a specific function such as perception, control, or planning. These nodes communicate with each other using standardized interfaces.
 % , including topics, services and actions. 
 ROS 2 provides the communication infrastructure that enables reliable data exchange between different parts of a robotic system. In this way, it acts as the “plumbing” layer that connects sensing, computation and actuation in robotics applications. A key advantage of ROS 2 is that it allows the same software components to be reused across different robotic platforms without requiring changes to the core code, as long as the robots support the same ROS 2 communication interfaces.
@@ -161,7 +161,7 @@ In summary, the ROS 2 implementation provides a comprehensive framework for cont
 
 
 
-\subsection{Robot Control Protocol via RTDE}
+\subsection{RTDE - Real-Time Data Exchange}
 RTDE (Real-Time Data Exchange)~\cite{RealTimeDataExchange} is a direct communication interface provided by Universal Robots for exchanging data between an external computer and the robot controller. It enables fast, low-latency transmission of sensor data and control commands. Compared to ROS 2, RTDE operates closer to the hardware and therefore provides higher update rates. This makes it suitable for real-time robot applications in the Universal Robots universe, where fast and reliable data exchange is required. The advantage is that RTDE is easy to set up. However, the disadvantage is that the interface must be adapted when switching to a different robot.
 The complete RTDE implementation developed during this work is publicly available in the following repository:
 \begin{center}
@@ -392,7 +392,7 @@ Overall, the rapid progress in robot learning and the complementary fields of \a
 % Underexplored direction: is to use LfV rewards to augment reward labels in offline RL data.
 
 % - **Safety:** LfV reward may useful for detecting **safety-related metrics**
-% - **RL-AI-F:** Extracting shaped reward functions from video-to-text models via **RL from AI feedback (RL-AI-F) methods** is an avenue for future work.
+% - **RL-AI-F:** Extracting shaped reward functions from video-to-text models via **RL from \ac{AI} feedback (RL-AI-F) methods** is an avenue for future work.
 
 % - **Pretrained Foundation Models:** The most promising approaches
 %     - including **video-language models** and **video predictors** as reward functions

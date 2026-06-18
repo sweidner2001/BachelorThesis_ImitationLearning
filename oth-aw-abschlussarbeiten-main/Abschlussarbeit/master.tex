@@ -222,7 +222,7 @@ Diese Arbeit führt in das Gebiet der intelligenten Robotik ein und untersucht, 
 
 \newcommand*{\IhreSchluesselwoerterDe}{Robotik, Imitation Learning, Behavior Cloning, Learning from Videos, Reinforcement Learning}
 \newcommand*{\IhreZusammenfassungEn}{
-The overarching goal of robotics is to develop a general-purpose robot that can perform a wide range of tasks in unfamiliar real-world environments. The recent success of large language models demonstrates that training on large, diverse datasets can substantially improve performance. These models already exhibit remarkable capabilities and can solve tasks for which they were not explicitly trained. In light of these advances, the scientific community is striving to replicate these successes in robotics by exploring machine learning paradigms such as reinforcement and imitation learning. However, achieving this goal requires large, diverse, robot-specific datasets, which are currently only available to a limited extent. To overcome this scarcity of data, there is a growing interest in leveraging the vast amount of video data available on the Internet. This thesis introduces the field of intelligent robotics and examines how robots can learn from human demonstration videos through imitation learning. Specifically, the thesis addresses how relevant knowledge can be extracted from internet videos and how robots can benefit from such knowledge to improve their generalization capabilities. Additionally, the thesis analyzes existing challenges and discusses future research directions for the presented approaches.
+The overarching goal of robotics is to develop a general-purpose robot that can perform a wide range of tasks in unfamiliar real-world environments. The recent success of large language models demonstrates that training on large, diverse datasets can substantially improve performance. These models already exhibit remarkable capabilities and can solve tasks for which they were not explicitly trained. In light of these advances, the scientific community is striving to replicate these successes in robotics by exploring machine learning paradigms such as reinforcement and imitation learning. However, achieving this goal requires large, diverse, robot-specific datasets, which are currently only available to a limited extent. To overcome this scarcity of data, there is a growing interest in leveraging the vast amount of video data available on the internet. This thesis introduces the field of intelligent robotics and examines how robots can learn from human demonstration videos through imitation learning. Specifically, the thesis addresses how relevant knowledge can be extracted from internet videos and how robots can benefit from such knowledge to improve their generalization capabilities. Additionally, the thesis analyzes existing challenges and discusses future research directions for the presented approaches.
 }
 % The overarching goal of robotics is to develop a general-purpose robot capable of performing a wide range of tasks in unfamiliar real-world environments. The recent success of large language models has demonstrated that training on large and diverse datasets can lead to substantial performance improvements. These models already exhibit remarkable capabilities and are able to solve tasks for which they were not explicitly trained.
 % In light of these advances, the scientific community is increasingly striving to replicate these successes in robotics. However, achieving this goal requires large and diverse robot-specific datasets, which are currently available only to a limited extent.
@@ -365,30 +365,71 @@ The overarching goal of robotics is to develop a general-purpose robot that can 
   % ... weitere Kapitel
 
 
-  \printacronyms[heading=chapter*]
+% List of abbreviations
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\printacronyms[heading=chapter*]
+% \chapter*{List of Abbreviations}
+% \input{Chapters/Appendix/_acronyms.tex}
+\newpage
 
-  % Literaturverzeichnis
-  % Der Name der Bibliographie Datei kann angepasst werden
-  \phantomsection
-  \addcontentsline{toc}{chapter}{Literaturverzeichnis}
-%\bibliography{testbib}
+% List of figures
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\newpage
+
+% List of tables
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\newpage
+
+% Bibliography
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
 \renewcommand*{\bibfont}{\footnotesize}
-\printbibliography
-% {\footnotesize \printbibliography}
-%\bibliographystyle{plain}
-  \newpage
+\printbibliography[title=Bibliography]
+\newpage
 
-  % Anhang
-  \phantomsection
-  \addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
-  \listoffigures
-  \newpage
 
-  \phantomsection
-  \addcontentsline{toc}{chapter}{Tabellenverzeichnis}
-  \listoftables
-  \newpage
+
+
+
+
+
+
+
+
+
+
+
+
+%   % Literaturverzeichnis
+%   % Der Name der Bibliographie Datei kann angepasst werden
+%   \phantomsection
+%   \addcontentsline{toc}{chapter}{Literaturverzeichnis}
+% %\bibliography{testbib}
+% \renewcommand*{\bibfont}{\footnotesize}
+% \printbibliography
+% % {\footnotesize \printbibliography}
+% %\bibliographystyle{plain}
+%   \newpage
+
+%   % Anhang
+%   \phantomsection
+%   \addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+%   \listoffigures
+%   \newpage
+
+%   \phantomsection
+%   \addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+%   \listoftables
+%   \newpage
 
   %\include{anhang}
 \end{document}
 
+
+
+% Fragen: 5.1.5 und 5.2.1 - wie formatieren

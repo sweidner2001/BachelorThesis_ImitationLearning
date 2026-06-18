@@ -1,7 +1,7 @@
 
 
 % ToDo: Video-centric and approaches for video and images.
-\chapter{Robot Learning - Approaches}
+\chapter{Robot Learning}
 \label{chap:RobotLearningApproaches}
 \minitoc
 In this Chapter, we will focus more closely on the various distinct but interrelated categories of approaches, which use the objectives from Chapter~\ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} to learn a coherent robot model \cite{Eze2024LearningBW}. The main focus lies on the intersection of \ac{LfV} and \ac{RL}, highlighting how video-based learning can enhance \ac{RL} algorithms and enable more efficient policy learning from visual data. Finally we give a brief introduction to \ac{VLA} models, which is currently the peak of research in the field of video-based robot learning.
@@ -50,7 +50,7 @@ Feature extraction methods are generally data-efficient and flexible, making the
 
 
 
-\subsection{Domain Bridging via Translation Approaches}
+\subsection{Domain Bridging via Translation}
 This category addresses the domain shift—the mismatch in human and robot embodiment, visual appearance and context—between human demonstration videos and robot execution. Translation techniques convert visual and contextual data into robot-compatible representations, such that human demonstrations become more directly usable for robot learning \cite{Eze2024LearningBW}. 
 % These approaches are crucial for enabling sim-to-real transfer and human-to-robot \ac{IL}, as they reduce the gap between the source (human videos) and target (robot policies) domains.
 
@@ -178,7 +178,7 @@ In addition to these main categories, several complementary approaches have been
 \paragraph{Meta- \& Few-Shot Imitation Learning}
 Meta- and Few-Shot \ac{IL} approaches focuses on improving generalization capabilities by training on diverse tasks so that robots can quickly adapt to novel tasks from only a handful of demonstrations \cite{Eze2024LearningBW, Finn2017ModelAgnosticMF, Song2022ACS}.
 \begin{itemize}
-    \item \textbf{Few-shot Learning:} Refers to a broad approach in which models can make accurate predictions using only a small number of examples. It is a subcategory of N-shot learning and includes One-shot learning (learning from a single example) and Zero-shot learning (no examples needed). In practice, few-shot learning often leverages techniques such as meta-learning, transfer learning, data augmentation, or data generation methods,e.g. using generative AI. Combinations of these approaches are also common \cite{Ghadirzadeh2021BayesianMF, Song2022ACS}.
+    \item \textbf{Few-shot Learning:} Refers to a broad approach in which models can make accurate predictions using only a small number of examples. It is a subcategory of N-shot learning and includes One-shot learning (learning from a single example) and Zero-shot learning (no examples needed). In practice, few-shot learning often leverages techniques such as meta-learning, transfer learning, data augmentation, or data generation methods,e.g. using generative \ac{AI}. Combinations of these approaches are also common \cite{Ghadirzadeh2021BayesianMF, Song2022ACS}.
 
     \item \textbf{Meta-Learning:} Also known as ``learning to learn'', describes the development of models that can achieve strong performance from a small amount of data or with very few training steps, thereby adapting efficiently to new tasks. More formally, Meta-Learning is a approach that aims to improve the learning ability of models by enabling them to learn from prior experiences and transfer that knowledge to new tasks. The main goal is to adapt the learning ability from humans. These algorithms are typically trained on a wide variety of different tasks, that the model can learn how to quickly adapt to new tasks \cite{Eze2024LearningBW, Ghadirzadeh2021BayesianMF, Song2022ACS}.
 \end{itemize}
@@ -676,7 +676,7 @@ Research on learning value functions directly from videos remains relatively sca
 
 
 
-\section{Multi-Modal Approaches \& \acs{VLA} Models}
+\section{Multi-Modal Models \& \acs{VLA} Models}
 \label{sec:MultiModalApproachesVLAModels}
 % Vision-Language-Action (VLA) models represent a recent frontier in robotic intelligence by jointly integrating visual perception, natural language understanding and robot action generation into a unified framework. These models enable robots to interpret visual environments, understand human instructions expressed in natural language and execute grounded robotic actions accordingly.
 

@@ -34,8 +34,9 @@ This chapter provides an overview of the key concepts and theories that form the
 % Annotating refers to the process of labeling data, in which data is enriched with additional information. For example, this may include assigning class labels, marking target objects in images, or labeling states and actions within robot trajectories. Annotated, or labeled, data forms the foundation for supervised learning approaches.
 
 
-\section{Machine Learning: Core Categories}
-There are various approaches to training an AI model for a robot. These involve methods from the four core \ac{ML} categories, which can also be combined.
+% \section{Machine Learning: Core Categories}
+\section{Core Learning Paradigms in Machine Learning}
+There are various approaches to training an \ac{AI} model for a robot. These involve methods from the four core \ac{ML} categories, which can also be combined.
 
 \paragraph{Supervised Learning:}
 
@@ -316,7 +317,7 @@ In simple terms, the gradient indicates how the function value changes when maki
 
 % In Figure~\ref{fig:NNGradientIntro}, the gradient is represented by the slope of the curve at a particular point. It indicates how the function value changes when moving slightly away from that point.
 % The gradient is represented by the slope of the curve at a particular point. 
-To better understand the concept of gradients, consider \autoref{fig}. We want to determine the slope of the blue curve at $x=1$. For the function $f(x)=x^2-3$, the derivative is $f'(x)=2x$, which we evaluate it at $x=1$. $f'(1)=2$ and means the slope of the curve at this point is 2. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
+To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. We want to determine the slope of the blue curve at $x=1$. For the function $f(x)=x^2-3$, the derivative is $f'(x)=2x$, which we evaluate it at $x=1$. $f'(1)=2$ and means the slope of the curve at this point is 2. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
 In general, the gradient indicates whether a function is increasing or decreasing at a specific point and how steeply it changes. A positive gradient means that the function is increasing, while a negative gradient indicates that the function is decreasing. The magnitude of the gradient describes how steeply the function changes. Larger magnitudes correspond to steeper slopes, while values close to zero indicate relatively flat regions.
 % To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. We want to determine the slope of the blue curve at the point $x=1$. To do this, we calculate the gradient at that point. First, we compute the derivative $f'(x)=2x$ of the function $f(x)=x^2-3$ and evaluate it at $x=1$. The first derivative $f'(x)$ provides the slope at any point on the function $f(x)$. In this example, the slope at $x=1$ is $f'(1)=2$. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
 
@@ -592,7 +593,7 @@ Pooling layers are typically applied after convolution layers and allow the netw
 
 \paragraph{CNN Pipeline}
 
-The common CNN processing sequence is: (1) convolution, (2) activation function and (3) pooling, while the activation function is often not mentioned explicitly.
+The common CNN processing sequence is: convolution, activation function and pooling, while the activation function is often not mentioned explicitly.
 A CNN usually consists of several repeated blocks of convolution and pooling layers. Early layers detect simple features such as edges and corners, while deeper layers combine these basic features into more complex structures. 
 After several convolution and pooling stages, the feature maps are flattened into one big vector and passed through a MLP or a classification head in a classification task to produce the final predictions, see \autoref{fig:CNNPipeline}. Through backprobagating the prediction error, the networks parameter are adjusted during training.
 
@@ -809,13 +810,13 @@ In imitation learning, Vision Transformers can be used as visual encoders that e
 
 
 \section{Foundation Model}
-% The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern AI systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
+% The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern \ac{AI} systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
 
 % Recent advances in artificial intelligence have been largely driven by the development of foundation models. 
 A foundation model is a large-scale model that is pre-trained on vast amounts of data and can subsequently be adapted to a wide range of downstream tasks \cite{Bommasani2021OnTO}. Instead of being designed for a single application, foundation models learn general patterns, concepts and representations that can be reused across different domains and tasks.
 A key characteristic of foundation models is their ability to generalize to problems that were not explicitly specified during training. This broad knowledge enables them to serve as a common basis for many specialized applications. 
 Unimodal foundation models (e.g., GPT-3 for text \cite{Brown2020LanguageMA}, Stable Diffusion for images \cite{Rombach2021HighResolutionIS}) learn patterns within a single data type, whereas Multi-modal foundation models (e.g., CLIP \cite{Radford2021LearningTV}, GPT-4V \cite{Achiam2023GPT4TR}, Gemini \cite{Reid2024Gemini1U, team2023gemini}) learn joint representations across modalities such as text, images and audio.
-Due to their versatility and strong generalization capabilities, foundation models have become the foundation of many modern AI systems.
+Due to their versatility and strong generalization capabilities, foundation models have become the foundation of many modern \ac{AI} systems.
 
 
 % \begin{figure}[!ht]
@@ -829,11 +830,11 @@ Due to their versatility and strong generalization capabilities, foundation mode
 A multimodal model is capable of processing and relating information from two or more data modalities, such as text, images, audio, or sensor measurements \cite{Baltruaitis2017MultimodalML}. Unlike unimodal models, which operate on only a single type of data, multimodal models learn a shared representation that enables information from different modalities to be interpreted jointly.
 The integration of multiple modalities allows a model to leverage complementary information, handle missing data from one source by relying on another, provide more comprehensive insights and improves model generalization \cite{Liang2022FoundationsT}.
 For example, a multimodal model can analyze an image together with a textual instruction and use information from both inputs to answer a question or perform a task. 
+Multimodal Learning is a own learning paradigm and refers to the use of various data modalities within a single learning concept \cite{Ngiam2011MultimodalDL, Baltruaitis2017MultimodalML}.
 % This capability allows the model to connect visual observations with linguistic concepts and reason across different sources of information. Models such as CLIP align images and text within a common representation space \cite{Radford2021LearningTV}, while more recent models such as Gemini can process as well as generate information across multiple modalities \cite{Reid2024Gemini1U, team2023gemini}.
 
 % Although many multimodal models can generate outputs in different modalities, such as images from text prompts, the defining characteristic of a multimodal model is its ability to understand and relate multiple forms of data rather than the specific modality of its output \cite{Achiam2023GPT4TR, Reid2024Gemini1U, team2023gemini}.
 
-\textit{Multimodal Learning} is a own learning paradigm and refers to the use of various data modalities within a single learning concept \cite{Ngiam2011MultimodalDL, Baltruaitis2017MultimodalML}.
 
 
 % \paragraph{Vision-Language-Action Models}
@@ -929,7 +930,8 @@ Due to the exploration phase, the success of the chosen \ac{RL} approach only be
 
 
 
-\subsection{Knowledge Modality from Video}
+% \subsection{Knowledge Modalities from Video}
+\paragraph{Knowledge Modalities from Video}
 An \ac{RL} \ac{KM} is some function learned from data that represents specific types of \ac{RL}-related knowledge.
 \ac{KM}s can be learned through trial-and-error principles or from video datasets \cite{Wulfmeier2023FoundationsFT}:
 %  can capture different aspects of the \ac{RL} problem \cite{Wulfmeier2023FoundationsFT}. 
@@ -938,7 +940,7 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 	\item \textbf{Policy:} The policy specifies how likely the agent is to select a particular action given its current observation of the environment.
 	It can be learned from video data by observing the actions taken in different states and learning to predict those actions based on the visual input \cite{Wulfmeier2023FoundationsFT}. 
 	
-	\item \textbf{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state \cite{sutton2018reinforcement}, see Figures \ref{fig:VFunctionVsQFunction}. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input \cite{Wulfmeier2023FoundationsFT}.
+	\item \textbf{Value functions:} Value functions estimate the expected future return (cumulative reward) for a given state \cite{sutton2018reinforcement}, see Figure \ref{fig:VFunctionVsQFunction}. They can be learned from video data by observing the outcomes of actions and learning to predict the expected future rewards based on the visual input \cite{Wulfmeier2023FoundationsFT}.
 
 	\begin{itemize}
 		% V-Function
@@ -954,7 +956,7 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 		% \end{figure}
 
 		% Q-Function
-		\item \textbf{State-action value function (Q-function):} 		
+		\item \textit{State-action value function (Q-function):} 		
 		A Q-function $Q_\pi(s_t,a_t)$ is a mapping from state-action pairs to the expected future return when acting under a particular policy $\pi$ \cite{sutton2018reinforcement}. $Q_\pi(s,a)$ evaluates the expected return of taking a specific action $a$ in state $s$ and subsequently following the policy $\pi$. It provides information about the quality of individual actions available in that state $s$.
 		Intuition: ''How good is this specific action in a certain state, if I continue behaving like my policy $\pi$?''
 
@@ -980,9 +982,6 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 				\includegraphics[width=4.6cm]{./chapter2/media/RL_VFunction.png}
 				\label{fig:RL_VFunction}
 			\end{minipage}%
-
-			% \includegraphics[width=5cm]{./chapter2/media/RL_VFunction.png}
-			% \label{fig:ImageInstruction_1}
 		}
 		\hspace{0.8cm}
 		\subfigure[Q-Function: Returns the expected future return for a given state-action pair.]{
@@ -992,17 +991,17 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 				\label{fig:RL_QFunction}
 			\end{minipage}%
 		}
-		% \caption[Comparison of V-Function and Q-Function.]{Comparison of V-Function and Q-Function}
-		% \label{fig:VFunctionVsQFunction}
+		\caption[Comparison of V-Function and Q-Function.]{Comparison of V-Function and Q-Function}
+		\label{fig:VFunctionVsQFunction}
 	\end{figure}
 
 
 	% Dynamics model:
-	\item \textit{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. 
+	\item \textbf{Dynamics model:} A Dynamics model $p(s_{t+1}|s_t,a_t)$ predicts the next state $s_{t+1}$ given the current state $s_t$ and action $a_t$ \cite{sutton2018reinforcement}. 
 	% Video prediction models can be used as robot dynamics models \cite{Eze2024LearningBW}. 
 	By learning to predict future video frames based on current observations and actions, the model can capture the underlying dynamics of the environment and allows the robot to anticipate the consequences of its actions and make informed decisions based on predicted future states \cite{Eze2024LearningBW}.
 	% Reward model:
-	\item \textit{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$ \cite{sutton2018reinforcement}. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
+	\item \textbf{Reward model:} A reward function $r(s_t,a_t)$ defines the reward received by the agent for taking action $a_t$ in state $s_t$ \cite{sutton2018reinforcement}. It can be learned from video data by observing the outcomes of actions and inferring the underlying reward structure that motivates those actions. For example, if a video shows a robot successfully picking up an object, the reward function can learn to assign a positive reward to that action in similar states.
 \end{itemize}
 
 
@@ -1011,14 +1010,14 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 
 \section{Imitation Learning} \label{sec:ImitationLearning}
 \ac{IL} or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations or ``in the wild'' videos \cite{Chrysomallis2025ImitationLI}. ``In the wild'' videos refer to videos that are not specifically recorded for training purposes, but are instead sourced from real-world settings, such as those found in great variety on the internet, for example on platforms like YouTube.
-% \ac{IL} makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train AI models \cite{McCarthy_2025}.
+% \ac{IL} makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train \ac{AI} models \cite{McCarthy_2025}.
 The demonstration videos can show a robot, a human, or even a loose sequence of actions, both in the real world or in a simulation environment, performing a specific task. However, videos without a clearly defined objective or with unknown activity can also be used \cite{McCarthy_2025}.
 Models can through \ac{IL} be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This, in turn, is a key prerequisite for the development of a generalist policy.
 \ac{IL} can be divided into Behavior Cloning and Learning from Videos/Observation.
 
 
 \subsection{Behavior Cloning}
-\ac{BC} is a fundamental approach within \ac{IL}, where a policy is learned directly from \textbf{annotated expert demonstrations} \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$ and the problem is formulated as a standard supervised learning task.  
+\ac{BC} is a fundamental approach within \ac{IL}, where a policy is learned directly from annotated expert demonstrations \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$ and the problem is formulated as a standard supervised learning task.  
 Conceptually, \ac{BC} can be understood as a form of direct imitation or copying of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. 
 % Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
 % BC is used to train Vision Language Action models and for pre-training models used in \ac{RL}, see Section \textbf{XXX}
@@ -1055,13 +1054,13 @@ where $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\cdot]$ means taking all state-actio
 
 
   
-\subsection{Learning from Videos / Observation}
-\ac{LfV}, also referred to as \ac{LfO}, relies solely on \textbf{video demonstrations without explicit action annotations} \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to \ac{BC}, where state-action pairs are directly available, \ac{LfV} aims to infer the underlying actions or high-level intent purely from perceptual data, i.e. mapping observations to actions $(s \rightarrow a)$. It often uses Representation Learning, to learn and discover the most important (unknown) underlying data characteristics.% by transforming and reducing input in a fully data-driven and automatic manner.	
+\subsection{Learning from Videos}
+\ac{LfV}, also referred to as \ac{LfO}, relies solely on video demonstrations without explicit action annotations \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to \ac{BC}, where state-action pairs are directly available, \ac{LfV} aims to infer the underlying actions or high-level intent purely from perceptual data, i.e. mapping observations to actions $(s \rightarrow a)$. It often uses Representation Learning, to learn and discover the most important (unknown) underlying data characteristics.% by transforming and reducing input in a fully data-driven and automatic manner.	
 
 A central challenge in \ac{LfV} is determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See \autoref{chap:LearningFromVideosDataModalityAndChallenges} for more information.
-Due to this property, \ac{LfV} can be seen as a \textbf{weakly supervised or self-supervised Imitation Learning} approach. 
+Due to this property, \ac{LfV} can be seen as a weakly supervised or self-supervised \ac{IL} approach. 
 Its main advantage lies in scalability, as it enables leveraging large amounts of unannotated video data without the need for costly data annotation \cite{McCarthy_2025}. Furthermore, additional actions can be derived from annotated video data too \cite{McCarthy_2025}.
-In robotics, \ac{LfV} is commonly used as a \textbf{pretraining step}. The learned representations capture visual, semantic and dynamical aspects of the environment, which can later be refined using methods such as \ac{BC} with annotated data or in \ac{RL} \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
+In robotics, \ac{LfV} is commonly used as a pretraining step. The learned representations capture visual, semantic and dynamical aspects of the environment, which can later be refined using methods such as \ac{BC} with annotated data or in \ac{RL} \cite{McCarthy_2025}. This combination allows models to first learn the real worlds dynamics from large-scale video data and subsequently specialize on task-specific robot demonstrations.
 
 %BC is used to pre-train models for Behavior Cloning and Reinforcement Learning, see Section \textbf{XXX} for more information.
 
