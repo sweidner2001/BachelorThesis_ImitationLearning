@@ -85,23 +85,21 @@ The agent proceeds in its environment according to the trial-and-error principle
 % Neuronale Netze
 
 \section{Neural Networks}
-Artificial Neural Networks are computational models inspired by the structure and functionality of biological brain. They are designed to learn complex relationships from data and have become a fundamental component of modern machine learning. Neural Networks are capable of approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting and control systems. There exist various types of neural network architectures, including \acfp{CNN}, \acfp{RNN}, or Transformer models, each tailored to specific types of data and tasks. The following sections provide an overview of the basic building blocks of neural networks, their mathematical formulation and the training process.
+Artificial Neural Networks are computational models inspired by the structure and functionality of biological brain and have become a fundamental component of modern machine learning. They are designed to learn complex relationships from data by approximating highly nonlinear functions and are therefore widely used in applications such as image recognition, natural language processing, forecasting and control systems. There exist various types of neural network architectures, including \acfp{CNN} or Transformer models, each tailored to specific types of data and tasks. The following sections provide an overview of the basic functionality of neural networks, their mathematical formulation and the training process.
 
 
 \subsection{Neuron}
-The basic element of an artificial neural network is the artificial neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons through dendrites, processes the received information and transmits an output signal through its axon \cite{Lin2017ArtificialNN}. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
+The basic element of an neural network is the neuron. The concept is motivated by biological neurons in the human brain, which communicate through electrochemical signals. In a simplified model, a biological neuron receives signals from other neurons, processes the received information and transmits an output signal \cite{Lin2017ArtificialNN}. Artificial neurons mimic this behavior mathematically by combining several input values into a single output.
 
 \paragraph{History}
-The first mathematical model of an artificial neuron was proposed by McCulloch and Pitts in 1943 \cite{McCulloch1990ALC}. Their model consisted of a binary threshold unit that produced an output only when the weighted sum of its inputs exceeded a predefined threshold. Although this model did not include a learning mechanism, it established the foundation for later neural network research.
-
-A major extension of this idea was introduced by Rosenblatt in 1958 with the perceptron \cite{Rosenblatt1958ThePA}. In contrast to the McCulloch--Pitts neuron, the perceptron introduced trainable weights and a learning rule, making it possible to adapt the model parameters directly from data. However, the perceptron still relied on a simple threshold-based activation, which produces a linear decision boundary and was therefore limited to linearly separable classification problems \cite{Minsky1969AnIT}.
-
+The first mathematical model of an artificial neuron was proposed by McCulloch and Pitts in 1943 \cite{McCulloch1990ALC}. Their model consisted of a binary threshold unit that produced an output only when the weighted sum of its inputs exceeded a predefined threshold and established the foundations for later neural network research.
+A major extension of this idea was introduced by Rosenblatt in 1958 with the perceptron \cite{Rosenblatt1958ThePA}. The perceptron introduced trainable weights to the inputs and a learning rule, making it possible to adapt the model parameters directly from data. However, the perceptron still relied on a threshold-based activation, which produces a linear decision boundary and was therefore limited to linearly separable classification problems \cite{Minsky1969AnIT}.
 This limitation was highlighted by Minsky and Papert, who showed that a single perceptron cannot represent functions such as XOR \cite{Minsky1969AnIT}. The development of multilayer neural networks together with differentiable activation functions later overcame this restriction. These advances made it possible to train networks with multiple layers and enabled the modern neural network architectures that are used in deep learning today.
 
 \paragraph{Mathematical Formulation}
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNNeuron2}
+	\includegraphics[width=0.55\linewidth]{./chapter2/media/NNNeuron2}
 	\caption[Perceptron of an Artificial Neural Network]{Perceptron of an Artificial Neural Network. Image source: \cite{yseYourGuidePerceptrons2024}.}
 	\label{fig:NNIntroModernNeuron}
 \end{figure}
@@ -119,7 +117,7 @@ The value $z$ represents a linear combination of the input features. To enable t
     \label{eq:neuron_activation}
 \end{equation}
 
-Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include for example the GeLU, tanh (hyperbolic tangent) and ReLU.
+Without the activation function, a composition of multiple neurons would still correspond to a single linear transformation and therefore could not represent complex non-linear patterns. Common activation functions used in modern neural networks include for example the GeLU, tanh and ReLU.
 
 
 
@@ -147,21 +145,23 @@ This vector formulation serves as the basis for the matrix representation of an 
 \subsection{Neural Networks}
 A neural network is a collection of interconnected neurons organized into layers. 
 The input layer receives the feature vector, while the output layer produces the final prediction. The hidden layers between the input and output layers perform intermediate computations that allow the network to learn increasingly abstract representations of the input data \cite{Goodfellow-et-al-2016}.
-The parameters of the network, including the weights and biases, are learned from data using optimization algorithms such as gradient descent \cite{Rumelhart1986LearningRB}. The ability of neural networks to learn complex functions from data has made them a powerful tool for a wide range of applications in machine learning and artificial intelligence.
+The parameters of the network (the weights and biases) are learned from data using optimization algorithms such as gradient descent \cite{Rumelhart1986LearningRB}. As universal function approximators, neural networks are capable of learning complex functions from data, which has made them a powerful tool across numerous applications in machine learning.
+% Technically, neural networks are universal function approximators, enabling them to learn complex functions from data and making them a powerful tool for a wide range of applications in machine learning.
 
-To understand the terminology: Artificial neural network is the broadest term, encompassing all brain-inspired, connectionist models. A feedforward neural network is a subcategory where information flows strictly in one direction (from input to output) without forming cycles, but its layers need not be fully connected \cite{Goodfellow-et-al-2016}. The multilayer perceptron is a feedforward network with one or more fully connected (also called dense) hidden layers, where every neuron in one layer connects to every neuron in the next \cite{Goodfellow-et-al-2016}.
+
+To understand the terminology: Artificial neural network is the broadest term, encompassing all brain-inspired, connectionist models. A feedforward neural network is a subcategory where information flows strictly in one direction (from input to output) without forming cycles, but its layers need not be fully connected \cite{Goodfellow-et-al-2016}. The multilayer perceptron is a feedforward network with one or more fully connected (dense) hidden layers, where every neuron in one layer connects to every neuron in the next \cite{Goodfellow-et-al-2016}. In a fully connected layer, every neuron is connected to every neuron in the subsequent layer \cite{Goodfellow-et-al-2016}.
 % Each layer consists of multiple neurons and the output of one layer serves as the input to the next layer.
 
 % In general, a neural network consists of multiple interconnected neurons organized into layers
 %  and the output of one layer serves as the input to the next layer. 
 
 \paragraph{Multilayer Perceptron Network}
-The most common form of such architectures is the \textit{\acf{MLP}}, also referred to as a feedforward neural network \cite{Goodfellow-et-al-2016}. In an \ac{MLP}, where information flows in one direction from the input layer through one or more fully connected hidden layers to the output layer.  
-In an \ac{MLP}, each neuron in a layer receives the outputs of the neurons in the preceding layer as inputs. In a fully connected layer, every neuron is connected to every neuron in the subsequent layer \cite{Goodfellow-et-al-2016}. The output of a layer therefore serves as the input to the next layer.
+The most common form of such architectures is the \textit{\acf{MLP}} \cite{Goodfellow-et-al-2016}. In an \ac{MLP}, information flows in one direction from the input layer through one or more fully connected hidden layers to the output layer, where each neuron in a layer receives the outputs of the neurons in the preceding layer as inputs. 
+% The output of a layer therefore serves as the input to the next layer.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNNetwork}
+	\includegraphics[width=0.55\linewidth]{./chapter2/media/NNNetwork}
 	\caption[Neural Networks: Architecture]{Neural Networks Architecture: Architecture of an Multilayer Perceptron Network. Circles represent perceptrons. Image source: \cite{NeuralNetworksTikZnet2024}.}
 	\label{fig:NNNetwork}
 \end{figure}
@@ -171,7 +171,7 @@ The computation of an entire layer can be expressed compactly using matrix notat
 \begin{equation}
 	\mathbf{z}^{(l)} = \mathbf{W}^{(l)} \mathbf{x}^{(l-1)} + \mathbf{b}^{(l)},
 \end{equation}
-which can be written explicitly as:
+which can be explicitly written as:
 \begin{equation}
 	\begin{bmatrix}
 		w_{11} & \cdots & w_{1N} \\
@@ -202,7 +202,6 @@ which can be written explicitly as:
 \end{equation}
 
 In other words, each neuron in layer $l$ computes its own weighted sum over all outputs of the previous layer and then adds its corresponding bias term. 
-
 Equivalently, the bias can be absorbed into the matrix multiplication by augmenting the input vector with a constant entry $1$ and extending the weight matrix by one additional column:
 
 \begin{equation}
@@ -237,8 +236,9 @@ Then the activation function is applied element-wise to the resulting pre-activa
 
 
 \paragraph{Non-Linear Activation Functions in Neural Networks}
-The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model \cite{Goodfellow-et-al-2016}. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data \cite{Hornik1991ApproximationCO}. In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy. 
-Common activation functions used in modern neural networks include the functions GELU (Gaussian Error Linear Unit) \cite{Hendrycks2016GaussianEL}, ReLU (Rectified Linear Unit) \cite{Nair2010RectifiedLU}, Leaky ReLU \cite{Maas2013RectifierNI}, the tanh (hyperbolic tangent) \cite{Ryck2021OnTA} and the Swish function \cite{Ramachandran2017SwishAS}. But there exist many more. Each of these functions has its own characteristics and can result in different learning dynamics and performance. 
+The introduction of non-linear activation functions is essential, as a composition of purely linear transformations would again result in a linear model \cite{Goodfellow-et-al-2016}. By combining multiple layers with non-linear activations, neural networks can approximate highly complex functions and learn non-linear, intricate patterns from data \cite{Hornik1991ApproximationCO}. 
+% In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy. 
+Common activation functions used in modern neural networks include the functions GELU \cite{Hendrycks2016GaussianEL}, ReLU \cite{Nair2010RectifiedLU}, Leaky ReLU \cite{Maas2013RectifierNI}, the tanh \cite{Ryck2021OnTA} and the Swish function \cite{Ramachandran2017SwishAS}. But there exist many more. Each of these functions has its own characteristics and can result in different learning dynamics and performance. 
 
 % ToDo: Figure to activation functions
 
@@ -246,13 +246,14 @@ Common activation functions used in modern neural networks include the functions
 
 
 \paragraph{Prediction}
-The output layer is responsible for producing the network's final prediction. Its activation function is chosen based on the task: 
+The output layer produces the network's final prediction, and the choice of its activation function is crucial, as it determines how predictions are interpreted and which loss function is used during training:
+% The output layer is responsible for producing the network's final prediction. Its activation function is chosen based on the task: 
 \begin{itemize}
-	\item \textbf{Regression:} For regression problems, a linear activation directly outputs a continuous value.
-	\item \textbf{Binary Classification:} For binary classification (true/false), a single neuron with a sigmoid function outputs a probability between 0 and 1.
-	\item \textbf{Multi-Class Classification:} For multi-class classification, a softmax layer produces a probability distribution over the classes, where each output neuron corresponds to a specific class and the softmax function ensures that the outputs sum to 1, representing the predicted probabilities for each class.
+	\item \textbf{Regression:} A linear activation directly outputs a continuous value.
+	\item \textbf{Binary Classification:} A single neuron with a sigmoid function outputs a probability between 0 and 1.
+	\item \textbf{Multi-Class Classification:} A softmax layer produces a probability distribution over the classes, where each output neuron corresponds to a specific class and the softmax function ensures that the outputs sum to 1, representing the predicted probabilities for each class.
 \end{itemize}
-The choice of activation function in the output layer is crucial, as it directly affects the interpretation of the network's predictions and the appropriate loss function to use during training.
+% The choice of activation function in the output layer is crucial, as it directly affects the interpretation of the network's predictions and the appropriate loss function to use during training.
 
 
 
@@ -260,7 +261,7 @@ The choice of activation function in the output layer is crucial, as it directly
 \paragraph{Loss Function}
 The loss function $\mathcal{L}$ is a measure of how well the network is able to predict the target value and quantifies the difference between the network's predictions and the true labels in the training data. The goal of the training process is to minimize the loss function by adjusting the weights of the network. The loss function can be any differentiable function, but common choices are \acf{MSE} for regression tasks and cross-entropy for classification tasks.
 \begin{itemize}
-	\item \textbf{\acf{MSE} Loss Function:} Commonly used for regression tasks, where the goal is to predict continuous values. The \acf{MSE} loss function is defined as:
+	\item \textbf{\acf{MSE} Loss Function:} Commonly used for regression tasks, where the goal is to predict continuous values and is defined as:
 	\begin{equation}
 		\mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
 	\end{equation}
@@ -305,18 +306,19 @@ The loss function $\mathcal{L}$ is a measure of how well the network is able to 
 
 \subsection{Training Neural Networks}
 % gradient based optimization
-The parameters of a neural network, namely the weights and biases, are learned from data during training. This is typically achieved by minimizing a loss function $\mathcal{L}$ using optimization methods such as \textit{gradient descent} and its variants. The gradients required for optimization are efficiently computed using the \textit{backpropagation} algorithm, which propagates the prediction error from the output layer back through the network \cite{Rumelhart1986LearningRB}. This learning process enables neural networks to adapt their internal representations and achieve strong performance across a wide range of machine learning tasks.
+The parameters of a neural network, namely the weights and biases, are learned from data during training. This is typically achieved by minimizing a loss function $\mathcal{L}$ using optimization methods such as gradient descent and its variants. The gradients required for optimization are efficiently computed using the backpropagation algorithm, which propagates the prediction error from the output layer back through the network \cite{Rumelhart1986LearningRB}. This learning process enables neural networks to adapt their weights and achieve strong performance across a wide range of machine learning tasks.
 
 \paragraph{What is a Gradient?} 
-The gradient is a fundamental concept in optimization and machine learning \cite{Rumelhart1986LearningRB, Bottou2016OptimizationMF}. It describes how a function changes with respect to its input variables and points in the direction of the steepest increase of the function. In the special case of a function with only one variable, the gradient reduces to the first derivative, which corresponds to the slope of the function at a given point.
+The gradient describes how a function changes with respect to its input variables and points in the direction of the steepest increase of the function \cite{Rumelhart1986LearningRB, Bottou2016OptimizationMF}. In the special case of a function with only one variable, the gradient reduces to the first derivative, which corresponds to the slope of the function at a given point.
 In simple terms, the gradient indicates how the function value changes when making a small step to the right or left away from a specific point.
 
 
 
 % In Figure~\ref{fig:NNGradientIntro}, the gradient is represented by the slope of the curve at a particular point. It indicates how the function value changes when moving slightly away from that point.
 % The gradient is represented by the slope of the curve at a particular point. 
-
-To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. We want to determine the slope of the blue curve at the point $x=1$. To do this, we calculate the gradient at that point. First, we compute the derivative $f'(x)=2x$ of the function $f(x)=x^2-3$ and evaluate it at $x=1$. The first derivative $f'(x)$ provides the slope at any point on the function $f(x)$. In this example, the slope at $x=1$ is $f'(1)=2$. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
+To better understand the concept of gradients, consider \autoref{fig}. We want to determine the slope of the blue curve at $x=1$. For the function $f(x)=x^2-3$, the derivative is $f'(x)=2x$, which we evaluate it at $x=1$. $f'(1)=2$ and means the slope of the curve at this point is 2. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
+In general, the gradient indicates whether a function is increasing or decreasing at a specific point and how steeply it changes. A positive gradient means that the function is increasing, while a negative gradient indicates that the function is decreasing. The magnitude of the gradient describes how steeply the function changes. Larger magnitudes correspond to steeper slopes, while values close to zero indicate relatively flat regions.
+% To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. We want to determine the slope of the blue curve at the point $x=1$. To do this, we calculate the gradient at that point. First, we compute the derivative $f'(x)=2x$ of the function $f(x)=x^2-3$ and evaluate it at $x=1$. The first derivative $f'(x)$ provides the slope at any point on the function $f(x)$. In this example, the slope at $x=1$ is $f'(1)=2$. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
 
 \begin{figure}[!h]
 	\centering
@@ -325,13 +327,13 @@ To better understand the concept of gradients, consider \autoref{fig:NNGradientI
 	\label{fig:NNGradientIntro}
 \end{figure}
 
-In general, the gradient indicates whether a function is increasing or decreasing at a specific point and how steeply it changes. A positive gradient means that the function is increasing, while a negative gradient indicates that the function is decreasing. The magnitude of the gradient describes how steeply the function changes. Larger magnitudes correspond to steeper slopes, while values close to zero indicate relatively flat regions.
+
 
 
 
 \paragraph{Gradient Descent and Parameter Update} 
 Gradient descent is an iterative optimization algorithm that is used to minimize a loss function \cite{Bottou2016OptimizationMF}.
-The basic principle of gradient descent can be understood by considering a simplified setting with a single parameter---a network weight---as illustrated in the Figure~\ref{fig:NNGradientDescent_2}. 
+The basic principle of gradient descent can be understood by considering a simplified setting with a single parameter, which illustrates a network weight, see \autoref{fig:NNGradientDescent_2}. 
 The horizontal axis represents the value of the weight, while the vertical axis represents the corresponding loss, which quantifies the discrepancy between the predicted and true values of the training data.
 
 \begin{figure}[!h]
@@ -341,7 +343,8 @@ The horizontal axis represents the value of the weight, while the vertical axis 
 	\label{fig:NNGradientDescent_2}
 \end{figure}
 
-The resulting curve is the loss landscape for that one parameter. At any point on the loss curve, the derivative (or gradient) indicates the local slope of the function.
+The resulting curve is the loss landscape for that one parameter. 
+% At any point on the loss curve, the derivative (or gradient) indicates the local slope of the function.
 % The current network weight, shown by the black dot must be updated in a way, to reduce the loss.
 The current value of the weight, represented by the black dot, must be adjusted such that the loss decreases. Gradient descent achieves this through the following two steps:
 \begin{enumerate}
@@ -363,19 +366,17 @@ The current value of the weight, represented by the black dot, must be adjusted 
 \end{enumerate}
 
 
-
-In the example shown in Figure~\ref{fig:NNGradientDescent_2}, the gradient is positive. Consequently, increasing the weight would increase the loss.
-To reduce the loss, the weight must therefore be moved in the opposite direction (to the left). This procedure is repeated iteratively until the algorithm reaches a minimum of the loss function or another stopping criterion is satisfied. The successive parameter updates are illustrated by the black arrows in Figure~\ref{fig:NNGradientDescent_2}. At the minimum, the gradient and the slope are zero and the parameter update becomes zero as well. The algorithm has converged. 
-
-\textit{Goal of Training Neural Networks:} The goal is to find the optimal set of parameters that minimizes the loss function, which corresponds to the best fit of the model to the data, meaning the network's predictions are sufficiently accurate \cite{Bottou2016OptimizationMF}. 
-
-
+% In the example shown in Figure 2.5, the gradient is positive. Consequently, increasing the weight would increase the loss. To reduce the loss, the weight must therefore be moved in the opposite direction (to the left).
+In the example shown in \autoref{fig:NNGradientDescent_2}, the gradient is positive. To reduce the loss, the weight must therefore be moved to the left, to the highest decrease of the function which is the negative gradient.
+%  in the opposite direction (to the left). 
+This procedure is repeated iteratively until the algorithm reaches a minimum of the loss function or another stopping criterion is satisfied. The successive parameter updates are illustrated by the black arrows in \autoref{fig:NNGradientDescent_2}. At the minimum, the gradient/the slope are zero and the parameter update becomes zero as well. The algorithm has converged. 
+The goal is to find the optimal set of parameters that minimizes the loss function, which corresponds to the best fit of the model to the data, meaning the network's predictions are sufficiently accurate \cite{Bottou2016OptimizationMF}. 
 
 
 
 
 \paragraph{Optimization Problems}
-But not every minimum found is a good solution. The loss landscape of neural networks is highly non-convex and can contain many local minima, saddle points and flat regions, where the gradient is zero but the loss is not minimized. If the gradient gets zero, the optimization process get stuck \cite{Bottou2016OptimizationMF}. \autoref{fig:NNNetwork_OptimizationProblems} shows a loss landscape with two parameters. The black dot represents the inital parameter values and the line shows the trajectory of the parameter updates during training. As seen it depends on the initial parameter values, whether the algorithm converges to the global minima, local minama or to the saddle point in the middle of the two hills.  
+Not every minimum found is a good solution. The loss landscape of neural networks is highly non-convex and can contain many local minima, saddle points and flat regions, where the gradient is zero but the loss is not minimized. If the gradient gets zero, the optimization process get stuck \cite{Bottou2016OptimizationMF}. \autoref{fig:NNNetwork_OptimizationProblems} shows a loss landscape with two parameters. The black dot represents the inital parameter values and the line shows the trajectory of the parameter updates during training. As seen it depends on the initial parameter values, whether the algorithm converges to the global minima, local minama or to the saddle point in the middle of the two hills.  
 
 
 \begin{figure}[!h]
@@ -387,26 +388,29 @@ But not every minimum found is a good solution. The loss landscape of neural net
 
 In the shown examples, the loss landscape was known, but in practice, the loss landscape of neural networks is typically unknown and can be highly complex.  Neural networks often consists of millions of parameters and therefore they have a high-dimensional loss landscape. The Algorithm works in such high-dimensional spaces in the same way.
 % The optimization process works in such high-dimensional spaces in the same way and navigates through this loss landscape to find a set of parameters that minimizes the loss function. 
-Therefore, training neural networks can be challenging and may require careful tuning of hyperparameters such as the learning rate, as well as the use of techniques like momentum, adaptive learning rates or regularization to improve convergence and generalization performance \cite{Bottou2016OptimizationMF}. For this many variants of the basic gradient descent algorithm have been developed, which is not the scope of this work.
+Therefore, training neural networks can be challenging and may require careful tuning of hyperparameters such as the learning rate, as well as the use of techniques like momentum, adaptive learning rates or regularization to improve convergence and generalization performance \cite{Bottou2016OptimizationMF}. For this many variants of the basic gradient descent algorithm have been developed.
 
 
 % \textit{Backpropagation.}
 % The gradients needed for the parameter updates in gradient descent are computed using the backpropagation algorithm. Backpropagation efficiently propagates the error from the output layer back through the network to compute the necessary gradients for all parameters. For each neuron, the corresponding proportion of the total error is calculated and the weights are adjusted accordingly. 
 
 \paragraph{Backpropagation}
-The gradients required for updating the network parameters in gradient descent are computed using the \textit{backpropagation algorithm} \cite{Rumelhart1986LearningRB}. Backpropagation efficiently propagates the prediction error from the output layer back through the network and computes the gradients of the loss function $\mathcal{L}$ with respect to all weights $\mathbf{W}$ in the model. Based on these gradients, each parameter $w_{ij}^l$ is adjusted proportionally to its contribution to the overall error.
-
+The gradients required for updating the network parameters are computed using the backpropagation algorithm \cite{Rumelhart1986LearningRB}. Backpropagation efficiently propagates the prediction error from the output layer back through the network and computes the gradients of the loss function $\mathcal{L}$ with respect to all weights $\mathbf{W}$ in the model. Based on these gradients, each parameter $w_{ij}^l$ is adjusted proportionally to its contribution to the overall error.
 More precisely, backpropagation computes the partial derivatives of the loss function with respect to all trainable parameters in the network. These gradients quantify how sensitive the loss is to small changes in each parameter and therefore indicate how each parameter should be adjusted to reduce the overall error. Parameters that contribute more strongly to the error receive larger updates, while less influential parameters are adjusted more mildly.
 The training process for a neural network can therefore be summarized by the following update rule:
 \begin{equation}
 \mathbf{W}_{t+1} = \mathbf{W}_t - \alpha \cdot \nabla_{\mathbf{W}_t} \left( \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}\bigl(\mathbf{y}_i, f_{\mathbf{W}_t}(\mathbf{x}_i)\bigr) \right)
 \end{equation}
 where $f_{\mathbf{W}}$ denotes the neural network with parameters $\mathbf{W}$, $\mathcal{L}$ is the loss function measuring the difference between the predicted output $f_{\mathbf{W}}(\mathbf{x}_i)$ and the target value $\mathbf{y}_i$, $\alpha$ is the learning rate, $N$ is the number of training samples and $\nabla_{\mathbf{W}_t}$ represents the gradient of the loss function with respect to the weights at iteration $t$.
+By iteratively applying this update rule, the network parameters are gradually adjusted in a direction that reduces the loss function and allows neural networks to reduce improve their predictions from training data.
+% learn meaningful representations from training data
+% . This iterative optimization process is what allows the neural network to learn meaningful representations from training data and improve its predictions over time.
 
-By iteratively applying this update rule, the network parameters are gradually adjusted in a direction that reduces the loss function. This iterative optimization process is what allows the neural network to learn meaningful representations from training data and improve its predictions over time.
 
+Besides the standard gradient descent algorithm, which computes the gradient over the entire dataset, several more efficient variants are commonly used in practice. 
+Instead of computing the gradient on the entire dataset, the variants stochastic and mini-batch gradient descent approximate it using one or a few training samples \cite{Bottou2010LargeScaleML, Robbins1951ASA, Bottou2016OptimizationMF, Goodfellow-et-al-2016}, which reduces the computational cost per update while still providing a more stable gradient estimate compared to pure stochastic gradient descent.
+% In stochastic gradient descent (SGD), the exact gradient is not evaluated on the full dataset \cite{Bottou2010LargeScaleML, Robbins1951ASA}. Instead, it is approximated using only a single randomly selected training sample at each iteration. A further extension is mini-batch gradient descent, where the gradient is computed on a small subset of the training data (a mini-batch) rather than on a single sample or the full dataset \cite{Bottou2016OptimizationMF, Goodfellow-et-al-2016}. This approach reduces the computational cost per update while still providing a more stable gradient estimate compared to pure stochastic gradient descent.
 
-Besides the standard gradient descent algorithm, which computes the gradient over the entire dataset, several more efficient variants are commonly used in practice. In stochastic gradient descent (SGD), the exact gradient is not evaluated on the full dataset \cite{Bottou2010LargeScaleML, Robbins1951ASA}. Instead, it is approximated using only a single randomly selected training sample at each iteration. A further extension is mini-batch gradient descent, where the gradient is computed on a small subset of the training data (a mini-batch) rather than on a single sample or the full dataset \cite{Bottou2016OptimizationMF, Goodfellow-et-al-2016}. This approach reduces the computational cost per update while still providing a more stable gradient estimate compared to pure stochastic gradient descent.
 
 
 
@@ -491,7 +495,17 @@ The main idea of a CNN is the convolution operation, where a filter, also known 
 
 
 A Filter or kernel is defined as a small matrix of weights, is moved across the image and element-wise multiplied with the underlying pixel values \cite{Dumoulin2016AGT, Khan2025ACS, Younesi2024ACS, Long2022}. This is possible, because an image is technically a matrix of pixel values too. The resulting values are stored in a new matrix called a feature map, which highlights the patterns detected by the kernel. Since the same kernel is reused at every pixel location, CNNs are able to detect the same feature independent of its position in the image.
-Figure \autoref{fig:CNNConvolutionIntro} illustrates the mathematical convolution operation, where a $3 \times 3$ kernel is applied to a $6 \times 6$ image. The results are stored in a $3 \times 3$ matrix. 
+% Figure \autoref{fig:CNNConvolutionIntro} illustrates the mathematical convolution operation, where a $3 \times 3$ kernel is applied to a $6 \times 6$ image. The results are stored in a $3 \times 3$ matrix. 
+
+During the convolution process, a kernel (dark blue) slides across the image (light blue), and at each position the element-wise products are summed to generate a single output value that is stored in the feature map (olive green), as shown in \autoref{fig:CNNConvolution_1}.
+Figure \autoref{fig:CNNConvolutionIntro} illustrates the mathematical convolution operation, where a $3 \times 3$ kernel is applied to a $6 \times 6$ image to produce a $3 \times 3$ output matrix. 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{./chapter2/media/CNNConvolution_1.png}
+	\caption[CNN Convolution Step-by-Step]{CNN Convolution Step-by-Step. Image source: \cite{Dumoulin2016AGT}.}
+	\label{fig:CNNConvolution_1}
+\end{figure}
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro.png}
@@ -499,17 +513,9 @@ Figure \autoref{fig:CNNConvolutionIntro} illustrates the mathematical convolutio
 	\label{fig:CNNConvolutionIntro}
 \end{figure}
 
+% Figure \autoref{fig:CNNConvolution_1} shows how the kernel (dark blue) is slided across the image (light blue) step by step. At each location the element-wise products are summed up to obtain one output value, which is stored in a feature map (olive green). 
 
-
-
-Figure \autoref{fig:CNNConvolution_1} shows how the kernel (dark blue) is slided across the image (light blue) step by step. At each location the element-wise products are summed up to obtain one output value, which is stored in a feature map (olive green). 
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.75\linewidth]{./chapter2/media/CNNConvolution_1.png}
-	\caption[CNN Convolution Step-by-Step]{CNN Convolution Step-by-Step. Image source: \cite{Dumoulin2016AGT}.}
-	\label{fig:CNNConvolution_1}
-\end{figure}
+A CNN consist of multiple kernels, which are applied in parallel and in multiple layers to the image, resulting in multiple feature maps. Importantly, in a CNN the kernels are not fixed manually, instead they are learned during training, allowing the network to find the optimal filters for the task success \cite{Khan2025ACS, Younesi2024ACS, Long2022}.
 
 
 % ToDo: Great Alternative Grafic
@@ -523,7 +529,7 @@ Figure \autoref{fig:CNNConvolution_1} shows how the kernel (dark blue) is slided
 
 
 \paragraph{Padding}
-As seen in the Figures \ref{fig:CNNConvolutionIntro}, \ref{fig:CNNConvolution_1} and \ref{fig:CNNConvolutionIntro_View2}, the feature map is smaller than the original image, because of the convolution operation. 
+As seen in the Figures \ref{fig:CNNConvolutionIntro} and \ref{fig:CNNConvolution_1}, the feature map is smaller than the original image, because of the convolution operation. 
 To preserve the spatial resolution of the input image, padding is often added around the border before applying the convolution, see \autoref{fig:CNNConvolution_1_withPadding} \cite{Dumoulin2016AGT, Khan2025ACS, Younesi2024ACS, Long2022}. With zero-padding, the image size can remain unchanged after the convolution, which is useful when multiple convolution layers are stacked. 
 \begin{figure}[!h]
 	\centering
@@ -534,7 +540,7 @@ To preserve the spatial resolution of the input image, padding is often added ar
 
 
 
-A CNN consist of multiple kernels, which are applied in parallel and in multiple layers to the image and the resulting feature maps. Importantly, in a CNN the kernels are not fixed manually, instead they are learned during training, allowing the network to find the optimal filters for the task success \cite{Khan2025ACS, Younesi2024ACS, Long2022}.
+
 % Importantly, the kernels are not fixed manually in a CNN. Instead, they are learned during training, allowing the network to adapt its filters to the task at hand.
 
 
@@ -555,8 +561,7 @@ A CNN consist of multiple kernels, which are applied in parallel and in multiple
 
 \paragraph{Activation Function}
 After the convolution operation, a non-linear activation function is applied to the resulting feature map \cite{Khan2025ACS, Younesi2024ACS, Long2022}. Activation functions introduce non-linearity into the network, allowing CNNs to learn complex visual patterns that cannot be represented by linear transformations alone \cite{Hanin2017ApproximatingCF}.
-
-The most commonly used activation function is the Rectified Linear Unit (ReLU) \cite{Khan2025ACS, Hanin2017ApproximatingCF, Long2022}:
+The most commonly used activation function is ReLU \cite{Khan2025ACS, Hanin2017ApproximatingCF, Long2022}:
 which replaces all negative values with zero while leaving positive values unchanged:
 \begin{equation}
 	f(x)=\max(0,x)
@@ -566,11 +571,9 @@ By applying the ReLU function after each convolution, the network can learn incr
 
 \paragraph{Pooling Layer}
 Another central component of CNNs is the pooling layer \cite{Khan2025ACS, Long2022}. Pooling reduces the spatial size of the feature maps while retaining the most important information. This lowers the computational cost and increases robustness to small shifts in the input image.
-
 A common choice is a $2\times2$ pooling window with a stride of 2. In this case, the feature map is divided into non-overlapping $2\times2$ regions and each region is summarized by a single value \cite{Younesi2024ACS, Khan2025ACS}. As a result, the width and height of the feature map are reduced by a factor of two.
 
 Two common pooling methods are max pooling and average pooling \cite{Younesi2024ACS, Khan2025ACS}, as illustrated in \autoref{fig:CNNPooling}. In max pooling, the largest value within each pooling region is selected and propagated to the output feature map. In average pooling, the mean value of all elements within the region is computed. Both methods reduce the spatial resolution while preserving the most relevant information contained in the feature map.
-
 Pooling layers are typically applied after convolution layers and allow the network to build increasingly compact feature representations. While early convolution layers extract local patterns such as edges and textures, pooling helps summarize these features and enables deeper layers to focus on higher-level visual structures \cite{Younesi2024ACS, Khan2025ACS, Long2022}.
 
 \begin{figure}[!h]
