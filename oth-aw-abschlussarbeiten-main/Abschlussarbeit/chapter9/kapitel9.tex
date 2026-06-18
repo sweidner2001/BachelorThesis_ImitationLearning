@@ -9,10 +9,10 @@ The overall pipeline is designed to be modular and extensible, enabling straight
 The steps to setup and run a robot model on a robot are as follows:
 \begin{enumerate}
     \item Setup Connection between PC and Robot. 
-    \item Setup the control protocols, for controlling the Robot via PC (for example within a Python script \cite{WelcomePythonorg2026}). There exists two different control protocols: 
+    \item Setup the control protocols, for controlling the Robot via PC (for example within a Python script~\cite{WelcomePythonorg2026}). There exists two different control protocols: 
     \begin{itemize}
-        \item RTDE: Direct control Interface provided by Universal Robots \cite{RealTimeDataExchange}.
-        \item ROS 2: A popular high-level open-source framework for controlling different robots with the same Interface \cite{ROS2Documentation}.
+        \item RTDE: Direct control Interface provided by Universal Robots~\cite{RealTimeDataExchange}.
+        \item ROS 2: A popular high-level open-source framework for controlling different robots with the same Interface~\cite{ROS2Documentation}.
     \end{itemize}
     \item Camera Setup and Calibration.
     \item Implementing the robot model on the PC and adapt it to the UR5e.
@@ -20,7 +20,7 @@ The steps to setup and run a robot model on a robot are as follows:
 \end{enumerate}
 
 \paragraph{Robot Hardware}
-For experiments, the UR5e Robot Arm \cite{UserManualUR5e} from Universal Robots will be used. It is a collaborative robot (cobot) designed for safe human-robot interaction. The UR5e provides a versatile and user-friendly 12 inch touchscreen interface for controlling and static programming the robot. The Gripper 2F-140 from Robotiq was used, which has a payload of 2.5 kg and a stroke of 10 to 125 Newton \cite{AdaptiveGrippersRobotiq}. In \autoref{tab:UR5eSpecifications} some specifications of the Robot are listed. 
+For experiments, the UR5e Robot Arm~\cite{UserManualUR5e} from Universal Robots will be used. It is a collaborative robot (cobot) designed for safe human-robot interaction. The UR5e provides a versatile and user-friendly 12 inch touchscreen interface for controlling and static programming the robot. The Gripper 2F-140 from Robotiq was used, which has a payload of 2.5 kg and a stroke of 10 to 125 Newton~\cite{AdaptiveGrippersRobotiq}. In~\autoref{tab:UR5eSpecifications} some specifications of the Robot are listed. 
 \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.3}
@@ -43,7 +43,7 @@ For experiments, the UR5e Robot Arm \cite{UserManualUR5e} from Universal Robots 
         Materials & Powder coated steel \\
         \hline
     \end{tabular}
-    \caption{Specifications of the UR5e Robot Arm. Source: \cite{UR5e_2}}
+    \caption{Specifications of the UR5e Robot Arm. Source:~\cite{UR5e_2}}
     \label{tab:UR5eSpecifications}
 \end{table}
 
@@ -68,7 +68,7 @@ The guide covers the configuration of network settings and communication ports o
 
 
 \subsection{Robot Control Protocol via ROS 2}
-ROS 2 (Robot Operating System 2) \cite{ROS2Documentation} is an open-source robotics middleware framework used for building modular and distributed robotic systems. It organizes software into independent components called nodes, where each node performs a specific function such as perception, control, or planning. These nodes communicate with each other using standardized interfaces.
+ROS 2 (Robot Operating System 2)~\cite{ROS2Documentation} is an open-source robotics middleware framework used for building modular and distributed robotic systems. It organizes software into independent components called nodes, where each node performs a specific function such as perception, control, or planning. These nodes communicate with each other using standardized interfaces.
 % , including topics, services and actions. 
 ROS 2 provides the communication infrastructure that enables reliable data exchange between different parts of a robotic system. In this way, it acts as the “plumbing” layer that connects sensing, computation and actuation in robotics applications. A key advantage of ROS 2 is that it allows the same software components to be reused across different robotic platforms without requiring changes to the core code, as long as the robots support the same ROS 2 communication interfaces.
 The complete ROS 2 implementation developed during this work is publicly available in the following repository:
@@ -80,11 +80,11 @@ The complete ROS 2 implementation developed during this work is publicly availab
 The repository contains scripts and configuration files required to establish communication with the UR5e robot and to launch the corresponding ROS 2 nodes. These scripts automate the initialization process and provide a easy-to-use setup for robot control, visualization and simulation.
 The ROS 2 environment integrates several commonly used robotics tools:
 \begin{itemize}
-    \item \textbf{RViz} \cite{RvizMainPage} is a 3D real-time visualization tool for ROS, see \autoref{fig:RViz}. It provides a view of the robot model, sensors and other information in a 3D space. It can be used to display sensor data from robots, such as point clouds, camera images, robot trajectories. While RViz can be used in conjunction with Gazebo, it is not a simulation environment of itself.
+    \item \textbf{RViz}~\cite{RvizMainPage} is a 3D real-time visualization tool for ROS, see~\autoref{fig:RViz}. It provides a view of the robot model, sensors and other information in a 3D space. It can be used to display sensor data from robots, such as point clouds, camera images, robot trajectories. While RViz can be used in conjunction with Gazebo, it is not a simulation environment of itself.
 
-    \item \textbf{MoveIt} \cite{MoveIt2Documentationa} is a motion planning framework for robotic manipulators that computes collision-free trajectory generation and collision checking between start and target poses, see \autoref{fig:MoveIt}. It can be used for both simulated and real robotic systems.
+    \item \textbf{MoveIt}~\cite{MoveIt2Documentationa} is a motion planning framework for robotic manipulators that computes collision-free trajectory generation and collision checking between start and target poses, see~\autoref{fig:MoveIt}. It can be used for both simulated and real robotic systems.
     
-    \item \textbf{Gazebo} \cite{Gazebo} is a physics-based simulation environment commonly used in conjunction with ROS 2 and RViz. It enables realistic simulation of robot dynamics (mass, inertia, gravity), sensors (cameras, lidar, force sensors) and the environment (collisions, friction). Gazebo provided a virtual testing environment for validating robot configurations and control algorithms before deployment on the physical UR5e robot.
+    \item \textbf{Gazebo}~\cite{Gazebo} is a physics-based simulation environment commonly used in conjunction with ROS 2 and RViz. It enables realistic simulation of robot dynamics (mass, inertia, gravity), sensors (cameras, lidar, force sensors) and the environment (collisions, friction). Gazebo provided a virtual testing environment for validating robot configurations and control algorithms before deployment on the physical UR5e robot.
 \end{itemize}
 
 \begin{figure}
@@ -104,7 +104,7 @@ In addition to the software implementation, comprehensive documentation was crea
 
 
 \paragraph{Setup}
-To simplify the development and deployment process, the ROS 2 project was implemented using a Dev Container environment \cite{DevelopingContainer}. This approach provides an isolated and reproducible software environment, eliminating the need to install ROS 2, robot drivers and additional dependencies directly on the host system. As a result, all developers can work within a consistent environment while avoiding dependency conflicts and configuration issues.
+To simplify the development and deployment process, the ROS 2 project was implemented using a Dev Container environment~\cite{DevelopingContainer}. This approach provides an isolated and reproducible software environment, eliminating the need to install ROS 2, robot drivers and additional dependencies directly on the host system. As a result, all developers can work within a consistent environment while avoiding dependency conflicts and configuration issues.
 The Dev Container provides a fully configured ROS 2 workspace tailored for Universal Robots development. It includes the required communication interfaces for the UR5e robot, as well as commonly used robotics tools such as Gazebo, MoveIt and RViz.
 The Dev Container setup follows a layered workflow consisting of four main components:
 \begin{enumerate}
@@ -118,7 +118,7 @@ This separation between permanent and temporary configuration steps provides a f
 
 
 \paragraph{Provided Scripts}
-See \autoref{tab:launch_scripts} for an overview of the provided easy-to-use launch scripts.
+See~\autoref{tab:launch_scripts} for an overview of the provided easy-to-use launch scripts.
 \begin{table}[!h]
     \centering
     \renewcommand{\arraystretch}{1.5}
@@ -153,7 +153,7 @@ To control the gripper, additional ROS 2 packages and interfaces are required, a
 
 
 \paragraph{Summary}
-In summary, the ROS 2 implementation provides a comprehensive framework for controlling the UR5e robot arm from an external workstation, but there was some difficultness with the gripper control, which is not yet implemented. For this reason, the decision was made to prioritise the implementation of the RTDE interface provided by Universal Robots, as ready-made Python packages \cite{WelcomePythonorg2026} were already available for this purpose. 
+In summary, the ROS 2 implementation provides a comprehensive framework for controlling the UR5e robot arm from an external workstation, but there was some difficultness with the gripper control, which is not yet implemented. For this reason, the decision was made to prioritise the implementation of the RTDE interface provided by Universal Robots, as ready-made Python packages~\cite{WelcomePythonorg2026} were already available for this purpose. 
 % The aim was to implement an initial working robot model as quickly as possible.
 
 
@@ -162,7 +162,7 @@ In summary, the ROS 2 implementation provides a comprehensive framework for cont
 
 
 \subsection{Robot Control Protocol via RTDE}
-RTDE (Real-Time Data Exchange) \cite{RealTimeDataExchange} is a direct communication interface provided by Universal Robots for exchanging data between an external computer and the robot controller. It enables fast, low-latency transmission of sensor data and control commands. Compared to ROS 2, RTDE operates closer to the hardware and therefore provides higher update rates. This makes it suitable for real-time robot applications in the Universal Robots universe, where fast and reliable data exchange is required. The advantage is that RTDE is easy to set up. However, the disadvantage is that the interface must be adapted when switching to a different robot.
+RTDE (Real-Time Data Exchange)~\cite{RealTimeDataExchange} is a direct communication interface provided by Universal Robots for exchanging data between an external computer and the robot controller. It enables fast, low-latency transmission of sensor data and control commands. Compared to ROS 2, RTDE operates closer to the hardware and therefore provides higher update rates. This makes it suitable for real-time robot applications in the Universal Robots universe, where fast and reliable data exchange is required. The advantage is that RTDE is easy to set up. However, the disadvantage is that the interface must be adapted when switching to a different robot.
 The complete RTDE implementation developed during this work is publicly available in the following repository:
 \begin{center}
     \url{https://github.com/sweidner2001/RobotUR5e_RTDE}
@@ -178,7 +178,7 @@ Some test scripts are provided, for example a static pick-and-place demo with th
 
 
 \paragraph{Setup}
-To simplify development and deployment, the RTDE project was implemented in a dedicated Python virtual \texttt{venv}-environment \cite{VenvCreationVirtual}. This approach provides an isolated and reproducible setup that can be executed on any system with Python installed, while avoiding dependency conflicts with globally installed packages.
+To simplify development and deployment, the RTDE project was implemented in a dedicated Python virtual \texttt{venv}-environment~\cite{VenvCreationVirtual}. This approach provides an isolated and reproducible setup that can be executed on any system with Python installed, while avoiding dependency conflicts with globally installed packages.
 
 The environment can be easily set up by executing the \texttt{setup.sh} script, which automatically creates the virtual environment and installs all required dependencies for working with the RTDE interface. In addition, the script configures the project structure such that Python modules can be imported using absolute paths relative to the project root. All project scripts on every location in the project structure can be conveniently executed from within Visual Studio Code using the ``run button'' functionality, with all imports resolving correctly once the environment is activated.
 
@@ -209,17 +209,17 @@ This thesis examined imitation learning as a promising approach for enabling rob
 \acp{LLM} have demonstrated that training powerful architectures on vast and diverse datasets can lead to remarkable generalization capabilities, enabling systems to solve tasks for which they were never explicitly trained. A central goal of imitation learning is to bring similar capabilities to robotic systems by leveraging the enormous amount of video data available on the internet.
 % Imitation learning represents one of the most promising approaches for transferring the success of large-scale machine learning to robotics. 
 
-Chapter \ref{chap:Foundations} introduced the fundamental concepts of imitation learning and distinguished between two major paradigms: Behavior Cloning and Learning from Videos (LfV). While Behavior Cloning relies on demonstrations containing explicit action labels, Learning from Videos seeks to exploit the vast amount of action-free video data available online, offering a scalable alternative for robot learning.
+Chapter~\ref{chap:Foundations} introduced the fundamental concepts of imitation learning and distinguished between two major paradigms: Behavior Cloning and Learning from Videos (LfV). While Behavior Cloning relies on demonstrations containing explicit action labels, Learning from Videos seeks to exploit the vast amount of action-free video data available online, offering a scalable alternative for robot learning.
 
-Chapter \ref{chap:GeneralistRobotsAndTheDataBottleneck} discussed the overarching objective of robotics research: the development of generalist robots capable of performing a wide range of tasks in unstructured and previously unseen real-world environments. A major obstacle to this vision is the robotics data bottleneck, which arises from the limited availability of large, diverse and high-quality robotic datasets. Internet videos represent a potential solution due to their abundance and diversity; however, their use introduces additional challenges related to the transfer of visual knowledge to robotic systems.
+Chapter~\ref{chap:GeneralistRobotsAndTheDataBottleneck} discussed the overarching objective of robotics research: the development of generalist robots capable of performing a wide range of tasks in unstructured and previously unseen real-world environments. A major obstacle to this vision is the robotics data bottleneck, which arises from the limited availability of large, diverse and high-quality robotic datasets. Internet videos represent a potential solution due to their abundance and diversity; however, their use introduces additional challenges related to the transfer of visual knowledge to robotic systems.
 
-A prerequisite for effective human-robot interaction is the ability to communicate goals and intentions to robotic agents. Therefore, chapter \ref{chap:WaysToInstructRobots} examined how robots can be instructed and guided to perform desired tasks. 
+A prerequisite for effective human-robot interaction is the ability to communicate goals and intentions to robotic agents. Therefore, chapter~\ref{chap:WaysToInstructRobots} examined how robots can be instructed and guided to perform desired tasks. 
 % the thesis examined different approaches for task specification and human-robot interaction, highlighting how robots can be instructed through demonstrations, language and other forms of guidance.
 % Various forms of task specification and human-robot interaction were presented.
 
-Chapter \ref{chap:LearningFromVideosDataModalityAndChallenges} focused on the central research questions of Learning from Videos: how relevant knowledge can be extracted from internet videos and how this knowledge can subsequently be transferred to robotic systems for policy learning and control. Video Foundation Models were introduced as a powerful tool for extracting semantic and behavioral information from large-scale video data. Two major challenges were identified in the transfer process: the absence of action labels and the distribution shift between human videos and robotic observations. To address these challenges, alternative action representations are employed to relabel action-free video data, enabling robots to learn from demonstrations that do not contain explicit control signals.
+Chapter~\ref{chap:LearningFromVideosDataModalityAndChallenges} focused on the central research questions of Learning from Videos: how relevant knowledge can be extracted from internet videos and how this knowledge can subsequently be transferred to robotic systems for policy learning and control. Video Foundation Models were introduced as a powerful tool for extracting semantic and behavioral information from large-scale video data. Two major challenges were identified in the transfer process: the absence of action labels and the distribution shift between human videos and robotic observations. To address these challenges, alternative action representations are employed to relabel action-free video data, enabling robots to learn from demonstrations that do not contain explicit control signals.
 
-Chapter \ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} explored the role of robust video understanding in \ac{IL}. Learning manipulation skills from video requires more than simple action recognition: (1) It demands meaningful representations of the environment, (2) an understanding of object affordances and human-object interactions, (3) recognition of human activities and (4) accurate modeling of fine-grained hand movements.
+Chapter~\ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} explored the role of robust video understanding in \ac{IL}. Learning manipulation skills from video requires more than simple action recognition: (1) It demands meaningful representations of the environment, (2) an understanding of object affordances and human-object interactions, (3) recognition of human activities and (4) accurate modeling of fine-grained hand movements.
 These capabilities form the basis for a general-purpose robot that can interpret human demonstrations.
 % These capabilities form the basis of a general-purpose robot capable of understanding human demonstrations.
 % These capabilities form the foundation for a general-purpose robot designed to interpret human demonstrations.
@@ -227,17 +227,17 @@ These capabilities form the basis for a general-purpose robot that can interpret
 
 
 
-Chapter \ref{chap:RobotLearningApproaches} focused on approaches for learning coherent robot models from video data. 
+Chapter~\ref{chap:RobotLearningApproaches} focused on approaches for learning coherent robot models from video data. 
 (1) The chapter first introduced foundational perception and representation learning methods and techniques. 
 (2) It then discussed both RL-based and imitation learning approaches, highlighting their respective strengths and limitations. 
 (3) Hybrid methods, which combine the structured guidance and sample efficiency of imitation learning with the exploration and optimization capabilities of reinforcement learning. Special attention was given to the intersection of \acf{LfV} and \acf{RL}, demonstrating how knowledge extracted from videos can be used to improve policy learning and enhance the sample efficiency of RL algorithms.
 (4) Last but not least, the chapter presented multi-modal learning approaches and \acf{VLA} models and the three Architecturial paradigms, including sensorimotor, world-model-based and affordance-based architectures. \ac{VLA} models represent currently the state of the art in video-based robot learning.
 
-Chapter \ref{chap:ChallengesAndFutureDirections} examined the major challenges and future research directions in \ac{IL} and video-based robotic learning. Despite significant advances in recent years, the development of robust and generalizable robotic systems remains constrained by several fundamental limitations, including data availability, computational scalability, domain transfer and efficient policy learning. These challenges highlight the gap between current research systems and the long-term goal of general-purpose robotic intelligence. 
+Chapter~\ref{chap:ChallengesAndFutureDirections} examined the major challenges and future research directions in \ac{IL} and video-based robotic learning. Despite significant advances in recent years, the development of robust and generalizable robotic systems remains constrained by several fundamental limitations, including data availability, computational scalability, domain transfer and efficient policy learning. These challenges highlight the gap between current research systems and the long-term goal of general-purpose robotic intelligence. 
 At the same time, emerging approaches such as diffusion-based policies, world models and causally-aware learning systems offer promising opportunities for overcoming these limitations and improving the adaptability, reasoning capabilities and generalization performance of future robotic agents.
 
 
-Finally in Chapter \ref{chap:SelectedApproaches}, selected \ac{IL} approaches deployed on real robotic systems were examined to provide practical insight into the theoretical concepts discussed throughout the thesis. These examples illustrated how \ac{IL} can enable robots to acquire complex manipulation and control skills directly from video demonstrations.
+Finally in Chapter~\ref{chap:SelectedApproaches}, selected \ac{IL} approaches deployed on real robotic systems were examined to provide practical insight into the theoretical concepts discussed throughout the thesis. These examples illustrated how \ac{IL} can enable robots to acquire complex manipulation and control skills directly from video demonstrations.
 
 
 
@@ -247,7 +247,7 @@ Finally in Chapter \ref{chap:SelectedApproaches}, selected \ac{IL} approaches de
 
 
 
-% \autoref{chap:datasources} introduces the main data sources for robot learning, including real-world robot data, simulation data and large-scale internet video. It further explains how Learning from Videos aims to combine these sources to improve generalization, data efficiency and the transfer of knowledge to robotic policies.
+%~\autoref{chap:datasources} introduces the main data sources for robot learning, including real-world robot data, simulation data and large-scale internet video. It further explains how Learning from Videos aims to combine these sources to improve generalization, data efficiency and the transfer of knowledge to robotic policies.
 
 % Large Language Models (LLMs) have demonstrated that training powerful architectures on vast and diverse datasets can lead to remarkable generalization capabilities, enabling systems to solve tasks for which they were never explicitly trained. A central goal of imitation learning is to bring similar capabilities to robotic systems by leveraging the enormous amount of video data available on the internet.
 
