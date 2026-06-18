@@ -7,33 +7,30 @@ Despite significant progress in \ac{IL} and video-based robotic learning, severa
 \section{Data}
 
 % Problem: Data Availability
-\paragraph{Problem: Data Availability}
+% \paragraph{Problem: Data Availability}
 The performance of modern robotic models strongly depends on the availability, diversity and quality of demonstration data \cite{Eze2024LearningBW}. However, collecting large-scale robotic datasets remains expensive and time-consuming \cite{McCarthy_2025}, particularly when expert annotations or robot demonstrations are required \cite{Fang2018Demo2VecRO, ChaneSane2023LearningVP}. Existing datasets \cite{Damen2018ScalingEV, Goyal2017TheS, Kuehne2011HMDBAL, Andriluka20142DHP, Zhang2013FromAT} are often domain-specific, weakly balanced and annotated or limited to narrow task distributions, reducing the ability of models to generalize to unseen environments, objects and robot embodiments \cite{Eze2024LearningBW}.
-
 % Solution: Internet videos
-\paragraph{Solution: Internet Videos}
-One promising approach is the use of internet videos, which provide a vast amount of diverse visual demonstrations at a significantly lower collection cost than robot-specific datasets. However, such data often lacks on precise action annotations and task labels \cite{Eze2024LearningBW, McCarthy_2025}.
 
+% \paragraph{Solution: Internet Videos}
+One promising approach is the use of internet videos, which provide a vast amount of diverse visual demonstrations at a significantly lower collection cost than robot-specific datasets. However, such data often lacks on precise action annotations and task labels \cite{Eze2024LearningBW, McCarthy_2025}.
 % Solution: Weak supervision and self-supervised learning
-\paragraph{Solution: Weak Supervision and Self-Supervised Learning}
+% \paragraph{Solution: Weak Supervision and Self-Supervised Learning}
 To address this limitation, weakly supervised learning methods utilize coarse or incomplete labels, such as video captions, task descriptions or automatically generated annotations, instead of relying on expensive frame-by-frame expert labeling \cite{Eze2024LearningBW}. Similarly, self-supervised learning objectives enable models to learn useful visual and temporal representations directly from raw video data. Common objectives include predicting future video frames, reconstructing masked observations or learning representations that remain consistent across temporally related frames. These approaches allow robots to exploit large amounts of unlabeled data while reducing the dependency on manual annotation \cite{Eze2024LearningBW, McCarthy_2025}.
 
 % Solution: Active Learning
-\paragraph{Solution: Active Learning}
+% \paragraph{Solution: Active Learning}
 Another challenge is the efficient acquisition of high-quality labels. Active learning addresses this issue by allowing a model to strategically select the most informative or uncertain samples for annotation rather than labeling entire datasets uniformly \cite{Dima2004EnablingLF, Settles2009ActiveLL}. For example, a robot may request human annotations only for demonstrations in which its predictions are uncertain, thereby reducing annotation costs while maximizing the benefit of labeled data.
 
 % Solution: Active physical interaction
-\paragraph{Solution: Active Physical Interaction}
+% \paragraph{Solution: Active Physical Interaction}
 Beyond passive observation, future \ac{IL} systems may also integrate active physical trials, where robots interact directly with their environment to refine policies learned from demonstrations \cite{Ramachandruni2020AttentiveTS, Pathak2018ZeroShotVI}. Such interaction-based learning combines the strengths of \ac{IL} and \ac{RL}, enabling robots to adapt to environmental variations, recover from failures and acquire knowledge that is difficult to infer from observation alone \cite{Eze2024LearningBW}.
 
 
 
 
 % Problem: data efficiency
-\paragraph{Problem \& Solution: Sample Efficiency}
+% \paragraph{Problem \& Solution: Sample Efficiency}
 Another important challenge is sample efficiency. Many high-capacity \ac{IL} and \ac{RL} methods still require large amounts of demonstrations or interaction data. Current approaches therefore investigate meta-learning, contrastive representation learning and one-shot or few-shot \ac{IL} to reduce data requirements. Goal-conditioned \ac{RL} and Representation Learning have also shown improved data efficiency, although robust learning from weakly-labeled or noisy demonstrations remains an open problem \cite{Eze2024LearningBW}.
-
-
 % Solution: data efficiency and availability
 Future research must focus not only on improving generalization, but also on enabling rapid adaptation to new tasks, robots and environments. Achieving this level of adaptability is considered a key requirement for scalable and general-purpose robotic intelligence \cite{Eze2024LearningBW}.
 
@@ -59,13 +56,12 @@ Future research must focus not only on improving generalization, but also on ena
 
 \section{Computional Costs}
 % Problem:
-\paragraph{Problem}
+% \paragraph{Problem}
 The increasing adoption of large-scale transformer architectures and multi-modal foundation models has significantly improved robotic perception and policy learning. However, these advances come at the cost of high computational and memory requirements \cite{Eze2024LearningBW}.
-
 State-of-the-art Vision-Language-Action models often require substantial GPU resources during both training and inference \cite{Black20240AV, Liu2024RDT1BAD, Kim2024OpenVLAAO}. This creates major deployment challenges for real-world robotic systems, especially on embedded or resource-constrained platforms where real-time execution is required.
 
 % Solution:
-\paragraph{Future Directions}
+% \paragraph{Future Directions}
 % ToDo: Quelle für potential directions
 Future work must therefore address efficient scaling strategies for both data and model architectures. Potential directions include for example lightweight transformer designs, modular architectures and model compression techniques.
 
@@ -73,17 +69,16 @@ Future work must therefore address efficient scaling strategies for both data an
 
 \section{Domain Shift}
 % Problem
-\paragraph{Problem}
+% \paragraph{Problem}
 A persistent challenge in \ac{IL} is the domain shift between
 human demonstrations and robot execution. In particular, transferring skills from humans to robots is difficult because of differences in appearance, motion dynamics of task execution, embodiment, environment and action spaces \cite{Eze2024LearningBW}. 
 % This problem is commonly referred to as the embodiment gap.
-
 % Solution
-\paragraph{Current Solutions}
+% \paragraph{Current Solutions}
 Current approaches attempt to learn domain-invariant or domain-adaptive representations using hybrid and multi-modal architectures, image translation techniques or context-aware feature learning. Methods such as adversarial learning, keypoint-based transfer and CycleGAN-based translation can partially reduce visual discrepancies between domains \cite{Wulfmeier2017AddressingAC, Paudel2022LearningFR}. However, translation artifacts, inaccurate pose estimation and misaligned action representations still limit robust skill transfer \cite{Eze2024LearningBW}.
 
 % Future Directions
-\paragraph{Future Directions}
+% \paragraph{Future Directions}
 Future research will likely focus on more robust sim-to-real transfer methods, continual learning strategies during inference and advanced domain adaptation techniques. Multi-modal learning approaches that integrate additional sensory modalities, such as force or tactile feedback may further reduce the dependence on purely visual transfer. In addition, causal reasoning and few-shot adaptation methods could improve the transfer of manipulation skills across different robots and environments. Furthermore, researchers should investigate in attention mechanisms, unsupervised techniques and transformer-based architectures \cite{Eze2024LearningBW}.
 % , which may also help to mitigate the domain shift problem.
 
@@ -105,11 +100,10 @@ Future research will likely focus on more robust sim-to-real transfer methods, c
 
 
 \section{Emerging Techniques and Architectures}
-Several emerging research directions may significantly influence the future of \ac{IL} and robotics.
-
+% Several emerging research directions may significantly influence the future of \ac{IL} and robotics.
 Many traditional \ac{IL} approaches are designed for single tasks and often rely on a single input modality, such as visual observations. To address these limitations, recent research increasingly focuses on multi-task and multi-modal learning architectures.
-
 Furthermore, learning complex manipulation behaviors from demonstrations requires models capable of producing high-dimensional outputs, such as complete action trajectories or future visual observations, rather than single action predictions \cite{Wolf2025DiffusionMF, Eze2024LearningBW}. In particular, diffusion models and world models have emerged as two promising architectural paradigms.
+
 
 \subsection{Multi-Task Models}
 Works like \textcite{Mandi2021TowardsMG, ChaneSane2023LearningVP, Huang2021GeneralizationID} outline the efficacy of Multi-task learning and multi-modal architectures for robotics. Such architectures can leverage information from diverse data sources and transfer knowledge across tasks to improve generalization. In contrast \textcite{Yu2020GradientSF} explores the Challenges of these approaches, such the varying optimization constraints for each modality.
@@ -125,16 +119,22 @@ Works like \textcite{Mandi2021TowardsMG, ChaneSane2023LearningVP, Huang2021Gener
 
 A fundamental challenge in \ac{IL} is the inherently multi-modal nature of many robotic tasks \cite{Wolf2025DiffusionMF}. For a given observation, there is often no single optimal action. For example, an object can be grasped from multiple valid directions and a drawer can be opened using different trajectories. Traditional approaches typically learn a deterministic mapping from observations to actions and are commonly optimized using regression objectives such as mean squared error \cite{Eze2024LearningBW}. As a result, they tend to predict an average of multiple valid behaviors, which may lead to suboptimal or even infeasible actions.
 
-Diffusion models offer a promising solution to this problem by learning the full distribution of successful behaviors rather than a single deterministic output \cite{Wolf2025DiffusionMF}. Originally developed as generative models for image synthesis, they are particularly well suited to robotics due to their ability to represent complex, high-dimensional and multi-modal distributions. Instead of producing a single averaged action, diffusion models can generate diverse and physically plausible action sequences that reflect the multiple valid solutions inherent in many manipulation tasks \cite{parabRiseDiffusionModels2024a}. This is especially important in real-world environments, where uncertainty, noise and variability make multiple strategies equally valid.
-% This enables the generation of diverse and plausible action trajectories that better capture the variability of real-world manipulation tasks.
+Diffusion policies provide a promising approach to robot learning by modeling the full distribution of successful behaviors instead of predicting a single deterministic action \cite{Wolf2025DiffusionMF}. Originally developed for image generation, diffusion models are well suited for robotics due to their ability to represent complex, high-dimensional, and multi-modal action distributions. Rather than outputting an averaged action, they generate diverse and physically plausible action sequences that capture the inherent variability of manipulation tasks \cite{parabRiseDiffusionModels2024a}.
+In robotics, diffusion policies generate actions or action trajectories directly from observations, typically visual inputs, through an iterative denoising process \cite{parabRiseDiffusionModels2024a}. During inference, these trajectories are progressively refined over multiple steps, resulting in smooth and temporally consistent behavior \cite{Ingelhag2024ARS}. By capturing the full distribution of expert demonstrations, diffusion policies enable more robust and flexible behavior than deterministic regression-based approaches.
 
-\textit{Diffusion Policies.} In robotics, this idea has been adopted in diffusion policies, where robot actions are generated directly from observations—typically visual inputs—through an iterative denoising process \cite{parabRiseDiffusionModels2024a}. 
-% Rather than predicting a single action at once, the policy generates an entire action trajectory conditioned on the current state of the environment.
-Rather than predicting a single action at once, the policy is trained to denoise an action trajectory conditioned on the current state of the environment.
-During inference, this trajectory is progressively refined over multiple denoising steps, resulting in temporally coherent and precise behavior \cite{Ingelhag2024ARS}.
-By capturing the full distribution of expert demonstrations, diffusion policies enable more robust and flexible action generation compared to deterministic regression-based approaches.
+More generally, diffusion-based policies have emerged as a powerful framework for continuous action generation in imitation learning \cite{Li2024CogACTAF, Liu2024RDT1BAD, McCarthy_2025}. They support smooth trajectory generation while naturally handling multi-modal action distributions, making them particularly effective for dexterous manipulation and long-horizon tasks. Overall, diffusion policies represent a promising direction for future research in imitation learning.
 
 
+% Diffusion models offer a promising solution to this problem by learning the full distribution of successful behaviors rather than a single deterministic output \cite{Wolf2025DiffusionMF}. Originally developed as generative models for image synthesis, they are particularly well suited to robotics due to their ability to represent complex, high-dimensional and multi-modal distributions. Instead of producing a single averaged action, diffusion models can generate diverse and physically plausible action sequences that reflect the multiple valid solutions inherent in many manipulation tasks \cite{parabRiseDiffusionModels2024a}. This is especially important in real-world environments, where uncertainty, noise and variability make multiple strategies equally valid.
+% % This enables the generation of diverse and plausible action trajectories that better capture the variability of real-world manipulation tasks.
+% In robotics, this idea has been adopted in diffusion policies, where robot actions are generated directly from observations—typically visual inputs—through an iterative denoising process \cite{parabRiseDiffusionModels2024a}. 
+% % Rather than predicting a single action at once, the policy generates an entire action trajectory conditioned on the current state of the environment.
+% % Rather than predicting a single action at once, the policy is trained to denoise an action trajectory conditioned on the current state of the environment.
+% During inference, this trajectory is progressively refined over multiple denoising steps, resulting in temporally coherent and precise behavior \cite{Ingelhag2024ARS}.
+% By capturing the full distribution of expert demonstrations, diffusion policies enable more robust and flexible action generation compared to deterministic regression-based approaches.
+
+% Diffusion-based policies have also emerged as a powerful framework for continuous action generation \cite{Li2024CogACTAF, Liu2024RDT1BAD, McCarthy_2025}. Unlike earlier approaches based on discrete action prediction, diffusion models can generate smooth and temporally consistent trajectories while capturing multimodal action distributions. This enables more expressive and stable robot behavior, particularly for dexterous manipulation and long-horizon tasks.
+% Building on these advantages, diffusion-based policies have emerged as a powerful framework for \ac{IL} and represent a promising direction for future research. 
 
 % Instead of producing a single averaged action, diffusion models can generate diverse and plausible action sequences that reflect the multiple valid solutions available for a manipulation task. This capability is especially valuable in real-world environments, where variability and uncertainty are common.
 
@@ -142,9 +142,9 @@ By capturing the full distribution of expert demonstrations, diffusion policies 
 
 % In diffusion policies, the model learns a direct mapping from observations, typically visual inputs, to robot actions through an iterative denoising process. Rather than predicting a single action, the policy generates an entire action trajectory conditioned on the current state of the environment. During inference, the trajectory is progressively refined over multiple denoising steps, resulting in temporally coherent and precise behavior. By modeling the full distribution of expert demonstrations.
 
-\textit{Continuous Action Space.} Diffusion-based policies have also emerged as a powerful framework for continuous robot action generation \cite{Li2024CogACTAF, Liu2024RDT1BAD, McCarthy_2025}. Unlike earlier approaches based on discrete action prediction, diffusion models can generate smooth and temporally consistent trajectories while capturing multimodal action distributions. This enables more expressive and stable robot behavior, particularly for dexterous manipulation and long-horizon tasks.
 
-\textit{Outlook.} Building on these advantages, diffusion-based policies have emerged as a powerful framework for \ac{IL} and represent a promising direction for future research. 
+
+
 
 
 % Goal: Moving from single-task, single-modality architectures to multi-task learning and high-dimensional output generation (e.g. action trajectories, future video frames)
@@ -164,21 +164,19 @@ By capturing the full distribution of expert demonstrations, diffusion policies 
 % more sample-efficient than model-free RL
 % Video Prediction Models as World Models
 While diffusion policies focus on directly generating actions, an alternative approach is to learn a predictive model of the environment itself. A key limitation of many current \ac{IL} systems is that they react to observations without explicitly reasoning about the future consequences of their actions \cite{Eze2024LearningBW}. This often leads to inefficient learning and limited long-term planning capabilities.
-
 World models address this challenge by learning the transition dynamics of the environment. Formally, a world model approximates the probability distribution
 \begin{equation}
 	p(s_{t+1} \mid s_t, a_t)	
 \end{equation}
 which describes how the environment evolves from the current state $s_t$ to the next state $s_{t+1}$ after executing an action $a_t$ \cite{Eze2024LearningBW}. By repeatedly applying this learned transition model, a robot can predict future states and forecast complete trajectories before interacting with the real world \cite{Mendonca2023StructuredWM}.
-
-\textit{Imagination.} This capability enables a form of internal planning often referred to as \textit{imagination} \cite{Mendonca2023StructuredWM}. Instead of relying solely on trial-and-error interactions, the robot can simulate the consequences of different action sequences within its learned world model and select actions that maximize task success. Consequently, world models provide the foundation for model-based planning and can be significantly more sample-efficient than model-free approaches, which typically require large amounts of real-world interaction data \cite{Wang2026WorldMF}.
+This capability enables a form of internal planning often referred to as \textit{imagination} \cite{Mendonca2023StructuredWM}, where the robot can simulate the consequences of different action sequences within its learned world model and select actions that maximize task success. Consequently, world models provide the foundation for model-based planning and can be significantly more sample-efficient than model-free approaches, which typically require large amounts of real-world interaction data \cite{Wang2026WorldMF}.
 
 Recent advances increasingly combine world models with generative architectures \cite{Wang2026WorldMF}. In particular, video prediction models can be interpreted as world models that learn to generate future visual observations conditioned on actions.
-For example, modern systems employ diffusion transformers to generate high-resolution, long-horizon videos of robotic manipulation tasks that act as learned world models and interactive simulators \cite{Wang2026WorldMF}. This enables policy evaluation, model-based planning and skill learning to be performed entirely within the generative model, thereby mitigating the cost, safety risks and labor associated with extensive real-world robot rollouts \cite{zhu2024maniwm}.
+For example, modern systems employ diffusion transformers to generate high-resolution, long-horizon videos of robotic manipulation tasks \cite{Wang2026WorldMF}. This enables policy evaluation, model-based planning and skill learning to be performed entirely within the generative model, thereby mitigating the cost, safety risks and labor associated with extensive real-world robot rollouts \cite{zhu2024maniwm}.
 
 % For example, modern systems employ diffusion transformers to generate high-resolution, long-horizon videos of robotic manipulation tasks. Such models can serve as interactive simulators, enabling policy evaluation, planning and skill learning directly within the learned world model.
 %  This allows for downstream applications like policy evaluation and model-based planning to be conducted entirely with the generative model, mitigating the cost, safety concerns and labor associated with extensive real-world robot rollouts [202].
-\textit{Outlook.} As generative modeling techniques continue to advance, world models are expected to become a central component of future robotic systems by combining perception, prediction, planning and control within a unified framework \cite{Wang2026WorldMF}. In Figure \ref{fig:WorldModel} is shown an overview of World Models to emphazize the power of these Approaches.
+As generative modeling techniques continue to advance, world models are expected to become a central component of future robotic systems by combining perception, prediction, planning and control within a unified framework \cite{Wang2026WorldMF}. In Figure \ref{fig:WorldModel} is shown an overview of World Models to emphazize the power of these Approaches.
 
 \begin{figure}[ht]
 	\centering
@@ -196,20 +194,15 @@ For example, modern systems employ diffusion transformers to generate high-resol
 
 % More generally, causal reasoning is important for building robots that can adapt to new situations, handle unseen environments and reason about alternative actions, such as what would happen if a different action had been taken.
 A current limitation of \ac{IL} systems is their weak ability to perform causal reasoning and high-level policy abstraction from video data. Most existing approaches focus on pattern recognition, goal inference or directly imitating demonstrations \cite{Eze2024LearningBW}. However, they do not explicitly learn the causal structure behind actions and outcomes, meaning they do not understand why a certain action leads to a result.
-
 The main issue is that neural networks typically learn statistical correlations from data, but correlation does not necessarily imply causation \cite{Eze2024LearningBW}. This leads to models that may rely on irrelevant features in the environment. For example, a robot might incorrectly associate the color of an object with the force needed to lift it, instead of learning that mass is the true determining factor. The goal of causal reasoning is therefore to capture the underlying cause-and-effect structure of the environment \cite{Eze2024LearningBW}.
 
 Such causal models are considered a foundation for better generalization \cite{Li2020CausalDI, Lee2024CausalRL}. They enable robots to act more robustly in changing environments, adapt to novel situations and perform counterfactual reasoning, meaning they can reason about what would have happened if a different action had been taken (e.g. pushing instead of grasping an object) \cite{Lee2024CausalRL}. This enables robots to simulate the outcomes of actions they have never taken in situations or seen during training. Additionaly causal models can extend error diagnosis and correction by tracing the chain of causal events that led to failure \cite{Lee2023SCALECL}. In \ac{RL}, this allows for more intelligent exploration by identifying which actions or variables are most likely to influence success, enabling targeted data collection and faster learning. Overall, causality supports more efficient, robust and intelligent decision-making and improves long-term action planning.
-
-
-
 % Causality enables three main benefits:    
 % \begin{enumerate}
 %     \item Robustness to environmental changes    
 %     \item Generalization to novel scenarios    
 %     \item Ability to perform counterfactual reasoning (``what would have happened if I had pushed the object instead of grasping it?'')
 % \end{enumerate}
-
 To achieve this, recent approaches explore causal inference and model-based reasoning, as well as neuro-symbolic methods \cite{Eze2024LearningBW}. Neuro-symbolic systems combine the pattern recognition ability of neural networks with the logical reasoning of symbolic AI, allowing for more structured and explainable decision-making \cite{Garcez2020NeurosymbolicAT, Delong2023NeurosymbolicAF}.
 
 
@@ -263,7 +256,6 @@ Based on this uncertainty, the robot plans and executes its next set of interven
 
 \subsubsection{Causal Representation Learning}
 A key bottleneck for causal discovery methods is that they operate on predefined feature spaces, yet real-world robotic systems receive only raw sensory data such as images, which are translated into a high-dimensional learned feature space. The axes of this coordinate system are typically difficult to interpret: it remains unclear which visual phenomena correspond to which dimensions of the embedding vector. In most cases, the dimensions of this predefined feature space are not explainable. Causal representation learning addresses this gap by learning to map high-level observations onto a low-dimensional latent space whose dimensions correspond to the independent causal mechanisms of the environment \cite{CVPRWorkshopCausal, Lee2024CausalRL}. An ideal causal representation feature space disentangles factors such as object identity, pose, lighting and background into separate, independently controllable latent variables or dimensions. Such representations are inherently more compositional and generalizable: a robot could reason about and intervene on each factor without affecting the others \cite{CVPRWorkshopCausal}. 
-
 Although still an emerging field, causal representation learning holds promise for enabling more sample-efficient and robust \ac{IL}, particularly when transferring policies from simulation to the real world \cite{Lee2023SCALECL, MndezMolina2022CausalDA, Castri2023FromCL}.
 
 
@@ -311,7 +303,6 @@ Although still an emerging field, causal representation learning holds promise f
 
 \section{Evaluation Metrics and Benchmarks}
 Another major challenge is the lack of standardized evaluation metrics and benchmarking protocols for \ac{IL} and video-based robot learning. Current evaluations are often task-specific and rely on custom experimental setups, making fair comparisons between methods difficult \cite{Eze2024LearningBW}.
-
 Existing benchmarks primarily focus on task success rates, while aspects such as robustness, generalization, sim-to-real transfer and adaptability are often insufficiently evaluated. Moreover, the design of a benchmark strongly influences research directions by implicitly prioritizing certain capabilities over others \cite{Eze2024LearningBW}. Table \ref{tab:benchmark} summarizes three prominent benchmarks and their principal focus.
 
 
@@ -351,7 +342,6 @@ A potential protocol would proceed in two stages \cite{Eze2024LearningBW}:
 \end{enumerate}
 
 Under this protocol a purely correlational policy that overfits the training statistics is expected to fail on the perturbed tasks, while a model that internalizes causal relationships should either adapt its policy to the new dynamics or detect the distributional shift and trigger safer, more informed failure recovery strategies. Quantitatively, such a benchmark would report both standard task success and robustness metrics, such as performance drop under interventions, adaptation speed and diagnostic measures of causal inference \cite{Eze2024LearningBW}.
-
 Developing and releasing such interventional benchmarks will provide a concrete, quantitative way to measure the benefits of causal reasoning in robotic manipulation and will help steer the field toward methods that generalize in meaningful, physically grounded ways \cite{Eze2024LearningBW}.
 
 

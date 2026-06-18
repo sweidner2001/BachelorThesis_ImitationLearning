@@ -128,7 +128,7 @@ L_{\text{total}} = \tfrac{1}{4}\big( L_{\text{action}} + L_{\text{video alignmen
 
 
 
-\subsection{Used Training Datasets}
+\subsection{Used Training Data}
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter8/media/Vid2Robot_Datasets.png}
@@ -232,7 +232,7 @@ Given a manipulation plan, ORION constructs a policy that synthesizes actions in
 
 To transfer object trajectories between environments, ORION identifies the initial and target locations of keypoints in the current scene and aligns them with the corresponding keypoints from the demonstration. The resulting object motions are used to optimize a sequence of SE(3) transformations that move the robot from one sub-goal state to the next. Gripper actions are incorporated using the interaction information stored in the grip node of the \ac{OOG}. During execution, the generated trajectory is converted into robot commands using a combination of inverse kinematics and joint impedance control, enabling both accurate and compliant motion. Task success is evaluated using a sparse reward function that returns a value of 1 when all required object relations are satisfied and 0 otherwise.
 
-\subsection{Used Training Datasets}
+\subsection{Used Training Data}
 The datasets used for training are not described in the paper. 
 ORION does not rely on pre-existing data, models or ground-truth annotations and instead learns directly from raw video demonstrations. The used video data does not come with any robot actions. 
 
