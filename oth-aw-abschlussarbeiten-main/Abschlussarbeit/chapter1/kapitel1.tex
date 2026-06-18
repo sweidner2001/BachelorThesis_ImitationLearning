@@ -65,7 +65,6 @@ The second part of the thesis focuses on the practical implementation of an open
 
 Chapter \ref{chap:Foundations} introduced the fundamental concepts of imitation learning and distinguished between two major paradigms: Behavior Cloning and Learning from Videos (LfV). 
 % While Behavior Cloning relies on demonstrations containing explicit action labels, Learning from Videos seeks to exploit the vast amount of action-free video data available online, offering a scalable alternative for robot learning.
-
 Chapter \ref{chap:GeneralistRobotsAndTheDataBottleneck} discussed the overarching objective of robotics research: the development of generalist robots capable of performing a wide range of tasks in unstructured and previously unseen real-world environments. A major obstacle to this vision is the robotics data bottleneck, which arises from the limited availability of large, diverse, and high-quality robotic datasets. 
 % Internet videos represent a potential solution due to their abundance and diversity. However, their use introduces additional challenges related to the transfer of visual knowledge to robotic systems.
 A prerequisite for effective human-robot interaction is the ability to communicate goals and intentions to robotic agents. Therefore, chapter \ref{chap:WaysToInstructRobots} examined how robots can be instructed and guided to perform desired tasks. 
@@ -74,7 +73,6 @@ A prerequisite for effective human-robot interaction is the ability to communica
 
 Chapter \ref{chap:LearningFromVideosDataModalityAndChallenges} focused on the central research questions of Learning from Videos: how relevant knowledge can be extracted from internet videos and how this knowledge can subsequently be transferred to robotic systems for policy learning and control. 
 % Video Foundation Models were introduced as a powerful tool for extracting semantic and behavioral information from large-scale video data. Two major challenges were identified in the transfer process: the absence of action labels and the distribution shift between human videos and robotic observations. To address these challenges, alternative action representations are employed to relabel action-free video data, enabling robots to learn from demonstrations that do not contain explicit control signals.
-
 Chapter \ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} explored the role of robust video understanding in \ac{IL}. Learning manipulation skills from video requires more than simple action recognition: It demands meaningful representations of the environment, an understanding of object affordances and human-object interactions, recognition of human activities, and accurate modeling of fine-grained hand movements.
 These capabilities form the basis for a general-purpose robot that can interpret human demonstrations.
 % These capabilities form the basis of a general-purpose robot capable of understanding human demonstrations.
