@@ -41,7 +41,7 @@ As a result, available datasets are usually smaller and less diverse. Consequent
 % \subsection{Relevant Data Categories for Robotics}
 % \subsection{How to Address the Data Bottleneck}
 \subsection{Data Categories in Robotics}
-Before we come to approaches for addressing the data bottleneck in robotics, it is important to clarify which data sources are relevant for robot learning and how such data can be acquired.
+Before comming to approaches for addressing the data bottleneck in robotics, it is important to clarify which data sources are relevant for robot learning and how such data can be acquired.
 
 \paragraph{Real World Robot Data}
 
@@ -160,7 +160,7 @@ $D_{robot}$ contains video (demonstration) data and can be obtained from externa
 
 
 \paragraph{Improvements of Learning from Videos} 
-By Combining $D_{\text{robot}}$ and $D_{\text{video}}$, we can can expect several improvements, instead of using only $D_{\text{robot}}$. Robot datasets primarily provides information about low-level skills, such as grasping or locomotion \cite{Chen2024RH20TPAP}, internet-scale videos contains a much broader variety of tasks and human behaviors. By linking robotic actions to higher-level task structures observed in videos, \ac{LfV} systems may generalize to tasks that are not explicitly represented in $D_{\text{robot}}$ \cite{Eze2024LearningBW, Brohan2023RT2VM, Du2023LearningUP, Wu2023UnleashingLV, Wang2023MimicPlayLI}.
+By Combining $D_{\text{robot}}$ and $D_{\text{video}}$, several improvements can be expected, instead of using only $D_{\text{robot}}$. Robot datasets primarily provides information about low-level skills, such as grasping or locomotion \cite{Chen2024RH20TPAP}, internet-scale videos contains a much broader variety of tasks and human behaviors. By linking robotic actions to higher-level task structures observed in videos, \ac{LfV} systems may generalize to tasks that are not explicitly represented in $D_{\text{robot}}$ \cite{Eze2024LearningBW, Brohan2023RT2VM, Du2023LearningUP, Wu2023UnleashingLV, Wang2023MimicPlayLI}.
 By combining robot data and video data with language annotations, models may learn to connect low-level robotic skills with rich semantic abstractions and higher-level world knowledge obtained from textual data [50], which may enable improved task understanding, generalization and and the ability to solve previously unseen tasks [47, 50, 119]. LLMs and vision models have already demonstrated that training on large amounts of data has led to the emergence of capabilities [47, 119]
 Video data may also improve performance on tasks that are already represented within the robot dataset $D_{\text{robot}}$. 
 % \begin{itemize}
@@ -333,7 +333,7 @@ In contrast to robot interaction datasets, videos are typically high-dimensional
 
 
 % \paragraph{Summary}
-None of these challenges have yet been fully solved. In the following sections, we will discuss some possible ways to address these issues coming with internet video data. Nevertheless it seems likely that scaling — with the help of internet video data — can provide significant gains in robotic systems within the near future \cite{McCarthy_2025}.
+None of these challenges have yet been fully solved. In the following sections, some possible ways are discussed to address these issues coming with internet video data. Nevertheless it seems likely that scaling — with the help of internet video data — can provide significant gains in robotic systems within the near future \cite{McCarthy_2025}.
 
 
 

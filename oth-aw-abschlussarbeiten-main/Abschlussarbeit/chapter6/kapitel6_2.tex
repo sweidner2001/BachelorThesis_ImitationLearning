@@ -4,7 +4,7 @@
 \chapter{Robot Learning}
 \label{chap:RobotLearningApproaches}
 \minitoc
-In this Chapter, we will focus more closely on the various distinct but interrelated categories of approaches, which use the objectives from Chapter~\ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} to learn a coherent robot model \cite{Eze2024LearningBW}. The main focus lies on the intersection of \ac{LfV} and \ac{RL}, highlighting how video-based learning can enhance \ac{RL} algorithms and enable more efficient policy learning from visual data. Finally we give a brief introduction to \ac{VLA} models, which is currently the peak of research in the field of video-based robot learning.
+In this Chapter, the focus will be more closely on the various distinct but interrelated categories of approaches, which use the objectives from Chapter~\ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} to learn a coherent robot model \cite{Eze2024LearningBW}. The main focus lies on the intersection of \ac{LfV} and \ac{RL}, highlighting how video-based learning can enhance \ac{RL} algorithms and enable more efficient policy learning from visual data. Finally a brief introduction to \ac{VLA} models is provided, which are currently at the peak of research in the field of video-based robot learning.
 
 \section{Perception and Representation Learning}
 The foundation of video-based robot learning relies on the ability to extract task relevant information from visual data and translate it into robot-compatible representations. Robust perceptual and representational foundations are crucial for bridging the gap between human demonstrations and robot execution and enables agents to understand what matters in a video and how to replicate it \cite{Eze2024LearningBW}. 
@@ -144,7 +144,7 @@ In the context of \ac{LfV}, RL approaches often combine exploratory learning wit
 \section{Imitation Learning}
 
 \subsection{Idea Behind Imitation Learning} 
-When we want to learn a new skill, we often turn to how-to videos. We learn the new skill through speech instructions and visual observations in the video \cite{Jain2024Vid2RobotEV}. The same principle is now to be applied to robots through \ac{IL}.
+When people want to learn a new skill, they often turn to how-to videos. They learn the new skill through speech instructions and visual observations in the video \cite{Jain2024Vid2RobotEV}. The same principle is now to be applied to robots through \ac{IL}.
 
 Visual Imitation Learning ...
 \begin{itemize}
@@ -212,7 +212,7 @@ Visual Entity Graphs (VEGs) \cite{Sieb2019GraphStructuredVI} models spatial and 
 
 
 
-\section{Hybrid Approaches}
+\section{Hybrid Learning Approaches}
 \ac{RL} is a powerful approach for learning complex tasks, as it enables agents to improve their behavior through interaction with the environment \cite{Eze2024LearningBW}. However, it can be sample inefficient and may require a large number of interactions to learn an effective policy, especially in high-dimensional state and action spaces. Therefore, it is often combined with other learning paradigms, such as supervised learning or \ac{IL}, in order to leverage their complementary strengths and improve overall performance \cite{Eze2024LearningBW, McCarthy_2025}.
 
 \ac{IL} generally refers to a family of methods and techniques that enable learning from demonstrations. Two important approaches in this context are \ac{BC} and \ac{LfV}, which differ primarily in the type of data they utilize. \ac{BC} relies on annotated demonstrations, where state-action pairs are available and learns a policy directly via supervised learning. In contrast, \ac{LfV} aims to infer actions from unannotated video observations, where in the most casses only visual information is provided.
@@ -243,17 +243,17 @@ More recent work further \textit{combines RL and IL with control-theoretic metho
 
 \paragraph{Discover the Usage of Video Data for \acs{RL} Knowledge Modalities}
 
-\ac{RL} can benefit from knowledge extracted from large-scale video data in multiple ways. In the following section, we analyze how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
+\ac{RL} can benefit from knowledge extracted from large-scale video data in multiple ways. In the following section analyze, how information obtained from videos can be incorporated into different RL Knowledge Modalities in order to improve learning efficiency and overall performance:
 \begin{itemize}
-    \item Policy (Section \ref{sec:HybridPolicies})
-    \item Dynamics Model (Section \ref{sec:DynamicsModels})
-    \item Reward Functions (Section \ref{sec:RewardFunctions})
-    \item Value Functions (Section \ref{sec:ValueFunctions})
+    \item Hybrid Policies (Section \ref{sec:HybridPolicies})
+    \item Learning Dynamics Model (Section \ref{sec:DynamicsModels})
+    \item Reward Function Design (Section \ref{sec:RewardFunctions})
+    \item Value Function Approximation (Section \ref{sec:ValueFunctions})
 \end{itemize}
 
 
 
-\subsection{Policies}
+\subsection{Hybrid Policies}
 \label{sec:HybridPolicies}
 \begin{figure}[!ht]
 	\centering
@@ -446,7 +446,7 @@ Overall, video-based dynamics models provide a scalable framework for bridging v
 
 
 
-\subsection{Reward Functions}
+\subsection{Reward Function Design}
 \label{sec:RewardFunctions}
 
 Reward functions are a central component of \ac{RL}, as they define the objective that guides policy optimization. However, manually designing reward functions for open, complex and unstructured robotic environments is difficult, often task-specific and hard to scale \cite{McCarthy_2025}. To address this limitation, \ac{LfV} approaches aim to automatically extract visual reward functions directly from video data. The core idea is to transform robot transition tuples $(o_t, a_t, o_{t+1})$ into reward-annotated tuples $(o_t, a_t, r_t, o_{t+1})$, enabling their use in both online and offline \ac{RL} settings \cite{McCarthy_2025}.
@@ -582,7 +582,7 @@ Overall, video-based reward functions provide a scalable mechanism for translati
 
 
 
-\subsection{Value Functions}
+\subsection{Value Function Approximation}
 \label{sec:ValueFunctions}
 
 

@@ -47,7 +47,7 @@ Representation learning aims to extract meaningful and task-relevant spatio-temp
 
 A key challenge is that robotic observations are high-dimensional and subject to variations such as viewpoint changes, lighting conditions, cluttered backgrounds and partial occlusions \cite{Eze2024LearningBW}. Therefore, learned representations should be invariant to irrelevant visual changes while preserving information relevant for control and decision making.
 %  and supports high-level feature transfer from human videos to robot policies.
-Modern representation learning methods focus on several key aspects \cite{Eze2024LearningBW}:
+Representation learning methods focus on several key aspects \cite{Eze2024LearningBW}:
 \begin{itemize}
     \item \textbf{Spatial Understanding:} Capturing objects, scene layouts, semantic structures or patterns and relationships between entities.
     
@@ -80,7 +80,7 @@ Modern representation learning methods focus on several key aspects \cite{Eze202
     
     \textit{Definition:} Temporal feature extraction focuses on the relationships and changes that occur across multiple frames over time (the sequence).
     
-    \textit{Analogy:} This is the motion and dynamics of the video—understanding that a hand is moving toward a block, or that the block is rotating.
+    \textit{Analogy:} This is the motion and dynamics of the video, such as understanding that a hand is moving toward a block or that the block is rotating.
     
     \textit{Robot Relevance:} Answers the question: "What is the action and how is the scene changing?" (e.g. The hand is picking up the block.)
 
@@ -167,7 +167,7 @@ a handle affords \textit{grasping} or \textit{holding}, a button affords \textit
 %     \item a drawer handle affords \textit{pulling}
 % \end{itemize}
 % \textbf{Goal:} 
-In robotics and \ac{IL}, affordance understanding aims to infer how humans interact with objects and to understand the functional relationships between humans, objects and actions by observing human manipulation in videos \cite{Eze2024LearningBW}. The second goal is to transfer these observed interactions to robotic manipulation policies. Unlike purely appearance-based object recognition, affordance learning focuses on \textit{how objects are used} and interacted with over time.
+In \ac{IL}, affordance understanding aims to infer how humans interact with objects and to understand the functional relationships between humans, objects and actions by observing human manipulation in videos \cite{Eze2024LearningBW}. The second goal is to transfer these observed interactions to robotic manipulation policies. Unlike purely appearance-based object recognition, affordance learning focuses on \textit{how objects are used} and interacted with over time.
 Modern affordance learning methods typically address several important aspects:
 \begin{itemize}
     \item \textbf{Affordance Grounding:} 
@@ -238,7 +238,8 @@ Affordance learning plays a critical role in robotic \ac{IL} by bridging the gap
 
 \section{Human Action \& Activity Understanding}
 % ToDo: Quellen sollten eigl. erneuert werden, da diese sehr alt sind
-\textbf{Goal:} Human action and activity understanding aims to recognize what humans are doing in videos, which is crucial for understanding object affordances \cite{Eze2024LearningBW}. It allows robots to interpret fine-grained manipulation skills, replicate task structure, timing and sequencing from human demonstrations. The goal is to learn a hierarchical understanding of human actions, from low-level movements to high-level activities, by analyzing visual cues such as hand trajectories, object interactions and scene context.
+% \textbf{Goal:} 
+Human action and activity understanding aims to recognize what humans are doing in videos, which is crucial for understanding object affordances \cite{Eze2024LearningBW}. It allows robots to interpret fine-grained manipulation skills, replicate task structure, timing and sequencing from human demonstrations. The goal is to learn a hierarchical understanding of human actions, from low-level movements to high-level activities, by analyzing visual cues such as hand trajectories, object interactions and scene context.
 % It also involves decomposing complex, multi-step activities into meaningful sub-actions. In \ac{IL}, this enables robots to interpret fine-grained manipulation skills, replicate task structure, timing and sequencing from human demonstrations [48, 49, 65].
 Modern methods therefore focus on several essential aspects:
 \begin{itemize}
@@ -272,13 +273,18 @@ IRMT-Net \cite{Xin2023LearningIR} directly learns interaction structure from dem
 % \textbf{Goal:} 3D Hand Modeling aims to capture the complex geometry and motion of human hands during manipulation. It enables robots to understand fine-grained manipulation skills by modeling hand-object interactions, grasp types and contact dynamics in three-dimensional space. The goal is to learn a detailed representation of hand pose, shape and motion from videos, which can be transferred to robotic grippers for precise and dexterous manipulation.
 % \textbf{Goal:} 
 3D hand modeling aims to estimate accurate 3D pose, shape and contact of the human hand from video, to directly translate human hand movements into robot gripper commands.
-By reconstructing a full 3D mesh of the hand, the system can understand fine-grained manipulation details—such as finger placement, grasp type and hand-object contact—and retarget these to robot end-effectors.
+By reconstructing a full 3D mesh of the hand, the system can understand fine-grained manipulation details, such as finger placement, grasp type and hand-object contact, and retarget these to robot end-effectors.
 3D Hand Modeling helps to bridge the embodiment gap between human hands and robot grippers \cite{Shaw2023LEAPHL, Mandikal2022DexVIPLD, Romero2017EmbodiedH}.
 Key challenges include handling occlusions (e.g. self-occlusion of fingers), recovering realistic hand-object contact and mapping human joint angles to robot kinematics. Modern methods therefore focus on several essential aspects:
 
 \begin{itemize}
     % ToDo: not a good sentence
-    \item \textbf{Parametric Hand Models:} Low-dimensional, realistic representations of the human hand (e.g. MANO \cite{Romero2017EmbodiedH} built on SMPL \cite{Loper2023SMPLAS}) that enable 3D mesh reconstruction from monocular images \cite{Rong2020FrankMocapFM, Pavlakos2019ExpressiveBC}. These models capture hand pose, shape and articulation while being computationally efficient for real-time applications.
+    % (e.g. MANO \cite{Romero2017EmbodiedH} built on SMPL \cite{Loper2023SMPLAS})
+    \item \textbf{Parametric Hand Models:} 
+    % Parametric hand models, such as MANO \cite{Romero2017EmbodiedH}, provide a 
+    Low-dimensional representation of human hand pose, shape and articulation, enables accurate 3D hand reconstruction from monocular images \cite{Rong2020FrankMocapFM, Pavlakos2019ExpressiveBC}, while being computationally efficient for real-time applications \cite{Romero2017EmbodiedH}.
+
+    % Low-dimensional, realistic representations of human hands enable 3D mesh reconstruction of hand poses from monocular images \cite{Rong2020FrankMocapFM, Pavlakos2019ExpressiveBC}. These models capture hand pose, shape and articulation while being computationally efficient for real-time applications.
     
     \item \textbf{Occlusion Handling:} Robust estimation of finger positions and hand shape despite self-occlusions or object-induced occlusions during manipulation.
     
@@ -292,7 +298,6 @@ Key challenges include handling occlusions (e.g. self-occlusion of fingers), rec
 % Early approaches introduced anthropomorphic robotic hands for teleoperation and video-based learning. For instance, LEAP Hand provides a low-cost design that supports visual teleoperation, passive learning and sim-to-real transfer by extracting hand poses from web videos [71]. Similarly, DexMV offers a simulation and vision-based pipeline that maps 3D human hand poses to robot-compatible demonstrations [11], while DexVIP leverages YouTube videos and human hand priors to learn dexterous grasping without expensive lab data, enabling generalization to novel objects [72].
 
 Advances in motion capture have further improved fidelity. FrankMocap \cite{Rong2020FrankMocapFM} enables fast monocular 3D hand and body pose estimation using SMPL-X \cite{Pavlakos2019ExpressiveBC}, whereas MANO \cite{Romero2017EmbodiedH} provides a parametric hand model widely used in robotics and graphics \cite{Romero2017EmbodiedH, Loper2023SMPLAS}. Complementary work focuses on grasp realism, enforcing consistency between hand-object contact points through self-supervised objectives, improving flexibility and accuracy even during testing \cite{Jiang2021HandObjectCC}.
-
 Collectively, these methods reduce embodiment differences and establish robust hand modeling pipelines, laying the foundation for high-fidelity manipulation learning from human demonstrations \cite{Shaw2023LEAPHL, Mandikal2022DexVIPLD, Romero2017EmbodiedH}.
 
 
