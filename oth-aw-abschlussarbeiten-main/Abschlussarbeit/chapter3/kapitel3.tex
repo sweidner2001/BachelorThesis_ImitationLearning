@@ -126,14 +126,10 @@ However, the currently available amount of robot data is still insufficient in b
 % By augmenting traditional robot data with large-scale internet video, we can significantly enhance the learning capabilities of robotic systems and enable them to perform effectively in real-world settings \cite{lin2024data}.
 Although such videos typically do not contain direct robot actions, recent work has shown that they can still provide strong supervisory signals for representation learning, action understanding and policy pretraining. By augmenting traditional robot datasets with large-scale video data, robotic systems can learn more robust and transferable representations, improving their ability to generalize to unseen tasks and environments \cite{lin2024data}.
 
-
-
-The x-axis represents the range of behaviors expected from a generalist robot, while the y-axis indicates the level of information contained in the data. The figure shows that internet data covers a broader range of behaviors than robot datasets but lacks essential low-level information required for robotics. Bridging this gap is a key challenge in Learning from Videos (LfV).
-
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter4/media/DataBottleneck}
-	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics. The x-axis represents the spectrum of behaviors that a generalist robot is expected to perform, while the y-axis reflects the different information levels present in the data sources. Image source: \cite{McCarthy_2025}.}
+	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics. The x-axis represents the spectrum of behaviors that a generalist robot is expected to perform, while the y-axis reflects the different information levels present in the data sources. Internet data covers a wider range of behaviors than robot datasets but lacks low-level robotic information required for control, making this gap a key challenge in \ac{LfV}. Image source: \cite{McCarthy_2025}.}
 	\label{fig:DataBottleneck}
 \end{figure}
 % Internet data covers a wider range of behaviors than robot datasets but lacks low-level robotic information required for control, making this gap a key challenge in Learning from Videos (LfV).

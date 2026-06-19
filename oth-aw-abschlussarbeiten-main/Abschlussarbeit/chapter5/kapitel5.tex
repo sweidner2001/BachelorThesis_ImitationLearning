@@ -32,9 +32,9 @@ Recent progress in \textbf{Video \acp{FM}} provides a promising direction for ad
 \end{itemize}
 
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{./chapter5/media/VideoFoundationModellingForLfV}
+	\includegraphics[width=0.9\linewidth]{./chapter5/media/VideoFoundationModellingForLfV}
 	\caption[Video Foundation Models for \acs{LfV}.]{Video Foundation Models for Learning from Videos. The top green box shows different types of video \acp{FM} and their robotic applications. The blue boxes illustrate two ways they support Learning from Videos. Image source: \cite{McCarthy_2025}.}
 	\label{fig:VideoFoundationModellingForLfV}
 \end{figure}
@@ -55,13 +55,12 @@ Given a video clip $\tau$, the encoder maps the visual input into a latent repre
 In robotic \ac{IL}, pretrained video encoders are commonly used in two ways \cite{McCarthy_2025}:
 \begin{itemize}
     \item \textbf{Representation Learning:}
-    Pretrained video encoders can be transferred to robotic learning frameworks and further fine-tuned on robot-specific data for downstream tasks such as policy learning or an \ac{RL} \ac{KM}. The learned latent representations provide compact and informative features that improve generalization and sample efficiency, by allowing the model to learn task-specific features while still leveraging the general knowledge captured from internet video
-    % ToDo: , see Section~\ref{} and maybe some references.
+    Pretrained video encoders can be transferred to robotic learning frameworks and further fine-tuned on robot-specific data for downstream tasks such as policy learning or an \ac{RL} \ac{KM}. The learned latent representations provide compact and informative features that improve generalization and sample efficiency, by allowing the model to learn task-specific features while still leveraging the general knowledge captured from internet video, see \autoref{sec:PerceptionAndRepresentationLearning}.
+    % ToDo: maybe some references.
     
     \item \textbf{Reward Learning:} 
-    Frozen video representations can also be used to define reward functions for robotic agents \cite{Nair2022R3MAU, Sontakke2023RoboCLIPOD, Fan2022MineDojoBO}. By comparing the latent representations of demonstrations and robot executions, the system can measure behavioral similarity without requiring manually engineered reward signals. This approach enables the robot to learn from video demonstrations by optimizing its behavior to match the latent representations of successful demonstrations.
+    Frozen video representations can also be used to define reward functions for robotic agents \cite{Nair2022R3MAU, Sontakke2023RoboCLIPOD, Fan2022MineDojoBO}. By comparing the latent representations of demonstrations and robot executions, the system can measure behavioral similarity without requiring manually engineered reward signals. This approach enables the robot to learn from video demonstrations by optimizing its behavior to match the latent representations of successful demonstrations, see \autoref{sec:RewardFunctions}.
     % , thus facilitating \ac{IL} and skill acquisition.
-    % ToDo: , see Section~\ref{}.
 \end{itemize}
 
 \subsubsection{Methods}
@@ -213,7 +212,6 @@ The encoder maps the input video into a lower-dimensional continuous latent repr
 % This allows the model to capture temporal dependencies in video sequences. However, because each prediction depends on previous generated outputs, small prediction errors can accumulate over long horizons, leading to temporal drift and degraded generation quality.
 
 \textbf{Masked transformer models} \cite{Yu2022MAGVITMG, Yu2023LanguageTR, Gupta2022MaskViTMV} address this limitation by masking subsets of video tokens and predicting multiple missing tokens in parallel instead of generating them strictly one-by-one. The model iteratively refines the masked predictions until a complete video sequence is reconstructed. This can be done for example via MaskGit decoding \cite{Chang2022MaskGITMG}.
-% ToDo: This is usually achieved via the use of MaskGIT decoding [44]. 
 During inference, the model can be conditioned on a short history of recent camera observations from the robot environment, which are encoded into tokens, while the tokens corresponding to future time steps are initially masked. The model then predicts the missing future tokens for the entire horizon in parallel and iteratively refines these predictions until a coherent future video sequence is obtained.
 Compared to autoregressive decoding, masked transformers improve computational efficiency and reduce long-horizon error accumulation, called ``drifting'' effect \cite{Yang2024VideoAT}.
 
@@ -385,7 +383,6 @@ Another key bottleneck is the \textbf{limited quality and scale of low-level ann
 Additionally, processing \textbf{high-dimensional and long video sequences} remains computationally expensive \cite{McCarthy_2025}, motivating for more efficient model architectures \cite{Yang2024VideoAT}. 
 % \begin{itemize}
 %     \item Current models may \textbf{hallucinate} or fail to capture fine-grained spatial relationships, precise spatio-temporal dynamics and long-term temporal dependencies \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Yang2023LearningIR}. 
-%     % ToDo: See section ....
 %     \item Another key bottleneck is the \textbf{limited quality and scale of low-level annotated video data}, particularly for tasks requiring detailed fine-grained understanding. 
     
 %     \item Additionally, processing \textbf{high-dimensional and long video sequences} remains computationally expensive \cite{McCarthy_2025}, motivating for more efficient model architectures \cite{Yang2024VideoAT}. 

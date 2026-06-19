@@ -7,6 +7,7 @@
 In this Chapter, the focus will be more closely on the various distinct but interrelated categories of approaches, which use the objectives from Chapter~\ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} to learn a coherent robot model \cite{Eze2024LearningBW}. The main focus lies on the intersection of \ac{LfV} and \ac{RL}, highlighting how video-based learning can enhance \ac{RL} algorithms and enable more efficient policy learning from visual data. Finally a brief introduction to \ac{VLA} models is provided, which are currently the peak of research in the field of video-based robot learning.
 
 \section{Perception and Representation Learning}
+\label{sec:PerceptionAndRepresentationLearning}
 The foundation of video-based robot learning relies on the ability to extract task relevant information from visual data and translate it into robot-compatible representations. Robust perceptual and representational foundations are crucial for bridging the gap between human demonstrations and robot execution and enables agents to understand what matters in a video and how to replicate it \cite{Eze2024LearningBW}. 
 % these foundations enable agents to understand what matters in a task and how to replicate it.
 %  By learning meaningful representations of the environment, understanding object affordances and human-object interactions, recognizing human actions and activities and modeling 3D hand movements, robots can acquire complex manipulation skills from videos. These foundational capabilities enable robots to interpret dynamic scenes, extract task-relevant features and generalize across varying environments and embodiments, ultimately facilitating more effective \ac{IL} and skill acquisition.
@@ -39,7 +40,6 @@ Feature extraction methods aim to obtain task-relevant information from visual d
 
 
 Pose-based methods complement \ac{CNN}-based pipelines, while \acp{CNN} extract dense, holistic features, pose and keypoint detection supplies structured, low-dimensional skeletal motion cues that ease embodiment alignment and improve robustness in human-to-robot transfer tasks. Both methods can provide valuable information for downstream policy learning. 
-% ToDo:
 %  and many systems combine them to leverage their respective strengths.
 Feature extraction methods are generally data-efficient and flexible, making them well-suited for learning from large-scale unlabeled video data and producing interpretable representations. They integrate effectively with \ac{RL} and \ac{IL} frameworks, particularly for modeling perception-driven control and effective for action parsing and object-centric manipulation tasks. 
 Nevertheless, these methods still struggle with sim-to-real or human-to-robot embodiment transfer, long-horizon and high-level policy reasoning or domain shift between human demonstrations and robotic execution \cite{Eze2024LearningBW}.
