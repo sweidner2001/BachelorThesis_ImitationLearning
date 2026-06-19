@@ -227,7 +227,7 @@ Observational approaches learn causal graphs from passively collected video data
 
 % ToDo: maybe it's nearby the same text, as in the paper
 \textit{Example: Visual Causal Discovery Network (V-CDN).}
-The V-CDN architecture \cite{Li2020CausalDI} comprises three main components. First, a perception module processes raw images to produce an unsupervised, temporally stable keypoint representation of the observed objects. These keypoints act as the nodes of a causal graph. Second, an inference module analyzes the movement of these keypoints over a short video sequence to deduce a latent causal structure, identifying which keypoints influence one another. Third, a dynamics module—implemented as a graph neural network—takes the inferred causal graph as input and learns to forecast the system's future state.
+The V-CDN architecture \cite{Li2020CausalDI} comprises three main components. First, a perception module processes raw images to produce an unsupervised, temporally stable keypoint representation of the observed objects. These keypoints act as the nodes of a causal graph. Second, an inference module analyzes the movement of these keypoints over a short video sequence to deduce a latent causal structure, identifying which keypoints influence one another. Third, a dynamics module, implemented as a graph neural network takes the inferred causal graph as input and learns to forecast the system's future state.
 
 % V-CDN consists of three key modules:
 % Perception Module: Extracts an unsupervised (no labels), temporally consistent keypoint representation of objects from raw images. These key points serve as the variables in the causal graph.

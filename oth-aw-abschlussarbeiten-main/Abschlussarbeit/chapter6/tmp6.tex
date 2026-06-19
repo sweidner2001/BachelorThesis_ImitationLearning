@@ -79,7 +79,7 @@ Relevance to Policy Learning
 The representations produced through these methods serve as the perceptual backbone for downstream visuomotor control pipelines. Rather than learning task-specific visual features from scratch — which would require prohibitively large amounts of task-specific demonstration data — pre-trained visual encoders provide a compact, informative feature space upon which policy networks can be efficiently trained. This is particularly advantageous in the context of learning from human demonstration videos, where the visual domain differs substantially from the robot's embodiment. High-quality representations enable the extraction of task-relevant semantic features (e.g., object states, contact events, goal configurations) that transfer across the human-to-robot domain gap, thereby supporting high-level feature transfer from human videos to robot policies.
 
 Approaches and Generalization
-Current approaches to video representation learning can be broadly categorized into video-centric methods, which operate exclusively on video sequences and exploit temporal structure, and hybrid video-and-image methods, which additionally leverage large-scale image datasets to improve spatial feature quality. The capacity for generalization — i.e., the ability of learned representations to transfer to novel objects, scenes, and task configurations not encountered during pre-training — remains a critical evaluation criterion and an active area of research.
+Current approaches to video representation learning can be broadly categorized into video-centric methods, which operate exclusively on video sequences and exploit temporal structure, and hybrid video-and-image methods, which additionally leverage large-scale image datasets to improve spatial feature quality. The capacity for generalization -- the ability of learned representations to transfer to novel objects, scenes, and task configurations not encountered during pre-training -- remains a critical evaluation criterion and an active area of research.
 
 Key Takeaways
 Spatio-temporal duality is the defining challenge: representations must simultaneously capture frame-level spatial structure and cross-frame motion dynamics.
@@ -361,7 +361,7 @@ These approaches are attractive due to their scalability and simplicity, since t
 Multi-modal models are particularly relevant for robotics because they learn a shared representation space that connects visual perception, language understanding, and robot control. 
 By jointly training on robot data together with large-scale web data, the model can transfer semantic knowledge from vision-language tasks to robotic manipulation and decision making.
 
-Furthermore, these models can serve as strong initialization policies for reinforcement learning. 
+Furthermore these models can serve as strong initialization policies for reinforcement learning. 
 A common strategy is to first pretrain the model using supervised sequence prediction on large-scale multi-modal datasets, and subsequently fine-tune the policy using reinforcement learning with task-specific rewards. 
 This often improves sample efficiency and generalization compared to training reinforcement learning policies from scratch.
 

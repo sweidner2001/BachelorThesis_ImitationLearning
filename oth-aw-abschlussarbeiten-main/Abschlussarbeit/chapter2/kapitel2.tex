@@ -1012,11 +1012,28 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 \ac{IL} or Learning from Demonstration is a general term for methods in which the agent derives or learns its behavior from expert demonstrations or ``in the wild'' videos \cite{Chrysomallis2025ImitationLI}. ``In the wild'' videos refer to videos that are not specifically recorded for training purposes, but are instead sourced from real-world settings, such as those found in great variety on the internet, for example on platforms like YouTube.
 % \ac{IL} makes it possible to use "in the wild" videos—such as those found in great variety on the internet, for example on platforms like YouTube — to train \ac{AI} models \cite{McCarthy_2025}.
 The demonstration videos can show a robot, a human, or even a loose sequence of actions, both in the real world or in a simulation environment, performing a specific task. However, videos without a clearly defined objective or with unknown activity can also be used \cite{McCarthy_2025}.
-Models can through \ac{IL} be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This, in turn, is a key prerequisite for the development of a generalist policy.
-\ac{IL} can be divided into Behavior Cloning and Learning from Videos/Observation.
+Models can through \ac{IL} be trained to capture the visual and semantic relationships, as well as the physical dynamics of the real world. This in turn is a key prerequisite for the development of a generalist policy. 
+\ac{IL} can be divided into Behavior Cloning (\autoref{sec:BehaviorCloning}) and Learning from Videos (\autoref{sec:LearningfromVideos}).
+
+
+\paragraph{Idea Behind Imitation Learning} 
+When people want to learn a new skill, they often turn to how-to videos. They learn the new skill through speech instructions and visual observations in the video \cite{Jain2024Vid2RobotEV}. The same principle is now to be applied to robots through \ac{IL}.
+Visual Imitation Learning is particularly well suited for teaching tasks that are difficult or impossible to specify through language alone.
+It allows robots to infer task-relevant actions from demonstrations performed in different environments and can be more data-efficient than \ac{RL}, especially in high-dimensional state spaces and complex environments. Furthermore it benefits from large-scale human demonstration datasets, which are often easier to collect than robot-specific expert demonstrations in the specific domain\cite{Jain2024Vid2RobotEV}.
+% Visual Imitation Learning ...
+% \begin{itemize}
+%     \item is ideal for teaching tasks that are difficult or impossible to describe in words.
+%     \item allows robots to infer tasks from expert demonstrations in different environments than the robot.
+%     \item can be more data efficient than \ac{RL}, especially in high-dimensional state spaces, like a complex robot environment. 
+%     \item can leverage large datasets of human demonstrations, which are often easier to collect than expert demonstrations in the specific domain \cite{Jain2024Vid2RobotEV}.
+% \end{itemize}
+
+% \texttt{Problems in RL:}
+In \ac{RL} a task is commonly defined through a reward function, which assigns a high reward to desirable behavior and a low reward to undesirable behavior \cite{sutton2018reinforcement}. However, designing good reward functions is challenging for every task and many methods based on computer vision rely on annotated demonstrations in every new environment \cite{McCarthy_2025}. \ac{IL} allows us to learn complex behaviors that are difficult to specify through a reward function, or it can help us to define a good adaptive reward function for \ac{RL}.
 
 
 \subsection{Behavior Cloning}
+\label{sec:BehaviorCloning}
 \ac{BC} is a fundamental approach within \ac{IL}, where a policy is learned directly from annotated expert demonstrations \cite{Eze2024LearningBW}. The training data consists of state-action pairs $(s_t, a_t)$ and the problem is formulated as a standard supervised learning task.  
 Conceptually, \ac{BC} can be understood as a form of direct imitation or copying of expert behavior, without explicitly modeling the underlying system dynamics or task objectives. 
 % Due to its simplicity and scalability, BC is one of the most widely used methods in robot learning from datasets.  
@@ -1055,6 +1072,7 @@ where $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\cdot]$ means taking all state-actio
 
   
 \subsection{Learning from Videos}
+\label{sec:LearningfromVideos}
 \ac{LfV}, also referred to as \ac{LfO}, relies solely on video demonstrations without explicit action annotations \cite{McCarthy_2025, Burnwal2025LearningFO}. In contrast to \ac{BC}, where state-action pairs are directly available, \ac{LfV} aims to infer the underlying actions or high-level intent purely from perceptual data, i.e. mapping observations to actions $(s \rightarrow a)$. It often uses Representation Learning, to learn and discover the most important (unknown) underlying data characteristics.% by transforming and reducing input in a fully data-driven and automatic manner.	
 
 A central challenge in \ac{LfV} is determining which actions correspond to the observed behavior in the video \cite{McCarthy_2025}. Since no action labels are provided, additional methods and techniques are required to recover or approximate the missing action information. See \autoref{chap:LearningFromVideosDataModalityAndChallenges} for more information.
