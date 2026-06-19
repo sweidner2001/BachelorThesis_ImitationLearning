@@ -68,7 +68,7 @@ The objective is to learn a strategy (= policy) that maximizes the cumulative re
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.6\linewidth]{./chapter3/media/RLConzept}
-	\caption[Base concept of Reinforcement Learning]{Base concept of Reinforcement Learning. Image source: \cite{sutton2018reinforcement}.}
+	\caption[Base concept of Reinforcement Learning]{Base concept of Reinforcement Learning: The Agent interacts with its environment and receives feedback in the form of rewards. Image source: \cite{sutton2018reinforcement}.}
 	\label{fig:RLConzept}
 \end{figure}
 
@@ -163,7 +163,7 @@ The most common form of such architectures is the \textit{\acf{MLP}} \cite{Goodf
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.55\linewidth]{./chapter2/media/NNNetwork}
-	\caption[Neural Networks: Architecture]{Neural Networks Architecture: Architecture of an Multilayer Perceptron Network. Circles represent perceptrons. Image source: \cite{NeuralNetworksTikZnet2024}.}
+	\caption[Neural Networks: Architecture]{Architecture of an Multilayer Perceptron Network. Circles represent perceptrons. Image source: \cite{NeuralNetworksTikZnet2024}.}
 	\label{fig:NNNetwork}
 \end{figure}
 
@@ -340,7 +340,7 @@ The horizontal axis represents the value of the weight, while the vertical axis 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{./chapter2/media/NNGradientDescent_2}
-	\caption[Neural Network: Simplified Gradient Descent]{Neural Network: Simplified gradient descent based on one network weight. Image source: \cite{lanhamLearnARCoreFundamentals}.}
+	\caption[Neural Network: Simplified Gradient Descent]{Simplified gradient descent based on one network weight. Image source: \cite{lanhamLearnARCoreFundamentals}.}
 	\label{fig:NNGradientDescent_2}
 \end{figure}
 
@@ -488,7 +488,7 @@ The main idea of a CNN is the convolution operation, where a filter, also known 
         }
         \label{fig:CNNCatPrewittVertical}
     }
-    \caption[Image-based instructions for task execution.]{Image-based instructions for task execution. Image sources: \cite{UnderstandingFiltersConvolutional}.}
+    \caption[CNN: Convolution of a Greyscale Image using Prewitt Kernels]{Convolution of a greyscale image using Prewitt kernels. Image sources: \cite{UnderstandingFiltersConvolutional}.}
     \label{fig:CNNCatPrewitt}
 \end{figure}
 
@@ -503,14 +503,14 @@ Figure \autoref{fig:CNNConvolutionIntro} illustrates the mathematical convolutio
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.75\linewidth]{./chapter2/media/CNNConvolution_1.png}
-	\caption[CNN Convolution Step-by-Step]{CNN Convolution Step-by-Step. Image source: \cite{Dumoulin2016AGT}.}
+	\caption[CNN Convolution: Convolution of an Image with the Resulting Feature Map]{Convolution of an image with the resulting feature map. Image source: \cite{Dumoulin2016AGT}.}
 	\label{fig:CNNConvolution_1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolutionIntro.png}
-	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image source: \cite{WhatAreConvolutional2021}.}
+	\caption[CNN Convolution: Mathematical concept]{Mathematical concept of the convolution in \acsp{CNN} using element-wise multiplication. Image source: \cite{WhatAreConvolutional2021}.}
 	\label{fig:CNNConvolutionIntro}
 \end{figure}
 
@@ -580,7 +580,7 @@ Pooling layers are typically applied after convolution layers and allow the netw
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.4\linewidth]{./chapter2/media/CNNPooling}
-	\caption[CNN Pooling]{CNN Pooling. Image source: \cite{jiangEightlayerConvolutionalNeural2020}.}
+	\caption[CNN Pooling]{CNN Pooling: Illustration of max pooling and average pooling operations with a stride of 2. Image source: \cite{jiangEightlayerConvolutionalNeural2020}.}
 	\label{fig:CNNPooling}
 \end{figure}
 % \begin{figure}[!h]
@@ -600,7 +600,7 @@ After several convolution and pooling stages, the feature maps are flattened int
 \begin{figure}
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter2/media/CNNPipeline.png}
-	\caption[CNN Pipeline]{CNN Pipeline. Image source: \cite{swapnaConvolutionalNeuralNetwork2020}.}
+	\caption[CNN Pipeline]{CNN Pipeline: Illustration of the typical processing sequence in a CNN, including convolution, activation function, and pooling layers. Image source: \cite{swapnaConvolutionalNeuralNetwork2020}.}
 	\label{fig:CNNPipeline}
 \end{figure}
 
@@ -638,7 +638,7 @@ The original Transformer architecture was introduced by \textcite{Vaswani2017Att
 \begin{figure}[!t]
 	\centering
 	\includegraphics[width=0.6\linewidth]{./chapter2/media/TransformerArchitectur3}
-	\caption[Transformer Architecture]{Transformer Architecture. Image based on: \cite{Vaswani2017AttentionIA}.}
+	\caption[Transformer Architecture]{Original Transformer architecture, consisting of an encoder and a decoder part. Image based on: \cite{Vaswani2017AttentionIA}.}
 	\label{fig:TransformerArchitecture}
 \end{figure}
 
@@ -691,7 +691,7 @@ In \autoref{fig:TransformerEmbeddingSpace_BlueFluffyCreature4}, it is shown how 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{./chapter2/media/TransformerEmbeddingSpace_BlueFluffyCreature4}
-	\caption[Transformer: Embedding Space]{Embedding Space of the Value Vectors: The Vector of ``creature'' is shifted in the Embedding space, based on the context. Image source: \cite{AttentionTransformersStepbystep}.}
+	\caption[Transformer: Embedding Space]{Illustration of the value embedding space $V$: The vector of ``creature'' is shifted in the embedding space based on the context ``a fluffy blue creature''. Image source: \cite{AttentionTransformersStepbystep}.}
 	\label{fig:TransformerEmbeddingSpace_BlueFluffyCreature4}
 \end{figure}
 % are weighted by the attention scores, allowing each token to aggregate information from other tokens based on their relevance.
@@ -711,7 +711,7 @@ Instead of computing attention separately for each token, the Transformer perfor
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{./chapter2/media/TransformerSingleHeadAttention}
-	\caption[Transformer: Self-attention computation]{Single self-attention Block. Image source: \cite{Raschka2024BuildLLM}.}
+	\caption[Transformer: Self-attention computation]{Overview of a single self-attention block. Image source: \cite{Raschka2024BuildLLM}.}
 	\label{fig:TransformerSingleHeadAttention}
 \end{figure}
 
@@ -723,7 +723,7 @@ While a single attention mechanism can capture relationships between tokens, dif
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{./chapter2/media/TransformerMultiHeadAttention}
-	\caption[Transformer: Multi-Head Attention Block]{Multi-Head Attention Block. Image source: \cite{Raschka2024BuildLLM}.}
+	\caption[Transformer: Multi-Head Attention Block]{Overview of a multi-head attention block. Image source: \cite{Raschka2024BuildLLM}.}
 	\label{fig:TransformerMultiHeadAttention}
 \end{figure}
 
@@ -916,7 +916,7 @@ Due to the exploration phase, the success of the chosen \ac{RL} approach only be
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{./chapter3/media/TrainingProgressDLandRL.png}
-	\caption[Training Progress in Deep Learning and Reinforcement Learning]{Training Progress in Deep Learning and Reinforcement Learning. Image source: \cite{KontaktNierhoff}}
+	\caption[Training Progress in Deep Learning and Reinforcement Learning]{The task success in \ac{RL} becomes visible at a later stage compared to deep learning due to the exploration phase. Image source: \cite{KontaktNierhoff}}
 	\label{fig:trainingprogressdlandrl}
 \end{figure}
 
@@ -991,7 +991,7 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 				\label{fig:RL_QFunction}
 			\end{minipage}%
 		}
-		\caption[Comparison of V-Function and Q-Function.]{Comparison of V-Function and Q-Function. Image based on \cite{KontaktNierhoff}}
+		\caption[Comparison of V-Function and Q-Function.]{Comparison of V-Function and Q-Function. The V-Function estimates the expected return for a given state, while the Q-Function estimates the expected return for a given state-action pair. Image based on \cite{KontaktNierhoff}}
 		\label{fig:VFunctionVsQFunction}
 	\end{figure}
 

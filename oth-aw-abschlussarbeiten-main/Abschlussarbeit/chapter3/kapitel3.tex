@@ -128,14 +128,15 @@ Although such videos typically do not contain direct robot actions, recent work 
 
 
 
-
+The x-axis represents the range of behaviors expected from a generalist robot, while the y-axis indicates the level of information contained in the data. The figure shows that internet data covers a broader range of behaviors than robot datasets but lacks essential low-level information required for robotics. Bridging this gap is a key challenge in Learning from Videos (LfV).
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{./chapter4/media/DataBottleneck}
-	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics.  The x-axis represents the spectrum of behaviors that a generalist robot is expected to perform, while the y-axis reflects the different information levels present in the data sources. Image source: \cite{McCarthy_2025}.}
+	\caption[Problem: Data Bottleneck in Robotics]{Problem: Data Bottleneck in Robotics. The x-axis represents the spectrum of behaviors that a generalist robot is expected to perform, while the y-axis reflects the different information levels present in the data sources. Image source: \cite{McCarthy_2025}.}
 	\label{fig:DataBottleneck}
 \end{figure}
+% Internet data covers a wider range of behaviors than robot datasets but lacks low-level robotic information required for control, making this gap a key challenge in Learning from Videos (LfV).
 
 Figure \ref{fig:DataBottleneck} illustrates the data bottleneck in robotics. It is highlighted that, although internet data encompasses a broader range of behaviors in diverse real-world scenarios compared to specialized robot datasets, it often lacks the detailed, low-level information that is critical for robotic applications.  
 Ideally, for every relevant behavior, both low-level robot data and internet data would be available, allowing a model to establish connections across different information levels. However, there is a significant lack of low-level robot data for many behaviors that are well represented in internet data (see ``Missing Info'' area). 
