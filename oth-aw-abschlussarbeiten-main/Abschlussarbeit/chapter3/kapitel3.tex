@@ -74,15 +74,11 @@ Before comming to approaches for addressing the data bottleneck in robotics, it 
 		means, training a \ac{RL} policy, froze it and use it to generate expert demonstration trajectories for downstream \ac{IL}~\cite{ParkerHolder2022EvolvingCW, Liang2024EurekaverseEC}. Compared to hand-crafted or planning-based approaches, \ac{RL} policies can better adapt to high-dimensional and complex tasks, although training them typically requires large amounts of interaction data and computational resources~\cite{McCarthy_2025}.
 		In simulation, the learning process can be simplified by leveraging privileged information available there and by training specialized expert policies for individual subtasks~\cite{Ha2023ScalingUA, Geng2023UniDexGraspID, Dalal2023ImitatingTA}. These policies can subsequently be coordinated to solve complex tasks.
 
-		% In simulation, these policies can additionally be trained using \textit{privileged simulation information}, which would not be accessible in real-world settings~\cite{Ha2023ScalingUA, Geng2023UniDexGraspID, Dalal2023ImitatingTA}. Examples include exact object positions, velocities, segmentation masks, or the full environment state. Access to this additional information can simplify the learning process and improve the quality of the generated trajectories.
 
-		% Another opportunity is to simplify the problem by training separate expert policies for each subtask. For example, train one policy for grasping, one for navigation and one for the pulling motion for opening drawers and coordinate them to form a complete task.
-		
 		
 	\end{itemize}
 
-	% \textit{Online Learning in Simulation.} 
-	% 	Simulation also allows for online learning, where the robot can interact with the simulated environment and collect new data during training. This is particularly beneficial for reinforcement learning, which typically requires extensive interaction with the environment to learn effective policies. By leveraging simulation, we can significantly accelerate the learning process and enable safe exploration of a wide range of scenarios.
+
 	In addition to generating demonstration datasets, simulation is widely used for online learning in robotics, particularly in \ac{RL}. In online learning, the robot continuously interacts with the environment and improves its policy based on newly collected experience during training. Simulation is especially suitable for this process because it enables safe exploration and automatic resetting of environments, parallelized data collection and faster-than-real-time execution without risking damage to physical hardware. Consequently, simulation has become an essential component for scalable robot learning systems that require large amounts of interaction data, particularly in RL~\cite{Zhuang2023RobotPL, Kaufmann2023ChampionlevelDR, Nasiriany2024RoboCasaLS}.
 	
 	% \textit{Sim-to-Real Gap.} 
@@ -145,44 +141,13 @@ The data in \autoref{fig:DataBottleneck} can be formalized as follows: $D$ refer
 $D_{robot}$ contains robot interaction data collected from physical robots in real-world or simulation environments, including observations and the complete robot trajectory. Each sample in $D_{robot}$ consists of transition tuples of the form $(o_t, a_t, r_t, o_{t+1})$, 
 % where $o_t$ is the robot observation, which can contain other information like depth or teactile data, $a_t$ is the action taken by the robot, $r_t$ the received reward after taking the action (which may be missing) and $o_{t+1}$ the next observation.
 $D_{robot}$ contains video (demonstration) data and can be obtained from external sources such as internet videos. A video clip is represented as $\tau=(o_0, o_1, ..., o_T)$, where $\tau$ denotes the full video clip and each observation $o_t$ corresponds to an RGB image, which may additionally be paired with language descriptions, action annotations, or other auxiliary modalities.
-% \begin{itemize}
-% 	\item $D$: Complete training dataset used for learning the robotic policy, which can be divided into two subsets: $D = \{D_{robot}, D_{video}\}$. 
-% 	% $D$ can include real-world data, simulated data and internet data.
-
-% 	\item $D_{robot}$: Contains robot interaction data collected from physical robots in real-world or simulation environments, including observations and the complete robot trajectory. Each sample in $D_{robot}$ consists of transition tuples of the form $(o_t, a_t, r_t, o_{t+1})$, where $o_t$ is the robot observation, which can contain other information like depth or teactile data, $a_t$ is the action taken by the robot, $r_t$ the received reward after taking the action (which may be missing) and $o_{t+1}$ the next observation.
-
-% 	\item $D_{video}$: Contains video (demonstration) data and can be obtained from external sources such as internet videos. A video clip is represented as $\tau=(o_0, o_1, ..., o_T)$, where $\tau$ denotes the full video clip and each observation $o_t$ corresponds to an RGB image. Depending on the dataset, videos may additionally be paired with language descriptions, action annotations, or other auxiliary modalities.
-% \end{itemize}
-% While robot datasets provide precise information about robot actions and control, video datasets contain high-level information about how tasks are performed in diverse real-world scenarios. Combining both sources of data can therefore help robotic systems learn beyond the limitations of traditional robot-only datasets.
 
 
 \paragraph{Improvements of Learning from Videos} 
 By Combining $D_{\text{robot}}$ and $D_{\text{video}}$, several improvements can be expected, instead of using only $D_{\text{robot}}$. Robot datasets primarily provides information about low-level skills, such as grasping or locomotion~\cite{Chen2024RH20TPAP}, internet-scale videos contains a much broader variety of tasks and human behaviors. By linking robotic actions to higher-level task structures observed in videos, \ac{LfV} systems may generalize to tasks that are not explicitly represented in $D_{\text{robot}}$~\cite{Eze2024LearningBW, Brohan2023RT2VM, Du2023LearningUP, Wu2023UnleashingLV, Wang2023MimicPlayLI}.
 By combining robot data and video data with language annotations, models may learn to connect low-level robotic skills with rich semantic abstractions and higher-level world knowledge obtained from textual data [50], which may enable improved task understanding, generalization and and the ability to solve previously unseen tasks [47, 50, 119]. LLMs and vision models have already demonstrated that training on large amounts of data has led to the emergence of capabilities [47, 119]
 Video data may also improve performance on tasks that are already represented within the robot dataset $D_{\text{robot}}$. 
-% \begin{itemize}
-% 	\item \textbf{Generalization beyond $D_{\text{robot}}$:}
-% 	By linking robotic actions to higher-level task structures observed in videos, \ac{LfV} systems may generalize to tasks that are not explicitly represented in $D_{\text{robot}}$~\cite{Eze2024LearningBW, Brohan2023RT2VM, Du2023LearningUP, Wu2023UnleashingLV, Wang2023MimicPlayLI}.
-% 	% One important improvement of \ac{LfV} is the potential to generalize beyond the limited set of tasks contained in the robot dataset $D_{\text{robot}}$~\cite{Eze2024LearningBW}. While robot data primarily provides information about low-level robotic skills, such as grasping or locomotion~\cite{Chen2024RH20TPAP}, internet-scale video data contains a much broader variety of tasks and human behaviors. By combining both data sources, models may learn how low-level robot actions relate to higher-level task structures observed in videos. As a result, an \ac{LfV} system may be capable of solving tasks that are not explicitly present in $D_{\text{robot}}$ but are represented within $D_{\text{video}}$~\cite{Brohan2023RT2VM, Du2023LearningUP, Wu2023UnleashingLV, Wang2023MimicPlayLI}.
 
-% 	\item \textbf{Emergent Capabilities:}
-% 	By combining robot interaction data with internet-scale video data with language annotations, models may learn to connect low-level robotic skills with rich semantic abstractions and higher-level world knowledge obtained from textual data [50], which may enable improved task understanding, generalization and and the ability to solve previously unseen tasks [47, 50, 119]. LLMs and vision models have already demonstrated that training on large amounts of data has led to the emergence of capabilities [47, 119]
-	
-	
-% 	% Similar to advances in language and vision models, where training on large-scale internet data have led to the emergence of capabilities that were not explicitly trained for~\cite{Radford2019LanguageMA, Brown2020LanguageMA}, we can expect similar progress in robotics. Large-scale videos with language annotations can lead to learning connections between low-level skills and rich semantic abstractions or higher-level world knowledge~\cite{Achiam2023GPT4TR}.
-% 	%  or higher-level world knowledge~\cite{Achiam2023GPT4TR}. 
-% 	% This combination has the potential to improve generalization, task understanding and the ability to solve previously unseen tasks.
-	
-
-% 	% In natural language processing and computer vision, the availability of large-scale internet data has led to significant improvements and, in some cases, the emergence of capabilities that were not explicitly trained for~\cite{Radford2019LanguageMA, Brown2020LanguageMA}. Similar progress is expected in robotics. By combining robot interaction data with internet-scale video data with language annotations, models may learn to connect low-level robotic skills with rich semantic abstractions and higher-level world knowledge obtained from textual data~\cite{Achiam2023GPT4TR}. This combination has the potential to improve generalization, task understanding and the ability to solve previously unseen tasks.
-
-% 	\item \textbf{Improvements in-distribution of $D_{\text{robot}}$:}
-% 	Video data may also improve performance on tasks that are already represented within the robot dataset $D_{\text{robot}}$. 
-% 	% Robot demonstrations are expensive to collect and additional video data can lead to more robust visual and task representations to improve data efficiency and task success~\cite{Nair2022R3MAU, Wu2023UnleashingLV}.
-
-% 	% Furthermore, video data may also improve performance on tasks that are already represented within the robot dataset $D_{\text{robot}}$. Since robot demonstrations are expensive to collect, additional video data can improve data efficiency and help models learn more robust visual and task representations~\cite{Nair2022R3MAU}. As a result, \ac{LfV} approaches may achieve higher task success rates and overall better performance compared to approaches trained solely on robot interaction data~\cite{Wu2023UnleashingLV}.
-
-% \end{itemize}
 
 
 
@@ -211,25 +176,6 @@ Proprioceptive information refers to the robot's internal sense of its own body 
 Tactile data refers to information obtained through physical contact between the robots sensors and its environment.
 %  aquired by the robots sensors. 
 It is comparable to the human sense of touch and include contact forces, pressure distributions, slip detection, surface texture information and vibration signals. This feedback is critical for maintaining stable and safe object manipulation. For example, tactile sensors can indicate whether an object has been successfully grasped 
-% , which are aquired using the robot sensors.
-%  These measurements are typically acquired using sensors placed on robot grippers, fingertips, or other contact surfaces.
-% For instance, during grasping, tactile sensors can indicate whether an object has been successfully grasped.
-% , whether it is slipping, or whether excessive force is being applied. 
-% This feedback is critical for maintaining stable and safe object manipulation.
-
-% This information is essential for tasks that require physical manipulation and interaction with objects, such as grasping, pushing, or opening doors.
-
-
-% Tactile data refers to information obtained through physical contact with objects or surfaces. It is comparable to the human sense of touch.
-
-
-
-
-% For example, when a robot arm grasps a cup, the robot needs to know the pose of the cup and the robots end-effector and how to move the arm to the cup, which implizity includes information to it's joint angles, joint velocities and gripper configuration in order to execute stable and accurate movements. 
-% This information allows the robot to execute accurate and stable motions.
-
-% Tactile information provides critical feedback about the physical interaction between the robot and its environment, such as contact forces, pressure distributions, slip detection, texture information and vibration signals. This information is essential for tasks that require physical manipulation and interaction with objects, such as grasping, pushing, or opening doors. Tactile sensing allows the robot to adjust its actions based on the feedback received from the environment, enabling more robust and adaptive behavior during physical interactions. 
-% and plays a crucial role in physical interaction.
 
 
 
@@ -243,26 +189,16 @@ This helps bridge the gap between perception and high-level task understanding, 
 % Through such alignment, video data helps bridge the gap between perception and high-level task understanding, enabling learning of more abstract representations that go beyond purely visual dynamics
 
 
-% Mid-level video information refers to the semantic and structural information that can be extracted from video data, which is relevant for understanding and performing tasks. This includes information about object interactions, human behaviors, task execution patterns and the underlying structure of activities. For example, videos can provide insights into how objects are manipulated, how humans perform tasks and how different actions are sequenced to achieve a goal.
 
 
 \textit{High-Level Language Information}
 refers to abstract semantic descriptions of tasks, concepts and behaviors expressed in natural language. In contrast to visual or robot-centric signals, language does not encode direct sensory observations or motor commands but provides structured knowledge about goals, constraints and task structures. This includes descriptions of concepts, relational knowledge and symbolic abstractions of actions and environments.
 Such information is particularly important for representing task intent and enabling generalization across different embodiments and environments. Language can describe tasks at multiple levels of abstraction, ranging from low-level action descriptions, like ``pick up the cup'' to high-level procedural or goal-oriented instructions, like ``clean the table'', which can be decomposed into intermediate steps such as removing objects, wiping the surface and reorganizing items. Such decompositions reflect implicit reasoning about task structure and enable more systematic policy learning. Therefore, language plays a central role in \textbf{planning and reasoning} and provides a medium for expressing sequential structure, subgoals and dependencies between actions.
-% Therefore ta, which can be decomposed into intermediate steps such as removing objects, wiping the surface and reorganizing items). Such decompositions reflect implicit reasoning about task structure and enable more systematic policy learning.
-% % This hierarchical structure allows models to connect concrete behaviors with more abstract task specifications.
-% Language plays a central role in \textbf{planning and reasoning}. It provides a medium for expressing sequential structure, subgoals and dependencies between actions. For example, a task such as ``clean the table'' can be decomposed into intermediate steps such as removing objects, wiping the surface and reorganizing items. Such decompositions reflect implicit reasoning about task structure and enable more systematic policy learning.
 Furthermore, language serves as a bridge for incorporating prior knowledge about object affordances, physical interactions or human behaviors into robotic systems for example from \acp{LLM}. 
 % Through textual descriptions, models can access commonsense knowledge about object affordances, physical interactions and typical human behaviors. 
 This enables improved generalization to unseen tasks by leveraging semantic relationships that are not explicitly present in robot or video data alone.
 
 
-
-% The objective of Learning from Videos (LfV) is to utilize the combined dataset
-% \begin{equation}
-% D = \{D_{\text{robot}}, D_{\text{video}}\}
-% \end{equation}
-% to learn a policy $\pi(a_t \mid s_t)$ that achieves better generalization and task performance compared to training solely on robot interaction data $D_{\text{robot}}$.
 
 
 	
@@ -276,18 +212,10 @@ This enables improved generalization to unseen tasks by leveraging semantic rela
 
 
 
-% A key advantage of video-based instructions is that they naturally capture complex, multi-step behaviors and temporal dependencies. However, they also introduce challenges such as high data requirements, sensitivity to visual variations and the need to extract relevant features from long and potentially noisy observation sequences.
-
-% Although internet-scale video data offers significant potential for robotic learning, it also introduces several fundamental challenges, like missing action labels, missing low-level information, distribution shift, high-dimensionality and noise, as well as issues related to controllability, stochasticity and partial observability.
 In contrast to robot interaction datasets, videos are typically high-dimensional, noisy, weakly labeled and highly diverse. Extracting meaningful representations and task-relevant information from such data is therefore a non-trivial problem~\cite{McCarthy_2025}. Although internet-scale video data offers significant potential for robotic learning, it also introduces fundamental challenges, such as missing action labels and low level information, distribution shift, as well as issues related to the high-dimensionality and noise nature or the stochasticity and partial observability of videos.
 
 
-% \begin{figure}[!ht]
-% 	\centering
-% 	\includegraphics[width=1.0\linewidth]{./chapter4/media/KeyChallengesInLfV}
-% 	\caption[Key Challenges in \acs{LfV}]{Key challenges in Learning from Videos. Image source:~\cite{McCarthy_2025}.}
-% 	\label{fig:KeyChallengesInLfV}
-% \end{figure}
+
 
 \begin{enumerate}
 	\item \textbf{Missing Action Labels:} One major limitation of raw video data is the absence of explicit action labels required by many \ac{IL}~\cite{Brohan2022RT1RT} and offline \ac{RL} approaches~\cite{Chebotar2023QTransformerSO}. While videos provide rich visual observations of behaviors, they typically do not contain the low-level control commands executed during the task. Retrospectively inferring robot actions from human videos is challenging, since human motions often cannot be directly mapped to the action space of a robotic system. Furthermore, videos usually lacks on \ac{RL} signals such as reward annotations, goal labels, or start-of- and end-of-episode boundaries~\cite{McCarthy_2025}.
@@ -307,115 +235,9 @@ In contrast to robot interaction datasets, videos are typically high-dimensional
 
 
 \end{enumerate}
-% \paragraph{Missing Action Labels}
-% One major limitation of raw video data is the absence of explicit action labels required by many \ac{IL}~\cite{Brohan2022RT1RT} and offline \ac{RL} approaches~\cite{Chebotar2023QTransformerSO}. While videos provide rich visual observations of behaviors, they typically do not contain the low-level control commands executed during the task. Retrospectively inferring robot actions from human videos is challenging, since human motions often cannot be directly mapped to the action space of a robotic system. Furthermore, videos usually lacks on \ac{RL} signals such as reward annotations, goal labels, or start-of- and end-of-episode boundaries~\cite{McCarthy_2025}.
-
-
-% \paragraph{Missing Low-level Information}
-% Internet videos also lack on low-level sensory information. Skillful behaviors often depend on tactile feedback, force measurements, proprioceptive signals, or depth information, which are generally not observable in classical RGB videos. Although videos may capture high-level task structure and object interactions, they do not explicitly provide the fine-grained physical information necessary for learning accurate motor control and stable interaction with the environment~\cite{McCarthy_2025}.
-
-
-% \paragraph{Distribution Shift}
-% Another challenge arises from the distribution shift between internet videos and the downstream robotics domain. Differences may occur in camera viewpoints, environments, embodiments, object appearances and task distributions. The Human demonstrations in videos may contain behaviors that are inefficient, ambiguous, or irrelevant for robotic execution~\cite{McCarthy_2025}.
-
-% In particular, \ac{LfV} must address the embodiment gap between humans and robots as they often differ significantly in their kinematics, morphology and control capabilities. Furthermore, there exists a visual gap between the human actor performing the task in the video and the robotic embodiment that is expected to execute the task. As a result, transferring observed human motions directly to robot actions is highly non-trivial and requires models to learn embodiment-invariant task representations~\cite{McCarthy_2025}.
-% Additionally, some important robotic tasks, such as specialized industrial manipulation tasks, may be difficult to learn because they are underrepresented in publicly available video datasets~\cite{McCarthy_2025}.
-
-% \paragraph{High-dimensionality, Noise and Redundancy}
-% Video data is inherently high-dimensional and often contains substantial amounts of irrelevant or redundant information. Background changes, camera motion, occlusions and unrelated actions can make it difficult for models to identify task-relevant features, making it challenging to learn robust representations. Furthermore, the sheer volume of video data can lead to computational challenges in processing and learning from such large datasets~\cite{bardes2024vjepa}.
-
-
-% \paragraph{Controllability, Stochasticity and Partial Observability}
-% In unlabeled video data, it can be tricky for models to determine which changes in the environment are caused by the agent's actions and which originate from external factors or environmental noise~\cite{Horan2021WhenIU}. This ambiguity makes it challenging to infer action information directly from video observations. Furthermore, real-world environments are frequently stochastic and only partially observable, meaning that important state information may be hidden from the camera viewpoint~\cite{Babaeizadeh2017StochasticVV}. As a result, predicting future states or accurately modeling action consequences from video alone becomes a difficult problem.
 
 
 % \paragraph{Summary}
 None of these challenges have yet been fully solved. In the following sections, some possible ways are discussed to address these issues coming with internet video data. Nevertheless it seems likely that scaling with the help of internet video data can provide significant gains in robotic systems within the near future~\cite{McCarthy_2025}.
 
 
-
-% Existing LfV research has shown promising signs of life and this is a field ripe for further progress. Of course,
-% it is unclear whether scaling deep learning will take us all the way to general-purpose robots (Section 6.4) and
-% there are other research directions that should be pursued in parallel (Section 2). Nevertheless, with sufficient
-% effort and innovation, it seems likely that scaling—with the help of internet video data—can provide significant
-% gains in the near-future
-
-
-
-% **Missing Action Labels**
-
-% - **video** lacks **information** critical to robotics, including action labels and low-level force and proprioceptive information
-
-% **Missing Low-level Information**
-
-% - For certain skillful behaviours, robots require low-level percepts such as tactile sensing, forces, proprioception, or depth sensing
-%     - data not explicitly available in internet video.
-
-% **Distribution-shift**
-
-% - various distribution shifts between internet video and the robot domain.
-% - shifts between an internet video dataset and the downstream robot domain.
-%     - physical embodiments, camera viewpoints, tasks and environments
-% - Humans in videos may perform behaviours which are sub-optimal or irrelevant
-% - useful tasks and behaviours may be underrepresented in internet video
-% - **embodiments** from robots very **different from that of a human may prove more effective**
-
-% **High-dimensionality, Noise and Redundancy**
-
-% - challenging to extract meaningful information and representations from video data
-% - some important actions and tasks may be underrepresented in the video dataset
-%     - e.g., specialized industrial tasks
-%     - the robot may need to perform tasks not commonly performed by humans
-
-
-% \subsection{Other Paths to Generalist Robots.}
-
-
-% Goal: reduce the amount of robot videos
-
-% - **Video provides foundational information:**
-%     - Contains physics and dynamics information
-%     - Shows human behaviors, tasks and actions relevant to robots
-%     - High quantity and diversity
-%     - Relatively untapped resource
-%     - —>can be highly informative for general-purpose robots.
-% use of diverse internet data has facilitated a transition from task-specific models to monolithic foundation models with more general capabilities
-
-
-% \ac{LfV} will solve the data bottleneck by augmenting traditional robot data with large-scale internet video.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% \ac{IL} (IL) is a powerful approach for training agents to perform complex tasks by learning from demonstrations provided by an expert. The main advantage of IL is that it can leverage large datasets of human demonstrations, which are often easier to collect than reward signals. This allows IL to learn complex behaviors that are difficult to specify with a reward function and can be more sample efficient than reinforcement learning, especially in high-dimensional state spaces.
-
-
-
-
-
-% —> learning a KM from a video dataset and finetune it to the robot domain
-
-% Different approaches to transfer the knowledge
-
-% - **Generalisation and zero-shot transfer:**
-% pretrained KM directly in the target setting, without further fine-tuning or adaptation
-% - **Fine-tuning and Representation transfer:** 
-% methods that train a model in the robot domain that is partially composed of parts of a pretrained KM
-% - **Hierarchy: conditioning**
-% involves using a pretrained KM to condition a new KM being trained in the target MDP
-
-
-
-
-%  In-the-wild videos are particularly valuable for training robots to operate in diverse and unstructured environments, as they capture a wide range of scenarios, object appearances, lighting conditions and background variations that the robot may encounter in real-world applications. However, learning from in-the-wild videos also introduces significant challenges, such as dealing with noisy data, occlusions, varying viewpoints and the need for robust feature extraction to identify relevant information for task execution. Despite these challenges, leveraging in-the-wild videos can significantly enhance the generalization capabilities of robotic systems and enable them to perform effectively in real-world settings.

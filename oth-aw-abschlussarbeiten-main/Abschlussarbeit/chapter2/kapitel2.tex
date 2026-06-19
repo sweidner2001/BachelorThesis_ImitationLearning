@@ -241,7 +241,6 @@ The introduction of non-linear activation functions is essential, as a compositi
 % In fact, sufficiently large neural networks are universal function approximators, meaning they can approximate a wide range of continuous functions to arbitrary accuracy. 
 Common activation functions used in modern neural networks include the functions GELU~\cite{Hendrycks2016GaussianEL}, ReLU~\cite{Nair2010RectifiedLU}, Leaky ReLU~\cite{Maas2013RectifierNI}, the tanh~\cite{Ryck2021OnTA} and the Swish function~\cite{Ramachandran2017SwishAS}. But there exist many more. Each of these functions has its own characteristics and can result in different learning dynamics and performance. 
 
-% ToDo: Figure to activation functions
 
 
 
@@ -319,7 +318,6 @@ In simple terms, the gradient indicates how the function value changes when maki
 % The gradient is represented by the slope of the curve at a particular point. 
 To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. The Goal is to determine the slope of the blue curve at $x=1$. For the function $f(x)=x^2-3$, the derivative is $f'(x)=2x$, which is evaluated at $x=1$. $f'(1)=2$ and means the slope of the curve at this point is 2. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
 In general, the gradient indicates whether a function is increasing or decreasing at a specific point and how steeply it changes. A positive gradient means that the function is increasing, while a negative gradient indicates that the function is decreasing. The magnitude of the gradient describes how steeply the function changes. Larger magnitudes correspond to steeper slopes, while values close to zero indicate relatively flat regions.
-% To better understand the concept of gradients, consider \autoref{fig:NNGradientIntro}. We want to determine the slope of the blue curve at the point $x=1$. To do this, we calculate the gradient at that point. First, we compute the derivative $f'(x)=2x$ of the function $f(x)=x^2-3$ and evaluate it at $x=1$. The first derivative $f'(x)$ provides the slope at any point on the function $f(x)$. In this example, the slope at $x=1$ is $f'(1)=2$. To verify this result, the slope triangle is shown in \autoref{fig:NNGradientIntro}. It provides a visual representation of the slope and confirms the calculated value of with the slope $m=2$.
 
 \begin{figure}[!h]
 	\centering
@@ -410,9 +408,6 @@ By iteratively applying this update rule, the network parameters are gradually a
 
 Besides the standard gradient descent algorithm, which computes the gradient over the entire dataset, several more efficient variants are commonly used in practice. 
 Instead of computing the gradient on the entire dataset, the variants stochastic and mini-batch gradient descent approximate it using one or a few training samples~\cite{Bottou2010LargeScaleML, Robbins1951ASA, Bottou2016OptimizationMF, Goodfellow-et-al-2016}, which reduces the computational cost per update while still providing a more stable gradient estimate compared to pure stochastic gradient descent.
-% In stochastic gradient descent (SGD), the exact gradient is not evaluated on the full dataset~\cite{Bottou2010LargeScaleML, Robbins1951ASA}. Instead, it is approximated using only a single randomly selected training sample at each iteration. A further extension is mini-batch gradient descent, where the gradient is computed on a small subset of the training data (a mini-batch) rather than on a single sample or the full dataset~\cite{Bottou2016OptimizationMF, Goodfellow-et-al-2016}. This approach reduces the computational cost per update while still providing a more stable gradient estimate compared to pure stochastic gradient descent.
-
-
 
 
 
@@ -519,7 +514,6 @@ Figure~\ref{fig:CNNConvolutionIntro} illustrates the mathematical convolution op
 A CNN consist of multiple kernels, which are applied in parallel and in multiple layers to the image, resulting in multiple feature maps. Importantly, in a CNN the kernels are not fixed manually, instead they are learned during training, allowing the network to find the optimal filters for the task success~\cite{Khan2025ACS, Younesi2024ACS, Long2022}.
 
 
-% ToDo: Great Alternative Grafic
 % Figures \autoref{fig:CNNConvolutionIntro_View2} shows an alternative view of the convolution process.
 % \begin{figure}[!h]
 % 	\centering
@@ -542,23 +536,6 @@ To preserve the spatial resolution of the input image, padding is often added ar
 
 
 
-% Importantly, the kernels are not fixed manually in a CNN. Instead, they are learned during training, allowing the network to adapt its filters to the task at hand.
-
-
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolution_1_withStride2}
-% 	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on~\cite{Vaswani2017AttentionIA}.}
-% 	\label{fig:CNNConvolutionIntro_View2}
-% \end{figure}
-
-
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=0.65\linewidth]{./chapter2/media/CNNConvolution_1_withDilation}
-% 	\caption[CNN Convolution Introduction]{CNN Convolution Introduction. Image based on~\cite{Vaswani2017AttentionIA}.}
-% 	\label{fig:CNNConvolutionIntro_View2}
-% \end{figure}
 
 \paragraph{Activation Function}
 After the convolution operation, a non-linear activation function is applied to the resulting feature map~\cite{Khan2025ACS, Younesi2024ACS, Long2022}. Activation functions introduce non-linearity into the network, allowing CNNs to learn complex visual patterns that cannot be represented by linear transformations alone~\cite{Hanin2017ApproximatingCF}.
@@ -718,7 +695,6 @@ Instead of computing attention separately for each token, the Transformer perfor
 % \paragraph{Multi-Head Self-Attention}
 \textit{Multi-Head Self-Attention.} 
 While a single attention mechanism can capture relationships between tokens, different types of dependencies may exist simultaneously within a sequence. To address this, the Transformer employs multi-head attention, which consists of several attention heads operating in parallel~\cite{Raschka2024BuildLLM, Vaswani2017AttentionIA}. Each head learns its own query, key and value projections and therefore focuses on different aspects of the input data. For example, one head may capture syntactic relationships, while another focuses on semantic dependencies. The outputs of all heads are concatenated and projected through a linear layer to form the final representation, see \autoref{fig:TransformerMultiHeadAttention}. This increases the model's ability to learn diverse linguistic patterns and contextual relationships.
-% The number of heads is chosen such that the input embedding dimension is split across the heads. For example, if the input embedding dimension is 768 and there are 12 heads, each head would operate on a subspace of 64 dimensions. Otherwise, the output dimensions will not match the input dimensions. Technically the Query, Key and Value matrices of each head are combined computed within a larger matrix multiplication and then splitted up into the individual parts for each head, that every head can produce its own attention matrix.
 
 \begin{figure}
 	\centering
@@ -743,11 +719,7 @@ The decoder receives an input sequence that is first transformed using the same 
 % \paragraph{Masked Multi-Head Attention}
 % \textit{Masked Multi-Head Attention.} 
 Masked multi-head self-attention operates on the decoder's own input sequence, but with a causal mask that prevents each position from attending to any future positions~\cite{Raschka2024BuildLLM}. This ensures that every generated token depends only on its previous tokens.
-% The causal mask ensures that future tokens receive an attention weight of zero, making them invisible to the current position and ensures that the prediction for the next token depends only on previously generated tokens. 
-% , preserving the autoregressive property. 
-% The decoder then uses these vectors, along with the previously generated output tokens, to produce the next token in the output sequence. This process continues until the entire output sequence is generated.
-% \paragraph{Cross-Attention}
-% \textit{Cross-Attention.} 
+
 In cross-attention, the decoder's hidden states from the masked attention layer serve as queries $Q$, while the encoder's output serve as keys $K$ and values $V$, allowing the decoder to condition its predictions on the encoded source sequence~\cite{Vaswani2017AttentionIA}.
 
 After these attention layers, the resulting representations are passed through a linear projection head followed by a softmax function, producing a probability distribution over the set of possible output elements~\cite{Vaswani2017AttentionIA, Raschka2024BuildLLM, TransformerExplainerLLM}. The element with the highest probability (in our case the vocabulary token) is selected and appended to the generated sequence. This process repeats autoregressively until a special end-of-sequence symbol is produced. 
@@ -755,30 +727,6 @@ After these attention layers, the resulting representations are passed through a
 
 
 
-
-
-% - consist of **encoder & decoder**
-%     - **encoder module** processes the input text and encodes it into a series of numerical representations or vectors that capture the contextual information of the input.
-%     - Then, the **decoder module** takes these encoded vectors and generates the output text.
-
-
-% 	Bei einem Transformer handelt es sich um eine Encoder-Decoder-Architektur. Sie besteht,
-% wie die Sequence-to-Sequence-Modelle, die wir in Kapitel 10 kennengelernt haben, aus
-% zwei getrennten Komponenten: Die erste, der Encoder, produziert eine Repräsentation einer
-% Eingabesequenz. Der Decoder nimmt diese Repräsentation zusammen mit einer weiteren
-% Eingabesequenz, die der Decoder im Umlauf zuvor generiert hat, auf und produziert daraus
-% eine Ausgabe. Diese Ausgabe wird im nächsten Schritt dem Decoder wieder zugeführt, sodass
-% er die nächste Ausgabeeinheit produziert
-
-
-% Nehmen wir als Beispiel den Satz „Das Kaninchen frisst das Futter, weil es hungrig ist.“ (vgl.
-% Bild 11.1). Das Wort „es“ könnte, wenn wir uns einmal dumm stellen, zweierlei bedeuten:
-% Es könnte entweder auf „Kaninchen“ oder auf „Futter“ verweisen. Mithilfe des Self-AttentionMechanismus wird nun für jedes Wort bestimmt, in welcher Verbindung es zu den anderen
-% Wörtern innerhalb des Satzes steht. Das Prinzip ist das gleiche wie beim Attention-Mechanismus, der die Bedeutung der Wörter des Eingabesatzes mit den Wörtern des Ausgabesatzes in
-% Beziehung setzt. Natürlich werden im Falle der Self-Attention die meisten Wörter hauptsächlich auf sich selbst verweisen. „Kaninchen“ und „Futter“ erklären sich mehr oder weniger aus
-% sich selbst. Ein Pronomen wie „es“ referenziert allerdings vor allem auf ein anderes Substantiv,
-% in unserem Fall auf „Kaninchen“ – vorausgesetzt natürlich, die Gewichte der Self-AttentionLayer werden richtig angelernt. Um das Wort im Kontext richtig zu interpretieren, wird es
-% dann einfach mit den Embedding-Gewichten des Wortes „Kaninchen“ assoziiert.
 
 
 
@@ -810,7 +758,7 @@ In imitation learning, Vision Transformers can be used as visual encoders that e
 
 
 \section{Foundation Model}
-% The terms \textit{Foundation Model} and \textit{Multi-Modal Model} are often used in the context of modern \ac{AI} systems, but they refer to different concepts. A foundation model is a large-scale model that is pre-trained on a wide variety of data and can be adapted to many downstream tasks, while a multi-modal model is designed to process and relate information from multiple data modalities, such as text, images and audio, see \autoref{fig:foundationmodel_vs_multimodel}.
+
 
 % Recent advances in artificial intelligence have been largely driven by the development of foundation models. 
 A foundation model is a large-scale model that is pre-trained on vast amounts of data and can subsequently be adapted to a wide range of downstream tasks~\cite{Bommasani2021OnTO}. Instead of being designed for a single application, foundation models learn general patterns, concepts and representations that can be reused across different domains and tasks.
@@ -831,16 +779,6 @@ A multimodal model is capable of processing and relating information from two or
 The integration of multiple modalities allows a model to leverage complementary information, handle missing data from one source by relying on another, provide more comprehensive insights and improves model generalization~\cite{Liang2022FoundationsT}.
 For example, a multimodal model can analyze an image together with a textual instruction and use information from both inputs to answer a question or perform a task. 
 Multimodal Learning is a own learning paradigm and refers to the use of various data modalities within a single learning concept~\cite{Ngiam2011MultimodalDL, Baltruaitis2017MultimodalML}.
-% This capability allows the model to connect visual observations with linguistic concepts and reason across different sources of information. Models such as CLIP align images and text within a common representation space~\cite{Radford2021LearningTV}, while more recent models such as Gemini can process as well as generate information across multiple modalities~\cite{Reid2024Gemini1U, team2023gemini}.
-
-% Although many multimodal models can generate outputs in different modalities, such as images from text prompts, the defining characteristic of a multimodal model is its ability to understand and relate multiple forms of data rather than the specific modality of its output~\cite{Achiam2023GPT4TR, Reid2024Gemini1U, team2023gemini}.
-
-
-
-% \paragraph{Vision-Language-Action Models}
-% Vision-Language-Action (VLA) models extend multimodal models by incorporating robot actions as an additional output modality and can be ordered in the \textit{Domain specific} section in \autoref{fig:foundationmodel_vs_multimodel}. While conventional multimodal models typically generate textual or visual outputs, VLA models directly generate robot actions that can be executed by a robotic. They combine visual observations from cameras with natural language instructions and translate this information into control commands for the robot. They often uses pretrainied foundation models for vision and language, that serves as backbones to provide world understanding. By jointly reasoning over vision, language and actions, VLA models provide an end-to-end framework that enables robots to understand their environment, interpret user instructions and autonomously perform complex manipulation tasks.
-
-
 
 
 
@@ -868,21 +806,9 @@ The robot learns a policy through trial and error using rewards provided from th
 		\pi_\theta(a \mid s)  
 	\end{align}
 	which defines a probability distribution over actions $a$, conditioned on the current state $s$. In other words, the policy specifies how likely the agent is to select a particular action given its current observation of the environment. 
-	% The action $a$ corresponds for example to a robot command, such as moving the gripper to a target position $(x, y, z)$ or setting a joint angle to a specific value with a defined velocity. The state $s$ represents the agent's observation, which may include, for example, a sequence of recent camera images (e.g., the last four frames) as well as additional sensor inputs such as proprioceptive signals.
 
 \end{itemize}
 
-% \paragraph{Mathematical description of the \ac{RL} problem:}
-% The \ac{RL} modularities are represented as follows:
-% \begin{itemize}
-% 	\item Action: $a$
-% 	\item Reward: $r$
-% 	\item State: $s$
-% 	\item Observation: $o$
-% 	\item Policy: $\pi$
-% 	\item Time step: $t$, e.g. $a_t$ is the action taken at time step $t$, $a_{t+1}$ is the action taken at the next time step, etc.
-% 	\item $s'$: The next state after taking action $a$ in state $s$, i.e. $s' = s_{t+1}$, $s = s_t$.
-% \end{itemize}
 
 
 
@@ -907,7 +833,6 @@ At the beginning of the training process, a randomly initialized policy leads th
 A successful learning process requires a suitable balance between exploration and exploitation. 
 Exploration involves trying new or infrequently selected actions to gather information about the environment, while exploitation focuses on selecting actions that have previously yielded high rewards. Early in training, exploration is emphasized to discover effective behaviors, whereas later stages increasingly rely on exploitation to maximize task performance.
 
-% Exploration refers to the evaluation of previously untried or infrequently selected actions in a given state, whereas exploitation denotes the repeated selection of actions that have already been identified as beneficial. During the early stages of training, greater emphasis is placed on exploration, as the agent must first acquire knowledge about the environment and determine which actions are most effective for accomplishing the task. As training progresses and the agent gains a better understanding of the environment and its reward structure, exploitation becomes increasingly important. This allows the agent to more frequently select actions that have proven successful, thereby improving overall task performance.
 Numerous methods and algorithms have been proposed to effectively balance exploration and exploitation, $\epsilon$-greedy strategy, Upper Confidence Bound (UCB) and Thompson Sampling. 
 % However, a detailed discussion of these methods is beyond the scope of this thesis.
 Due to the exploration phase, the success of the chosen \ac{RL} approach only becomes visible at a late stage, unlike in classical deep learning, see Figure \ref{fig:trainingprogressdlandrl}. 
@@ -967,10 +892,7 @@ An \ac{RL} \ac{KM} is some function learned from data that represents specific t
 		% 	\label{fig:stateactionvaluefunction}
 		% \end{figure}
 
-		% \item \textit{V-function vs. Q-function:}
-		% The value function $V_\pi(s)$ estimates the expected return of being in a particular state $s$ while following the policy $\pi$~\cite{sutton2018reinforcement}. However, it does not provide information about the quality of individual actions available in that state $s$. In contrast, the State-action value function $Q_\pi(s,a)$ evaluates the expected return of taking a specific action $a$ in state $s$ and subsequently following the policy $\pi$~\cite{sutton2018reinforcement}. Therefore, the Q-function offers a more detailed assessment by considering both the state and the chosen action. Figures \ref{fig:statevaluefunction} and \ref{fig:stateactionvaluefunction} illustrate the concepts of the state-value function and the action-value function, respectively.
-
-		% Bei der V-function weiß ich nur, wie gut es ist, in einem bestimmten Zustand zu sein, wenn ich nach meiner Policy $\pi$ agiere, aber nicht, wie gut eine konkrete Aktion in diesem Zustand ist. Bei der Q-function hingegen weiß ich bereits, wie gut die konkrete Aktion $a_t$ im Zustand $s_t$ ist, wenn ich weiterhin nach meiner Policy $\pi$ agiere. Siehe dazu die Abbildung \ref{fig:statevaluefunction} und \ref{fig:stateactionvaluefunction}.
+		
 
 	\end{itemize}
 	

@@ -1,14 +1,4 @@
-% ToDo:
-% Time Contrastive Learning: multivariate logistic regression classifier is trained in a supervised manner to look at a sample taken from the series at an unknown time and predict $\tau$, the index of the chunk it came from
 
-
-% ToDo: 
-% 1. **Addressing LfV Distribution Shift**
-%     - Work has utilized representations designed to explicitly ignore distribution shifts (Section 4.2.2) to enable meaningful comparisons between human and robot videos. This methods includes:
-%         - embodiment-invariant representations [321];
-%         - object-centric representations [140, 245, 46];
-%         - the retargeting of poses from human to robot embodiments [176, 211];
-%         - viewpoint invariant representations [234, 12]
 
 
 % \chapter{Demonstration Video Understanding for Imitation Learning}
@@ -23,18 +13,6 @@ Learning robot manipulation skills needs a comprehensive visual pipeline and obj
 
 
 
-% Representation Learning  
-% interpret dynamic scenes and extract task-relevant spatio-temporal features (Multi-view, lighting, depth)
-% Object Affordance and Human-Object Interaction
-% Understand Action possibilities of an object and how humans interact with them (interaction regions, Grasp planning)
-
-% Human Action and Activity Recognition
-% Allows robots to understand what humans are doing and replicate task structure, timing and sequencing.
-% 3D Hand Modeling
-% fine-grained manipulation skills
-% human hands  robot grippers commands
-% Large Scale VLA
-% Foundation of general-purpose robot policies
 
 
 
@@ -96,7 +74,7 @@ Representation learning methods focus on several key aspects~\cite{Eze2024Learni
 \end{enumerate}
 
 
-% Video-centric representation learning is particularly important in robotics because it explicitly models temporal dynamics and multi-view consistency~\cite{Sermanet2017TimeContrastiveNS}. These learned representations form the backbone of vision-based perception and control systems, enabling the transfer of high-level behavioral information from human videos to robotic policies~\cite{Radosavovic2022RealWorldRL}. As a result, strong representations can significantly improve generalization, robustness and data efficiency in \ac{IL} systems~\cite{Eze2024LearningBW} or facilitate more robust sim-to-real transfer~\cite{Nair2022R3MAU}.
+
 
 
 
@@ -122,35 +100,10 @@ Works have often combined multiple learning objectives~\cite{Nair2022R3MAU, Ma20
 \end{itemize}
 
 \textit{Combining datasets.} Combining datasets to enhance data diversity is beneficial~\cite{Jing2023ExploringVP, Majumdar2023WhereAW, Dasari2023AnUL, Radosavovic2022RealWorldRL}. 
-% Works have used datasets which may include the following types of videos:
-% \begin{itemize}
-%     \item Ego-centric human/navigation video~\cite{Nair2022R3MAU, Ma2023LIVLR, Karamcheti2023LanguageDrivenRL, Majumdar2023WhereAW}
-%     \item Third-person video of human interaction~\cite{Radosavovic2022RealWorldRL, Shan2020UnderstandingHH, Miech2019HowTo100MLA}
-%     \item Videos of robots~\cite{Dasari2023AnUL},
-%     \item First-person videos of humans operating robot-like grippers~\cite{Shafiullah2023OnBR}
-% \end{itemize}
 Works have used following ego-centric human/navigation video~\cite{Nair2022R3MAU, Ma2023LIVLR, Karamcheti2023LanguageDrivenRL, Majumdar2023WhereAW}, third-person video of human interaction~\cite{Radosavovic2022RealWorldRL, Shan2020UnderstandingHH, Miech2019HowTo100MLA}, videos of robots~\cite{Dasari2023AnUL} and first-person videos of humans operating robot-like grippers~\cite{Shafiullah2023OnBR}
 
 
 
-
-
-% Contrastive learning frameworks align augmented views of the same clip while separating unrelated ones, producing robust embeddings that transfer across domains [44].
-
-% More recently, masked autoencoders (MAE) and universal frozen perception modules have shown that self-supervised pretraining on images or videos outperforms traditional ImageNet initialization in robotic benchmarks [45, 46]. Universal representations such as R3M combine time-contrastive learning with sparse encoding from human activity datasets, enabling efficient policy learning across simulated and real-world manipulation tasks [47].
-
-% Together, these representation learning methods bridge the gap between high-dimensional visual input and downstream control policies. By learning temporally coherent, viewpoint-invariant and task-relevant features, they improve generalization, data efficiency and robustness in \ac{IL} systems.
-
-
-% Goal: Extract relevant and meaningful spatiotemporal features from (unlabeled) visual data
-
-
-% "Why needed: Robots must interpret scenes, objects, motion and context from raw video",
-% "Key concepts: Temporal consistency, multi-view invariance, masked modeling, geometry-informed features“
-
-% Spatio-Temporal Modeling: Extracting features within a frame (spatial) and tracking changes across frames (temporal coherence and dynamics).
-
-% Time Contrastive Learning: multivariate logistic regression classifier is trained in a supervised manner to look at a sample taken from the series at an unknown time and predict $\tau$, the index of the chunk it came from
 
 
 
@@ -196,37 +149,6 @@ Modern affordance learning methods typically address several important aspects:
 
 
 
-% | Affordance Grounding              | What actions does the object enable?              |
-% | Interaction Region Localization   | Where should the interaction occur?               |
-% | Spatio-Temporal Affordances       | How does the interaction evolve over time?        |
-% | 3D / Geometry-Aware Understanding | What is the spatial structure of the interaction? |
-
-
-
-% \begin{itemize}
-%     \item \textbf{Affordance Grounding:} is the high-level semantic understanding of object functionality. The goal is to identify the possible actions associated with an object and localize functional regions within the environment. 
-
-%     \textit{Example:} Scissors are used to cut things. A Mug is used for holding liquids.
-    
-%     \item \textbf{Interaction Region Localization:} focuses on identifying the specific object regions that are relevant for manipulation and interaction. Rather than only understanding what actions an object affords, the goal is to determine where these interactions should physically occur, such as grasp points, handles, buttons, or contact surfaces.
-    
-%     \textit{Example:} For scissors, the handle region is associated with grasping, while the blades correspond to the cutting interaction. Similarly, for a mug, the handle represents the primary grasping region.
-
-
-%     \item \textbf{Human-Object Interaction Modeling:} aims to understand how humans manipulate objects through hand trajectories, contact patterns, grasp types and temporal interaction dynamics.
-
-%     \textit{Example:} Cutting paper with scissors involves coordinated hand motion, repeated opening and closing actions and continuous contact between the blades and the paper.
-
-%     \item \textbf{3D and Geometry-Aware Understanding:} 
-%     These approaches incorporate depth information, RGB-D observations, point clouds, or multi-view inputs to improve spatial reasoning and manipulation robustness.
-
-%     \textit{Example:} Estimating the 3D orientation of scissors and their distance to the paper enables more precise and physically consistent manipulation.
-
-%     \item \textbf{Spatio-Temporal Affordances:} Capturing how affordances evolve over time during manipulation sequences and task execution.
-
-%     \textit{Example:} The affordance of a door handle changes from "graspable" to "turnable" as the hand approaches and interacts with it, reflecting the temporal dynamics of the manipulation process.
-% \end{itemize}
-
 \paragraph{Methods.}
 Recent approaches increasingly leverage large-scale human activity videos and self-supervised learning to infer affordances from natural human demonstrations~\cite{Shan2020UnderstandingHH}. Hand-centric representations are particularly important, as hand motion and contact points provide strong cues about object functionality and intended actions~\cite{Luo2021LearningVA}. Several methods therefore use hand localization, hand-state estimation, or hand-object contact prediction to improve affordance grounding and interaction understanding~\cite{Tekin2019HOUE, Fang2018Demo2VecRO}.
 The usage of transformer architectures and the integration of RGB-D sensing and multi-modal inputs has further improved the ability to jointly reason about objects, actions, spatial-temporal dynamics and scene context~\cite{Tekin2019HOUE}. In addition, 3D point cloud representations and multi-view observations help reduce uncertainty in manipulation planning and improve robustness in real-world robotic environments~\cite{Kim2014SemanticLO}.
@@ -237,7 +159,6 @@ Affordance learning plays a critical role in robotic \ac{IL} by bridging the gap
 
 
 \section{Human Action \& Activity Understanding}
-% ToDo: Quellen sollten eigl. erneuert werden, da diese sehr alt sind
 % \textbf{Goal:} 
 Human action and activity understanding aims to recognize what humans are doing in videos, which is crucial for understanding object affordances~\cite{Eze2024LearningBW}. It allows robots to interpret fine-grained manipulation skills, replicate task structure, timing and sequencing from human demonstrations. The goal is to learn a hierarchical understanding of human actions, from low-level movements to high-level activities, by analyzing visual cues such as hand trajectories, object interactions and scene context.
 % It also involves decomposing complex, multi-step activities into meaningful sub-actions. In \ac{IL}, this enables robots to interpret fine-grained manipulation skills, replicate task structure, timing and sequencing from human demonstrations [48, 49, 65].
@@ -262,15 +183,12 @@ Modern methods therefore focus on several essential aspects:
 \paragraph{Methods.}
 Recent advances include unsupervised and weakly supervised methods that reduce the need for dense annotations. 
 In~\cite{Sener2018UnsupervisedLA}, the method models complex actions as sequences of latent sub-activities by alternating between a discriminative step, which maps visual features to sub-activity labels and a generative step, which models the temporal structure and global ordering of these labels. This generative component ``explains'' the observed sequence by assuming a shared canonical order across different videos of the same activity. An explicit background model is used to suppress non-informative regions (e.g. scene clutter), allowing the system to focus on action-relevant frames in a fully unsupervised manner.
-% In~\cite{Sener2018UnsupervisedLA}, the method models complex actions as sequences of latent sub-activities by alternating between a discriminative step, which separates meaningful temporal segments and a generative step, which reconstructs or explains the observed sequence. An explicit background model is used to suppress non-informative regions (e.g. scene clutter), allowing the system to focus on action-relevant frames under weak supervision.
 IRMT-Net~\cite{Xin2023LearningIR} directly learns interaction structure from demonstration videos by jointly predicting spatial interaction regions and corresponding motion trajectories, effectively coupling ``where interaction happens'' with ``how it evolves over time''. This approach reduces dependence on manual robotic guiding and annotations, while improving generalization and robustness across real-world settings.
 %  which reduces dependence on manual annotations and improves generalization across real-world settings.
 
-% In [69], actions are decomposed into sub-activities by alternating between discriminative and generative learning, while an explicit background model suppresses irrelevant visual content, enabling effective learning from limited supervision. For interaction understanding, IRMT-Net [68] predicts both interaction regions and motion trajectories directly from demonstrations, minimizing the need for manual labeling and improving generalization across settings. In contrast, [66] focuses on representing affordances as structured object-hand interaction strings, prioritizing functional relationships over visual appearance.
 
 
 \section{3D Hand Modeling}
-% \textbf{Goal:} 3D Hand Modeling aims to capture the complex geometry and motion of human hands during manipulation. It enables robots to understand fine-grained manipulation skills by modeling hand-object interactions, grasp types and contact dynamics in three-dimensional space. The goal is to learn a detailed representation of hand pose, shape and motion from videos, which can be transferred to robotic grippers for precise and dexterous manipulation.
 % \textbf{Goal:} 
 3D hand modeling aims to estimate accurate 3D pose, shape and contact of the human hand from video, to directly translate human hand movements into robot gripper commands.
 By reconstructing a full 3D mesh of the hand, the system can understand fine-grained manipulation details, such as finger placement, grasp type and hand-object contact, and retarget these to robot end-effectors.
@@ -294,7 +212,7 @@ Key challenges include handling occlusions (e.g. self-occlusion of fingers), rec
 
 
 \paragraph{Methods.}
-% Early approaches introduced anthropomorphic robotic hands for teleoperation and video-based learning. For instance, LEAP Hand provides a low-cost design that supports visual teleoperation, passive learning and sim-to-real transfer by extracting hand poses from web videos [71]. Similarly, DexMV offers a simulation and vision-based pipeline that maps 3D human hand poses to robot-compatible demonstrations [11], while DexVIP leverages YouTube videos and human hand priors to learn dexterous grasping without expensive lab data, enabling generalization to novel objects [72].
+
 
 Advances in motion capture have further improved fidelity. FrankMocap~\cite{Rong2020FrankMocapFM} enables fast monocular 3D hand and body pose estimation using SMPL-X~\cite{Pavlakos2019ExpressiveBC}, whereas MANO~\cite{Romero2017EmbodiedH} provides a parametric hand model widely used in robotics and graphics~\cite{Romero2017EmbodiedH, Loper2023SMPLAS}. Complementary work focuses on grasp realism, enforcing consistency between hand-object contact points through self-supervised objectives, improving flexibility and accuracy even during testing~\cite{Jiang2021HandObjectCC}.
 Collectively, these methods reduce embodiment differences and establish robust hand modeling pipelines, laying the foundation for high-fidelity manipulation learning from human demonstrations~\cite{Shaw2023LEAPHL, Mandikal2022DexVIPLD, Romero2017EmbodiedH}.

@@ -14,83 +14,26 @@ Even if the goal is to develop a large, general-purpose robotic \ac{AI} model, t
 Traditional task-specific approaches are reaching their limits due to their lack of scalability and flexibility. Consequently, current research aims to equip robots with visual and semantic understanding, enabling them to infer actions from high-dimensional inputs such as videos and images~\cite{McCarthy_2025,Eze2024LearningBW}. This approach allows new sources of training data to be utilized. With visual and semantic understanding, for example, human demonstration videos from platforms such as YouTube can be incorporated into the training process. These videos contain a wide variety of actions and task executions that would be essential for training a generalizable robotic \ac{AI} model~\cite{McCarthy_2025}. In this context, imitation learning represents a promising approach and is therefore investigated in greater detail throughout this thesis.
 
 
-% Roboter werden zukünftig eine Schlüsselrolle in zahlreichen Anwendungsfeldern einnehmen. Be-reits heute steigt der Einsatz von Robotersystemen in der industriellen Produktion kontinuierlich an, da diese insbesondere monotone, einfache und repetitive Aufgaben effizient und zuverlässig übernehmen können. Trotz der teilweisen sehr hohen Anschaffungskosten, investieren immer mehr Unternehmen in die Integration von Roboter in Ihre Produktionslinien. 
-% Die Vorteile liegen dabei vor allem in der hohen Verfügbarkeit und Planbarkeit: Nach der Inbe-triebnahme fallen nur noch geringe laufende Betriebskosten an, die sich primär auf Energiever-brauch in From von Strom- und Wartungskosten beschränken. Darüber hinaus können Roboter unabhängig von der Arbeitszeit 24h, 7 Tage die Woche betrieben werden und liefern eine gleich-bleibende Qualität. Dies ermöglicht eine hohe Prozessstabilität sowie eine signifikante Steigerung der Produktivität. Im Gegensatz zu menschlichen Arbeitskräften, werden Roboter nicht krank, nehmen nicht an einen Gewerkschaftsstreik teil und es müssen auch keine Sonderzahlungen in Form von Nacht-, Wochenend- und Feiertagszuschlägen geleistet werden.
-% Grundsätzlich lassen sich Robotersysteme hinsichtlich ihrer Programmierung in zwei Kategorien einteilen. In der industriellen Praxis dominieren derzeit statisch programmierte Roboter, die für klar definierte Aufgaben in strukturierten Umgebungen eingesetzt werden. Sie haben feste Bewe-gungsabläufe und können sich nur in geringem Maße mithilfe integrierter intelligenter Sensoren an ihre Umgebung bzw. an die jeweilige Aufgabe anpassen. Solche Systeme sind besonders effi-zient in standardisierten Produktionsprozessen, stoßen jedoch an ihre Grenzen, sobald sich die Umgebung oder die Anforderungen ändern.
-% Im Gegensatz dazu gewinnen intelligente Robotersysteme zunehmend an Bedeutung. Diese sind in der Lage, auf Veränderungen in ihrer Umgebung zu reagieren und ihr Verhalten adaptiv anzu-passen. Insbesondere durch den Einsatz von Künstlicher Intelligenz eröffnen sich neue Möglich-keiten, komplexe und unstrukturierte Aufgaben zu bewältigen. 
-% Zentrale Herausforderungen bestehen jedoch hierdabei in der robusten Ausführung vielfältiger Szenarien sowie in der Fähigkeit, auf neue Objekte, Umgebungen und Aufgaben zu generalisieren. Die heute eingesetzten intelligenten Robotersysteme, bzw. deren zugrunde liegenden KI-Modelle sind oftmals stark auf ihre jeweilige Aufgabe und die Zielumgebung spezialisiert, bzw. trainiert worden.
-% Aufgaben, die nicht im Trainingsdatensatz enthalten sind, können häufig nicht zuverlässig ausge-führt werden. Ebenso treten Probleme auf, wenn gelernte Aufgaben in grundlegend verschiedenen Umgebungen ausgeführt werden sollen. Der Grund hierfür liegt in der Art und Weise, wie die zugrunde liegenden KI-Modelle trainiert werden: Die Trainingsdaten sind in der Regel stark auf eine spezifische Aufgabe und Umgebung zugeschnitten. Eine Erhöhung der Datenvielfalt führt dabei häufig zu einem Zielkonflikt, da sie mit einer geringeren Genauigkeit bei der Ausführung einzelner Aufgaben einhergehen kann. 
-% Selbst wenn man ein großes generalisierendes Roboter KI-Modell entwickeln möchte, stellt der Mangel an geeigneten und vielfältigen Roboter-Trainingsdaten ein gravierendes Problem dar.
-% Klassische, aufgabenspezifische Trainingsansätze stoßen hierbei aufgrund mangelnder Skalierbar-keit und Flexibilität an ihre Grenzen. Aktuelle Forschungsansätze verfolgen daher das Ziel, Robo-tern ein visuelles und semantisches Aufgabenverständnis zu vermitteln, sodass sie Handlungen aus hochdimensionalen Eingaben wie Videos oder Bildern ableiten können. Dadurch können neue Datenquellen für das Training des Roboters herangezogen werden. Mit einem visuellen und se-mantischen Verständnis können beispielsweise (menschliche) Videos von YouTube im Training verwendet werden. Diese beinhalten viele verschiedene Handlungen und Ausführungsformen ver-schiedenster Aufgaben, die ein generalisierendes Roboter KI-Modell brauchen würde. Imitation Learning ist ein vielversprechender Ansatz in diesem Kontext, der in dieser Arbeit genauer unter-sucht wird.
-
-
-% Beim Imitation Learning geht es darum, den Roboter seine Aufgabe mithilfe eines (menschlichen) Demonstrationsvideos beizubringen (z.B. das Stapeln von Würfeln, oder das Greifen von Objek-ten). Beim traditionellen Ansatz muss ein Roboter auf die jeweilige Aufgabe mit viel Aufwand bzw. mit vielen Roboter trajectory Datensätzen trainiert werden.
 
 \section{Project Goal}
 The aim of this thesis is to provide an introduction to the field of robotics with a particular focus on imitation learning. The work is structured into two main parts.
 
 The first part presents the broader context and motivation of general-purpose robotics, including the long-term goal of developing robots capable of operating in diverse and unstructured environments. It further discusses the key challenges associated with this objective, particularly the limitations of current data-driven approaches and the difficulty of acquiring large-scale robotic training datasets. Building on this foundation, the thesis analyzes approaches how to extract knowledge from demonstration videos and transferring it to robotic systems. Various methods and techniques are presented and analyzed, with a specific emphasis on imitation learning. Subsequently outstanding challenges are highlighted and future research directions with a view to developing an all-round robot. Subsequently, open challenges are outlined and future research directions are proposed toward the development of a general-purpose robotic system. Finally, to gather a better understanding of the presented theroie, selected research directions are discussed in greater depth.
 
-% Provide an overview of the overal goal of robots, to reach general purpose robots, and the challenges to reach this goal. Then the focus lies on techniques how to extract knowledge from Internet Videos and to apply this knowledge to robotics. Different Techniques are here presented and analyzed, with a focus on imitation learning. Finaly, future research directions are discussed and selected approaches are examined in more detail.
 
 The second part of the thesis focuses on developing a modular and extensible setup for operating a real robotic arm. The setup enables the execution of basic robot motions and provides a foundation for integrating robot learning models in the near feature.
-
-% The second part of the thesis focuses on the practical implementation of an open-source imitation learning model on a real robotic arm. The goal was to create a modular and extensible setup to run a real robot and perform some basic movements to gain hands-on experience with the challenges and opportunities when running a real robot. 
-
-% This includes how to connect the robot with the PC, how to control the robot from the PC and what additional code is needed to adapt a model to our specific robot. The practical implementation is complemented by comprehensive documentation that describes the procedures required to establish communication with the robot, set it in External Control mode, and control it using ROS 2 commands. Furthermore, it explains the usage of the provided scripts and workflows for controlling the robot within both simulated and real-world environments.
-
-
-
-% setup to control gain hands-on experience with the challenges and opportunities when running a real robot. This includes how
-% to connect the robot with the PC, how to control the robot from the PC and what
-% additional code is needed to adapt a model to our specific robot.
-
-% Dabei soll ein initiales einfach erweiterbares Setup geschaffen werden, um zukünftig 
-
-% This includes the initial setup and commissioning of the robot, as well as the integration of a machine learning model for execution on the robotic system. The objective is to enable the robot to learn and perform simple manipulation tasks, such as stacking cubes, solely based on human demonstration videos.
-
-% introduce the concept of imitation learning as a promising approach to overcome some of these challenges.
-% In the literatur overview fundamental 
-% First, the fundamental concepts in Machine Learning and Deep Learn are presented, followed by a technical introduction to intelligent robotics with a focus on imitation learning. This initial part is complemented by a literature review of selected imitation learning approaches, which are analyzed in greater detail.
-
-% In the second part of the thesis, an open-source imitation learning model is experimentally implemented on a real robotic arm. This includes the initial setup and commissioning of the robot, as well as the integration of a machine learning model for execution on the robotic system. The objective is to enable the robot to learn and perform simple manipulation tasks, such as stacking cubes, solely based on human demonstration videos. 
-
-% Imitation learning refers to the process of teaching a robot a task by means of human demonstration videos (e.g., stacking cubes or grasping objects). In traditional approaches, a robot must be trained for each specific task using a large number of robot trajectory datasets, which is often time-consuming and resource-intensive.
-
-% In imitation learning, instead, a camera records a video of a human performing a task. This demonstration video is then provided to a robot learning model, which uses the observed behavior to derive actions that allow the robot to perform the same task in its own environment.
-
-
-% Ziel dieser Arbeit ist es eine Einführung in das Thema Robotic mit Imitation Learning zu liefern. Die Arbeit gliedert sich in zwei Teile. 
-% Dabei werden zuerst die Grundlagen der Robotik erläutert und anschließend technisch in das Thema Intelligente Robotik mit dem Fokus Imitation Learning eingeführt. Abgerundet wird der erste Teil mit einem Literaturüberblick, über ausgewählte Imitation Learning Ansätze, die dort näher untersucht werden.
-% Im zweiten Teil dieser Arbeit wird ein Open-Source Imitation Learning Modell experimentell auf einen realen Roboterarm implementiert. Die Erstmalige Inbetriebnahme des Roboters und das Setup, wie ein KI-Modell zur Ausführung auf den Roboter gebracht werden kann, gehört auch dazu. Ziel ist es, den Roboter zu befähigen, einfache Manipulationsaufgaben, beispielsweise das Stapeln von Würfeln, allein auf Basis menschlicher Demonstrationsvideos zu erlernen und auszu-führen. Die Leistungsfähigkeit des vorgeschlagenen Ansatzes wird anschließend experimentell auf dem realen Robotersystem untersucht und evaluiert.
-
-
-
-% Beim Imitation Learning geht es darum, den Roboter seine Aufgabe mithilfe eines (menschlichen) Demonstrationsvideos beizubringen (z.B. das Stapeln von Würfeln, oder das Greifen von Objek-ten). Beim traditionellen Ansatz muss ein Roboter auf die jeweilige Aufgabe mit viel Aufwand bzw. mit vielen Roboter trajectory Datensätzen trainiert werden.
-% Beim Imitation Learning geht es darum, den Roboter seine Aufgabe mithilfe eines (menschlichen) Demonstrationsvideos beizubringen. Dabei nimmt eine Kamera ein Video von der jeweiligen Person auf, die eine bestimmte Aufgabe ausübt. Anschließend wird dem Roboter-KI-Modell das Demonstrationsvideo der Aufgabe gezeigt, welches wiederum den Roboter entsprechend steuert, um die jeweilige Aufgabe in seiner Umgebung auszuführen.
 
 
 
 \section{Outline of the Thesis}
-% This thesis examine imitation learning as a promising approach for enabling robots to acquire complex skills from demonstrations and move toward the long-term goal of general-purpose robotic intelligence.
-% \acp{LLM} have demonstrated that training powerful architectures on vast and diverse datasets can lead to remarkable generalization capabilities, enabling systems to solve tasks for which they were never explicitly trained. A central goal of imitation learning is to bring similar capabilities to robotic systems by leveraging the enormous amount of video data available on the internet.
-% Imitation learning represents one of the most promising approaches for transferring the success of large-scale machine learning to robotics. 
-% The thesis 
 The aim of this thesis is to provide an introduction and an overview to the topic of robotics using imitation learning.
 Chapter \ref{chap:Foundations} introduced the fundamental concepts of imitation learning and distinguished between two major paradigms: Behavior Cloning and Learning from Videos (LfV). 
-% While Behavior Cloning relies on demonstrations containing explicit action labels, Learning from Videos seeks to exploit the vast amount of action-free video data available online, offering a scalable alternative for robot learning.
 Chapter \ref{chap:GeneralistRobotsAndTheDataBottleneck} discussed the overarching objective of robotics research: the development of generalist robots capable of performing a wide range of tasks in unstructured and previously unseen real-world environments. A major obstacle to this vision is the robotics data bottleneck, which arises from the limited availability of large, diverse, and high-quality robotic datasets. 
-% Internet videos represent a potential solution due to their abundance and diversity. However, their use introduces additional challenges related to the transfer of visual knowledge to robotic systems.
 A prerequisite for effective human-robot interaction is the ability to communicate goals and intentions to robotic agents. Therefore, chapter \ref{chap:WaysToInstructRobots} examined how robots can be instructed and guided to perform desired tasks. 
-% the thesis examined different approaches for task specification and human-robot interaction, highlighting how robots can be instructed through demonstrations, language, and other forms of guidance.
-% Various forms of task specification and human-robot interaction were presented.
 
 Chapter \ref{chap:LearningFromVideosDataModalityAndChallenges} focused on the central research questions of Learning from Videos: how relevant knowledge can be extracted from internet videos and how this knowledge can subsequently be transferred to robotic systems for policy learning and control. 
-% Video Foundation Models were introduced as a powerful tool for extracting semantic and behavioral information from large-scale video data. Two major challenges were identified in the transfer process: the absence of action labels and the distribution shift between human videos and robotic observations. To address these challenges, alternative action representations are employed to relabel action-free video data, enabling robots to learn from demonstrations that do not contain explicit control signals.
 Chapter \ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} explored the role of robust video understanding in \ac{IL}. Learning manipulation skills from video requires more than simple action recognition: It demands meaningful representations of the environment, an understanding of object affordances and human-object interactions, recognition of human activities, and accurate modeling of fine-grained hand movements.
 These capabilities form the basis for a general-purpose robot that can interpret human demonstrations.
-% These capabilities form the basis of a general-purpose robot capable of understanding human demonstrations.
-% These capabilities form the foundation for a general-purpose robot designed to interpret human demonstrations.
 
 
 
@@ -104,11 +47,8 @@ Last but not least, the chapter presented multi-modal learning approaches and \a
 % \ac{VLA} models represent currently the state of the art in video-based robot learning.
 
 Chapter \ref{chap:ChallengesAndFutureDirections} examined the major challenges and future research directions in \ac{IL} and video-based robotic learning. 
-% Despite significant advances in recent years, the development of robust and generalizable robotic systems remains constrained by several fundamental limitations, including data availability, computational scalability, domain transfer and efficient policy learning. These challenges highlight the gap between current research systems and the long-term goal of general-purpose robotic intelligence. 
-% At the same time, emerging approaches such as diffusion-based policies, world models, and causally-aware learning systems offer promising opportunities for overcoming these limitations and improving the adaptability, reasoning capabilities, and generalization performance of future robotic agents.
 
 
 Finally in chapter \ref{chap:SelectedApproaches} of the literature overview, selected \ac{IL} approaches deployed on real robotic systems were examined to provide practical insight into the theoretical concepts discussed throughout the thesis. 
-% These examples illustrated how \ac{IL} can enable robots to acquire complex manipulation and control skills directly from video demonstrations.
 
 The second part of the thesis focused on the practical implementation of an \ac{IL} approach on a real robotic system, which is examined in chapter \ref{chap:ExperimentsOnARealRobot}.

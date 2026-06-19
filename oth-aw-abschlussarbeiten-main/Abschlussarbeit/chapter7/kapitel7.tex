@@ -36,20 +36,6 @@ Future research must focus not only on improving generalization, but also on ena
 
 
 
-% Data Availability and Annotation
-% - To overcome the data sparsity, use internet videos and weak supervision, self-supervised objectives 
-
-% Improving Data Annotation 
-% - Active Learning: Strategically select informative video data for labeling
-% - Integrate active physical trials (robot interaction) in \ac{IL}
-
-% Sample Efficiency
-% - Approaches: meta-learning, contrastive objectives and one/few-shot imitation
-% - Data-efficient approaches: feature extraction, goal-conditioned \ac{RL}, some hybrid models --> currently problems with weakly-labeled data
-
-% Tackling data efficiency and availability
-% - Goal: Enhance generalization and quick adaptation to new tasks/environments.
-% - Key Requirement: New methods must ensure quick adaptation to new tasks, robots & environments, moving beyond simple generalization
 
 
 
@@ -62,7 +48,6 @@ State-of-the-art Vision-Language-Action models often require substantial GPU res
 
 % Solution:
 % \paragraph{Future Directions}
-% ToDo: Quelle für potential directions
 Future work must therefore address efficient scaling strategies for both data and model architectures. Potential directions include for example lightweight transformer designs, modular architectures and model compression techniques.
 
 % High computational costs of SOTA multi-modal and large-scale transformer architectures --> real-time execution <-> Robot hardware
@@ -83,20 +68,6 @@ Future research will likely focus on more robust sim-to-real transfer methods, c
 % , which may also help to mitigate the domain shift problem.
 
 
-% Domain Shift and Embodiment Gap
-
-% Translation artifacts, misaligned action representations, imperfect pose estimation
-% --> Approaches: adversarial learning, keypoint-based transfer, CycleGANs
-
-% Need of domain-invariant or domain-adaptive features
-% --> Approaches: hybrid- & multi-modal models, image/context translation 
-
-
-% Tackling domain shift
-% Future Directions: 
-% - adversarial training, meta-learning Multi-modal strategies, Sim-to-real transfer strategies, continual learning
-% - Causal reasoning and few-shot learning for skill transfer
-% - Investigating in attention mechanisms, unsupervised techniques and transformer-based architectures
 
 
 \section{Emerging Techniques and Architectures}
@@ -111,10 +82,6 @@ Works like \textcite{Mandi2021TowardsMG, ChaneSane2023LearningVP, Huang2021Gener
 % While these methods have achieved strong performance on specific benchmarks, they frequently struggle to generalize across different tasks, environments and robot embodiments.
 
 
-%  that can leverage information from diverse data sources and transfer knowledge across tasks. 
- 
-% Unlike traditional approaches that predict a single action or output, these models can generate complex, high-dimensional predictions such as action trajectories, future observations or complete video sequences, enabling more flexible and robust decision making.
-% At the same time, advances in generative modeling have led to the development of new architectures capable of representing complex behavior distributions. Among the most promising directions are diffusion models and diffusion-based policies, which have recently achieved significant success in robotic manipulation tasks.
 \subsection{Diffusion Models}
 
 A fundamental challenge in \ac{IL} is the inherently multi-modal nature of many robotic tasks~\cite{Wolf2025DiffusionMF}. For a given observation, there is often no single optimal action. For example, an object can be grasped from multiple valid directions and a drawer can be opened using different trajectories. Traditional approaches typically learn a deterministic mapping from observations to actions and are commonly optimized using regression objectives such as mean squared error~\cite{Eze2024LearningBW}. As a result, they tend to predict an average of multiple valid behaviors, which may lead to suboptimal or even infeasible actions.
@@ -124,36 +91,6 @@ In robotics, diffusion policies generate actions or action trajectories directly
 
 More generally, diffusion-based policies have emerged as a powerful framework for continuous action generation in imitation learning~\cite{Li2024CogACTAF, Liu2024RDT1BAD, McCarthy_2025}. They support smooth trajectory generation while naturally handling multi-modal action distributions, making them particularly effective for dexterous manipulation and long-horizon tasks. Overall, diffusion policies represent a promising direction for future research in imitation learning.
 
-
-% Diffusion models offer a promising solution to this problem by learning the full distribution of successful behaviors rather than a single deterministic output~\cite{Wolf2025DiffusionMF}. Originally developed as generative models for image synthesis, they are particularly well suited to robotics due to their ability to represent complex, high-dimensional and multi-modal distributions. Instead of producing a single averaged action, diffusion models can generate diverse and physically plausible action sequences that reflect the multiple valid solutions inherent in many manipulation tasks~\cite{parabRiseDiffusionModels2024a}. This is especially important in real-world environments, where uncertainty, noise and variability make multiple strategies equally valid.
-% % This enables the generation of diverse and plausible action trajectories that better capture the variability of real-world manipulation tasks.
-% In robotics, this idea has been adopted in diffusion policies, where robot actions are generated directly from observations—typically visual inputs—through an iterative denoising process~\cite{parabRiseDiffusionModels2024a}. 
-% % Rather than predicting a single action at once, the policy generates an entire action trajectory conditioned on the current state of the environment.
-% % Rather than predicting a single action at once, the policy is trained to denoise an action trajectory conditioned on the current state of the environment.
-% During inference, this trajectory is progressively refined over multiple denoising steps, resulting in temporally coherent and precise behavior~\cite{Ingelhag2024ARS}.
-% By capturing the full distribution of expert demonstrations, diffusion policies enable more robust and flexible action generation compared to deterministic regression-based approaches.
-
-% Diffusion-based policies have also emerged as a powerful framework for continuous action generation~\cite{Li2024CogACTAF, Liu2024RDT1BAD, McCarthy_2025}. Unlike earlier approaches based on discrete action prediction, diffusion models can generate smooth and temporally consistent trajectories while capturing multimodal action distributions. This enables more expressive and stable robot behavior, particularly for dexterous manipulation and long-horizon tasks.
-% Building on these advantages, diffusion-based policies have emerged as a powerful framework for \ac{IL} and represent a promising direction for future research. 
-
-% Instead of producing a single averaged action, diffusion models can generate diverse and plausible action sequences that reflect the multiple valid solutions available for a manipulation task. This capability is especially valuable in real-world environments, where variability and uncertainty are common.
-
-% Diffusion models offer a promising solution by learning the full distribution of successful behaviors rather than a single output. This enables the generation of diverse and plausible action trajectories that better capture the variability of real-world manipulation tasks. In robotics, this idea has been adopted in diffusion policies, where actions are generated directly from visual observations through an iterative denoising process.
-
-% In diffusion policies, the model learns a direct mapping from observations, typically visual inputs, to robot actions through an iterative denoising process. Rather than predicting a single action, the policy generates an entire action trajectory conditioned on the current state of the environment. During inference, the trajectory is progressively refined over multiple denoising steps, resulting in temporally coherent and precise behavior. By modeling the full distribution of expert demonstrations.
-
-
-
-
-
-
-% Goal: Moving from single-task, single-modality architectures to multi-task learning and high-dimensional output generation (e.g. action trajectories, future video frames)
-% Diffusion models
-% Multi-Modal Behavior: Diffusion models can capture the full distribution of successful behaviors (e.g. multiple ways to pick up an object)
-% Traditional ML: Predicts a single, averaged, not optimal actions
-% Diffusion: Generates diverse and plausible action sequences
-% Other approaches: denoise data, generate new data
-% Diffusion policies learning a direct mapping from observation to action
 
 
 
@@ -174,8 +111,6 @@ This capability enables a form of internal planning often referred to as \textit
 Recent advances increasingly combine world models with generative architectures~\cite{Wang2026WorldMF}. In particular, video prediction models can be interpreted as world models that learn to generate future visual observations conditioned on actions.
 For example, modern systems employ diffusion transformers to generate high-resolution, long-horizon videos of robotic manipulation tasks~\cite{Wang2026WorldMF}. This enables policy evaluation, model-based planning and skill learning to be performed entirely within the generative model, thereby mitigating the cost, safety risks and labor associated with extensive real-world robot rollouts~\cite{zhu2024maniwm}.
 
-% For example, modern systems employ diffusion transformers to generate high-resolution, long-horizon videos of robotic manipulation tasks. Such models can serve as interactive simulators, enabling policy evaluation, planning and skill learning directly within the learned world model.
-%  This allows for downstream applications like policy evaluation and model-based planning to be conducted entirely with the generative model, mitigating the cost, safety concerns and labor associated with extensive real-world robot rollouts [202].
 As generative modeling techniques continue to advance, world models are expected to become a central component of future robotic systems by combining perception, prediction, planning and control within a unified framework~\cite{Wang2026WorldMF}. In Figure \ref{fig:WorldModel} is shown an overview of World Models to emphazize the power of these Approaches.
 
 \begin{figure}[ht]
@@ -188,9 +123,6 @@ As generative modeling techniques continue to advance, world models are expected
 
 \subsection{Integration of Causal Reasoning}
 
-% Many current \ac{IL} systems learn from data by finding statistical patterns in demonstrations. This means they learn what usually happens together, but not why things happen. As a result, these models often rely on correlations instead of understanding cause-and-effect relationships. This becomes a problem when the environment changes, since correlations that worked during training may no longer hold.
-
-% In robotics, this limitation is important because successful manipulation requires understanding how actions influence the physical world. For example, the effort needed to lift an object depends on its mass, not on its color or shape. A system that only learns correlations might incorrectly associate irrelevant features with outcomes. Current methods primarily focus on pattern recognition, goal inference or direct imitation, not on causal structure or relational reasoning about actions and outcomes. 
 
 % More generally, causal reasoning is important for building robots that can adapt to new situations, handle unseen environments and reason about alternative actions, such as what would happen if a different action had been taken.
 A current limitation of \ac{IL} systems is their weak ability to perform causal reasoning and high-level policy abstraction from video data. Most existing approaches focus on pattern recognition, goal inference or directly imitating demonstrations~\cite{Eze2024LearningBW}. However, they do not explicitly learn the causal structure behind actions and outcomes, meaning they do not understand why a certain action leads to a result.
@@ -225,14 +157,9 @@ Observational approaches learn causal graphs from passively collected video data
 \end{itemize}
 
 
-% ToDo: maybe it's nearby the same text, as in the paper
 \textit{Example: Visual Causal Discovery Network (V-CDN).}
 The V-CDN architecture~\cite{Li2020CausalDI} comprises three main components. First, a perception module processes raw images to produce an unsupervised, temporally stable keypoint representation of the observed objects. These keypoints act as the nodes of a causal graph. Second, an inference module analyzes the movement of these keypoints over a short video sequence to deduce a latent causal structure, identifying which keypoints influence one another. Third, a dynamics module, implemented as a graph neural network takes the inferred causal graph as input and learns to forecast the system's future state.
 
-% V-CDN consists of three key modules:
-% Perception Module: Extracts an unsupervised (no labels), temporally consistent keypoint representation of objects from raw images. These key points serve as the variables in the causal graph.
-% Inference Module: Observes the dynamics of these keypoints over a short video sequence and infers a latent causal graph, determining which keypoints are causally related
-% Dynamics Module: A graph neural network that takes the inferred causal graph as input and learns to predict the future evolution of the system
 
 
 \paragraph{Interventional Approaches}
@@ -241,10 +168,6 @@ Interventional Approaches are the gold standard~\cite{MndezMolina2022CausalDA}. 
 \textit{Example: SCALE (Skills from CAusal LEarning).}
 SCALE~\cite{Lee2023SCALECL} focuses on learning manipulation skills that transfer across different environments. Instead of relying on fixed context variables, it uses a simulator as a causal reasoning engine to perform targeted interventions. The method identifies the smallest possible set of context variables (e.g. object mass, position, size) that truly matter the causal structure by checking whether changing each variable alters the task outcome. The learned skill is then conditioned exclusively on this compact set of causal variables, leading to better generalization.
 
-% SCALE addresses the problem of learning manipulation skills that generalize across different contexts.
-% It uses a simulator as a ``causal reasoning engine'' to perform targeted interventions.
-% It identifies a minimal subset of context variables: perturbing object masses/positions/size,... and observes whether the intervention affects the task outcome.
-% Learned skills are conditioned only on this small set of causal variables.
 
 \textit{Example: Causal Robot Discovery (CRD) framework.}
 Building on SCALE, the CRD~\cite{Castri2023FromCL} framework involves building an initial causal model from passive observation.
@@ -259,45 +182,6 @@ A key bottleneck for causal discovery methods is that they operate on predefined
 Although still an emerging field, causal representation learning holds promise for enabling more sample-efficient and robust \ac{IL}, particularly when transferring policies from simulation to the real world~\cite{Lee2023SCALECL, MndezMolina2022CausalDA, Castri2023FromCL}.
 
 
-% Goal: Bridge the gap between low-level sensory data (pixels) and high-level causal variables
-% Mechanism: Learn a mapping from high-dimensional observations to a low-dimensional latent space where the axes of the representation correspond to the independent causal mechanisms of the world
-% Ideal causal representation: Disentangle factors like object identity, pose, lighting and background into separate, independently controllable latent variables
-% Emerging research field
-
-
-
-
-
-% Causal Reasoning and Policy Abstraction
-% Limited ability of causal reasoning and high-level policy abstraction from video data
-% Current methods primarily focus on pattern recognition, goal inference or direct imitation, not on causal structure or relational reasoning about actions and outcomes
-% --> Integrate causal inference, model-based reasoning or neuro-symbolic methods.
-% - Neuro-symbolic methods in ML combine the pattern-recognition power of neural networks (the "neuro" part) with the logical, rule-based reasoning of symbolic AI (the "symbolic" part) to create more robust, explainable and efficient \ac{AI} systems that can understand complex concepts and perform human-like reasoning,
-
-
-
-% Problem: Neural Networks learn statistical correlations  correlation does not imply causation
-% Goal: capture the underlying causal structure of the environment 
-% e.g., mass, not color, determines the force needed to lift
-% Causal Models  foundation for true generalization
-% Causal reasoning  for more efficient, robust and intelligent robots & robust action planning 
-% causality is threefold:    
-% robustness to environmental changes    
-% generalization to novel scenarios    
-% ability to perform counterfactual reasoning (”what would have happened if I had pushed the object instead of grasping it?”)
-
-
-% Methods for Causal Discovery
-% Goal: inferring the causal structure
-% Represented as DAG
-% A Directed Acyclic Graph (DAG) is a directed graph that does not contain any cycles.
-% unambiguous evidence = Eindeutige Beweise
-
-
-% Observational Approaches: Inferring causal graphs from passively collected video data
-% Constraint-based-methods: prune graph edges from a fully connected graph
-% Score-based methods: define a scoring function how well a graph structure fits the data and search the best graph
-% Interventional Approaches (gold standard): Actively manipulating variables to observe effects, providing unambiguous evidence
 
 
 
@@ -305,10 +189,6 @@ Although still an emerging field, causal representation learning holds promise f
 Another major challenge is the lack of standardized evaluation metrics and benchmarking protocols for \ac{IL} and video-based robot learning. Current evaluations are often task-specific and rely on custom experimental setups, making fair comparisons between methods difficult~\cite{Eze2024LearningBW}.
 Existing benchmarks primarily focus on task success rates, while aspects such as robustness, generalization, sim-to-real transfer and adaptability are often insufficiently evaluated. Moreover, the design of a benchmark strongly influences research directions by implicitly prioritizing certain capabilities over others~\cite{Eze2024LearningBW}. Table \ref{tab:benchmark} summarizes three prominent benchmarks and their principal focus.
 
-
-% \textbf{Short notes on the three benchmarks.} 
-% CALVIN become a de-facto standard for evaluating long-horizon, language-conditioned policy learning and compositional reasoning, by providing large-scale, compositional interaction data with tasks that require planning and instruction grounding. RLBench is a prominent benchmark for evaluating few-shot and multi-task manipulation, enabling consistent comparisons of meta-learning and generalization techniques. RoboTube focuses on learning from human demonstrations and on human-to-robot transfer, emphasizing sim-to-real metrics and the use of large, video-derived demonstration corpora.
-% Table \ref{tab:benchmark} summarizes a three prominent benchmarks and their principal focus.
 
 \begin{table}[htbp]
 	\centering
@@ -345,36 +225,3 @@ A potential protocol would proceed in two stages~\cite{Eze2024LearningBW}:
 Under this protocol a purely correlational policy that overfits the training statistics is expected to fail on the perturbed tasks, while a model that internalizes causal relationships should either adapt its policy to the new dynamics or detect the distributional shift and trigger safer, more informed failure recovery strategies. Quantitatively, such a benchmark would report both standard task success and robustness metrics, such as performance drop under interventions, adaptation speed and diagnostic measures of causal inference~\cite{Eze2024LearningBW}.
 Developing and releasing such interventional benchmarks will provide a concrete, quantitative way to measure the benefits of causal reasoning in robotic manipulation and will help steer the field toward methods that generalize in meaningful, physically grounded ways~\cite{Eze2024LearningBW}.
 
-
-% Table \ref{tab:benchmark} shows the most prominent Benchmarks in a short overview overview and where their focus.
-
-% \begin{table}[htbp]
-% 	\centering
-% 	\caption{Prominent benchmarks and their focus}
-% 	\label{tab:benchmark}
-% 	\small
-% 	\begin{tabular}{|p{3.0cm}|p{6.0cm}|c|p{5.0cm}|}
-% 		\hline
-% 		\textbf{Benchmark} & \textbf{Focus} & \textbf{\# of Tasks} & \textbf{Key metrics} \\
-% 		\hline\hline
-% 		Calvin & Long-horizon, language-conditioned, compositional tasks & 34 & Long-horizon multi-task language-conditioned control success \\
-% 		\hline
-% 		RLBench & few-shot, meta- and multi-task learning; broad skill acquisition & 100 & Few-shot task success \\
-% 		\hline
-% 		RoboTube & Learning from human demonstrations; human-to-robot transfer & 50 & Policy success rate in RT-sim; sim-to-real transfer success \\
-% 		\hline
-% 	\end{tabular}
-% \end{table}
-
-
-
-
-
-
-% Evaluation Metrics and Benchmarks
-% No standardized evaluatioin metrics/benchmarks for video-based robot learning
-% Need of metrics that capture not only task success but also generalization, robustness and sim-to-real performance
-
-% The design of a benchmark implicitly steers research priorities
-% Causal Gap: None of the current benchmarks explicitly test causal understanding
-% Need of a "Causal-CALVIN" or "Interventional RLBench" where the underlying causal structure (e.g., object physics) is perturbed to test for robustness against spurious correlations
