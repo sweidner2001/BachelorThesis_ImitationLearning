@@ -2,12 +2,14 @@
 \chapter{Real Robot Experiments}
 \label{chap:ExperimentsOnARealRobot}
 \minitoc
-% ToDo: Image
 
-The second part of this work will focus on the practical implementation of an open-source \ac{IL} approach on a real robotic system. The goal is to gain hands-on experience with the challenges and opportunities when running a real robot. This includes how to connect the robot with the PC, how to control the robot from the PC and what additional code is needed to adapt a model to our specific robot. 
-The goal was to implement a simple and easy-to-use pipeline for robot communication, designed such that only the robot model needs to be replaced. This includes a camera setup with calibration to capture the robot's environment and provide the necessary visual input for the model.
-The overall pipeline is designed to be modular and extensible, enabling straightforward integration of different robot models and their respective software dependencies.
-The steps to setup and run a robot model on a robot are as follows:
+
+The second part of this work will focus towards a practical implementation of an open-source \ac{IL} approach on a real robotic system. The goal is to gain hands-on experience with the challenges and opportunities when setting up a connection to a real robot. This includes how to connect the robot with a workstation and how to control the robot from the workstation.
+%  and what additional code is needed to adapt a model to our specific robot. 
+The goal was to implement a simple and easy-to-use pipeline for robot communication, designed such that only the robot model needs to be replaced. 
+% This includes a camera setup with calibration to capture the robot's environment and provide the necessary visual input for the model.
+The overall setup is designed to be modular and extensible, enabling straightforward integration of different robot models and their respective software dependencies.
+The full pipeline to setup and run a robot model on a robot is as follows:
 \begin{enumerate}
     \item Setup Connection between PC and Robot. 
     \item Setup the control protocols, for controlling the Robot via PC (for example within a Python script~\cite{WelcomePythonorg2026}). There exists two different control protocols: 
@@ -21,7 +23,18 @@ The steps to setup and run a robot model on a robot are as follows:
 \end{enumerate}
 
 \paragraph{Robot Hardware}
-For experiments, the UR5e Robot Arm~\cite{UserManualUR5e} from Universal Robots will be used. It is a collaborative robot (cobot) designed for safe human-robot interaction. The UR5e provides a versatile and user-friendly 12 inch touchscreen interface for controlling and static programming the robot. The Gripper 2F-140 from Robotiq was used, which has a payload of 2.5 kg and a stroke of 10 to 125 Newton~\cite{AdaptiveGrippersRobotiq}. In~\autoref{tab:UR5eSpecifications} some specifications of the Robot are listed. 
+For experiments, the UR5e Robot Arm~\cite{UserManualUR5e} from Universal Robots will be used, see \autoref{fig:UR5eRobotAmberg}. 
+It is a collaborative robot (cobot) designed for safe human-robot interaction. The UR5e provides a versatile and user-friendly 12 inch touchscreen interface for controlling and static programming the robot. The Gripper 2F-140 from Robotiq was used, which has a payload of 2.5 kg and a stroke of 10 to 125 Newton~\cite{AdaptiveGrippersRobotiq}. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.6\linewidth]{./chapter9/media/UR5eRobotAmberg.jpeg}
+	\caption[UR5e Robot from Universal Robots]{UR5e Robot from Universal Robots: This UR5e robot was used for experiments.}
+	\label{fig:UR5eRobotAmberg}
+\end{figure}
+
+
+In~\autoref{tab:UR5eSpecifications} some specifications of the Robot are listed. 
 \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.3}
@@ -195,7 +208,8 @@ The Project demonstrates how the RTDE interface can be used to control robot mot
 \section{Summary}
 Overall, the robot setup required a significant amount of time, in particular the ROS 2 implementation, which ultimately remained incomplete and did not always operate reliably. However, by using the RTDE interface, it was still possible to quickly run a simple static pick-and-place demonstration on the UR5e robot.
 
-Due to limited time, no full robot learning model could be deployed on the UR5e within the scope of this thesis and only the base setup was done. Nevertheless, initial considerations were made regarding the placement of cameras around and on the robot. A suitable 3D model for a camera mount on the robot was also identified for potential 3D printing.
+Due to the limited scope of this thesis, no complete robot learning model was deployed on the UR5e, and the focus was placed on developing the foundational robot setup required for future deployment of robot learning models on the UR5e.
+Nevertheless, initial considerations were made regarding the placement of cameras around and on the robot. A suitable 3D model for a camera mount on the robot was also identified for potential 3D printing.
 In addition, an overview of ten promising open-source robot learning models was created, which are expected to be implemented with low integration effort in future works.
 
 
@@ -208,39 +222,61 @@ In addition, an overview of ten promising open-source robot learning models was 
 
 \section{Summary}
 
-This thesis examined imitation learning as a promising approach for enabling robots to acquire complex skills from demonstrations and move toward the long-term goal of general-purpose robotic intelligence.
-\acp{LLM} have demonstrated that training powerful architectures on vast and diverse datasets can lead to remarkable generalization capabilities, enabling systems to solve tasks for which they were never explicitly trained. A central goal of imitation learning is to bring similar capabilities to robotic systems by leveraging the enormous amount of video data available on the internet.
-% Imitation learning represents one of the most promising approaches for transferring the success of large-scale machine learning to robotics. 
+This thesis investigates imitation learning as a promising approach for enabling robots to acquire complex skills from demonstrations, with the long-term goal of general-purpose robotic intelligence.
 
-Chapter~\ref{chap:Foundations} introduced the fundamental concepts of imitation learning and distinguished between two major paradigms: Behavior Cloning and Learning from Videos (LfV). While Behavior Cloning relies on demonstrations containing explicit action labels, Learning from Videos seeks to exploit the vast amount of action-free video data available online, offering a scalable alternative for robot learning.
+It first introduces fundamental concepts in machine learning and robotics, with a focus on the data requirements for training generalist robotic systems and the principles how robots can be instructed to perform desired tasks. Building on this foundation, the thesis examines the paradigm of \ac{LfV}, addressing how relevant knowledge can be extracted from large-scale internet video data and transferred to robotic systems for policy learning and control. In particular, it highlights the importance of robust video understanding for interpreting human demonstrations in imitation learning settings.
 
-Chapter~\ref{chap:GeneralistRobotsAndTheDataBottleneck} discussed the overarching objective of robotics research: the development of generalist robots capable of performing a wide range of tasks in unstructured and previously unseen real-world environments. A major obstacle to this vision is the robotics data bottleneck, which arises from the limited availability of large, diverse and high-quality robotic datasets. Internet videos represent a potential solution due to their abundance and diversity; however, their use introduces additional challenges related to the transfer of visual knowledge to robotic systems.
+Subsequently, different approaches for learning robot policies from video data are discussed, including representation learning methods, reinforcement learning-based and imitation learning approaches, hybrid techniques, and large-scale vision-language-action models. The thesis further analyzes key challenges and future research directions, emphasizing the gap between current methods and the goal of general-purpose robotic intelligence. Emerging paradigms such as diffusion-based policies, world models, and causally aware learning systems are identified as promising directions for improving generalization, reasoning, and adaptability in robotic agents.
 
-A prerequisite for effective human-robot interaction is the ability to communicate goals and intentions to robotic agents. Therefore, chapter~\ref{chap:WaysToInstructRobots} examined how robots can be instructed and guided to perform desired tasks. 
-% the thesis examined different approaches for task specification and human-robot interaction, highlighting how robots can be instructed through demonstrations, language and other forms of guidance.
-% Various forms of task specification and human-robot interaction were presented.
+For practical insights, selected imitation learning approaches deployed on real robotic systems are examined. In addition, a basic robotic setup for a UR5e robot arm from Universal Robots was implemented, providing a foundational platform for future experiments with robot learning models.
 
-Chapter~\ref{chap:LearningFromVideosDataModalityAndChallenges} focused on the central research questions of Learning from Videos: how relevant knowledge can be extracted from internet videos and how this knowledge can subsequently be transferred to robotic systems for policy learning and control. Video Foundation Models were introduced as a powerful tool for extracting semantic and behavioral information from large-scale video data. Two major challenges were identified in the transfer process: the absence of action labels and the distribution shift between human videos and robotic observations. To address these challenges, alternative action representations are employed to relabel action-free video data, enabling robots to learn from demonstrations that do not contain explicit control signals.
+Overall, the thesis provides a structured overview of imitation learning and video-based robotic learning, connecting theoretical foundations with practical implementation aspects.
 
-Chapter~\ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} explored the role of robust video understanding in \ac{IL}. Learning manipulation skills from video requires more than simple action recognition: (1) It demands meaningful representations of the environment, (2) an understanding of object affordances and human-object interactions, (3) recognition of human activities and (4) accurate modeling of fine-grained hand movements.
-These capabilities form the basis for a general-purpose robot that can interpret human demonstrations.
-% These capabilities form the basis of a general-purpose robot capable of understanding human demonstrations.
-% These capabilities form the foundation for a general-purpose robot designed to interpret human demonstrations.
+% This thesis examined imitation learning as a promising approach for enabling robots to acquire complex skills from demonstrations, moving towards the long-term goal of general-purpose robotic intelligence.
+% The thesis explains in detail fundamental concepts in machine learning and robotics and provides basic knowledge about the data, what is needed to train a generalist robot and in a general way how robots can be instructed to perform desired tasks.
+% It then focuses on the central research questions of Learning from Videos, how relevant knowledge can be extracted from internet videos and this knowledge be subsequently transferred to robotic systems for policy learning and control. The thesis further explores the role of robust video understanding in imitation learning, highlighting the capabilities required for robots to interpret human demonstrations.
+% Afterthere various approaches are discussed for learning coherent robot models from video data, including foundational perception and representation learning methods, reinforcement learning-based and imitation learning approaches, hybrid methods that combine both paradigms, as well as large-scale \acf{VLA} models. 
+% Major challenges and future research directions in \ac{IL} and video-based robotic learning are examined, highlighting the gap between current research systems and the long-term goal of general-purpose robotic intelligence. Emerging approaches such as diffusion-based policies, world models and causally-aware learning systems offer promising opportunities for overcoming these limitations and improving the adaptability, reasoning capabilities and generalization performance of future robotic agents.
+% For practical insights, selected \ac{IL} approaches deployed on real robotic systems are examined, illustrating how \ac{IL} can enable robots to acquire complex manipulation and control skills directly from video demonstrations.
 
+% To the end, practical insights were gained by implementing a basic robot setup for the UR5e robot arm from Universal Robots, which serves as a good starting point for future experiments of robot learning models. 
+% Overall, the thesis provides a comprehensive overview 
 
-
-
-Chapter~\ref{chap:RobotLearningApproaches} focused on approaches for learning coherent robot models from video data. 
-(1) The chapter first introduced foundational perception and representation learning methods and techniques. 
-(2) It then discussed both RL-based and imitation learning approaches, highlighting their respective strengths and limitations. 
-(3) Hybrid methods, which combine the structured guidance and sample efficiency of imitation learning with the exploration and optimization capabilities of reinforcement learning. Special attention was given to the intersection of \acf{LfV} and \acf{RL}, demonstrating how knowledge extracted from videos can be used to improve policy learning and enhance the sample efficiency of RL algorithms.
-(4) Last but not least, the chapter presented multi-modal learning approaches and \acf{VLA} models and the three Architecturial paradigms, including sensorimotor, world-model-based and affordance-based architectures. \ac{VLA} models represent currently the state of the art in video-based robot learning.
-
-Chapter~\ref{chap:ChallengesAndFutureDirections} examined the major challenges and future research directions in \ac{IL} and video-based robotic learning. Despite significant advances in recent years, the development of robust and generalizable robotic systems remains constrained by several fundamental limitations, including data availability, computational scalability, domain transfer and efficient policy learning. These challenges highlight the gap between current research systems and the long-term goal of general-purpose robotic intelligence. 
-At the same time, emerging approaches such as diffusion-based policies, world models and causally-aware learning systems offer promising opportunities for overcoming these limitations and improving the adaptability, reasoning capabilities and generalization performance of future robotic agents.
+% examined the major challenges and future research directions in \ac{IL} and video-based robotic learning. Despite significant advances in recent years, the development of robust and generalizable robotic systems remains constrained by several fundamental limitations, including data availability, computational scalability, domain transfer and efficient policy learning. These challenges highlight the gap between current research systems and the long-term goal of general-purpose robotic intelligence. 
+% At the same time, emerging approaches such as diffusion-based policies, world models and causally-aware learning systems offer promising opportunities for overcoming these limitations and improving the adaptability, reasoning capabilities and generalization performance of future robotic agents.
 
 
-Finally in Chapter~\ref{chap:SelectedApproaches}, selected \ac{IL} approaches deployed on real robotic systems were examined to provide practical insight into the theoretical concepts discussed throughout the thesis. These examples illustrated how \ac{IL} can enable robots to acquire complex manipulation and control skills directly from video demonstrations.
+% \acp{LLM} have demonstrated that training powerful architectures on vast and diverse datasets can lead to remarkable generalization capabilities, enabling systems to solve tasks for which they were never explicitly trained. A central goal of imitation learning is to bring similar capabilities to robotic systems by leveraging the enormous amount of video data available on the internet.
+% % Imitation learning represents one of the most promising approaches for transferring the success of large-scale machine learning to robotics. 
+
+
+% Chapter~\ref{chap:GeneralistRobotsAndTheDataBottleneck} discussed the overarching objective of robotics research: the development of generalist robots capable of performing a wide range of tasks in unstructured and previously unseen real-world environments. A major obstacle to this vision is the robotics data bottleneck, which arises from the limited availability of large, diverse and high-quality robotic datasets. Internet videos represent a potential solution due to their abundance and diversity; however, their use introduces additional challenges related to the transfer of visual knowledge to robotic systems.
+
+% A prerequisite for effective human-robot interaction is the ability to communicate goals and intentions to robotic agents. Therefore, chapter~\ref{chap:WaysToInstructRobots} examined how robots can be instructed and guided to perform desired tasks. 
+% % the thesis examined different approaches for task specification and human-robot interaction, highlighting how robots can be instructed through demonstrations, language and other forms of guidance.
+% % Various forms of task specification and human-robot interaction were presented.
+
+% Chapter~\ref{chap:LearningFromVideosDataModalityAndChallenges} focused on the central research questions of Learning from Videos: how relevant knowledge can be extracted from internet videos and how this knowledge can subsequently be transferred to robotic systems for policy learning and control. Video Foundation Models were introduced as a powerful tool for extracting semantic and behavioral information from large-scale video data. Two major challenges were identified in the transfer process: the absence of action labels and the distribution shift between human videos and robotic observations. To address these challenges, alternative action representations are employed to relabel action-free video data, enabling robots to learn from demonstrations that do not contain explicit control signals.
+
+% Chapter~\ref{chap:RobotLearningObjectivesForUnderstandingDemonstrationVideos} explored the role of robust video understanding in \ac{IL}. Learning manipulation skills from video requires more than simple action recognition: (1) It demands meaningful representations of the environment, (2) an understanding of object affordances and human-object interactions, (3) recognition of human activities and (4) accurate modeling of fine-grained hand movements.
+% These capabilities form the basis for a general-purpose robot that can interpret human demonstrations.
+% % These capabilities form the basis of a general-purpose robot capable of understanding human demonstrations.
+% % These capabilities form the foundation for a general-purpose robot designed to interpret human demonstrations.
+
+
+
+
+% Chapter~\ref{chap:RobotLearningApproaches} focused on approaches for learning coherent robot models from video data. 
+% (1) The chapter first introduced foundational perception and representation learning methods and techniques. 
+% (2) It then discussed both RL-based and imitation learning approaches, highlighting their respective strengths and limitations. 
+% (3) Hybrid methods, which combine the structured guidance and sample efficiency of imitation learning with the exploration and optimization capabilities of reinforcement learning. Special attention was given to the intersection of \acf{LfV} and \acf{RL}, demonstrating how knowledge extracted from videos can be used to improve policy learning and enhance the sample efficiency of RL algorithms.
+% (4) Last but not least, the chapter presented multi-modal learning approaches and \acf{VLA} models and the three Architecturial paradigms, including sensorimotor, world-model-based and affordance-based architectures. \ac{VLA} models represent currently the state of the art in video-based robot learning.
+
+% Chapter~\ref{chap:ChallengesAndFutureDirections} examined the major challenges and future research directions in \ac{IL} and video-based robotic learning. Despite significant advances in recent years, the development of robust and generalizable robotic systems remains constrained by several fundamental limitations, including data availability, computational scalability, domain transfer and efficient policy learning. These challenges highlight the gap between current research systems and the long-term goal of general-purpose robotic intelligence. 
+% At the same time, emerging approaches such as diffusion-based policies, world models and causally-aware learning systems offer promising opportunities for overcoming these limitations and improving the adaptability, reasoning capabilities and generalization performance of future robotic agents.
+
+
+% Finally in Chapter~\ref{chap:SelectedApproaches}, selected \ac{IL} approaches deployed on real robotic systems were examined to provide practical insight into the theoretical concepts discussed throughout the thesis. These examples illustrated how \ac{IL} can enable robots to acquire complex manipulation and control skills directly from video demonstrations.
 
 
 

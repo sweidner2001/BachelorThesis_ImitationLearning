@@ -379,15 +379,17 @@ In practice, the same underlying architecture can often be used both as a genera
 
 
 \subsection{Challenges and Future Directions}
-Despite recent progress, video representation learning still faces several limitations:
-\begin{itemize}
-    \item Current models may \textbf{hallucinate} or fail to capture fine-grained spatial relationships, precise spatio-temporal dynamics and long-term temporal dependencies \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Yang2023LearningIR}. 
-    % ToDo: See section ....
-    \item Another key bottleneck is the \textbf{limited quality and scale of low-level annotated video data}, particularly for tasks requiring detailed fine-grained understanding. 
+Despite recent progress, video representation learning still faces several limitations. 
+Current models may \textbf{hallucinate} or fail to capture fine-grained spatial relationships, precise spatio-temporal dynamics and long-term temporal dependencies \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Yang2023LearningIR}. 
+Another key bottleneck is the \textbf{limited quality and scale of low-level annotated video data}, particularly for tasks requiring detailed fine-grained understanding. 
+Additionally, processing \textbf{high-dimensional and long video sequences} remains computationally expensive \cite{McCarthy_2025}, motivating for more efficient model architectures \cite{Yang2024VideoAT}. 
+% \begin{itemize}
+%     \item Current models may \textbf{hallucinate} or fail to capture fine-grained spatial relationships, precise spatio-temporal dynamics and long-term temporal dependencies \cite{Lin2023VideoLLaVALU, Maaz2023VideoChatGPTTD, Yang2023LearningIR}. 
+%     % ToDo: See section ....
+%     \item Another key bottleneck is the \textbf{limited quality and scale of low-level annotated video data}, particularly for tasks requiring detailed fine-grained understanding. 
     
-    \item Additionally, processing \textbf{high-dimensional and long video sequences} remains computationally expensive \cite{McCarthy_2025}, motivating for more efficient model architectures \cite{Yang2024VideoAT}. 
-\end{itemize}
-
+%     \item Additionally, processing \textbf{high-dimensional and long video sequences} remains computationally expensive \cite{McCarthy_2025}, motivating for more efficient model architectures \cite{Yang2024VideoAT}. 
+% \end{itemize}
 Further directions include \ac{RL}-based finetuning to reduce hallucinations \cite{Black2023TrainingDM}, the integration of 3D information \cite{Zhen20243DVLAA3}, like depth to improve physical realism or to enhance single-step conditioning for fine-grained video prediction tasks \cite{Bruce2024GenieGI}.
 
 
