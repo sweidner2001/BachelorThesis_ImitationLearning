@@ -101,13 +101,13 @@ The ROS 2 environment integrates several commonly used robotics tools:
     \item \textbf{Gazebo}~\cite{Gazebo} is a physics-based simulation environment commonly used in conjunction with ROS 2 and RViz. It enables realistic simulation of robot dynamics (mass, inertia, gravity), sensors (cameras, lidar, force sensors) and the environment (collisions, friction). Gazebo provided a virtual testing environment for validating robot configurations and control algorithms before deployment on the physical UR5e robot.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\linewidth]{./chapter9/media/Rviz}
     \caption[RViz: Visualization Tool]{RViz is a 3D real-time visualization tool used in ROS 2.}
     \label{fig:RViz}
 \end{figure}
-\begin{figure}
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\linewidth]{./chapter9/media/RvizWithMoviIt}
     \caption[MoveIt: Motion Planning Tool]{MoveIt is a motion planning framework and here used together with RViz. The orange robot represent the target pose of the robot and within the RViz you can simulate the trajectory, which is planned by MoveIt.}
@@ -224,9 +224,7 @@ This chapter concludes the thesis by synthesizing the key findings on video-base
 \section{Summary}
 
 This thesis investigates imitation learning as a promising approach for enabling robots to acquire complex skills from demonstrations, with the long-term goal of general-purpose robotic intelligence.
-
 It first introduces fundamental concepts in machine learning and robotics, with a focus on the data requirements for training generalist robotic systems and the principles how robots can be instructed to perform desired tasks. Building on this foundation, the thesis examines the paradigm of \ac{LfV}, addressing how relevant knowledge can be extracted from large-scale internet video data and transferred to robotic systems for policy learning and control. In particular, it highlights the importance of robust video understanding for interpreting human demonstrations in imitation learning settings.
-
 Subsequently, different approaches for learning robot policies from video data are discussed, including representation learning methods, reinforcement learning-based and imitation learning approaches, hybrid techniques, and large-scale vision-language-action models. The thesis further analyzes key challenges and future research directions, emphasizing the gap between current methods and the goal of general-purpose robotic intelligence. Emerging paradigms such as diffusion-based policies, world models, and causally aware learning systems are identified as promising directions for improving generalization, reasoning, and adaptability in robotic agents.
 
 For practical insights, selected imitation learning approaches deployed on real robotic systems are examined. In addition, a basic robotic setup for a UR5e robot arm from Universal Robots was implemented, providing a foundational platform for future experiments with robot learning models.
@@ -321,7 +319,6 @@ Overall, the thesis provides a structured overview of imitation learning and vid
 \section{Outlook}
 
 This thesis provided an overview of imitation learning and video-based robot learning, as well as the practical foundations required for deploying learning-based approaches on a real UR5e robot.
-
 The most immediate next step is the deployment and evaluation of a robot learning model on the real UR5e robot, to gain practical insights into real-world deployment and the challenges that arise in this context.
 Future work should therefore focus on adapting and deploying one of the identified open-source robot models to the UR5e robot.
 % , which includes writing a control script for the robot with the RTDE interface and integrating a camera system for perception of the robot. If this works, the ROS 2 implementation can be further developed and tested, to provide a more flexible and modular framework for robot control.
