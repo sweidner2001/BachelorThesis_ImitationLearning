@@ -16,7 +16,7 @@
 %
 % v0.01: 14.03.2012, Erstellung der Vorlage
 
-\documentclass[12pt,oneside]{report}
+\documentclass[12pt,twoside]{report}
 \usepackage[T1]{fontenc}		% Einstellungen fuer Umlaute usw.
 \usepackage[utf8x]{inputenc}
 % \usepackage[ngerman]{babel}
@@ -60,7 +60,7 @@
 \setlength{\headwidth}{\textwidth}			    % Kopf- und Fusszeile so breit wie der Haupttext
 % \fancyfoot[R]{\thepage} 					          % Festlegung des Seitenstils: Seitenzahlen in der Fusszeile rechts
 % \fancyfoot[L]{\leftmark}					          % Kapitelnr. und -Bezeichnung in der Fusszeile links
-
+% TODO: if without even odd use oneside in documentclass
 \fancyfoot[LE,RO]{\thepage}                
 \fancyfoot[LO,RE]{\nouppercase\leftmark}
 \fancyhead[R]{\IhreArbeitEN}					        % "Bachelorarbeit" in der Kopfzeile rechts
@@ -290,6 +290,9 @@ The overarching goal of robotics is to develop a general-purpose robot that can 
   \tableofcontents
   \cleardoublepage
 
+
+
+  
   % \printacronyms[heading=chapter*]
   % \printacronyms[include-classes={acro}, heading=chapter*, addtotoc]
   % \printacronyms[heading=chapter*, addtotoc]
